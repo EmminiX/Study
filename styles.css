@@ -1,0 +1,2849 @@
+:root {
+    --primary-color: #2c3e50;
+    --secondary-color: #3498db;
+    --accent-color: #e74c3c;
+    --background-color: #eef2f7;
+    --text-color: #444;
+    --card-background: #f7f9fc;
+    --border-color: #ddd;
+    --code-background: #f0f3f8;
+    --success-color: #2ecc71;
+    --heading-color: var(--primary-color);
+    --subheading-color: var(--secondary-color);
+    --quiz-accent-color: #5d9cec;
+    
+    /* Neurodivergent-friendly design variables */
+    --line-height: 1.6;
+    --font-family: 'Lexend', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    --focus-outline-color: #3498db;
+    --focus-outline-width: 3px;
+    --focus-background-color: rgba(52, 152, 219, 0.1);
+    --highlight-color: rgba(241, 196, 15, 0.3);
+    
+    /* Matrix customization variables */
+    --matrix-opacity: 1;
+}
+
+/* Import Lexend font */
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap');
+
+/* OpenDyslexic font with proper @font-face declarations */
+@font-face {
+    font-family: 'OpenDyslexic';
+    src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/open-dyslexic-regular.woff2') format('woff2'),
+         url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/open-dyslexic-regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'OpenDyslexic';
+    src: url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/open-dyslexic-bold.woff2') format('woff2'),
+         url('https://cdn.jsdelivr.net/npm/open-dyslexic@1.0.3/open-dyslexic-bold.woff') format('woff');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+.dark-mode {
+    --primary-color: #1a252f;
+    --secondary-color: #2980b9;
+    --accent-color: #c0392b;
+    --background-color: #121212;
+    --text-color: #eee;
+    --card-background: #1e1e1e;
+    --border-color: #444;
+    --code-background: #2d2d2d;
+    --focus-outline-color: #3498db;
+    --focus-outline-width: 3px;
+    --focus-background-color: rgba(52, 152, 219, 0.2);
+    --highlight-color: rgba(241, 196, 15, 0.4);
+    --heading-color: #66a3ff;
+    --subheading-color: #7fdbff;
+    --quiz-accent-color: #72c2e9;
+}
+
+/* High Contrast Mode */
+.high-contrast-mode {
+    --primary-color: #000;
+    --secondary-color: #0066ff;
+    --accent-color: #ff0000;
+    --background-color: #fff;
+    --text-color: #000;
+    --card-background: #fff;
+    --border-color: #000;
+    --code-background: #f0f0f0;
+    --success-color: #008000;
+    --focus-outline-color: #ff6600;
+    --focus-outline-width: 4px;
+    --focus-background-color: rgba(255, 102, 0, 0.2);
+    --highlight-color: rgba(255, 255, 0, 0.5);
+}
+
+/* Dark High Contrast Mode */
+.dark-mode.high-contrast-mode {
+    --primary-color: #fff;
+    --secondary-color: #66ccff;
+    --accent-color: #ff6666;
+    --background-color: #000;
+    --text-color: #fff;
+    --card-background: #000;
+    --border-color: #fff;
+    --code-background: #333;
+    --success-color: #00cc00;
+    --focus-outline-color: #ffcc00;
+    --focus-outline-width: 4px;
+    --focus-background-color: rgba(255, 204, 0, 0.3);
+    --highlight-color: rgba(255, 255, 0, 0.5);
+}
+
+/* Dyslexia-Friendly Font */
+.dyslexia-font {
+    --font-family: 'OpenDyslexic', 'Comic Sans MS', cursive;
+    --line-height: 1.8;
+}
+
+/* Add more specific rules for dyslexic font to override any mobile specific styles */
+html body.dyslexia-font,
+html body.dyslexia-font * {
+    font-family: 'OpenDyslexic', 'Comic Sans MS', sans-serif !important;
+    line-height: 1.8 !important;
+    letter-spacing: 0.05em !important;
+    word-spacing: 0.1em !important;
+}
+
+/* Ensure mobile devices use the correct dyslexia font */
+@media (max-width: 992px) {
+    html body.dyslexia-font,
+    html body.dyslexia-font * {
+        font-family: 'OpenDyslexic', 'Comic Sans MS', sans-serif !important;
+    }
+}
+
+/* Large Text Mode */
+.large-text {
+    font-size: 120%;
+    --line-height: 1.8;
+}
+
+/* Extra Large Text Mode */
+.extra-large-text {
+    font-size: 140%;
+    --line-height: 2;
+}
+
+/* Focus Mode */
+.focus-mode .topic:not(.expanded) {
+    opacity: 0.6;
+    transition: opacity 0.3s;
+}
+
+.focus-mode .topic.expanded {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.06);
+    position: relative;
+    z-index: 2;
+}
+
+/* Calm Mode - Reduced animations */
+.calm-mode * {
+    transition: none !important;
+    animation: none !important;
+}
+
+.calm-mode .quiz-topic:before {
+    animation: none !important;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    line-height: var(--line-height);
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s, font-size 0.3s;
+}
+
+.highlighted-text {
+    background-color: var(--highlight-color);
+    padding: 2px 4px;
+    border-radius: 3px;
+}
+
+header {
+    background-color: var(--primary-color);
+    color: white;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.07);
+    flex-wrap: wrap;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+@media (max-width: 992px) {
+    header {
+        justify-content: center;
+        gap: 15px;
+    }
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo i {
+    font-size: 2rem;
+}
+
+.logo h1 {
+    font-size: 1.5rem;
+    font-weight: 500;
+}
+
+/* Header Controls Container */
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.search-container {
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    max-width: 300px;
+    width: 100%;
+}
+
+.search-container input {
+    padding: 8px 12px;
+    border: none;
+    border-radius: 4px 0 0 4px;
+    width: 100%;
+    background-color: #f0f3f8;
+    color: #333;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.search-container input:focus {
+    outline: none;
+    box-shadow: inset 0 0 0 2px var(--secondary-color);
+}
+
+.search-container button {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.search-container button:hover {
+    background-color: #1a6aa8;
+}
+
+/* Dark mode styles for search */
+.dark-mode .search-container input {
+    background-color: #2a2a2a;
+    color: #f0f3f8;
+    border: 1px solid #444;
+}
+
+.dark-mode .search-container button {
+    background-color: #3498db;
+}
+
+.dark-mode .search-container button:hover {
+    background-color: #2980b9;
+}
+
+/* High contrast mode styles for search */
+.high-contrast-mode .search-container input {
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #000;
+}
+
+.high-contrast-mode .search-container button {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #000;
+}
+
+.dark-mode.high-contrast-mode .search-container input {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #fff;
+}
+
+.dark-mode.high-contrast-mode .search-container button {
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #fff;
+}
+
+/* Theme Toggle in Header */
+.theme-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.container {
+    display: flex;
+    max-width: 1400px;
+    margin: 0 auto;
+    min-height: 100vh;
+    padding-top: 80px;
+    padding-bottom: 150px;
+}
+
+.sidebar {
+    width: 250px;
+    background-color: #f7f9fc;
+    padding: 2rem 0;
+    border-right: 1px solid var(--border-color);
+    position: sticky;
+    top: 80px;
+    max-height: calc(100vh - 80px - 150px);
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    z-index: 100;
+}
+
+.nav-links {
+    list-style: none;
+}
+
+.nav-links li {
+    margin-bottom: 5px;
+}
+
+.nav-links a {
+    display: block;
+    padding: 10px 20px;
+    color: var(--text-color);
+    text-decoration: none;
+    transition: background-color 0.2s;
+    border-left: 3px solid transparent;
+}
+
+.nav-links a:hover {
+    background-color: rgba(52, 152, 219, 0.05);
+}
+
+.nav-links a.active {
+    border-left-color: var(--secondary-color);
+    background-color: rgba(52, 152, 219, 0.08);
+    font-weight: 500;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+}
+
+/* When checked (dark mode), move slider right and change background */
+input:checked + .slider {
+    background-color: var(--secondary-color);
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 24px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.content {
+    flex: 1;
+    padding: 2.5rem;
+}
+
+section {
+    margin-bottom: 3rem;
+    background-color: var(--card-background);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+    padding: 2rem;
+}
+
+section h2 {
+    color: var(--heading-color);
+    margin-bottom: 1.5rem;
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 0.5rem;
+    padding-top: 0.5rem;
+    font-weight: 500;
+    clear: both; /* Prevent overlap with other elements */
+}
+
+.topic-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+}
+
+.topic-header i {
+    transition: transform 0.3s;
+}
+
+.topic-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+}
+
+.topic.expanded .topic-content {
+    max-height: 10000px;
+    transition: max-height 1s cubic-bezier(0, 1, 0, 1);
+}
+
+.topic.expanded .topic-header i {
+    transform: rotate(180deg);
+}
+
+h3 {
+    color: var(--subheading-color);
+    margin: 1.5rem 0 1rem;
+    font-weight: 500;
+}
+
+p {
+    margin-bottom: 1rem;
+}
+
+ul, ol {
+    margin-left: 20px;
+    margin-bottom: 1rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+table, th, td {
+    border: 1px solid var(--border-color);
+}
+
+th, td {
+    padding: 8px 12px;
+    text-align: left;
+}
+
+th {
+    background-color: rgba(52, 152, 219, 0.08);
+}
+
+pre {
+    background-color: var(--code-background);
+    border-radius: 4px;
+    padding: 1rem;
+    margin: 1rem 0;
+    overflow-x: auto;
+    position: relative;
+    border: 1px solid rgba(0, 0, 0, 0.04);
+    white-space: pre-wrap;       /* CSS3 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+    word-break: break-word;      /* Modern browsers */
+}
+
+.copy-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 12px;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.copy-btn:hover {
+    opacity: 1;
+}
+
+.quiz-container {
+    background-color: rgba(52, 152, 219, 0.1);
+    border-left: 4px solid var(--secondary-color);
+    padding: 1rem;
+    margin: 1.5rem 0;
+    border-radius: 4px;
+}
+
+.quiz-question {
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.quiz-options {
+    list-style-type: none;
+    margin-left: 0;
+}
+
+.quiz-option {
+    margin: 5px 0;
+    padding: 8px;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    background-color: rgba(255, 255, 255, 0.6);
+}
+
+.quiz-option:hover {
+    background-color: rgba(93, 156, 236, 0.1);
+}
+
+.quiz-option.selected {
+    background-color: rgba(46, 204, 113, 0.2);
+    border-color: var(--success-color);
+}
+
+.quiz-option.wrong {
+    background-color: rgba(93, 156, 236, 0.3);
+    border-color: var(--quiz-accent-color);
+}
+
+.quiz-feedback {
+    margin-top: 1rem;
+    padding: 0.5rem;
+    display: none;
+}
+
+.quiz-feedback.correct {
+    display: block;
+    background-color: rgba(46, 204, 113, 0.2);
+    border-left: 4px solid var(--success-color);
+}
+
+.quiz-feedback.incorrect {
+    display: block;
+    background-color: rgba(93, 156, 236, 0.2);
+    border-left: 4px solid var(--quiz-accent-color);
+}
+
+.quiz-button {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1rem;
+    font-weight: 500;
+    font-family: 'Lexend', sans-serif;
+}
+
+.search-results {
+    margin-bottom: 2rem;
+    padding: 1rem;
+    background-color: rgba(52, 152, 219, 0.1);
+    border-radius: 4px;
+}
+
+.search-results mark {
+    background-color: rgba(231, 76, 60, 0.3);
+    padding: 0 2px;
+}
+
+#loading {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+    color: var(--secondary-color);
+}
+
+footer {
+    background-color: var(--primary-color);
+    color: white;
+    text-align: center;
+    padding: 1rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+footer a {
+    color: var(--accent-color);
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+footer a:hover {
+    color: var(--secondary-color);
+    text-decoration: underline;
+}
+
+/* Quiz styling enhancements */
+.quiz-topic {
+    border-left: 6px solid var(--quiz-accent-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    margin: 2.5rem 0;
+    border-radius: 8px;
+    position: relative;
+    overflow: hidden;
+    animation: pulse-attention 3s infinite;
+}
+
+@keyframes pulse-attention {
+    0% { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
+    50% { box-shadow: 0 4px 15px rgba(93, 156, 236, 0.3); }
+    100% { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); }
+}
+
+.quiz-topic:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100px;
+    height: 100px;
+    background-color: rgba(93, 156, 236, 0.1);
+    border-radius: 50%;
+    transform: translate(30%, -30%);
+    z-index: 0;
+}
+
+.quiz-header {
+    background-color: rgba(93, 156, 236, 0.2);
+    padding: 1rem 1.5rem;
+    border-radius: 5px;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+/* Add "QUIZ" label to make it super obvious */
+.quiz-header:after {
+    content: 'QUIZ';
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: var(--quiz-accent-color);
+    color: white;
+    padding: 3px 8px;
+    border-radius: 4px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+/* EMMI Logo styling */
+.emmi-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    transition: transform 0.3s ease;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 15px rgba(231, 76, 60, 0.8), 0 0 25px rgba(231, 76, 60, 0.5);
+    position: relative;
+}
+
+.emmi-logo:before {
+    content: '';
+    position: absolute;
+    top: -2px;
+    left: -2px;
+    right: -2px;
+    bottom: -2px;
+    border-radius: 8px;
+    border: 2px solid #e74c3c;
+    animation: pulse-border 2s infinite;
+    z-index: -1;
+}
+
+@keyframes pulse-border {
+    0% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.05); opacity: 1; }
+    100% { transform: scale(1); opacity: 0.8; }
+}
+
+.emmi-logo img {
+    height: 45px;
+    width: auto;
+    border-radius: 5px;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.7));
+}
+
+.emmi-logo:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(231, 76, 60, 1), 0 0 30px rgba(231, 76, 60, 0.7);
+}
+
+@media (max-width: 992px) {
+    .emmi-logo {
+        margin: 0 auto;
+    }
+    
+    .emmi-logo img {
+        height: 40px;
+    }
+    
+    /* Fix for duplicate headings */
+    section h2:first-of-type {
+        margin-top: 0.5rem;
+    }
+    
+    /* Mobile auto-hide header/footer functionality */
+    header, footer {
+        transition: transform 0.3s ease-in-out;
+    }
+    
+    /* By default, hide the header at the top and footer at the bottom */
+    header {
+        transform: translateY(-100%);
+        z-index: 1060; /* Even higher z-index to ensure it stays above everything */
+        background-color: var(--primary-color); /* Ensure header has background */
+    }
+    
+    footer {
+        transform: translateY(100%);
+        z-index: 1050; /* Higher z-index to ensure it stays above content */
+    }
+    
+    /* Class to show header/footer when needed */
+    header.visible, footer.visible, body:has(.sidebar.open) header, .sidebar.open ~ header {
+        transform: translateY(0);
+    }
+    
+    /* JavaScript can add this class to body when sidebar is open */
+    body.menu-open header {
+        transform: translateY(0) !important;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1050; /* Ensure header stays above sidebar */
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Add shadow for better visibility */
+        background-color: var(--primary-color); /* Ensure header has background */
+    }
+    
+    /* Make sure content area fills the screen in mobile view */
+    .content {
+        min-height: 100vh;
+    }
+    
+    /* Container adjustments */
+    .container {
+        flex-direction: column;
+        padding-top: 0; /* Remove top padding on mobile since header is hidden by default */
+        padding-bottom: 0; /* Remove bottom padding on mobile since footer is hidden by default */
+    }
+    
+    /* Mobile sidebar as overlay */
+    .sidebar {
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        position: fixed; /* Changed to fixed positioning for overlay effect */
+        top: 0;
+        left: 0;
+        height: auto; /* Changed from 100vh to auto */
+        z-index: 1040; /* Lower than header/footer but higher than content */
+        background-color: #f7f9fc; /* Solid color for mobile sidebar */
+        transition: all 0.3s ease-in-out;
+        visibility: hidden;
+        opacity: 0;
+        padding: 0; /* Reset padding */
+        margin: 0; /* Reset margin */
+    }
+    
+    .sidebar.open {
+        max-height: 100vh; /* Changed from 140vh to 100vh to prevent unnecessary expansion */
+        padding-top: 230px; /* Increased from 70px to provide more space for the header */
+        padding-bottom: 160px; /* Increased padding bottom to avoid player overlap */
+        visibility: visible;
+        opacity: 0.98; /* Slightly transparent */
+        overflow-y: auto; /* Allow scrolling */
+        margin-top: 0; /* Reset margin */
+        display: flex; /* Use flexbox for layout */
+        flex-direction: column; /* Stack children vertically */
+        -webkit-overflow-scrolling: touch; /* Smooth scrolling for iOS */
+    }
+    
+    /* Dark mode mobile sidebar */
+    .dark-mode .sidebar {
+        background-color: #1e1e1e; /* Solid color for dark mode mobile sidebar */
+    }
+    
+    /* High contrast mode mobile sidebar */
+    .high-contrast-mode .sidebar {
+        background-color: #ffffff; /* Solid color for high contrast mobile sidebar */
+    }
+    
+    /* Dark high contrast mode mobile sidebar */
+    .dark-mode.high-contrast-mode .sidebar {
+        background-color: #000000; /* Solid color for dark high contrast mobile sidebar */
+    }
+    
+    /* Position nav links below the header */
+    .sidebar.open .nav-links {
+        padding: 10px;
+        margin-top: 10px; /* Adjusted to position just below sidebar's top padding */
+        position: relative; /* Establish positioning context */
+    }
+    
+    /* Target each individual menu item for extra insurance */
+    .sidebar.open .nav-links li {
+        margin-top: 5px;
+        position: relative;
+        opacity: 1; /* Ensure menu items are visible */
+    }
+    
+    /* First menu item gets extra space */
+    .sidebar.open .nav-links li:first-child {
+        margin-top: 15px;
+    }
+    
+    /* Apply spacing to all direct children of sidebar when open */
+    @media (max-width: 992px) {
+        .sidebar.open > * {
+            margin-top: 60px; /* Add space between the header and all sidebar content */
+            position: relative; /* Establish positioning context */
+            opacity: 1; /* Ensure content is visible */
+        }
+        
+        /* Force header to be visible and on top when sidebar is open */
+        .sidebar.open + header,
+        body:has(.sidebar.open) header {
+            transform: translateY(0) !important;
+            position: fixed !important;
+            top: 0 !important;
+            left: 0 !important;
+            width: 100% !important;
+            z-index: 1070 !important; /* Super high z-index */
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.2) !important;
+        }
+        
+        /* Make sure the sidebar scrolls properly on mobile devices with audio player visible */
+        .sidebar.open {
+            height: 100vh; /* Set height to viewport height */
+            max-height: 100vh; /* Maximum height is viewport height */
+            overflow-y: auto !important; /* Force scrolling */
+            -webkit-overflow-scrolling: touch; /* Smooth scrolling on iOS */
+            padding-bottom: 160px; /* Add extra padding for the audio player */
+        }
+        
+        /* Ensure content is visible when scrolling */
+        .sidebar.open .nav-links {
+            padding-bottom: 100px; /* Additional padding at the bottom of nav links */
+        }
+        
+        /* Fix for hiding content behind audio player */
+        .audio-player {
+            position: fixed;
+            z-index: 1050;
+        }
+        
+        /* Ensure burger menu button is always accessible */
+        .mobile-nav-toggle {
+            z-index: 1080; /* Higher than both sidebar and audio player */
+        }
+    }
+    
+    header {
+        padding: 0.8rem;
+        flex-wrap: wrap;
+    }
+    
+    .logo h1 {
+        font-size: 1.2rem;
+    }
+    
+    .header-controls {
+        width: 100%;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+        justify-content: space-between;
+    }
+    
+    .search-container {
+        flex: 1;
+        min-width: 200px;
+    }
+    
+    .search-container input {
+        width: 100%;
+    }
+    
+    .theme-toggle {
+        margin-right: 10px;
+    }
+    
+    .theme-toggle span {
+        font-size: 0.85rem;
+    }
+    
+    .mobile-nav-toggle {
+        display: flex; /* Ensure it's displayed as flex on mobile */
+        position: fixed;
+        bottom: 150px; /* Move higher up to avoid audio player overlap */
+        right: 20px; /* Position on right side */
+        z-index: 1060;
+        background-color: var(--secondary-color);
+        color: white;
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        justify-content: center;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        border: none;
+        cursor: pointer;
+        transform: translateY(0) !important;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    .mobile-nav-toggle i {
+        font-size: 1.5rem;
+    }
+    
+    /* Adjustments for table display on mobile */
+    table {
+        display: block;
+        width: 100%;
+        overflow-x: auto;
+    }
+    
+    /* Improved touch targets for mobile */
+    .quiz-option, .topic-header, button {
+        padding: 12px;
+        min-height: 44px;
+    }
+    
+    /* Better spacing for mobile reading */
+    .topic-content {
+        padding: 0 5px;
+    }
+    
+    p, li, h3, h4 {
+        margin-bottom: 1.2rem;
+    }
+    
+    /* Ensure quiz content is visible on mobile */
+    .quiz-topic.expanded .topic-content {
+        max-height: none;
+        overflow: visible;
+        padding: 0 10px;
+    }
+    
+    /* Improve spacing between quiz questions on mobile */
+    .quiz-container {
+        margin-bottom: 2rem;
+    }
+    
+    /* Make quiz feedback more visible on mobile */
+    .quiz-feedback {
+        padding: 1rem;
+        font-weight: bold;
+        border-radius: 4px;
+    }
+    
+    /* Fix the QUIZ label on mobile */
+    .quiz-header:after {
+        font-size: 0.65rem;
+        padding: 2px 5px;
+        right: 6px;
+        letter-spacing: 0;
+        white-space: nowrap; /* Prevent text wrapping */
+        width: auto; /* Allow width to fit content */
+        min-width: 30px; /* Set minimum width */
+        text-align: center; /* Center the text */
+    }
+    
+    /* Adjust the quiz header padding on mobile */
+    .quiz-header {
+        padding: 0.8rem 1rem;
+    }
+    
+    /* Make quiz header text smaller on mobile */
+    .quiz-header h3 {
+        font-size: 0.9rem;
+        padding-right: 40px; /* Add space for QUIZ label */
+        line-height: 1.2; /* Tighten line height */
+        overflow: hidden; /* Prevent overflow */
+        text-overflow: ellipsis; /* Add ellipsis for overflow text */
+    }
+    
+    /* Adjust icon size */
+    .quiz-header h3:before {
+        font-size: 1.1em;
+        margin-right: 8px;
+    }
+    
+    /* Fix quiz button label display on mobile */
+    .quiz-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: nowrap;
+    }
+}
+
+/* Neurodivergent-friendly additional styles */
+.key-concept {
+    border-left: 4px solid var(--accent-color);
+    padding-left: 15px;
+    margin: 15px 0;
+}
+
+.visual-mnemonic {
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 20px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.03); /* Softer shadow */
+}
+
+.visual-mnemonic img {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.concept-map {
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 15px;
+    margin: 20px 0;
+    overflow: auto;
+}
+
+.progress-indicator-container {
+    margin: 20px 0;
+    background-color: var(--card-background);
+    border-radius: 10px;
+    overflow: hidden;
+    height: 30px;
+    position: relative;
+    border: 1px solid var(--border-color);
+}
+
+.progress-indicator {
+    position: absolute;
+    height: 8px;
+    background-color: var(--secondary-color);
+    border-radius: 4px;
+    width: 0%;
+    z-index: 1;
+    color: transparent; /* Hide any text content */
+    overflow: hidden; /* Ensure no text is visible */
+    text-indent: -9999px; /* Additional measure to hide text */
+    font-size: 0; /* Eliminate any font rendering */
+}
+
+/* Accessibility Controls Panel */
+.a11y-panel {
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px auto;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 400px;
+    width: auto;
+    z-index: 1055; /* Higher than header/footer but below buttons */
+    overflow: auto;
+    max-height: 90vh;
+    display: none; /* Hidden by default */
+}
+
+.a11y-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background-color: var(--secondary-color);
+}
+
+.a11y-section {
+    margin-bottom: 25px;
+    position: relative;
+}
+
+.a11y-section h3 {
+    margin-bottom: 18px;
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 10px;
+    font-weight: 500;
+    color: var(--subheading-color);
+    display: flex;
+    align-items: center;
+    font-size: 1.1rem;
+}
+
+.a11y-section h3::before {
+    font-family: 'Font Awesome 5 Free', FontAwesome;
+    margin-right: 10px;
+    font-weight: 900;
+    font-size: 1.2rem;
+}
+
+.a11y-section:nth-child(1) h3::before {
+    content: '\f042'; /* Adjust icon */
+    color: var(--secondary-color);
+}
+
+.a11y-section:nth-child(2) h3::before {
+    content: '\f02d'; /* Book icon */
+    color: var(--secondary-color);
+}
+
+.a11y-section:nth-child(3) h3::before {
+    content: '\f201'; /* Chart icon */
+    color: var(--secondary-color);
+}
+
+.a11y-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 12px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    transition: background-color 0.2s ease;
+}
+
+.a11y-option:hover {
+    background-color: rgba(52, 152, 219, 0.05);
+}
+
+.a11y-option input[type="checkbox"],
+.a11y-option input[type="radio"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    margin-right: 10px;
+    position: relative;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    background-color: var(--card-background);
+    flex-shrink: 0;
+}
+
+.a11y-option input[type="radio"] {
+    border-radius: 50%;
+}
+
+.a11y-option input[type="checkbox"]:checked,
+.a11y-option input[type="radio"]:checked {
+    background-color: var(--secondary-color);
+    border-color: var(--secondary-color);
+}
+
+.a11y-option input[type="checkbox"]:checked::after {
+    content: '\2713';
+    position: absolute;
+    color: white;
+    font-size: 14px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.a11y-option input[type="radio"]:checked::after {
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.a11y-option label {
+    margin-left: 5px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    flex: 1;
+}
+
+/* Close button for accessibility panel */
+.a11y-panel-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 1001;
+}
+
+.a11y-panel-close:hover {
+    color: var(--accent-color);
+}
+
+/* Size dropdown style adjustment */
+.a11y-panel select {
+    width: 100%;
+    padding: 8px;
+    border-radius: 4px;
+    border: 1px solid var(--border-color);
+    background-color: var(--card-background);
+    color: var(--text-color);
+    font-size: 0.9rem;
+}
+
+/* Mobile adjustments for accessibility options */
+@media (max-width: 992px) {
+    .a11y-panel {
+        width: 95%;
+        padding: 20px;
+        margin: 15px auto;
+    }
+    
+    .a11y-option {
+        padding: 12px 10px;
+    }
+    
+    .a11y-option label {
+        font-size: 1rem;
+    }
+    
+    .a11y-option input[type="checkbox"],
+    .a11y-option input[type="radio"] {
+        width: 24px;
+        height: 24px;
+        margin-right: 12px;
+    }
+    
+    .a11y-section h3 {
+        font-size: 1.1rem;
+        text-align: center;
+        justify-content: center;
+    }
+
+    .a11y-option {
+        margin-left: auto;
+        margin-right: auto;
+        max-width: 90%;
+    }
+}
+
+/* Audio support for content */
+.audio-support {
+    display: inline-block;
+    margin-left: 10px;
+    color: var(--secondary-color);
+    cursor: pointer;
+}
+
+.audio-support:hover {
+    color: var(--accent-color);
+}
+
+/* Section summary boxes */
+.section-summary {
+    background-color: var(--card-background);
+    border-left: 4px solid var(--secondary-color);
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 0 8px 8px 0;
+}
+
+.section-summary h4 {
+    color: var(--subheading-color);
+    margin-bottom: 10px;
+}
+
+/* Keyboard shortcuts indicator */
+.keyboard-shortcut {
+    display: inline-block;
+    background-color: var(--code-background);
+    padding: 2px 6px;
+    border-radius: 4px;
+    font-family: monospace;
+    margin: 0 2px;
+    border: 1px solid var(--border-color);
+}
+
+/* Tooltip for additional information */
+.tooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted var(--secondary-color);
+    cursor: help;
+}
+
+.tooltip .tooltip-text {
+    visibility: hidden;
+    background-color: var(--card-background);
+    color: var(--text-color);
+    text-align: center;
+    border-radius: 6px;
+    padding: 10px;
+    position: absolute;
+    z-index: 1;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -100px;
+    width: 200px;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+    opacity: 0;
+    transition: opacity 0.3s;
+    border: 1px solid var(--border-color);
+}
+
+.tooltip:hover .tooltip-text {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Pattern indicators for colorblind users */
+.pattern-indicator {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+    background-color: transparent;
+    background-size: 10px 10px;
+}
+
+.pattern-primary {
+    background-image: linear-gradient(45deg, var(--primary-color) 25%, transparent 25%, transparent 75%, var(--primary-color) 75%);
+}
+
+.pattern-secondary {
+    background-image: linear-gradient(45deg, var(--secondary-color) 25%, transparent 25%, transparent 75%, var(--secondary-color) 75%);
+}
+
+.pattern-accent {
+    background-image: linear-gradient(45deg, var(--accent-color) 25%, transparent 25%, transparent 75%, var(--accent-color) 75%);
+}
+
+.pattern-success {
+    background-image: linear-gradient(45deg, var(--success-color) 25%, transparent 25%, transparent 75%, var(--success-color) 75%);
+}
+
+/* Progress indicator styling */
+.progress-indicator-container {
+    margin: 15px auto;
+    background-color: var(--card-background);
+    border-radius: 10px;
+    overflow: hidden;
+    height: 25px;
+    position: relative;
+    border: 1px solid var(--border-color);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    width: 100%;
+}
+
+.progress-indicator {
+    position: absolute;
+    height: 8px;
+    background-color: var(--secondary-color);
+    border-radius: 4px;
+    width: 0%;
+    z-index: 1;
+    color: transparent; /* Hide any text content */
+    overflow: hidden; /* Ensure no text is visible */
+    text-indent: -9999px; /* Additional measure to hide text */
+    font-size: 0; /* Eliminate any font rendering */
+}
+
+/* Mobile accessibility controls - Removed to fix footer visibility issue */
+
+.a11y-toggle {
+    display: block;
+    position: fixed;
+    bottom: 85px; /* Default position - will be adjusted by JS */
+    right: 20px;
+    z-index: 1060;
+    background-color: var(--secondary-color);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    border: none;
+    cursor: pointer;
+    transform: translateY(0) !important;
+    transition: background-color 0.2s ease, transform 0.2s ease, bottom 0.3s ease;
+}
+
+.a11y-toggle:hover, .a11y-toggle:focus {
+    background-color: var(--accent-color);
+    transform: scale(1.05);
+    outline: none;
+}
+
+.a11y-toggle i {
+    font-size: 1.7rem;
+}
+
+/* Mobile navigation toggle (burger menu) */
+/* Hide by default on larger screens */
+.mobile-nav-toggle {
+    display: none; /* Changed from block/flex to none */
+    position: fixed;
+    bottom: 150px; /* Default position - will be adjusted by JS */
+    right: 20px;
+    z-index: 1060;
+    background-color: var(--secondary-color);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    justify-content: center; /* Kept flex properties for when it's displayed */
+    align-items: center;    /* Kept flex properties for when it's displayed */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    border: none;
+    cursor: pointer;
+    transform: translateY(0) !important; /* This !important might be problematic, but respecting original style for now */
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.mobile-nav-toggle:hover {
+    background-color: var(--accent-color);
+    transform: scale(1.05);
+}
+
+.mobile-nav-toggle i {
+    font-size: 1.5rem;
+}
+
+@media (max-width: 992px) {
+    /* ... other mobile styles ... */
+    .mobile-nav-toggle, .a11y-toggle {
+        right: 20px;
+        transition: bottom 0.3s ease;
+        display: flex; /* Show on mobile */
+    }
+    
+    /* Ensure audio player has appropriate z-index */
+    .audio-player {
+        z-index: 1050;
+    }
+    
+    /* Ensure the buttons are always clickable */
+    .mobile-nav-toggle, .a11y-toggle {
+        z-index: 1060;
+    }
+}
+
+/* Audio player styles */
+.audio-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    z-index: 1050;
+    padding-top: 10px;
+}
+
+/* When collapsed, leave a small part visible for user to expand */
+.audio-player.collapsed {
+    transform: translateY(calc(100% - 18px));
+    pointer-events: none;
+}
+
+/* Matrix background */
+#matrixCanvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    opacity: var(--matrix-opacity); /* Use the custom opacity variable */
+    pointer-events: none; /* Allow clicks to pass through */
+    background-color: rgba(0, 0, 0, 0.95); /* Always dark background */
+}
+
+/* Maintain consistent matrix appearance across all themes */
+.dark-mode #matrixCanvas,
+.high-contrast-mode #matrixCanvas,
+.dark-mode.high-contrast-mode #matrixCanvas,
+.focus-mode #matrixCanvas,
+.dark-mode.focus-mode #matrixCanvas {
+    opacity: var(--matrix-opacity);
+    background-color: rgba(0, 0, 0, 0.95); /* Always dark background */
+}
+
+/* Calm Mode hides the matrix animation */
+.calm-mode #matrixCanvas,
+.matrix-off #matrixCanvas {
+    display: none !important;
+}
+
+/* Slider controls for Matrix settings */
+.slider-control {
+    width: 100%;
+    margin: 5px 0;
+    height: 8px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: var(--background-color);
+    outline: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.slider-control::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--secondary-color);
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.slider-control::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--secondary-color);
+    cursor: pointer;
+    transition: background 0.2s;
+    border: none;
+}
+
+.slider-control::-webkit-slider-thumb:hover,
+.slider-control::-moz-range-thumb:hover {
+    background: var(--accent-color);
+}
+
+.dark-mode .slider-control {
+    background: #333;
+}
+
+.high-contrast-mode .slider-control::-webkit-slider-thumb,
+.high-contrast-mode .slider-control::-moz-range-thumb {
+    background: var(--focus-outline-color);
+}
+
+/* Ensure sliders have proper spacing in accessibility panel */
+.a11y-option .slider-control {
+    margin-top: 8px;
+}
+
+.quiz-header h3 {
+    color: var(--quiz-accent-color);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.quiz-header h3:before {
+    content: '\f059';  /* Changed to a question mark icon that's more commonly available */
+    font-family: 'Font Awesome 5 Free', FontAwesome;
+    font-weight: 900;
+    margin-right: 12px;
+    font-size: 1.3em;
+}
+
+.quiz-topic.expanded .quiz-header {
+    background-color: rgba(93, 156, 236, 0.3);
+}
+
+.quiz-topic.expanded {
+    animation: none;
+}
+
+/* Improve quiz container styling */
+.quiz-topic .quiz-container {
+    background-color: rgba(93, 156, 236, 0.05);
+    border-left: none;
+    margin-bottom: 1.5rem;
+}
+
+.quiz-topic .quiz-button {
+    background-color: var(--quiz-accent-color);
+    transition: background-color 0.3s;
+}
+
+.quiz-topic .quiz-button:hover {
+    background-color: #4a8bda;
+}
+
+/* Special handling for quiz topic content to ensure all questions are visible */
+.quiz-topic.expanded .topic-content {
+    max-height: none; /* Remove the max-height constraint completely for quiz sections */
+    height: auto;
+    overflow: visible; /* Ensure overflow is visible for quiz sections */
+}
+
+/* Video Resources Section */
+.video-resources .topic-header h3 {
+    position: relative;
+    padding-left: 38px;
+    display: flex;
+    align-items: center;
+    color: #e74c3c;
+    font-weight: 600;
+    margin: 0;
+    font-size: 1.2rem;
+}
+
+.video-resources .topic-header h3:before {
+    content: "📺";
+    position: absolute;
+    left: 0;
+    font-size: 1.6rem;
+}
+
+.video-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-top: 1rem;
+}
+
+.video-link {
+    background-color: var(--card-background);
+    border-radius: 8px;
+    padding: 1rem;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.video-link:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.video-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--secondary-color);
+    text-decoration: none;
+    margin-bottom: 0.5rem;
+}
+
+.video-title i {
+    color: #ff0000;
+    font-size: 1.4rem;
+}
+
+.video-description {
+    color: var(--text-color);
+    font-size: 0.9rem;
+    margin-left: 34px;
+}
+
+.animated-text {
+    position: relative;
+    overflow: hidden;
+    display: inline-block;
+}
+
+.animated-text:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--secondary-color);
+    transition: width 0.3s ease;
+}
+
+.video-title:hover .animated-text:after {
+    width: 100%;
+}
+
+@media (max-width: 992px) {
+    .video-links {
+        gap: 1rem;
+    }
+    
+    .video-link {
+        padding: 0.8rem;
+    }
+    
+    .video-title {
+        font-size: 1rem;
+    }
+    
+    .video-description {
+        font-size: 0.85rem;
+    }
+}
+
+/* Direct Video Links Styling */
+.video-resources-title {
+    color: #e74c3c;
+    margin: 2rem 0 1rem;
+    font-size: 1.4rem;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.direct-video-links {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin: 1.5rem 0;
+}
+
+.video-card {
+    padding: 0;
+    transition: transform 0.3s ease;
+}
+
+.video-card:hover {
+    transform: translateY(-3px);
+}
+
+.video-link-direct {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 1.2rem;
+    background-color: var(--card-background);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--secondary-color);
+    font-weight: 600;
+    font-size: 1.2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    transition: box-shadow 0.3s ease, background-color 0.3s ease;
+}
+
+.video-link-direct:hover {
+    box-shadow: 0 5px 15px rgba(0,0,0,0.15);
+    background-color: rgba(52, 152, 219, 0.05);
+}
+
+.video-link-direct i {
+    color: #ff0000;
+    font-size: 1.8rem;
+}
+
+.video-link-text {
+    position: relative;
+    overflow: hidden;
+}
+
+.video-link-text:after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px;
+    bottom: 0;
+    left: 0;
+    background-color: var(--secondary-color);
+    transition: width 0.3s ease;
+}
+
+.video-link-direct:hover .video-link-text:after {
+    width: 100%;
+}
+
+@media (max-width: 992px) {
+    .video-resources-title {
+        font-size: 1.3rem;
+        margin: 1.5rem 0 0.8rem;
+    }
+    
+    .video-link-direct {
+        padding: 1rem;
+        font-size: 1.1rem;
+    }
+    
+    .video-link-direct i {
+        font-size: 1.5rem;
+    }
+}
+
+/* Reference links styling */
+.reference-links {
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: rgba(52, 152, 219, 0.1);
+    border-left: 3px solid var(--secondary-color);
+    border-radius: 3px;
+}
+
+.reference-links a {
+    color: #5a9178; /* Changed from blue to a more eye-friendly green */
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.reference-links a:hover {
+    color: #3d6d59; /* Darker shade for hover state */
+    text-decoration: underline;
+}
+
+.reference-links i {
+    margin-right: 5px;
+}
+
+.dark-mode .reference-links {
+    background-color: rgba(52, 152, 219, 0.15);
+}
+
+.high-contrast-mode .reference-links {
+    background-color: #f0f0f0;
+    border-left: 4px solid #0066ff;
+}
+
+.dark-mode.high-contrast-mode .reference-links {
+    background-color: #222;
+    border-left: 4px solid #66ccff;
+}
+
+/* Modal styles */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    z-index: 2000;
+    overflow: auto;
+    transition: opacity 0.3s;
+}
+
+.modal[style*="display: block"] {
+    display: block !important;
+}
+
+.modal-content {
+    background-color: var(--card-background);
+    color: var(--text-color);
+    margin: 5% auto;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    width: 80%;
+    max-width: 800px;
+    position: relative;
+    animation: modalFadeIn 0.3s;
+}
+
+@keyframes modalFadeIn {
+    from {opacity: 0; transform: translateY(-20px);}
+    to {opacity: 1; transform: translateY(0);}
+}
+
+.modal-close {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: color 0.2s;
+    z-index: 2001;
+}
+
+.modal-close:hover {
+    color: var(--accent-color);
+}
+
+.modal h3 {
+    color: var(--heading-color);
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+.modal h4 {
+    color: var(--subheading-color);
+    margin: 15px 0 10px;
+    font-size: 1.2rem;
+}
+
+.modal p, .modal ul {
+    margin-bottom: 15px;
+}
+
+.modal pre {
+    margin: 15px 0;
+}
+
+.modal-open {
+    overflow: hidden;
+}
+
+/* High contrast mode adjustments */
+.high-contrast-mode .modal {
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.high-contrast-mode .modal-content {
+    border: 2px solid var(--border-color);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+    .modal-content {
+        width: 95%;
+        margin: 10% auto;
+        padding: 15px 20px;
+    }
+    
+    .modal-close {
+        top: 10px;
+        right: 10px;
+    }
+}
+
+/* Dark mode sidebar transparency */
+.dark-mode .sidebar {
+    background-color: #1e1e1e; /* Solid color for dark mode sidebar */
+}
+
+/* High contrast mode sidebar transparency */
+.high-contrast-mode .sidebar {
+    background-color: #ffffff; /* Solid color for high contrast mode */
+}
+
+/* Dark high contrast mode sidebar transparency */
+.dark-mode.high-contrast-mode .sidebar {
+    background-color: #000000; /* Solid color for dark high contrast mode */
+}
+
+/* Audio Player Styles */
+.audio-player {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+    z-index: 1050;
+    padding-top: 10px; /* Increased padding to make room for the toggle button */
+}
+
+.audio-player-inner {
+    display: flex;
+    flex-direction: column;
+    padding: 10px 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.audio-player-title {
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--secondary-color);
+}
+
+.audio-player-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.play-pause-btn {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.play-pause-btn:hover {
+    background-color: var(--accent-color);
+}
+
+.audio-player-progress {
+    flex-grow: 1;
+    position: relative;
+    height: 8px;
+}
+
+.audio-player-progress input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.2);
+    outline: none;
+    border-radius: 4px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
+}
+
+.audio-player-progress input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid var(--secondary-color);
+}
+
+.audio-player-progress input[type="range"]::-moz-range-thumb {
+    width: 16px;
+    height: 16px;
+    background: white;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 2px solid var(--secondary-color);
+}
+
+.progress-indicator {
+    position: absolute;
+    height: 8px;
+    background-color: var(--secondary-color);
+    border-radius: 4px;
+    width: 0%;
+    z-index: 1;
+    color: transparent; /* Hide any text content */
+    overflow: hidden; /* Ensure no text is visible */
+    text-indent: -9999px; /* Additional measure to hide text */
+    font-size: 0; /* Eliminate any font rendering */
+}
+
+.audio-player-time {
+    min-width: 90px;
+    font-size: 0.9rem;
+    text-align: right;
+}
+
+/* Make player adjust to dark/light modes */
+.dark-mode .audio-player {
+    background-color: var(--primary-color);
+}
+
+/* High contrast mode */
+.high-contrast-mode .audio-player {
+    background-color: #000;
+    color: #fff;
+    border-top: 2px solid #fff;
+}
+
+.high-contrast-mode .audio-player-title {
+    color: #66ccff;
+}
+
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+}
+
+/* Adjust for mobile devices */
+@media (max-width: 992px) {
+    .audio-player-inner {
+        padding: 5px 5px;
+    }
+    
+    .audio-player-controls {
+        flex-wrap: wrap;
+    }
+    
+    .audio-player-time {
+        width: 100%;
+        text-align: center;
+        margin-top: 5px;
+    }
+    
+    .audio-player-copyright {
+        font-size: 0.75rem;
+        padding: 4px 10px;
+    }
+    
+    /* Give more space at the bottom of the container for the audio player */
+    .container {
+        padding-bottom: 150px; /* Increased padding to accommodate the player with copyright */
+    }
+    
+    /* Adjust footer positioning to not overlap with player */
+    footer {
+        position: relative; /* Change from fixed to relative on mobile */
+        z-index: 990; /* Lower than the audio player */
+        margin-bottom: 100px; /* Increased space for the player with copyright */
+    }
+    
+    /* Ensure audio player is fully visible */
+    .audio-player {
+        padding-bottom: env(safe-area-inset-bottom, 0); /* Support for iOS devices with home indicator */
+        box-shadow: 0 -3px 10px rgba(0, 0, 0, 0.15); /* Stronger shadow for better visibility */
+    }
+    
+    /* Make play button slightly larger on mobile for better touch target */
+    .play-pause-btn {
+        width: 44px;
+        height: 44px;
+    }
+}
+
+/* Buy Me a Coffee button styles */
+.coffee-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0px auto 15px;
+    padding: 1px 1px;
+    background-color: #ffdd00;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+    max-width: 180px;
+    width: 90%;
+}
+
+.coffee-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.coffee-btn img {
+    width: 100%;
+    height: auto;
+}
+
+.coffee-btn span {
+    color: #000000;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+/* Adjust for dark mode */
+.dark-mode .coffee-btn {
+    background-color: #ffdd00;
+}
+
+.dark-mode .coffee-btn span {
+    color: #000000;
+}
+
+/* Adjust for high contrast mode */
+.high-contrast-mode .coffee-btn {
+    background-color: #ffff00;
+    border: 2px solid #000000;
+}
+
+.dark-mode.high-contrast-mode .coffee-btn {
+    background-color: #ffff00;
+    border: 2px solid #ffffff;
+}
+
+/* Mobile styles */
+@media (max-width: 992px) {
+    .coffee-btn {
+        margin: 0px auto;
+        width: 85%;
+        max-width: none;
+    }
+    
+    .sidebar.open .coffee-btn {
+        opacity: 1;
+        transform: translateY(0);
+        /* Additions for better fitting */
+        width: auto;
+        max-width: 160px;
+        margin: 0px auto 0; /* Reduced top margin to decrease space */
+        padding: 1px 1px; /* Minimal padding */
+    }
+    
+    /* Also adjust the nav links bottom margin to remove extra space */
+    .sidebar.open .nav-links {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+    
+    /* Adjust the last nav item's margin to reduce space before coffee button */
+    .sidebar.open .nav-links li:last-child {
+        margin-bottom: 5px;
+    }
+}
+
+.audio-player-copyright {
+    text-align: center;
+    font-size: 0.8rem;
+    padding: 6px 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin-top: 5px;
+}
+
+.audio-player-copyright a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.audio-player-copyright a:hover {
+    color: var(--accent-color);
+    text-decoration: underline;
+}
+
+/* Dark mode styles for copyright */
+.dark-mode .audio-player-copyright {
+    border-top-color: rgba(255, 255, 255, 0.15);
+}
+
+/* High contrast mode styles for copyright */
+.high-contrast-mode .audio-player-copyright {
+    border-top-color: #fff;
+}
+
+.high-contrast-mode .audio-player-copyright a {
+    color: #66ccff;
+    text-decoration: underline;
+}
+
+/* Audio Player Toggle Button */
+.audio-player-toggle {
+    position: absolute;
+    top: -34px;
+    left: 12px;
+    width: 34px;
+    height: 34px;
+    background-color: var(--secondary-color);
+    border: none;
+    border-radius: 50%;
+    color: white;
+    font-size: 0.8rem;
+    cursor: pointer;
+    z-index: 1060;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0.9;
+    padding: 0;
+    transform: translateY(0);
+}
+
+/* When collapsed, position the player mostly off-screen but keep the button visible */
+.audio-player.collapsed {
+    transform: translateY(calc(100% - 18px));
+    pointer-events: none;
+    box-shadow: 0 -1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Ensure the button is always clickable and visible regardless of player state */
+.audio-player-toggle {
+    pointer-events: auto;
+}
+
+/* Button hover and focus states */
+.audio-player-toggle:hover {
+    background-color: var(--accent-color);
+    transform: scale(1.1);
+    opacity: 1;
+}
+
+.audio-player-toggle:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.4);
+}
+
+/* Icon rotation animation */
+.audio-player-toggle i {
+    transition: transform 0.3s ease;
+}
+
+.audio-player.collapsed .audio-player-toggle i {
+    transform: rotate(180deg);
+}
+
+/* Collapsed player styles */
+.audio-player.collapsed .audio-player-inner,
+.audio-player.collapsed .audio-player-copyright {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* High contrast mode adjustments */
+.high-contrast-mode .audio-player-toggle {
+    background-color: #000;
+    border: 2px solid #fff;
+}
+
+.dark-mode.high-contrast-mode .audio-player-toggle {
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #fff;
+}
+
+/* Animation for toggle button when player is collapsed */
+@keyframes pulse-toggle {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+    100% { transform: scale(1); }
+}
+
+.audio-player.collapsed .audio-player-toggle {
+    animation: pulse-toggle 2s infinite;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    opacity: 1;
+}
+
+/* Mobile styles for audio player toggle */
+@media (max-width: 992px) {
+    .audio-player-toggle {
+        top: -36px;
+        width: 28px;
+        height: 28px;
+        font-size: 0.9rem;
+        box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.2);
+    }
+    
+    .audio-player {
+        padding-top: 14px; /* More space for the larger button */
+    }
+    
+    .audio-player.collapsed {
+        transform: translateY(calc(100% - 14px));
+        background-color: var(--primary-color);
+    }
+    
+    /* Adapt floating buttons position */
+    .mobile-nav-toggle, 
+    .a11y-toggle {
+        transition: bottom 0.3s ease-out;
+    }
+}
+
+/* Menu auto-hide progress indicator */
+.menu-auto-hide-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 4px;
+    background-color: var(--accent-color);
+    width: 100%;
+    transition: width 0.1s linear;
+    z-index: 1100;
+}
+
+/* In dark mode, make it more visible */
+.dark-mode .menu-auto-hide-progress {
+    background-color: var(--secondary-color);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+/* High contrast version */
+.high-contrast-mode .menu-auto-hide-progress {
+    background-color: #ffff00;
+    height: 6px;
+}
+
+/* Audio player auto-hide progress indicator */
+.audio-auto-hide-progress {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 3px;
+    background-color: var(--accent-color);
+    width: 100%;
+    transition: width 0.1s linear;
+    z-index: 1100;
+}
+
+/* In dark mode, make it more visible */
+.dark-mode .audio-auto-hide-progress {
+    background-color: var(--secondary-color);
+    box-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
+}
+
+/* High contrast version */
+.high-contrast-mode .audio-auto-hide-progress {
+    background-color: #ffff00;
+    height: 5px;
+}
+
+/* Additional styles for focus state on audio player controls */
+.audio-player-controls button:focus,
+.audio-player-controls input:focus {
+    outline: 2px solid var(--secondary-color);
+    outline-offset: 2px;
+}
+
+/* Ensure the auto-hide indicator doesn't appear when audio is playing */
+.audio-player:has(audio:not([paused])) .audio-auto-hide-progress {
+    display: none;
+}
+
+.dark-mode.high-contrast-mode .a11y-toggle {
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #fff;
+} 
+
+/* =============================================== */
+/* LINUX TUTOR CHAT STYLES                         */
+/* =============================================== */
+
+/* Chat toggle button */
+.linux-chat-toggle {
+    display: block;
+    position: fixed;
+    bottom: 150px; /* Position above a11y-toggle */
+    right: 20px;
+    z-index: 1060;
+    background-color: var(--secondary-color);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+    border: none;
+    cursor: pointer;
+    transform: translateY(0) !important;
+    transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.linux-chat-toggle:hover, 
+.linux-chat-toggle:focus {
+    background-color: var(--accent-color);
+    transform: scale(1.05);
+    outline: none;
+}
+
+.linux-chat-toggle i {
+    font-size: 1.7rem;
+}
+
+/* Chat panel styles */
+.linux-chat-panel {
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    padding: 20px;
+    margin: 20px auto;
+    box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+    position: fixed;
+    top: 50%;
+    right: -400px; /* Hidden by default */
+    transform: translateY(-50%);
+    width: 350px;
+    max-width: 90vw;
+    height: 500px;
+    max-height: 80vh;
+    z-index: 1055;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: right 0.3s ease-in-out;
+}
+
+.linux-chat-panel.open {
+    right: 20px;
+}
+
+.linux-chat-panel::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 5px;
+    height: 100%;
+    background-color: var(--secondary-color);
+}
+
+.chat-panel-close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: var(--text-color);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px;
+    z-index: 1001;
+}
+
+.chat-panel-close:hover {
+    color: var(--accent-color);
+}
+
+.chat-header {
+    padding-bottom: 15px;
+    margin-bottom: 15px;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.chat-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--subheading-color);
+}
+
+.chat-header h3 i {
+    color: var(--accent-color);
+}
+
+/* Chat messages area */
+.chat-messages {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    width: 100%;
+}
+
+.chat-message {
+    display: flex;
+    flex-direction: column;
+    max-width: 80%;
+}
+
+.user-message {
+    align-self: flex-end;
+}
+
+.ai-message {
+    align-self: flex-start;
+}
+
+.message-content {
+    padding: 12px;
+    border-radius: 15px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+    max-width: 100%;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+}
+
+.user-message .message-content {
+    background-color: var(--secondary-color);
+    color: white;
+    border-radius: 15px 15px 0 15px;
+}
+
+.ai-message .message-content {
+    background-color: var(--card-background);
+    border: 1px solid var(--border-color);
+    border-radius: 15px 15px 15px 0;
+    max-width: 120%;
+    width: 120%;
+}
+
+/* Specific styling for pre elements in chat messages */
+.message-content pre,
+.ai-message pre,
+.linux-chat-panel pre {
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+    word-break: break-word !important;
+    max-width: 100% !important;
+    overflow-x: auto !important;
+    font-size: 0.9em;
+}
+
+/* Chat input area */
+.chat-input-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 0;
+    border-top: 1px solid var(--border-color);
+    margin-top: 10px;
+}
+
+#chatInput {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    background-color: var(--card-background);
+    color: var(--text-color);
+    font-family: var(--font-family);
+    font-size: 14px;
+}
+
+#chatInput:focus {
+    outline: none;
+    border-color: var(--secondary-color);
+    box-shadow: 0 0 0 2px rgba(52, 152, 219, 0.2);
+}
+
+.attachment-btn,
+.send-btn {
+    background: none;
+    border: none;
+    color: var(--secondary-color);
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.2s;
+}
+
+.attachment-btn:hover,
+.send-btn:hover {
+    color: var(--accent-color);
+}
+
+/* File preview area */
+.file-preview {
+    background-color: rgba(52, 152, 219, 0.1);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.file-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.9rem;
+}
+
+.remove-file {
+    background: none;
+    border: none;
+    color: var(--accent-color);
+    cursor: pointer;
+    padding: 2px 5px;
+    font-size: 0.9rem;
+}
+
+.remove-file:hover {
+    color: var(--text-color);
+}
+
+/* Dark mode adjustments */
+.dark-mode .linux-chat-panel {
+    background-color: var(--card-background);
+    border-color: var(--border-color);
+}
+
+.dark-mode .message-content {
+    background-color: var(--card-background);
+}
+
+.dark-mode .ai-message .message-content {
+    border-color: var(--border-color);
+}
+
+/* High contrast mode adjustments */
+.high-contrast-mode .linux-chat-toggle {
+    background-color: #000;
+    color: #fff;
+    border: 2px solid #000;
+}
+
+.dark-mode.high-contrast-mode .linux-chat-toggle {
+    background-color: #fff;
+    color: #000;
+    border: 2px solid #fff;
+}
+
+.high-contrast-mode .linux-chat-panel {
+    border: 2px solid #000;
+}
+
+.dark-mode.high-contrast-mode .linux-chat-panel {
+    border: 2px solid #fff;
+}
+
+.high-contrast-mode .user-message .message-content {
+    background-color: #000;
+    color: #fff;
+}
+
+.dark-mode.high-contrast-mode .user-message .message-content {
+    background-color: #fff;
+    color: #000;
+}
+
+/* Mobile responsiveness for chat */
+@media (max-width: 992px) {
+    .linux-chat-toggle {
+        z-index: 1060;
+        position: fixed;
+        right: 20px;
+        transform: translateY(0) !important;
+        /* Remove fixed top positioning to allow dynamic bottom positioning from JavaScript */
+        /* We'll handle position through the JavaScript adjustLayout function */
+    }
+    
+    .linux-chat-panel {
+        width: 85vw;
+        height: 70vh;
+        right: -100vw;
+    }
+    
+    .linux-chat-panel.open {
+        right: 7.5vw;
+    }
+}
+
+/* Add styling for resource links */
+.resource-link {
+    color: #5a9178; /* Match the new color used for reference links */
+    text-decoration: none;
+    font-weight: 500;
+    display: inline-block;
+    margin-top: 5px;
+    transition: color 0.2s;
+}
+
+.resource-link:hover {
+    color: #3d6d59; /* Darker shade for hover state */
+    text-decoration: underline;
+}
+
+/* Resources Dropdown Styles */
+.resources-dropdown {
+    margin-top: 1rem;
+}
+
+.resources-dropdown .dropdown-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    cursor: pointer;
+    padding: 0.5rem 0;
+}
+
+.resources-dropdown .dropdown-header i {
+    transition: transform 0.3s ease;
+}
+
+.resources-dropdown .dropdown-header.active i {
+    transform: rotate(180deg);
+}
+
+.resources-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+}
+
+.resources-container.active {
+    max-height: 2000px; /* Adjust this value based on content height */
+    transition: max-height 0.5s ease-in;
+}

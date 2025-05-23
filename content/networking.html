@@ -1,0 +1,763 @@
+<section id="networking">
+    <h2>Linux Networking Fundamentals</h2>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Network Interfaces and Configuration</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Network interfaces are the connection points between a computer and a network. They can be physical (Ethernet cards, WiFi adapters) or virtual (VPN tunnels, bridges). Understanding how to configure and manage network interfaces is fundamental to Linux network administration.</p>
+            
+            <h4>Identifying Network Interfaces:</h4>
+            <p>Modern Linux distributions use predictable network interface naming to avoid issues when hardware changes:</p>
+            <ul>
+                <li><strong>eno1, eno2, ...</strong> - On-board network interfaces</li>
+                <li><strong>enp2s0, enp3s0, ...</strong> - PCI network interfaces (PCIe slot 2, slot 3, etc.)</li>
+                <li><strong>wlp3s0, wlp4s0, ...</strong> - Wireless interfaces</li>
+                <li><strong>wwan0, wwan1, ...</strong> - Mobile broadband interfaces</li>
+            </ul>
+            <p>Legacy naming (eth0, eth1, wlan0) may still appear on older systems or when predictable naming is disabled.</p>
+            
+            <h4>Basic Network Interface Commands:</h4>
+            <pre><code># Display all network interfaces with IP addresses
+ip addr show
+
+# Show detailed information about a specific interface
+ip addr show dev enp0s3
+
+# Display interface statistics
+ip -s link show
+
+# View routing table
+ip route show
+
+# Check interface status and link information
+ethtool enp0s3</code></pre>
+            
+            <h4>Temporary IP Configuration:</h4>
+            <p>These settings will be lost after a reboot:</p>
+            <pre><code># Assign a static IP address with netmask
+sudo ip addr add 192.168.1.100/24 dev enp0s3
+
+# Remove an IP address
+sudo ip addr del 192.168.1.100/24 dev enp0s3
+
+# Set the interface up or down
+sudo ip link set enp0s3 up
+sudo ip link set enp0s3 down
+
+# Add a default gateway
+sudo ip route add default via 192.168.1.1
+
+# Add a static route
+sudo ip route add 10.0.0.0/24 via 192.168.1.254</code></pre>
+            
+            <h4>Persistent Network Configuration:</h4>
+            <p>Different Linux distributions use different methods for permanent network configuration:</p>
+            
+            <table>
+                <tr>
+                    <th>Distribution Family</th>
+                    <th>Configuration Method</th>
+                    <th>Key Files/Directories</th>
+                </tr>
+                <tr>
+                    <td>Debian/Ubuntu</td>
+                    <td>NetPlan or ifupdown</td>
+                    <td>
+                        <code>/etc/netplan/*.yaml</code> or<br>
+                        <code>/etc/network/interfaces</code>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Red Hat/CentOS/Fedora</td>
+                    <td>NetworkManager and ifcfg files</td>
+                    <td><code>/etc/sysconfig/network-scripts/ifcfg-*</code></td>
+                </tr>
+                <tr>
+                    <td>Arch Linux</td>
+                    <td>systemd-networkd or NetworkManager</td>
+                    <td>
+                        <code>/etc/systemd/network/*.network</code> or<br>
+                        NetworkManager configuration
+                    </td>
+                </tr>
+                <tr>
+                    <td>SUSE/openSUSE</td>
+                    <td>Wicked or NetworkManager</td>
+                    <td><code>/etc/sysconfig/network/ifcfg-*</code></td>
+                </tr>
+            </table>
+            
+            <h4>Example: Ubuntu Netplan Configuration:</h4>
+            <p>Netplan uses YAML configuration files. Example <code>/etc/netplan/01-netcfg.yaml</code>:</p>
+            <pre><code>network:
+  version: 2
+  renderer: networkd
+  ethernets:
+    enp0s3:
+      dhcp4: no
+      addresses:
+        - 192.168.1.100/24
+      gateway4: 192.168.1.1
+      nameservers:
+          addresses: [8.8.8.8, 8.8.4.4]</code></pre>
+            <p>Apply the configuration with <code>sudo netplan apply</code></p>
+            
+            <h4>Example: Red Hat/CentOS Configuration:</h4>
+            <p>Example <code>/etc/sysconfig/network-scripts/ifcfg-enp0s3</code>:</p>
+            <pre><code>DEVICE=enp0s3
+BOOTPROTO=static
+IPADDR=192.168.1.100
+NETMASK=255.255.255.0
+GATEWAY=192.168.1.1
+DNS1=8.8.8.8
+DNS2=8.8.4.4
+ONBOOT=yes</code></pre>
+            <p>Apply the configuration with <code>sudo systemctl restart NetworkManager</code></p>
+            
+            <h4>NetworkManager CLI Tool:</h4>
+            <p>NetworkManager is a dynamic network control and configuration daemon used in many distributions:</p>
+            <pre><code># Show all connections
+nmcli connection show
+
+# Show active connections
+nmcli connection show --active
+
+# Show details of a specific connection
+nmcli connection show "Wired connection 1"
+
+# Create a new connection
+nmcli connection add type ethernet con-name "Office" ifname enp0s3 \
+  ip4 192.168.1.100/24 gw4 192.168.1.1
+
+# Modify an existing connection
+nmcli connection modify "Office" ipv4.dns "8.8.8.8 8.8.4.4"
+
+# Connect/disconnect
+nmcli connection up "Office"
+nmcli connection down "Office"</code></pre>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="network-interfaces-info" onclick="openModal('network-interfaces-info'); return false;">Learn more: Network Interfaces and Configuration</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>IP Addressing and Subnetting</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>IP (Internet Protocol) addressing is fundamental to network communication. Understanding IP addresses, subnetting, and address allocation is essential for network configuration and troubleshooting.</p>
+            
+            <h4>IPv4 Addresses:</h4>
+            <p>An IPv4 address is a 32-bit number usually represented in dotted-decimal notation (e.g., 192.168.1.1). Each address has two components:</p>
+            <ul>
+                <li><strong>Network Portion:</strong> Identifies the network (determined by subnet mask)</li>
+                <li><strong>Host Portion:</strong> Identifies a specific device on that network</li>
+            </ul>
+            
+            <h4>Subnet Masks:</h4>
+            <p>Subnet masks determine which portion of an IP address identifies the network and which identifies the host:</p>
+            <table>
+                <tr>
+                    <th>Notation</th>
+                    <th>Example</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>Dotted Decimal</td>
+                    <td>255.255.255.0</td>
+                    <td>Older format using four decimal numbers</td>
+                </tr>
+                <tr>
+                    <td>CIDR</td>
+                    <td>/24</td>
+                    <td>Number of bits used for the network portion</td>
+                </tr>
+            </table>
+            
+            <h4>Common Subnet Masks:</h4>
+            <table>
+                <tr>
+                    <th>CIDR</th>
+                    <th>Dotted Decimal</th>
+                    <th>Number of Hosts</th>
+                    <th>Typical Use</th>
+                </tr>
+                <tr>
+                    <td>/8</td>
+                    <td>255.0.0.0</td>
+                    <td>16,777,214</td>
+                    <td>Large networks/ISP allocations</td>
+                </tr>
+                <tr>
+                    <td>/16</td>
+                    <td>255.255.0.0</td>
+                    <td>65,534</td>
+                    <td>Large enterprise networks</td>
+                </tr>
+                <tr>
+                    <td>/24</td>
+                    <td>255.255.255.0</td>
+                    <td>254</td>
+                    <td>Home/small office networks</td>
+                </tr>
+                <tr>
+                    <td>/27</td>
+                    <td>255.255.255.224</td>
+                    <td>30</td>
+                    <td>Small network segments</td>
+                </tr>
+                <tr>
+                    <td>/30</td>
+                    <td>255.255.255.252</td>
+                    <td>2</td>
+                    <td>Point-to-point links</td>
+                </tr>
+            </table>
+            
+            <h4>Special IPv4 Address Ranges:</h4>
+            <table>
+                <tr>
+                    <th>Range</th>
+                    <th>Purpose</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>10.0.0.0/8</td>
+                    <td>Private</td>
+                    <td>Large private networks (Class A)</td>
+                </tr>
+                <tr>
+                    <td>172.16.0.0/12</td>
+                    <td>Private</td>
+                    <td>Medium private networks (Class B)</td>
+                </tr>
+                <tr>
+                    <td>192.168.0.0/16</td>
+                    <td>Private</td>
+                    <td>Small private networks (Class C)</td>
+                </tr>
+                <tr>
+                    <td>127.0.0.0/8</td>
+                    <td>Loopback</td>
+                    <td>Loopback addressing (localhost)</td>
+                </tr>
+                <tr>
+                    <td>169.254.0.0/16</td>
+                    <td>APIPA</td>
+                    <td>Automatic Private IP Addressing</td>
+                </tr>
+            </table>
+            
+            <h4>IPv6 Addresses:</h4>
+            <p>IPv6 uses 128-bit addresses represented in hexadecimal format and separated by colons:</p>
+            <pre><code>2001:0db8:85a3:0000:0000:8a2e:0370:7334</code></pre>
+            
+            <p>Rules for shortening IPv6 addresses:</p>
+            <ul>
+                <li>Leading zeros in each block can be omitted: 2001:db8:85a3:0:0:8a2e:370:7334</li>
+                <li>A single range of consecutive zeros can be replaced with a double colon (::): 2001:db8:85a3::8a2e:370:7334</li>
+            </ul>
+            
+            <h4>Common IPv6 Address Types:</h4>
+            <table>
+                <tr>
+                    <th>Type</th>
+                    <th>Example</th>
+                    <th>Purpose</th>
+                </tr>
+                <tr>
+                    <td>Global Unicast</td>
+                    <td>2001:db8::/32</td>
+                    <td>Globally routable addresses</td>
+                </tr>
+                <tr>
+                    <td>Link-Local</td>
+                    <td>fe80::/10</td>
+                    <td>Addresses only valid on a single link</td>
+                </tr>
+                <tr>
+                    <td>Unique Local</td>
+                    <td>fc00::/7</td>
+                    <td>Private addressing (similar to IPv4 private ranges)</td>
+                </tr>
+                <tr>
+                    <td>Loopback</td>
+                    <td>::1/128</td>
+                    <td>Equivalent to 127.0.0.1 in IPv4</td>
+                </tr>
+            </table>
+            
+            <h4>Subnetting Basics:</h4>
+            <p>Subnetting allows dividing a larger network into smaller, manageable segments:</p>
+            <pre><code># Calculate network information
+ipcalc 192.168.1.0/24
+
+# Output:
+# Address:   192.168.1.0          11000000.10101000.00000001.00000000
+# Netmask:   255.255.255.0 = 24   11111111.11111111.11111111.00000000
+# Wildcard:  0.0.0.255            00000000.00000000.00000000.11111111
+# Network:   192.168.1.0/24       11000000.10101000.00000001.00000000
+# HostMin:   192.168.1.1          11000000.10101000.00000001.00000001
+# HostMax:   192.168.1.254        11000000.10101000.00000001.11111110
+# Broadcast: 192.168.1.255        11000000.10101000.00000001.11111111
+# Hosts/Net: 254</code></pre>
+            
+            <h4>Subnet Division Example:</h4>
+            <p>Dividing a /24 network into four equal subnets:</p>
+            <pre><code># Original network: 192.168.1.0/24
+# Divide into 4 equal subnets by adding 2 bits to the prefix (24+2=26)
+
+Subnet 1: 192.168.1.0/26
+  - Range: 192.168.1.0 - 192.168.1.63
+  - Usable: 192.168.1.1 - 192.168.1.62
+  
+Subnet 2: 192.168.1.64/26
+  - Range: 192.168.1.64 - 192.168.1.127
+  - Usable: 192.168.1.65 - 192.168.1.126
+  
+Subnet 3: 192.168.1.128/26
+  - Range: 192.168.1.128 - 192.168.1.191
+  - Usable: 192.168.1.129 - 192.168.1.190
+  
+Subnet 4: 192.168.1.192/26
+  - Range: 192.168.1.192 - 192.168.1.255
+  - Usable: 192.168.1.193 - 192.168.1.254</code></pre>
+            
+            <h4>Checking Network Information in Linux:</h4>
+            <pre><code># View IP addresses and subnet masks
+ip addr show
+
+# Check routing information
+ip route show
+
+# DNS servers configured on the system
+cat /etc/resolv.conf
+
+# Test connectivity to another host
+ping 192.168.1.1
+
+# Trace the route to a destination
+traceroute google.com
+
+# Show socket statistics
+ss -tuln</code></pre>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="ip-addressing-info" onclick="openModal('ip-addressing-info'); return false;">Learn more: IP Addressing and Subnetting</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Network Interfaces information -->
+    <div id="network-interfaces-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('network-interfaces-info')">&times;</span>
+            <h3>Network Interfaces and Configuration In-Depth</h3>
+            
+            <h4>Network Interface Naming Conventions</h4>
+            <p>Modern Linux systems use predictable network interface names following these patterns:</p>
+            <ul>
+                <li><strong>en</strong>: Ethernet</li>
+                <li><strong>wl</strong>: WLAN (Wireless LAN)</li>
+                <li><strong>ww</strong>: WWAN (Wireless Wide Area Network)</li>
+            </ul>
+            <p>Followed by:</p>
+            <ul>
+                <li><strong>o&lt;index&gt;</strong>: On-board device index</li>
+                <li><strong>s&lt;slot&gt;</strong>: PCI Express slot index</li>
+                <li><strong>p&lt;bus&gt;s&lt;slot&gt;</strong>: PCI geographic location</li>
+                <li><strong>x&lt;MAC&gt;</strong>: MAC address</li>
+            </ul>
+            
+            <h4>Working with Multiple IP Addresses</h4>
+            <p>A single interface can have multiple IP addresses:</p>
+            <pre><code># Add a secondary IP address
+sudo ip addr add 192.168.1.101/24 dev enp0s3
+
+# Add an IPv6 address
+sudo ip -6 addr add 2001:db8::1/64 dev enp0s3</code></pre>
+            
+            <h4>Setting Interface Parameters</h4>
+            <p>Tune interface behavior with these commands:</p>
+            <pre><code># Change MTU (Maximum Transmission Unit)
+sudo ip link set enp0s3 mtu 9000
+
+# Set interface to promiscuous mode (capture all packets)
+sudo ip link set enp0s3 promisc on
+
+# Set transmit queue length
+sudo ip link set enp0s3 txqueuelen 10000</code></pre>
+            
+            <h4>Creating and Managing Virtual Interfaces</h4>
+            <p>Virtual interfaces extend networking capabilities:</p>
+            <pre><code># Create a VLAN interface (requires 8021q module)
+sudo ip link add link enp0s3 name enp0s3.100 type vlan id 100
+sudo ip addr add 10.0.0.1/24 dev enp0s3.100
+sudo ip link set dev enp0s3.100 up
+
+# Create a bridge interface
+sudo ip link add name br0 type bridge
+sudo ip link set enp0s3 master br0
+sudo ip link set dev enp0s3 up
+sudo ip link set dev br0 up
+sudo ip addr add 192.168.1.100/24 dev br0
+
+# Create a bonding interface (link aggregation)
+# First, load the bonding module
+sudo modprobe bonding
+# Create the bond0 interface
+sudo ip link add bond0 type bond
+# Set bonding mode (0=balance-rr, 1=active-backup, etc.)
+sudo echo "1" > /sys/class/net/bond0/bonding/mode
+# Add slave interfaces
+sudo ip link set enp1s0 master bond0
+sudo ip link set enp2s0 master bond0
+sudo ip link set bond0 up</code></pre>
+            
+            <h4>Using sysctl for Network Settings</h4>
+            <p>Configure kernel network parameters with sysctl:</p>
+            <pre><code># Enable IP forwarding
+sudo sysctl -w net.ipv4.ip_forward=1
+
+# Make it persistent
+echo "net.ipv4.ip_forward=1" | sudo tee -a /etc/sysctl.conf
+sudo sysctl -p
+
+# Common network performance tuning parameters
+sudo sysctl -w net.core.rmem_max=16777216
+sudo sysctl -w net.core.wmem_max=16777216
+sudo sysctl -w net.ipv4.tcp_rmem="4096 87380 16777216"
+sudo sysctl -w net.ipv4.tcp_wmem="4096 65536 16777216"</code></pre>
+            
+            <h4>Network Interface Bonding Modes</h4>
+            <p>Link aggregation provides redundancy and/or increased throughput:</p>
+            <table>
+                <tr>
+                    <th>Mode</th>
+                    <th>Description</th>
+                    <th>Benefits</th>
+                </tr>
+                <tr>
+                    <td>0 (balance-rr)</td>
+                    <td>Round-robin packet distribution</td>
+                    <td>Load balancing and fault tolerance</td>
+                </tr>
+                <tr>
+                    <td>1 (active-backup)</td>
+                    <td>Only one slave active, others standby</td>
+                    <td>Fault tolerance</td>
+                </tr>
+                <tr>
+                    <td>2 (balance-xor)</td>
+                    <td>XOR of source and destination MAC</td>
+                    <td>Load balancing and fault tolerance</td>
+                </tr>
+                <tr>
+                    <td>3 (broadcast)</td>
+                    <td>Transmits on all slaves</td>
+                    <td>Fault tolerance</td>
+                </tr>
+                <tr>
+                    <td>4 (802.3ad)</td>
+                    <td>IEEE 802.3ad dynamic link aggregation</td>
+                    <td>Load balancing and fault tolerance</td>
+                </tr>
+                <tr>
+                    <td>5 (balance-tlb)</td>
+                    <td>Adaptive transmit load balancing</td>
+                    <td>Load balancing and fault tolerance</td>
+                </tr>
+                <tr>
+                    <td>6 (balance-alb)</td>
+                    <td>Adaptive load balancing (includes tlb)</td>
+                    <td>Load balancing and fault tolerance</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- Modal for IP Addressing information -->
+    <div id="ip-addressing-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('ip-addressing-info')">&times;</span>
+            <h3>IP Addressing and Subnetting In-Depth</h3>
+            
+            <h4>Calculating Subnet Information</h4>
+            <p>To calculate subnet information manually:</p>
+            <ol>
+                <li><strong>Number of Hosts:</strong> 2<sup>(32-prefix)</sup> - 2</li>
+                <li><strong>Network Address:</strong> Bitwise AND of IP address and subnet mask</li>
+                <li><strong>Broadcast Address:</strong> Network address with all host bits set to 1</li>
+                <li><strong>First Usable IP:</strong> Network address + 1</li>
+                <li><strong>Last Usable IP:</strong> Broadcast address - 1</li>
+            </ol>
+            
+            <h4>Subnetting Shortcuts</h4>
+            <table>
+                <tr>
+                    <th>CIDR</th>
+                    <th>Subnet Mask</th>
+                    <th>Hosts</th>
+                    <th>Network Increment</th>
+                </tr>
+                <tr>
+                    <td>/24</td>
+                    <td>255.255.255.0</td>
+                    <td>254</td>
+                    <td>1 (in 3rd octet)</td>
+                </tr>
+                <tr>
+                    <td>/25</td>
+                    <td>255.255.255.128</td>
+                    <td>126</td>
+                    <td>128 (in 4th octet)</td>
+                </tr>
+                <tr>
+                    <td>/26</td>
+                    <td>255.255.255.192</td>
+                    <td>62</td>
+                    <td>64 (in 4th octet)</td>
+                </tr>
+                <tr>
+                    <td>/27</td>
+                    <td>255.255.255.224</td>
+                    <td>30</td>
+                    <td>32 (in 4th octet)</td>
+                </tr>
+                <tr>
+                    <td>/28</td>
+                    <td>255.255.255.240</td>
+                    <td>14</td>
+                    <td>16 (in 4th octet)</td>
+                </tr>
+                <tr>
+                    <td>/29</td>
+                    <td>255.255.255.248</td>
+                    <td>6</td>
+                    <td>8 (in 4th octet)</td>
+                </tr>
+                <tr>
+                    <td>/30</td>
+                    <td>255.255.255.252</td>
+                    <td>2</td>
+                    <td>4 (in 4th octet)</td>
+                </tr>
+            </table>
+            
+            <h4>Variable-Length Subnet Masking (VLSM)</h4>
+            <p>VLSM allows dividing a network into subnets of different sizes to match the needs of each segment:</p>
+            <ol>
+                <li>Start with the largest subnet requirement, allocate appropriate subnet size</li>
+                <li>Continue with smaller subnet requirements, using the remaining address space</li>
+                <li>Ensures efficient use of address space (avoids wasting addresses)</li>
+            </ol>
+            
+            <h4>IPv6 Subnetting</h4>
+            <p>IPv6 subnetting follows similar principles but with a much larger address space:</p>
+            <ul>
+                <li>Typical allocation for a site is /48 (allowing 65,536 /64 subnets)</li>
+                <li>Standard subnet for end-user networks is /64 (allows auto-configuration)</li>
+                <li>Point-to-point links often use /127 (similar to IPv4 /30)</li>
+                <li>Loopback interfaces use /128 (single address)</li>
+            </ul>
+            
+            <h4>Classless Inter-Domain Routing (CIDR)</h4>
+            <p>CIDR replaced the old class-based system:</p>
+            <table>
+                <tr>
+                    <th>Legacy Class</th>
+                    <th>Address Range</th>
+                    <th>Default Mask</th>
+                    <th>Note</th>
+                </tr>
+                <tr>
+                    <td>Class A</td>
+                    <td>0.0.0.0 - 127.255.255.255</td>
+                    <td>/8</td>
+                    <td>First bit is 0</td>
+                </tr>
+                <tr>
+                    <td>Class B</td>
+                    <td>128.0.0.0 - 191.255.255.255</td>
+                    <td>/16</td>
+                    <td>First bits are 10</td>
+                </tr>
+                <tr>
+                    <td>Class C</td>
+                    <td>192.0.0.0 - 223.255.255.255</td>
+                    <td>/24</td>
+                    <td>First bits are 110</td>
+                </tr>
+                <tr>
+                    <td>Class D (Multicast)</td>
+                    <td>224.0.0.0 - 239.255.255.255</td>
+                    <td>N/A</td>
+                    <td>First bits are 1110</td>
+                </tr>
+                <tr>
+                    <td>Class E (Reserved)</td>
+                    <td>240.0.0.0 - 255.255.255.255</td>
+                    <td>N/A</td>
+                    <td>First bits are 1111</td>
+                </tr>
+            </table>
+            
+            <h4>Network Address Translation (NAT)</h4>
+            <p>NAT allows multiple devices to share a single public IP address:</p>
+            <ul>
+                <li><strong>Static NAT:</strong> One-to-one mapping between private and public addresses</li>
+                <li><strong>Dynamic NAT:</strong> Pool of public addresses assigned as needed</li>
+                <li><strong>NAT Overload/PAT:</strong> Multiple private addresses share a single public address using different ports</li>
+            </ul>
+            
+            <h4>IP Address Planning Best Practices</h4>
+            <ul>
+                <li>Plan your IP addressing scheme before implementation</li>
+                <li>Document your IP allocation (network diagrams, spreadsheets)</li>
+                <li>Leave room for growth in each subnet</li>
+                <li>Group devices with similar functions in the same subnet</li>
+                <li>Consider security boundaries when designing subnets</li>
+                <li>Use private addressing for internal networks</li>
+                <li>Reserve specific IP ranges for infrastructure (servers, routers, etc.)</li>
+                <li>Plan for IPv6 even if not immediately implementing it</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic quiz-topic">
+        <div class="topic-header quiz-header">
+            <h3>Linux Networking Quiz 📝</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <h4>Test Your Linux Networking Knowledge</h4>
+            <p>Answer the following questions to check your understanding of Linux networking fundamentals.</p>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">1. Which command would you use to view all network interfaces with their IP addresses in Linux?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">ifconfig</li>
+                    <li class="quiz-option" data-correct="true">ip addr show</li>
+                    <li class="quiz-option" data-correct="false">netstat -i</li>
+                    <li class="quiz-option" data-correct="false">show interfaces</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">2. What is the private IPv4 address range for small networks (Class C)?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">10.0.0.0/8</li>
+                    <li class="quiz-option" data-correct="false">172.16.0.0/12</li>
+                    <li class="quiz-option" data-correct="true">192.168.0.0/16</li>
+                    <li class="quiz-option" data-correct="false">169.254.0.0/16</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">3. Which notation represents a subnet mask that allows for 30 hosts per subnet?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">/24</li>
+                    <li class="quiz-option" data-correct="true">/27</li>
+                    <li class="quiz-option" data-correct="false">/28</li>
+                    <li class="quiz-option" data-correct="false">/29</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">4. Which file contains the DNS server configuration in most Linux distributions?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="true">/etc/resolv.conf</li>
+                    <li class="quiz-option" data-correct="false">/etc/hostname</li>
+                    <li class="quiz-option" data-correct="false">/etc/networks</li>
+                    <li class="quiz-option" data-correct="false">/etc/dns.conf</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">5. What is the IPv6 loopback address?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">127.0.0.1</li>
+                    <li class="quiz-option" data-correct="false">::0</li>
+                    <li class="quiz-option" data-correct="true">::1</li>
+                    <li class="quiz-option" data-correct="false">fe80::1</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">6. Which command would you use to view the routing table in a modern Linux system?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">route</li>
+                    <li class="quiz-option" data-correct="false">netstat -r</li>
+                    <li class="quiz-option" data-correct="true">ip route show</li>
+                    <li class="quiz-option" data-correct="false">show route</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">7. What is the purpose of NetworkManager in Linux?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">To configure firewall rules</li>
+                    <li class="quiz-option" data-correct="false">To monitor network traffic</li>
+                    <li class="quiz-option" data-correct="true">To dynamically manage network connections and devices</li>
+                    <li class="quiz-option" data-correct="false">To optimize network performance</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">8. What does the command "sudo ip link set enp0s3 up" do?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="true">Activates (brings up) the network interface enp0s3</li>
+                    <li class="quiz-option" data-correct="false">Connects to a higher network layer</li>
+                    <li class="quiz-option" data-correct="false">Updates the network interface firmware</li>
+                    <li class="quiz-option" data-correct="false">Increases the priority of network traffic on enp0s3</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">9. Which command would you use to trace the network path to google.com?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">ping google.com</li>
+                    <li class="quiz-option" data-correct="false">route google.com</li>
+                    <li class="quiz-option" data-correct="true">traceroute google.com</li>
+                    <li class="quiz-option" data-correct="false">netstat google.com</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Resources Section -->
+    <h3 class="video-resources-title">Video Resources 📺</h3>
+    
+    <div class="direct-video-links">
+        <div class="video-card">
+            <a href="https://youtube.com/playlist?list=PLIFyRwBY_4bRLmKfP1KnZA6rZbRHtxmXi&si=-s7v7ykbypzfUj7C" target="_blank" class="video-link-direct">
+                <i class="fab fa-youtube"></i>
+                <span class="video-link-text">Linux Networking Commands for Beginners</span>
+            </a>
+        </div>
+    </div>
+</section> 

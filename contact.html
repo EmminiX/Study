@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pseudocode Standard - Linux System Administration Learning Platform</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    <style>
+        .contact-form {
+            background-color: var(--card-background);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-form label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            font-family: inherit;
+        }
+
+        .contact-form textarea {
+            min-height: 150px;
+            resize: vertical;
+        }
+
+        .contact-form button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.2s;
+        }
+
+        .contact-form button:hover {
+            background-color: #2980b9;
+        }
+
+        .form-error {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            margin-top: 0.3rem;
+            display: none;
+        }
+
+        .form-success {
+            background-color: rgba(46, 204, 113, 0.2);
+            border-left: 4px solid var(--success-color);
+            padding: 1rem;
+            margin: 1.5rem 0;
+            border-radius: 4px;
+            display: none;
+        }
+
+        .pseudocode-section {
+            margin-bottom: 2rem;
+        }
+
+        .pseudocode-example {
+            background-color: var(--card-background);
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            padding: 1.5rem;
+            margin: 1rem 0;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+        }
+
+        .table-container {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+        }
+
+        th, td {
+            padding: 10px;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--secondary-color);
+            color: white;
+        }
+
+        tr:nth-child(even) {
+            background-color: var(--alt-background);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <i class="fab fa-linux"></i>
+            <h1>Linux Admin Learning Platform</h1>
+        </div>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="Search topics...">
+            <button id="searchButton"><i class="fas fa-search"></i></button>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="sidebar">
+            <ul class="nav-links">
+                <li><a href="index.html#shell-scripting">Shell Scripting</a></li>
+                <li><a href="index.html#user-administration">User & System Administration</a></li>
+                <li><a href="index.html#scheduling-jobs">Scheduling Jobs</a></li>
+                <li><a href="index.html#linux-security">Linux Security & Hardening</a></li>
+                <li><a href="index.html#admin-tasks">Performing Admin Tasks</a></li>
+                <li><a href="contact.html" class="active">Pseudocode Standard</a></li>
+            </ul>
+            <div class="theme-toggle">
+                <span>Dark Mode</span>
+                <label class="switch">
+                    <input type="checkbox" id="themeToggle">
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </nav>
+
+        <main class="content">
+            <section>
+                <h2>Pseudocode Standard</h2>
+                <p>This page provides a comprehensive guide to pseudocode standards used for algorithm design and documentation in system administration and programming.</p>
+                
+                <div class="pseudocode-section">
+                    <h3>Introduction to Pseudocode</h3>
+                    <p>Pseudocode is a method of describing algorithms using a combination of natural language and programming-like constructs. It allows system administrators and programmers to plan and communicate logic without being tied to a specific programming language syntax.</p>
+                </div>
+
+                <div class="pseudocode-section">
+                    <h3>Basic Pseudocode Structure</h3>
+                    <p>A well-formed pseudocode algorithm typically follows this structure:</p>
+                    <div class="pseudocode-example">
+ALGORITHM NameOfAlgorithm
+// Input: Description of input parameters
+// Output: Description of output or results
+// Description: Brief explanation of what the algorithm does
+
+BEGIN
+    // Main logic steps
+    Initialize variables
+    Perform operations
+    Return or output results
+END</div>
+                </div>
+
+                <div class="pseudocode-section">
+                    <h3>Standard Control Structures</h3>
+                    
+                    <h4>Conditionals</h4>
+                    <div class="pseudocode-example">
+IF condition THEN
+    statement(s)
+ELSEIF another_condition THEN
+    statement(s)
+ELSE
+    statement(s)
+ENDIF</div>
+
+                    <h4>Loops</h4>
+                    <div class="pseudocode-example">
+// For loop
+FOR variable FROM start TO end [STEP increment] DO
+    statement(s)
+ENDFOR
+
+// While loop
+WHILE condition DO
+    statement(s)
+ENDWHILE
+
+// Do-While loop
+DO
+    statement(s)
+WHILE condition</div>
+                </div>
+
+                <div class="pseudocode-section">
+                    <h3>Common Pseudocode Operators</h3>
+                    <div class="table-container">
+                        <table>
+                            <tr>
+                                <th>Category</th>
+                                <th>Operators</th>
+                                <th>Example</th>
+                            </tr>
+                            <tr>
+                                <td>Assignment</td>
+                                <td>←, =</td>
+                                <td>x ← 5</td>
+                            </tr>
+                            <tr>
+                                <td>Arithmetic</td>
+                                <td>+, -, *, /, mod, div</td>
+                                <td>result ← x + y</td>
+                            </tr>
+                            <tr>
+                                <td>Comparison</td>
+                                <td>=, ≠, <, >, ≤, ≥</td>
+                                <td>IF x > 10 THEN</td>
+                            </tr>
+                            <tr>
+                                <td>Logical</td>
+                                <td>AND, OR, NOT</td>
+                                <td>IF (x > 0) AND (y < 10) THEN</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="pseudocode-section">
+                    <h3>Data Structures in Pseudocode</h3>
+                    <p>Pseudocode can represent various data structures:</p>
+                    
+                    <h4>Arrays</h4>
+                    <div class="pseudocode-example">
+// Declaration
+DECLARE array[size]
+
+// Access
+value ← array[index]
+
+// Assignment
+array[index] ← value</div>
+
+                    <h4>Lists</h4>
+                    <div class="pseudocode-example">
+// Operations
+APPEND item TO list
+REMOVE item FROM list
+INSERT item AT position IN list
+item ← GET position FROM list</div>
+                </div>
+
+                <div class="pseudocode-section">
+                    <h3>Functions and Procedures</h3>
+                    <div class="pseudocode-example">
+FUNCTION name(parameters)
+    // Body of function
+    statement(s)
+    RETURN value
+ENDFUNCTION
+
+PROCEDURE name(parameters)
+    // Body of procedure
+    statement(s)
+ENDPROCEDURE</div>
+                </div>
+
+                <div class="pseudocode-section">
+                    <h3>Example: User Account Management Algorithm</h3>
+                    <div class="pseudocode-example">
+ALGORITHM CreateUserAccount
+// Input: username, fullName, userType, initialPassword
+// Output: success status and new userId
+// Description: Creates a new user account in the Linux system
+
+BEGIN
+    IF UserExists(username) THEN
+        RETURN error, "Username already exists"
+    ENDIF
+    
+    userId ← GetNextAvailableUserId()
+    
+    // Create home directory
+    homeDir ← "/home/" + username
+    CREATE DIRECTORY homeDir
+    
+    // Add user to system
+    EXECUTE COMMAND "useradd -m -d " + homeDir + " -u " + userId + " " + username
+    
+    // Set initial password
+    EXECUTE COMMAND "echo " + username + ":" + initialPassword + " | chpasswd"
+    
+    // Set password expiration for security
+    EXECUTE COMMAND "passwd -e " + username
+    
+    // Add to appropriate groups based on userType
+    IF userType = "admin" THEN
+        EXECUTE COMMAND "usermod -aG sudo,adm " + username
+    ELSEIF userType = "developer" THEN
+        EXECUTE COMMAND "usermod -aG developers " + username
+    ENDIF
+    
+    // Log the user creation
+    LogActivity("User " + username + " created with ID " + userId)
+    
+    RETURN success, userId
+END</div>
+                </div>
+                
+                <div class="contact-form">
+                    <h3>Questions about Pseudocode Standards?</h3>
+                    <p>If you have questions about the pseudocode standards or would like to suggest improvements, feel free to contact us.</p>
+                    <div id="formSuccess" class="form-success">
+                        Thank you for your message! We'll get back to you soon.
+                    </div>
+                    <form id="contactForm">
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" name="name" required>
+                            <div class="form-error" id="nameError">Please enter your name</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" name="email" required>
+                            <div class="form-error" id="emailError">Please enter a valid email address</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="subject">Subject</label>
+                            <input type="text" id="subject" name="subject" required>
+                            <div class="form-error" id="subjectError">Please enter a subject</div>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" name="message" required></textarea>
+                            <div class="form-error" id="messageError">Please enter your message</div>
+                        </div>
+                        <button type="submit">Send Message</button>
+                    </form>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Linux System Administration Learning Platform | Created by <a href="https://emmi.zone" target="_blank">Emmi C.</a></p>
+    </footer>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>
+        // Theme toggling
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('themeToggle');
+            themeToggle.addEventListener('change', function() {
+                document.body.classList.toggle('dark-mode');
+                localStorage.setItem('darkMode', themeToggle.checked);
+            });
+
+            // Check for saved theme preference
+            if (localStorage.getItem('darkMode') === 'true') {
+                document.body.classList.add('dark-mode');
+                themeToggle.checked = true;
+            }
+
+            // Form validation
+            const contactForm = document.getElementById('contactForm');
+            const formSuccess = document.getElementById('formSuccess');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                let valid = true;
+                
+                // Validate name
+                const name = document.getElementById('name');
+                const nameError = document.getElementById('nameError');
+                if (name.value.trim() === '') {
+                    nameError.style.display = 'block';
+                    valid = false;
+                } else {
+                    nameError.style.display = 'none';
+                }
+                
+                // Validate email
+                const email = document.getElementById('email');
+                const emailError = document.getElementById('emailError');
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(email.value)) {
+                    emailError.style.display = 'block';
+                    valid = false;
+                } else {
+                    emailError.style.display = 'none';
+                }
+                
+                // Validate subject
+                const subject = document.getElementById('subject');
+                const subjectError = document.getElementById('subjectError');
+                if (subject.value.trim() === '') {
+                    subjectError.style.display = 'block';
+                    valid = false;
+                } else {
+                    subjectError.style.display = 'none';
+                }
+                
+                // Validate message
+                const message = document.getElementById('message');
+                const messageError = document.getElementById('messageError');
+                if (message.value.trim() === '') {
+                    messageError.style.display = 'block';
+                    valid = false;
+                } else {
+                    messageError.style.display = 'none';
+                }
+                
+                // If valid, show success message
+                if (valid) {
+                    contactForm.reset();
+                    formSuccess.style.display = 'block';
+                    setTimeout(() => {
+                        formSuccess.style.display = 'none';
+                    }, 5000);
+                }
+            });
+
+            // Apply syntax highlighting
+            document.querySelectorAll('.pseudocode-example').forEach(block => {
+                hljs.highlightElement(block);
+            });
+        });
+    </script>
+</body>
+</html> 

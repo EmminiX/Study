@@ -1,0 +1,11 @@
+# Linux Admin Learning Platform Dependencies
+
+## Frontend Libraries
+highlight.js==11.7.0  # For code syntax highlighting
+font-awesome==6.0.0   # For icons
+
+## Deployment Dependencies
+http-server==14.1.1   # Simple HTTP server for testing and development
+
+## Development Tools
+live-server==1.2.2    # Optional: Development server with live reload capability 

@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- =============================================== -->
+    <!-- DOCUMENT SETUP & META INFORMATION              -->
+    <!-- =============================================== -->
+    <!-- 
+      The <!DOCTYPE html> declaration defines this document to be HTML5.
+      It's the very first thing in your HTML document, before the <html> tag.
+      This tells the browser how to render the page correctly.
+    -->
+    <!-- 
+      The <html lang="en"> tag is the root element of an HTML page.
+      The "lang" attribute specifies the language of the document, which is English ("en").
+      This helps search engines and screen readers understand the language.
+    -->
+
+    <!-- Link to sitemap for search engines -->
+    <!-- 
+      A sitemap is a file where you provide information about the pages, videos, 
+      and other files on your site, and the relationships between them.
+      Search engines like Google read this file to more intelligently crawl your site.
+      Think of it as a roadmap for search engines.
+    -->
+    <link rel="sitemap" type="application/xml" title="Sitemap" href="/sitemap.xml">
+    
+    <!-- Character encoding for proper text rendering -->
+    <!--
+      <meta charset="UTF-8"> sets the character encoding for the HTML document.
+      UTF-8 is a universal character set that includes almost all characters 
+      from all human languages. This is important for displaying text correctly,
+      especially special characters or different languages.
+    -->
+    <meta charset="UTF-8">
+    
+    <!-- Responsive viewport settings - ensures proper scaling on all devices -->
+    <!--
+      <meta name="viewport" ...> controls the page's dimensions and scaling.
+      "width=device-width" sets the width of the page to follow the screen-width of the device.
+      "initial-scale=1.0" sets the initial zoom level when the page is first loaded by the browser.
+      This is crucial for making your website look good on all devices (desktops, tablets, phones).
+    -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Primary title tag - optimized with brand name first, followed by keywords -->
+    <!--
+      The <title> tag defines the title of the document. 
+      This title is shown in the browser's title bar or in the page's tab.
+      It's also very important for Search Engine Optimization (SEO), as it's often
+      used as the main headline in search results.
+      A good title is descriptive and includes relevant keywords.
+    -->
+    <title>Linux System Learning Platform | Interactive Shell Scripting & System Administration Training</title>
+    
+    <!-- Favicon configuration -->
+    <!--
+      Favicons are small icons that appear next to the website title in browser tabs,
+      bookmarks, and other places. They help users visually identify your website.
+      These lines link to different sizes and types of favicon images for various devices
+      and platforms (like Apple touch icons, standard PNG icons).
+    -->
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/favicon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon.png">
+    <link rel="icon" type="image/x-icon" href="favicon/favicon.ico">
+    <!--
+      The "site.webmanifest" or "manifest.json" file provides information about the web application
+      (like its name, icons, start URL, theme color) in a JSON text file.
+      This is used by Progressive Web Apps (PWAs) to allow users to "install" the web app
+      to their home screen.
+    -->
+    <link rel="manifest" href="/site.webmanifest">
+    <link rel="manifest" href="/manifest.json">
+    <!--
+      "theme-color" suggests a color that browsers should use for UI elements around the webpage,
+      like the address bar on mobile browsers.
+    -->
+    <meta name="theme-color" content="#121212">
+    <!--
+      These "apple-mobile-web-app-*" meta tags are for iOS devices.
+      "apple-mobile-web-app-capable" content="yes" allows the web page to run in full-screen mode
+      when launched from the home screen (like a native app).
+      "apple-mobile-web-app-status-bar-style" sets the style of the status bar.
+      "apple-mobile-web-app-title" sets the title for the app on the home screen.
+    -->
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Linux Learning">
+    
+    <!-- Meta description - benefit-focused with clear value proposition -->
+    <!--
+      The <meta name="description" ...> tag provides a summary of the page's content.
+      Search engines often use this description in their search results snippets.
+      A good description is concise, compelling, and encourages users to click.
+      It should clearly state what the page is about and what benefits it offers.
+    -->
+    <meta name="description" content="Master Linux systems with our interactive learning platform. Comprehensive tutorials on shell scripting, user administration, job scheduling, security hardening, and system administration." />
+    
+    <!-- Keywords meta tag for search engines - arranged by priority -->
+    <!--
+      <meta name="keywords" ...> lists keywords relevant to the page's content.
+      While search engines like Google now rely less on this tag for ranking, 
+      it can still be useful for some search engines or site search functionalities.
+      Keywords should be relevant terms that users might search for.
+    -->
+    <meta name="keywords" content="Linux tutorials, shell scripting, Linux system administration, Linux security, cron jobs, user management, Linux commands, bash scripting, Linux learning platform, system hardening" />
+    
+    <!-- Canonical URL to prevent duplicate content issues -->
+    <!--
+      <link rel="canonical" ...> tells search engines the "preferred" version of a web page.
+      This is important if you have similar content accessible through multiple URLs,
+      as it helps prevent duplicate content issues and consolidates ranking signals.
+      It points to the URL you want search engines to treat as the main one.
+    -->
+    <link rel="canonical" href="https://example.com" />
+    
+    <!-- Author information -->
+    <!--
+      <meta name="author" ...> specifies the author of the web page.
+    -->
+    <meta name="author" content="Emmi C." />
+    
+    <!-- =============================================== -->
+    <!-- SOCIAL MEDIA SHARING INFORMATION               -->
+    <!-- =============================================== -->
+    <!--
+      These meta tags help control how your content appears when shared on social media
+      platforms like Facebook, Twitter, and LinkedIn.
+      They use protocols like Open Graph (og:*) and Twitter Cards (twitter:*).
+    -->
+    
+    <!-- Open Graph meta tags for better social media sharing (e.g., Facebook, Pinterest) -->
+    <!--
+      "og:type" defines the type of your content (e.g., website, article, video).
+      "og:url" is the canonical URL of your page.
+      "og:title" is the title that will appear when shared.
+      "og:description" is a short description.
+      "og:image" is the URL of an image to represent your content.
+      "og:image:width" and "og:image:height" specify the image dimensions.
+      "og:image:alt" provides alternative text for the image (good for accessibility).
+      "og:site_name" is the name of your website.
+    -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://example.com" />
+    <meta property="og:title" content="Linux System Learning Platform | Interactive Training" />
+    <meta property="og:description" content="Master Linux systems with our interactive learning platform. Comprehensive tutorials on shell scripting, user administration, job scheduling, security hardening, and system administration." />
+    <meta property="og:image" content="https://example.com/assets/images/linux-learning-social-share.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Linux System Learning Platform interface" />
+    <meta property="og:site_name" content="Linux System Learning Platform" />
+    
+    <!-- Twitter Card data for Twitter sharing -->
+    <!--
+      "twitter:card" defines the type of card (e.g., summary_large_image for a card with a large image).
+      "twitter:site" is your website's Twitter handle.
+      "twitter:creator" is the content creator's Twitter handle.
+      "twitter:title", "twitter:description", "twitter:image", "twitter:image:alt" are similar to Open Graph tags but specific to Twitter.
+    -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@LinuxLearn" />
+    <meta name="twitter:creator" content="@deep_endX" />
+    <meta name="twitter:title" content="Linux System Learning Platform | Interactive Training" />
+    <meta name="twitter:description" content="Master Linux systems with our interactive learning platform. Comprehensive tutorials on shell scripting, user administration, job scheduling, security hardening, and system administration." />
+    <meta name="twitter:image" content="https://example.com/assets/images/linux-learning-social-share.jpg" />
+    <meta name="twitter:image:alt" content="Linux System Learning Platform interface" />
+    
+    <!-- LinkedIn metadata for better professional sharing -->
+    <!--
+      These are specific properties for LinkedIn sharing, similar in purpose to Open Graph.
+    -->
+    <meta property="linkedin:title" content="Linux System Learning Platform | Interactive Training for System Administrators" />
+    <meta property="linkedin:description" content="Master Linux systems with our interactive learning platform. Comprehensive tutorials on shell scripting, user administration, job scheduling, security hardening, and system administration." />
+    <meta property="linkedin:image" content="https://example.com/assets/images/linux-learning-social-share.jpg" />
+    
+    <!-- Search engine crawling instructions -->
+    <!--
+      <meta name="robots" ...> provides instructions to search engine crawlers (bots).
+      "index, follow" means crawlers should index this page and follow links on it.
+      "max-image-preview:large" tells Google to show large image previews in search results.
+      <meta name="googlebot" ...> gives specific instructions to Google's crawler.
+    -->
+    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="googlebot" content="index, follow" />
+    
+    <!-- Additional SEO meta tags -->
+    <!--
+      <meta name="language" ...> specifies the primary language of the document.
+    -->
+    <meta name="language" content="English" />
+    
+    <!-- =============================================== -->
+    <!-- RESOURCES & STYLESHEETS                        -->
+    <!-- =============================================== -->
+    <!--
+      These lines link to external resources like fonts and CSS stylesheets.
+      CSS (Cascading Style Sheets) is used to style the appearance of your HTML elements.
+    -->
+
+    <!-- 
+      "preconnect" hints to the browser that it should establish an early connection 
+      to the specified domains (fonts.googleapis.com and fonts.gstatic.com).
+      This can speed up the loading of resources from these domains, like custom fonts.
+    -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!--
+      This links to Google Fonts to load the "Lexend" font family with specific weights.
+      Custom fonts can significantly improve the typography and visual appeal of your site.
+    -->
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!--
+      Links to your main custom stylesheet "styles.css". This file contains your site's specific styling rules.
+    -->
+    <link rel="stylesheet" href="styles.css">
+    <!--
+      Links to Font Awesome, a popular icon library. This allows you to easily use icons
+      (like the search icon, Linux icon, etc.) throughout your site.
+      It's loaded from a CDN (Content Delivery Network) for speed and reliability.
+    -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!--
+      Links to a stylesheet for Highlight.js, a code syntax highlighting library.
+      This is used to make code examples on your site look good and easy to read.
+      "atom-one-dark" is a specific theme for the highlighting.
+    -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/atom-one-dark.min.css">
+    
+    <!-- =============================================== -->
+    <!-- SCHEMA.ORG STRUCTURED DATA                     -->
+    <!-- =============================================== -->
+    
+    <!-- 
+      Structured data (like Schema.org) helps search engines understand the content 
+      and context of your pages more deeply. This can lead to richer search results
+      (e.g., review stars, event information).
+      It's written in JSON-LD format, embedded within a <script> tag.
+      The "@graph" allows defining multiple related entities.
+    -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org", // Specifies the vocabulary being used (Schema.org)
+      "@graph": [ // An array of interconnected data items (nodes in a graph)
+        {
+          "@type": "WebSite", // Describes this entity as a Website
+          "@id": "https://example.com/#website", // A unique identifier for this Website entity
+          "url": "https://example.com/", // The main URL of the website
+          "name": "Linux System Learning Platform", // The name of the website
+          "description": "Interactive platform for learning Linux system administration, shell scripting, and security hardening", // A brief description of the website
+          "publisher": { // Information about the entity that publishes the website
+            "@id": "https://example.com/#organization" // Links to the Organization entity defined below
+          },
+          "potentialAction": { // Describes a potential action users can take on the website (e.g., site search)
+            "@type": "SearchAction", // This action is a search
+            "target": { // Specifies the URL structure for the search
+              "@type": "EntryPoint",
+              "urlTemplate": "https://example.com/search?q={search_term_string}" // How the search query is appended to the URL
+            },
+            "query-input": "required name=search_term_string" // Indicates that a search term is required
+          },
+          "inLanguage": "en-US", // The language of the website
+          "copyrightYear": "2025" // The copyright year for the website content
+        },
+        {
+          "@type": "Organization", // Describes this entity as an Organization
+          "@id": "https://example.com/#organization", // A unique identifier for this Organization entity
+          "name": "Linux System Learning Platform", // The name of the organization
+          "url": "https://example.com/", // The official URL of the organization
+          "logo": { // Information about the organization's logo
+            "@type": "ImageObject", // The logo is an image
+            "url": "https://example.com/EMMI.png", // URL of the logo image
+            "width": 600, // Width of the logo image
+            "height": 60, // Height of the logo image
+            "caption": "Linux System Learning Platform" // A caption for the logo
+          },
+          "image": { // A representative image for the organization (e.g., for social sharing)
+            "@type": "ImageObject",
+            "url": "https://example.com/assets/images/linux-learning-social-share.jpg",
+            "width": 1200,
+            "height": 630
+          },
+          "description": "Educational platform providing interactive lessons on Linux system administration, shell scripting, and security hardening techniques.", // A description of the organization
+          "contactPoint": { // How to contact the organization
+            "@type": "ContactPoint",
+            "contactType": "customer service", // Type of contact (e.g., customer service, technical support)
+            "email": "contact@example.com" // Contact email address
+          },
+          "sameAs": [ // Links to the organization's profiles on other platforms (social media, etc.)
+            "https://github.com/EmminiX",
+            "https://www.linkedin.com/in/emmic/",
+            "https://x.com/deep_endX"
+          ],
+          "founder": { // Information about the founder of the organization
+            "@id": "https://emmi.zone/#person" // Links to the Person entity defined below
+          },
+          "knowsAbout": [ // Topics or subjects the organization is knowledgeable about
+            "Linux Administration",
+            "Shell Scripting",
+            "User Management",
+            "System Security",
+            "Cron Jobs",
+            "Linux Hardening"
+          ]
+        },
+        {
+          "@type": "Person", // Describes this entity as a Person (the founder)
+          "@id": "https://emmi.zone/#person", // Unique identifier for the Person
+          "name": "Emmi C.", // Name of the person
+          "url": "https://emmi.zone", // Personal website URL
+          "image": "https://emmi.zone/assets/images/emmi.zone.JPG", // URL of a photo of the person
+          "description": "Scientific Mediator & Innovator, BSc Student in Computer Networks & Cybersecurity at ATU Sligo.", // A brief biography
+          "jobTitle": "BSc Student in Computer Networks & Cybersecurity", // Current job title
+          "affiliation": { // Organization the person is affiliated with
+            "@type": "Organization",
+            "name": "ATU Sligo"
+          },
+          "knowsAbout": [ // Areas of expertise
+            "Cybersecurity",
+            "Linux Administration",
+            "Network Architecture",
+            "System Hardening",
+            "Shell Scripting"
+          ],
+          "sameAs": [ // Links to the person's profiles on other platforms
+            "https://github.com/EmminiX",
+            "https://www.linkedin.com/in/emmic/",
+            "https://x.com/deep_endX"
+          ]
+        },
+        {
+          "@type": "WebPage", // Describes this specific HTML document as a WebPage
+          "@id": "https://example.com/#webpage", // Unique identifier for this WebPage
+          "url": "https://example.com/", // URL of this webpage
+          "name": "Linux System Learning Platform | Interactive Shell Scripting & System Administration Training", // Title of the webpage
+          "description": "Master Linux systems with our interactive learning platform. Comprehensive tutorials on shell scripting, user administration, job scheduling, security hardening, and system administration.", // Description of the webpage
+          "isPartOf": { // Indicates that this webpage is part of the larger Website
+            "@id": "https://example.com/#website"
+          },
+          "about": { // Indicates that this webpage is about the Organization
+            "@id": "https://example.com/#organization"
+          },
+          "primaryImageOfPage": { // The main image associated with this webpage
+            "@type": "ImageObject",
+            "url": "https://example.com/assets/images/linux-learning-social-share.jpg",
+            "width": 1200,
+            "height": 630
+          },
+          "datePublished": "2025-01-01T10:00:00+00:00", // When the page was first published
+          "dateModified": "2025-03-20T10:00:00+00:00", // When the page was last modified
+          "breadcrumb": { // Defines breadcrumb navigation for this page
+            "@type": "BreadcrumbList",
+            "itemListElement": [
+              {
+                "@type": "ListItem",
+                "position": 1, // Position in the breadcrumb trail
+                "name": "Home", // Text for the breadcrumb link
+                "item": "https://example.com/" // URL for the breadcrumb link
+              }
+            ]
+          }
+        },
+        // Schema.org markup for individual courses offered on the platform
+        // This helps search engines understand that these are educational courses.
+        {
+          "@type": "Course", // This entity is a Course
+          "@id": "https://example.com/#course-shell", // Unique ID for this course
+          "name": "Shell Scripting", // Name of the course
+          "description": "Learn shell scripting fundamentals including variables, conditionals, loops, and creating reusable scripts.", // Description of the course
+          "provider": { // Who is offering the course
+            "@id": "https://example.com/#organization" // Links to the Organization entity
+          },
+          "courseCode": "SHELL101", // A code for the course, if applicable
+          "url": "https://example.com/#shell-scripting" // URL for more information about this course (likely an anchor on the page)
+        },
+        {
+          "@type": "Course",
+          "@id": "https://example.com/#course-admin",
+          "name": "User & System Administration",
+          "description": "Master user management, permissions, and system administration tasks in Linux environments.",
+          "provider": {
+            "@id": "https://example.com/#organization"
+          },
+          "courseCode": "ADMIN201",
+          "url": "https://example.com/#user-administration"
+        },
+        {
+          "@type": "Course",
+          "@id": "https://example.com/#course-security",
+          "name": "Linux Security & Hardening",
+          "description": "Learn system hardening techniques, security best practices, and threat mitigation strategies for Linux systems.",
+          "provider": {
+            "@id": "https://example.com/#organization"
+          },
+          "courseCode": "SEC301",
+          "url": "https://example.com/#linux-security"
+        }
+      ]
+    }
+    </script>
+</head>
+<body>
+    <!-- 
+      The <body> tag contains all the visible content of an HTML document,
+      such as headings, paragraphs, images, hyperlinks, tables, lists, etc.
+    -->
+
+    <!-- 
+      The <canvas> element is used to draw graphics on the fly, via JavaScript.
+      Here, it's likely used for the "Matrix" background effect.
+      ID: "matrixCanvas" - This ID allows JavaScript to find and manipulate this canvas.
+    -->
+    <canvas id="matrixCanvas"></canvas>
+    
+    <!-- 
+      The <header> element represents a container for introductory content or
+      a set of navigational links. Typically contains a logo, site title,
+      search form, and other site-wide navigation.
+    -->
+    <header>
+        <!-- 
+          This div holds the logo and the main title of the platform.
+          Class: "logo" - Used for styling this specific logo area.
+        -->
+        <div class="logo">
+            <!-- 
+              Font Awesome icon for Linux (the Tux penguin).
+              Classes: "fab fa-linux"
+                - "fab" indicates a brand icon from Font Awesome.
+                - "fa-linux" is the specific class for the Linux icon.
+            -->
+            <i class="fab fa-linux"></i>
+            <!-- 
+              The main heading of the page, usually the site name.
+              <h1> is the most important heading.
+            -->
+            <h1>Linux System Learning Platform</h1>
+        </div>
+        
+        <!-- 
+          This is a link (<a> tag) that wraps an image, making the image clickable.
+          It links to "https://emmi.zone" and opens in a new tab (target="_blank").
+          Class: "emmi-logo" - For styling this specific logo.
+        -->
+        <a href="https://emmi.zone" target="_blank" class="emmi-logo">
+            <!-- 
+              <img> tag displays an image.
+              src="EMMI.png" - Path to the image file.
+              alt="EMMI Logo" - Alternative text for the image. Very important for:
+                1. Accessibility: Screen readers read this for visually impaired users.
+                2. SEO: Search engines use it to understand image content.
+                3. Broken Images: Displayed if the image fails to load.
+            -->
+            <img src="EMMI.png" alt="EMMI Logo">
+        </a>
+        
+        <!-- 
+          This div groups the header controls like search and theme toggle.
+          Class: "header-controls" - For styling this group of controls.
+        -->
+        <div class="header-controls">
+            <!-- 
+              Container for the search input and button.
+              Class: "search-container" - For styling the search area.
+            -->
+            <div class="search-container">
+                <!-- 
+                  Text input field for search queries.
+                  type="text" - Standard text input.
+                  id="searchInput" - Unique identifier for JavaScript to access this input.
+                  placeholder="Search topics..." - Hint text shown when the input is empty.
+                -->
+                <input type="text" id="searchInput" placeholder="Search topics...">
+                <!-- 
+                  Button to trigger the search.
+                  id="searchButton" - Unique identifier for JavaScript.
+                  Contains a Font Awesome search icon.
+                -->
+                <button id="searchButton"><i class="fas fa-search"></i></button>
+            </div>
+            <!-- 
+              Container for the theme toggle switch (Light/Dark mode).
+              Class: "theme-toggle" - For styling the theme toggle.
+            -->
+            <div class="theme-toggle">
+                <!-- Text label for the toggle. -->
+                <span>Light Mode</span>
+                <!-- 
+                  <label> element for the switch. Often associated with a form control.
+                  Class: "switch" - For styling the switch visual.
+                -->
+                <label class="switch">
+                    <!-- 
+                      Checkbox input, used as the underlying control for the toggle switch.
+                      type="checkbox" - A standard checkbox.
+                      id="themeToggle" - Unique identifier.
+                      checked - Attribute indicates the dark mode (or initial theme) is active by default.
+                    -->
+                    <input type="checkbox" id="themeToggle" checked>
+                    <!-- 
+                      <span> used to create the visual slider part of the switch.
+                      Classes: "slider round" - For styling the slider appearance.
+                    -->
+                    <span class="slider round"></span>
+                </label>
+            </div>
+        </div>
+    </header>
+
+    <!-- 
+      This is the main content area of the page, below the header.
+      Class: "container" - Likely used for overall layout and centering of content.
+    -->
+    <div class="container">
+        <!-- 
+          The <nav> element represents a section of a page that links to other pages
+          or to parts within the page: a section with navigation links.
+          Class: "sidebar" - Suggests this navigation is styled as a sidebar.
+        -->
+        <nav class="sidebar">
+            <!-- 
+              Unordered list (<ul>) for the navigation links.
+              Class: "nav-links" - For styling the list of links.
+            -->
+            <ul class="nav-links">
+                <!-- 
+                  List item (<li>) containing a navigation link.
+                  Each <li> represents one item in the navigation menu.
+                -->
+                <li>
+                  <!-- 
+                    Anchor tag (<a>) creates a hyperlink.
+                    href="#about" - Links to the About section
+                    class="active" - Indicates this is the currently active/selected navigation item.
+                  -->
+                  <a href="#about" class="active">About</a>
+                </li>
+                <li><a href="#introduction-to-linux">Introduction to Linux</a></li>
+                <li><a href="#shell-scripting">Shell Scripting</a></li>
+                <li><a href="#user-administration">User & System Administration</a></li>
+                <li><a href="#scheduling-jobs">Scheduling Jobs</a></li>
+                <li><a href="#linux-security">Linux Security & Hardening</a></li>
+                <li><a href="#admin-tasks">Performing Admin Tasks</a></li>
+                <li><a href="#file-systems">File Systems & Storage</a></li>
+                <li><a href="#networking">Linux Networking</a></li>
+                <li><a href="#pseudocode-standard">Pseudocode Standard</a></li>
+            </ul>
+            <!-- 
+              A link to "buymeacoffee.com", likely for supporting the creator.
+              target="_blank" - Opens the link in a new tab.
+              Class: "coffee-btn" - For styling this button.
+            -->
+            <a href="https://www.buymeacoffee.com/emmix" target="_blank" class="coffee-btn">
+                <img src="buymeacoffee.png" alt="Buy Me a Coffee">
+            </a>
+        </nav>
+
+        <!-- 
+          The <main> element represents the dominant content of the <body> of a document.
+          It should be unique to the document, excluding content like sidebars,
+          navigation links, copyright information, site logos, and search forms.
+          Class: "content" - For styling the main content area.
+        -->
+        <main class="content">
+            <!-- Content sections will be loaded dynamically -->
+            <!-- 
+              This div is a placeholder, likely for showing a "Loading..." message
+              while content is being fetched or rendered by JavaScript.
+              id="loading" - For JavaScript to target and manipulate this element.
+            -->
+            <div id="loading">Loading content...</div>
+        </main>
+    </div>
+
+    <!-- Accessibility Controls Panel -->
+    <!-- 
+      This div acts as a container for accessibility-related controls.
+      It allows users to customize their experience (e.g., contrast, font size).
+      Class: "a11y-panel" - "a11y" is a numeronym for "accessibility".
+    -->
+    <div class="a11y-panel">
+        <!-- 
+          Button to close the accessibility panel.
+          Class: "a11y-panel-close" - For styling.
+          aria-label="Close accessibility options" - Provides an accessible name for screen readers,
+          as the button only contains an icon.
+        -->
+        <button class="a11y-panel-close" aria-label="Close accessibility options">
+            <i class="fas fa-times"></i> <!-- Font Awesome close icon (X) -->
+        </button>
+        <!-- 
+          A section within the accessibility panel specifically for display options.
+          Class: "a11y-section" - For grouping and styling sections.
+        -->
+        <div class="a11y-section">
+            <h3>Display Options</h3> <!-- Heading for this section -->
+            <!-- 
+              An individual accessibility option.
+              Class: "a11y-option" - For styling each option.
+            -->
+            <div class="a11y-option">
+                <!-- 
+                  Checkbox to toggle high contrast mode.
+                  id="highContrastToggle" - Unique ID for JavaScript.
+                -->
+                <input type="checkbox" id="highContrastToggle">
+                <!-- 
+                  Label for the checkbox. Clicking the label also toggles the checkbox.
+                  for="highContrastToggle" - Associates this label with the checkbox by its ID.
+                -->
+                <label for="highContrastToggle">High Contrast Mode</label>
+            </div>
+            <div class="a11y-option">
+                <!-- 
+                  Radio buttons for selecting text size. Only one can be selected in a group.
+                  name="textSize" - Groups these radio buttons together.
+                  id="normalText" - Unique ID.
+                  checked - Indicates this is the default selected option.
+                -->
+                <input type="radio" name="textSize" id="normalText" checked>
+                <label for="normalText">Normal Text</label>
+            </div>
+            <div class="a11y-option">
+                <input type="radio" name="textSize" id="largeText">
+                <label for="largeText">Large Text (120%)</label>
+            </div>
+            <div class="a11y-option">
+                <input type="radio" name="textSize" id="extraLargeText">
+                <label for="extraLargeText">Extra Large Text (140%)</label>
+            </div>
+        </div>
+        
+        <!-- Section for reading support options -->
+        <div class="a11y-section">
+            <h3>Reading Support</h3>
+            <div class="a11y-option">
+                <input type="checkbox" id="dyslexiaFont">
+                <label for="dyslexiaFont">Dyslexia-Friendly Font</label>
+            </div>
+            <div class="a11y-option">
+                <input type="checkbox" id="focusMode">
+                <label for="focusMode">Focus Mode</label>
+            </div>
+            <div class="a11y-option">
+                <input type="checkbox" id="calmMode">
+                <label for="calmMode">Calm Mode (Reduce Animations)</label>
+            </div>
+            <div class="a11y-option">
+                <!-- Checkbox to toggle the Matrix background effect -->
+                <input type="checkbox" id="matrixToggle" checked>
+                <label for="matrixToggle">Matrix Background</label>
+            </div>
+            <div class="a11y-option">
+                <!-- Range slider to control the opacity of the Matrix background -->
+                <label for="matrixOpacity">Matrix Opacity:</label>
+                <input type="range" id="matrixOpacity" min="10" max="100" value="60" class="slider-control">
+            </div>
+            <div class="a11y-option">
+                <!-- Range slider to control the speed of the Matrix background animation -->
+                <label for="matrixSpeed">Matrix Speed:</label>
+                <input type="range" id="matrixSpeed" min="10" max="50" value="25" class="slider-control">
+            </div>
+        </div>
+        
+        <!-- Section for displaying user progress -->
+        <div class="a11y-section">
+            <h3>Progress</h3>
+            <!-- Container for the progress bar -->
+            <div class="progress-indicator-container">
+                <!-- 
+                  The progress bar itself. Its width will be updated by JavaScript
+                  to reflect the user's learning progress.
+                  style="width: 0%" - Initially set to 0% progress.
+                -->
+                <div class="progress-indicator" style="width: 0%">0%</div>
+            </div>
+        </div>
+    </div>
+
+<!-- Chat Panel for Linux Tutor AI -->
+<div class="linux-chat-panel">
+    <button class="chat-panel-close" aria-label="Close chat">
+        <i class="fas fa-times"></i>
+    </button>
+    
+    <div class="chat-header">
+        <h3><i class="fab fa-linux"></i> Linux Tutor</h3>
+    </div>
+    
+    <div class="chat-messages" id="chatMessages">
+        <!-- Initial welcome message -->
+        <div class="chat-message ai-message">
+            <div class="message-content">
+                Hello! I'm Linux Tutor. How can I help you with Linux today?
+            </div>
+        </div>
+    </div>
+    
+    <div class="file-preview" id="filePreview" style="display: none;">
+        <div class="file-info" id="fileInfo"></div>
+        <button class="remove-file" aria-label="Remove file">
+            <i class="fas fa-times"></i>
+        </button>
+    </div>
+    
+    <div class="chat-input-container">
+        <label for="fileInput" class="attachment-btn" aria-label="Attach file">
+            <i class="fas fa-paperclip"></i>
+        </label>
+        <input type="file" id="fileInput" hidden>
+        
+        <input type="text" id="chatInput" placeholder="Ask about Linux..." aria-label="Type message">
+        
+        <button class="send-btn" id="sendButton" aria-label="Send message">
+            <i class="fas fa-paper-plane"></i>
+        </button>
+    </div>
+</div>
+
+<!-- Mobile Controls -->
+<!-- 
+      Button to toggle the visibility of the navigation menu on mobile devices.
+      Class: "mobile-nav-toggle" - For styling and JavaScript targeting.
+      aria-label="Toggle navigation menu" - Accessible name for screen readers.
+    -->
+    <button class="mobile-nav-toggle" aria-label="Toggle navigation menu">
+        <i class="fas fa-bars"></i> <!-- Font Awesome "hamburger" icon -->
+    </button>
+    
+    <!-- 
+      Button to toggle the visibility of the accessibility controls panel.
+      Class: "a11y-toggle" - For styling and JavaScript targeting.
+      aria-label="Toggle accessibility controls" - Accessible name for screen readers.
+    -->
+    <button class="a11y-toggle" aria-label="Toggle accessibility controls">
+        <i class="fas fa-universal-access"></i> <!-- Font Awesome universal access icon -->
+    </button>
+    
+    <!-- Linux Tutor Chat Toggle Button -->
+    <button class="linux-chat-toggle" aria-label="Chat with Linux Tutor">
+        <i class="fas fa-comment-dots"></i>
+    </button>
+
+    <!-- 
+      The <footer> element represents the footer of a document or a section.
+      It typically contains authorship information, copyright data, or links to related documents.
+    -->
+    <footer>
+        <!-- 
+          This div is for an offline notification, likely related to PWA functionality.
+          It's hidden by default (style="display: none;").
+          id="offlineNotification" - For JavaScript to control its visibility.
+        -->
+        <div id="offlineNotification" style="display: none; margin: 10px auto; text-align: center; max-width: 800px;">
+            <p>
+                This site is available offline! 
+                <!-- 
+                  Button to trigger the PWA installation prompt.
+                  id="installPWA" - For JavaScript to add an event listener.
+                -->
+                <button id="installPWA" style="background-color: var(--secondary-color); color: white; border: none; padding: 5px 10px; border-radius: 4px; margin-left: 10px; cursor: pointer;">Install App</button>
+            </p>
+        </div>
+    </footer>
+
+    <!-- 
+      JavaScript files are typically placed at the end of the <body> 
+      so that the HTML structure is loaded before the scripts try to manipulate it.
+      This can improve perceived page load performance.
+    -->
+
+    <!-- 
+      Link to Highlight.js library from a CDN.
+      This script provides the functionality for syntax highlighting code blocks.
+      It should be loaded before your custom "app.js" if "app.js" initializes it.
+    -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <!-- 
+      Link to your custom JavaScript file "app.js".
+      This file likely contains the core logic for the web application,
+      including interactivity, content loading, theme toggling, accessibility features, etc.
+    -->
+    <script src="app.js"></script>
+    <!-- 
+      Link to "podcast-player.js".
+      This script likely handles the functionality of the audio player for the podcast.
+    -->
+    <script src="podcast-player.js"></script>
+
+    <!-- Audio Player for Linux Admin Podcast -->
+    <!-- 
+      This div is the main container for the podcast audio player.
+      It's styled to be a distinct component on the page.
+      Class: "audio-player" - For styling the player.
+      id="podcastPlayer" - Unique ID for JavaScript control.
+    -->
+    <div class="audio-player" id="podcastPlayer">
+        <!-- 
+          Button to toggle the visibility or collapsed/expanded state of the audio player.
+          Class: "audio-player-toggle" - For styling.
+          aria-label="Toggle audio player visibility" - Accessible name.
+        -->
+        <button class="audio-player-toggle" aria-label="Toggle audio player visibility">
+            <i class="fas fa-chevron-down"></i> <!-- Icon indicating it can be expanded/collapsed -->
+        </button>
+        <!-- 
+          Inner container for the player's content, visible when expanded.
+          Class: "audio-player-inner" - For styling.
+        -->
+        <div class="audio-player-inner">
+            <!-- Title of the podcast -->
+            <div class="audio-player-title">LINUX ADMIN PODCAST</div>
+            <!-- Container for the audio playback controls (play/pause, progress bar, time) -->
+            <div class="audio-player-controls">
+                <!-- 
+                  Play/Pause button.
+                  Class: "play-pause-btn" - For styling.
+                  aria-label="Play podcast" - Accessible name, should be updated by JS to "Pause podcast" when playing.
+                -->
+                <button class="play-pause-btn" aria-label="Play podcast">
+                    <i class="fas fa-play"></i> <!-- Font Awesome play icon, changes to pause icon during playback -->
+                </button>
+                <!-- Container for the progress bar/seek slider -->
+                <div class="audio-player-progress">
+                    <!-- 
+                      Range input used as a seek slider for the audio.
+                      type="range" - Slider input.
+                      id="seekSlider" - Unique ID for JS.
+                      min="0" max="100" value="0" step="0.1" - Slider attributes defining its range and precision.
+                      aria-label="Seek podcast timeline" - Accessible name.
+                    -->
+                    <input type="range" id="seekSlider" min="0" max="100" value="0" step="0.1" 
+                         aria-label="Seek podcast timeline">
+                    <!-- Visual representation of the progress, likely styled and updated by JS -->
+                    <div class="progress-indicator"></div>
+                </div>
+                <!-- Displays current playback time and total duration -->
+                <div class="audio-player-time">
+                    <span id="currentTime">0:00</span> / <span id="duration">27:00</span>
+                </div>
+            </div>
+        </div>
+        <!-- Copyright information for the audio player -->
+        <div class="audio-player-copyright">
+            &copy; 2025 Created by <a href="https://emmi.zone" target="_blank">Emmi C.</a>
+        </div>
+        <!-- 
+          The HTML5 <audio> element for embedding sound content.
+          id="podcast" - Unique ID for JS to control playback.
+          preload="metadata" - Hints to the browser to load only the metadata (like duration)
+                              of the audio file initially, not the entire file. This saves bandwidth.
+        -->
+        <audio id="podcast" preload="metadata">
+            <!-- 
+              <source> tag specifies the audio file.
+              src="linux_podcast.mp3" - Path to the audio file.
+              type="audio/mpeg" - MIME type of the audio file.
+            -->
+            <source src="linux_podcast.mp3" type="audio/mpeg">
+            <!-- Fallback text if the browser doesn't support the <audio> element. -->
+            Your browser does not support the audio element.
+        </audio>
+    </div>
+
+</body>
+</html>

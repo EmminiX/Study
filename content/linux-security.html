@@ -1,0 +1,2980 @@
+<section id="linux-security">
+    <h2>Linux Security & Hardening</h2>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>How to Stay Secure in Linux</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Maintaining a secure Linux system requires a multi-layered approach:</p>
+            
+            <ul>
+                <li>
+                    <strong>Regular system updates and patches</strong>
+                    <p>Keep your system updated with the latest security patches using package managers:</p>
+                    <pre><code># On Debian/Ubuntu systems
+sudo apt update
+sudo apt upgrade
+
+# On Red Hat/CentOS systems
+sudo yum update
+sudo dnf update</code></pre>
+                </li>
+                
+                <li>
+                    <strong>Minimal service exposure</strong>
+                    <p>Reduce attack surface by disabling unnecessary services:</p>
+                    <pre><code># Check running services
+systemctl --type=service --state=running
+
+# Disable an unnecessary service
+sudo systemctl disable service_name
+sudo systemctl stop service_name</code></pre>
+                </li>
+                
+                <li>
+                    <strong>Strong password policies</strong>
+                    <p>Implement password complexity, aging, and account lockout policies:</p>
+                    <pre><code># Set password complexity using PAM
+sudo apt install libpam-pwquality
+sudo nano /etc/security/pwquality.conf
+
+# Set password aging
+sudo chage -M 90 -m 7 -W 14 username</code></pre>
+                </li>
+                
+                <li>
+                    <strong>Proper firewall configuration</strong>
+                    <p>Restrict network access with a properly configured firewall.</p>
+                </li>
+                
+                <li>
+                    <strong>Use of secure protocols</strong>
+                    <p>Use SSH instead of Telnet, SFTP instead of FTP, and HTTPS instead of HTTP.</p>
+                </li>
+                
+                <li>
+                    <strong>Monitoring logs and security alerts</strong>
+                    <p>Regularly check system logs for suspicious activities:</p>
+                    <pre><code># View authentication logs
+sudo tail -f /var/log/auth.log
+
+# View system logs
+sudo journalctl -f</code></pre>
+                </li>
+            </ul>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="linux-security-basics" onclick="openModal('linux-security-basics'); return false;">Learn more: Linux Security Basics and Best Practices</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Linux Security Basics information -->
+    <div id="linux-security-basics" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('linux-security-basics')">&times;</span>
+            <h3>Linux Security Basics and Best Practices</h3>
+            
+            <p>Securing a Linux system is a continuous process that involves implementing multiple layers of defense. This comprehensive guide covers the fundamental security practices essential for maintaining a robust Linux environment.</p>
+            
+            <h4>System Updates and Patch Management</h4>
+            
+            <p>Regular updates are the first line of defense against security vulnerabilities:</p>
+            
+            <h5>Debian/Ubuntu Systems:</h5>
+            <pre><code># Update package lists
+sudo apt update
+
+# Apply all available updates
+sudo apt upgrade
+
+# Include kernel updates and remove unused packages
+sudo apt full-upgrade
+
+# Automatic security updates configuration
+sudo apt install unattended-upgrades
+sudo dpkg-reconfigure unattended-upgrades</code></pre>
+            
+            <h5>Red Hat/CentOS/Fedora Systems:</h5>
+            <pre><code># Update all packages
+sudo dnf update
+# or
+sudo yum update
+
+# Install security updates only
+sudo dnf update --security
+# or
+sudo yum update --security
+
+# Configure automatic updates with dnf-automatic
+sudo dnf install dnf-automatic
+sudo systemctl enable --now dnf-automatic.timer</code></pre>
+            
+            <h4>User Account Security</h4>
+            
+            <h5>Password Policies</h5>
+            <p>Enforce strong password requirements using PAM (Pluggable Authentication Modules):</p>
+            <pre><code># Install required packages
+sudo apt install libpam-pwquality
+
+# Edit PAM configuration
+sudo nano /etc/security/pwquality.conf
+
+# Key settings:
+# minlen = 12         # Minimum password length
+# minclass = 3        # Require characters from at least 3 classes (uppercase, lowercase, digits, others)
+# maxrepeat = 2       # No more than 2 same consecutive characters
+# reject_username     # Cannot contain username</code></pre>
+            
+            <h5>Password Aging Policies</h5>
+            <pre><code># Configure password expiration for a user
+sudo chage -M 90 -m 7 -W 14 username
+
+# Where:
+# -M 90: Maximum password age (days)
+# -m 7: Minimum password age (days)
+# -W 14: Warning period before expiration (days)
+
+# View current settings
+sudo chage -l username</code></pre>
+            
+            <h5>Account Lockout</h5>
+            <p>Prevent brute force attacks by implementing account lockout:</p>
+            <pre><code># Edit PAM configuration
+sudo nano /etc/pam.d/common-auth
+
+# Add the line (adjust parameters as needed):
+auth required pam_tally2.so deny=5 unlock_time=1800 onerr=fail</code></pre>
+            
+            <h4>File System Security</h4>
+            
+            <h5>File Permissions</h5>
+            <p>Regularly audit and correct file permissions:</p>
+            <pre><code># Find files with insecure permissions
+find /path/to/check -type f -perm /o+w
+
+# Find world-writable directories
+find /path/to/check -type d -perm -o+w
+
+# Set secure permissions
+chmod 750 /path/to/file
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/id_rsa</code></pre>
+            
+            <h5>Secure Mount Options</h5>
+            <p>Mount partitions with security-enhancing options in /etc/fstab:</p>
+            <pre><code>/dev/sda1 /home ext4 defaults,nosuid,nodev,noexec 0 2</code></pre>
+            <ul>
+                <li><code>nosuid</code>: Ignore SUID/SGID bits</li>
+                <li><code>nodev</code>: Prevent device file interpretation</li>
+                <li><code>noexec</code>: Prevent execution of binaries</li>
+            </ul>
+            
+            <h4>Network Security</h4>
+            
+            <h5>Firewall Configuration</h5>
+            <p>Always run a properly configured firewall:</p>
+            <pre><code># Basic UFW configuration
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow ssh
+sudo ufw enable</code></pre>
+            
+            <h5>SSH Hardening</h5>
+            <p>Secure SSH by editing /etc/ssh/sshd_config:</p>
+            <pre><code># Disable root login
+PermitRootLogin no
+
+# Disable password authentication (use keys only)
+PasswordAuthentication no
+
+# Use protocol version 2 only
+Protocol 2
+
+# Limit user access
+AllowUsers user1 user2
+
+# Change default port (adds obscurity)
+Port 2222
+
+# Idle timeout (seconds)
+ClientAliveInterval 300
+ClientAliveCountMax 2
+
+# Disable unused features
+X11Forwarding no
+AllowTcpForwarding no</code></pre>
+            
+            <h5>Disable Unnecessary Network Services</h5>
+            <pre><code># List listening services
+ss -tulpn
+# or
+netstat -tulpn
+
+# Disable a service
+sudo systemctl disable --now service_name</code></pre>
+            
+            <h4>Intrusion Detection and Monitoring</h4>
+            
+            <h5>System Logs</h5>
+            <p>Regularly monitor system logs:</p>
+            <pre><code># Check authentication logs
+sudo tail -f /var/log/auth.log
+
+# View system journal
+sudo journalctl -f
+
+# Check for failed login attempts
+sudo grep "Failed password" /var/log/auth.log</code></pre>
+            
+            <h5>File Integrity Monitoring</h5>
+            <p>Use AIDE (Advanced Intrusion Detection Environment) to detect changes to system files:</p>
+            <pre><code># Install AIDE
+sudo apt install aide
+
+# Initialize the database
+sudo aideinit
+
+# Update the database after verified changes
+sudo update-aide.conf</code></pre>
+            
+            <h5>Rootkit Detection</h5>
+            <pre><code># Install RKHunter
+sudo apt install rkhunter
+
+# Update and check the system
+sudo rkhunter --update
+sudo rkhunter --check</code></pre>
+            
+            <h4>Kernel Security</h4>
+            
+            <h5>Kernel Hardening (via /etc/sysctl.conf)</h5>
+            <pre><code># Protect against IP spoofing
+net.ipv4.conf.all.rp_filter = 1
+
+# Disable IP forwarding if not a router
+net.ipv4.ip_forward = 0
+
+# Ignore ICMP redirects
+net.ipv4.conf.all.accept_redirects = 0
+
+# Protect against SYN flood attacks
+net.ipv4.tcp_syncookies = 1
+
+# Apply changes
+sudo sysctl -p</code></pre>
+            
+            <h5>Securing Shared Memory</h5>
+            <p>Add to /etc/fstab:</p>
+            <pre><code>tmpfs /run/shm tmpfs defaults,noexec,nosuid,nodev 0 0</code></pre>
+            
+            <h4>Service-Specific Security</h4>
+            
+            <h5>Web Server (Apache/Nginx)</h5>
+            <ul>
+                <li>Disable directory listing</li>
+                <li>Remove version banners</li>
+                <li>Implement HTTPS with strong ciphers</li>
+                <li>Use ModSecurity for web application firewall</li>
+            </ul>
+            
+            <h5>Database Server</h5>
+            <ul>
+                <li>Bind to localhost if possible</li>
+                <li>Use strong authentication</li>
+                <li>Encrypt sensitive data</li>
+                <li>Regular backups with verification</li>
+            </ul>
+            
+            <h4>Audit and Compliance</h4>
+            
+            <h5>Security Auditing Tools</h5>
+            <pre><code># Install Lynis
+sudo apt install lynis
+
+# Run a system audit
+sudo lynis audit system</code></pre>
+            
+            <h5>Process Accounting</h5>
+            <pre><code># Install accounting tools
+sudo apt install acct
+
+# View user commands
+sudo lastcomm username</code></pre>
+            
+            <h4>Defense in Depth Strategy</h4>
+            
+            <p>Implement multiple layers of security:</p>
+            <ol>
+                <li><strong>Physical security</strong> - Secure server rooms, disk encryption</li>
+                <li><strong>Network security</strong> - Firewalls, VLANs, intrusion detection</li>
+                <li><strong>Host security</strong> - Updates, minimized services, hardened configurations</li>
+                <li><strong>Application security</strong> - Secure coding, regular updates, input validation</li>
+                <li><strong>Data security</strong> - Encryption, access controls, backup</li>
+                <li><strong>User security</strong> - Training, strong authentication, least privilege</li>
+            </ol>
+            
+            <h4>Security Checklist</h4>
+            
+            <ul>
+                <li>✅ Update system regularly</li>
+                <li>✅ Use strong authentication methods</li>
+                <li>✅ Implement proper file permissions</li>
+                <li>✅ Enable and configure firewall</li>
+                <li>✅ Disable unnecessary services</li>
+                <li>✅ Monitor logs and set up alerts</li>
+                <li>✅ Use encryption for sensitive data</li>
+                <li>✅ Perform regular security audits</li>
+                <li>✅ Back up critical data</li>
+                <li>✅ Create and follow security policies</li>
+                <li>✅ Test incident response procedures</li>
+            </ul>
+            
+            <div class="note">
+                <p><strong>Remember:</strong> Security is a continuous process, not a one-time task. Regular audits, updates, and monitoring are essential to maintain a secure system. The principle of least privilege should guide all security decisions.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Linux Firewall</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>A firewall controls inbound and outbound network traffic, implementing rules to allow or deny packets based on IP, ports, and protocols.</p>
+            
+            <h4>Common Linux Firewall Tools:</h4>
+            <ul>
+                <li><strong>iptables</strong> - Traditional, powerful firewall tool</li>
+                <li><strong>UFW (Uncomplicated Firewall)</strong> - Simplified interface for iptables</li>
+                <li><strong>firewalld</strong> - Dynamic firewall manager (Red Hat/CentOS)</li>
+            </ul>
+            
+            <h4>Basic iptables Commands:</h4>
+            <pre><code># List current rules
+sudo iptables -L
+
+# Allow SSH connections
+sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+
+# Block a specific IP address
+sudo iptables -A INPUT -s 192.168.1.100 -j DROP
+
+# Save iptables rules
+sudo iptables-save > /etc/iptables/rules.v4</code></pre>
+            
+            <p>Firewall rules should follow the principle of "deny by default, allow by exception" to maximize security.</p>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="iptables-essentials" onclick="openModal('iptables-essentials'); return false;">Learn more: IPTables Essentials - Common Firewall Rules and Commands</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for IPTables Essentials information -->
+    <div id="iptables-essentials" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('iptables-essentials')">&times;</span>
+            <h3>IPTables Essentials: Common Firewall Rules and Commands</h3>
+            
+            <p>IPTables is a powerful packet filtering system built into the Linux kernel. It enables system administrators to define rules that control network traffic flow, providing essential security for Linux systems.</p>
+            
+            <h4>Understanding IPTables Architecture</h4>
+            
+            <p>IPTables operates through a series of tables, chains, and rules:</p>
+            
+            <ul>
+                <li><strong>Tables</strong>: Categorize rules based on the type of decisions they're used to make</li>
+                <li><strong>Chains</strong>: Groups of rules that are checked in sequence</li>
+                <li><strong>Rules</strong>: Specific conditions and actions for packet processing</li>
+                <li><strong>Targets</strong>: Actions to take when a packet matches a rule</li>
+            </ul>
+            
+            <h5>Main IPTables Tables</h5>
+            <table>
+                <tr>
+                    <th>Table</th>
+                    <th>Purpose</th>
+                    <th>Common Use</th>
+                </tr>
+                <tr>
+                    <td><code>filter</code></td>
+                    <td>General packet filtering</td>
+                    <td>Allow/deny traffic (default table)</td>
+                </tr>
+                <tr>
+                    <td><code>nat</code></td>
+                    <td>Network Address Translation</td>
+                    <td>Port forwarding, masquerading</td>
+                </tr>
+                <tr>
+                    <td><code>mangle</code></td>
+                    <td>Packet alteration</td>
+                    <td>Modify packet headers</td>
+                </tr>
+                <tr>
+                    <td><code>raw</code></td>
+                    <td>Connection tracking exemptions</td>
+                    <td>Configure connection tracking exemptions</td>
+                </tr>
+                <tr>
+                    <td><code>security</code></td>
+                    <td>Mandatory Access Control</td>
+                    <td>Used by SELinux</td>
+                </tr>
+            </table>
+            
+            <h5>Default Chains</h5>
+            <table>
+                <tr>
+                    <th>Chain</th>
+                    <th>Table</th>
+                    <th>Purpose</th>
+                </tr>
+                <tr>
+                    <td><code>INPUT</code></td>
+                    <td>filter</td>
+                    <td>Controls incoming packets to the local system</td>
+                </tr>
+                <tr>
+                    <td><code>OUTPUT</code></td>
+                    <td>filter</td>
+                    <td>Controls outgoing packets from the local system</td>
+                </tr>
+                <tr>
+                    <td><code>FORWARD</code></td>
+                    <td>filter</td>
+                    <td>Controls packets routed through the system</td>
+                </tr>
+                <tr>
+                    <td><code>PREROUTING</code></td>
+                    <td>nat/mangle</td>
+                    <td>Modifies packets as they arrive</td>
+                </tr>
+                <tr>
+                    <td><code>POSTROUTING</code></td>
+                    <td>nat/mangle</td>
+                    <td>Modifies packets as they leave</td>
+                </tr>
+            </table>
+            
+            <h5>Common Targets</h5>
+            <ul>
+                <li><code>ACCEPT</code>: Allow packet to proceed</li>
+                <li><code>DROP</code>: Silently discard packet</li>
+                <li><code>REJECT</code>: Discard packet and send error message back</li>
+                <li><code>LOG</code>: Log packet but continue processing rules</li>
+                <li><code>SNAT</code>: Modify source address (nat table)</li>
+                <li><code>DNAT</code>: Modify destination address (nat table)</li>
+                <li><code>MASQUERADE</code>: Special form of SNAT for dynamic IPs</li>
+            </ul>
+            
+            <h4>Essential IPTables Commands</h4>
+            
+            <h5>Viewing Rules</h5>
+            <pre><code># List all rules with line numbers
+sudo iptables -L -v --line-numbers
+
+# List rules for a specific chain
+sudo iptables -L INPUT -v
+
+# List rules in a specific table
+sudo iptables -t nat -L</code></pre>
+            
+            <h5>Managing Rules</h5>
+            <pre><code># Add rule to the end of a chain
+sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+
+# Insert rule at specific position (position 3)
+sudo iptables -I INPUT 3 -p tcp --dport 80 -j ACCEPT
+
+# Delete rule by specification
+sudo iptables -D INPUT -p tcp --dport 80 -j ACCEPT
+
+# Delete rule by number
+sudo iptables -D INPUT 3
+
+# Replace a rule
+sudo iptables -R INPUT 3 -p tcp --dport 8080 -j ACCEPT
+
+# Flush (delete all rules in) a specific chain
+sudo iptables -F INPUT
+
+# Flush all rules in all chains
+sudo iptables -F</code></pre>
+            
+            <h5>Setting Chain Policies (Default Actions)</h5>
+            <pre><code># Set default policy for a chain
+sudo iptables -P INPUT DROP
+sudo iptables -P FORWARD DROP
+sudo iptables -P OUTPUT ACCEPT</code></pre>
+            
+            <h4>Essential Firewall Rule Examples</h4>
+            
+            <h5>Allowing Established Connections and Related Traffic</h5>
+            <pre><code># Allow established and related connections
+sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT</code></pre>
+            
+            <h5>Allowing Loopback Traffic</h5>
+            <pre><code># Allow all loopback (lo) traffic
+sudo iptables -A INPUT -i lo -j ACCEPT</code></pre>
+            
+            <h5>Allowing SSH Access</h5>
+            <pre><code># Allow SSH (port 22)
+sudo iptables -A INPUT -p tcp --dport 22 -j ACCEPT
+
+# Allow SSH only from specific IP address
+sudo iptables -A INPUT -p tcp -s 192.168.1.100 --dport 22 -j ACCEPT
+
+# Allow SSH only from specific network
+sudo iptables -A INPUT -p tcp -s 192.168.1.0/24 --dport 22 -j ACCEPT</code></pre>
+            
+            <h5>Allowing Web Traffic</h5>
+            <pre><code># Allow HTTP (port 80)
+sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+
+# Allow HTTPS (port 443)
+sudo iptables -A INPUT -p tcp --dport 443 -j ACCEPT</code></pre>
+            
+            <h5>Rate Limiting</h5>
+            <pre><code># Limit SSH connections to prevent brute-force attacks
+sudo iptables -A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW -m recent --set
+sudo iptables -A INPUT -p tcp --dport 22 -m conntrack --ctstate NEW -m recent --update --seconds 60 --hitcount 4 -j DROP</code></pre>
+            
+            <h5>Blocking IP Addresses</h5>
+            <pre><code># Block a specific IP address
+sudo iptables -A INPUT -s 192.168.1.20 -j DROP
+
+# Block an entire subnet
+sudo iptables -A INPUT -s 10.10.10.0/24 -j DROP</code></pre>
+            
+            <h5>Port Forwarding (NAT Table)</h5>
+            <pre><code># Forward external requests on port 80 to internal server (192.168.1.100:8080)
+sudo iptables -t nat -A PREROUTING -i eth0 -p tcp --dport 80 -j DNAT --to 192.168.1.100:8080
+
+# Enable IP forwarding in kernel
+echo 1 > /proc/sys/net/ipv4/ip_forward</code></pre>
+            
+            <h5>Network Address Translation (Masquerading)</h5>
+            <pre><code># Allow internal network (192.168.1.0/24) to access internet through eth0
+sudo iptables -t nat -A POSTROUTING -o eth0 -s 192.168.1.0/24 -j MASQUERADE</code></pre>
+            
+            <h5>Logging Rules</h5>
+            <pre><code># Log and then drop packets to a specific port
+sudo iptables -A INPUT -p tcp --dport 25 -m limit --limit 5/min -j LOG --log-prefix "Dropped SMTP: " --log-level 7
+sudo iptables -A INPUT -p tcp --dport 25 -j DROP</code></pre>
+            
+            <h4>Saving and Restoring Rules</h4>
+            
+            <h5>Debian/Ubuntu Systems</h5>
+            <pre><code># Save current rules
+sudo iptables-save > /etc/iptables/rules.v4
+
+# Restore saved rules
+sudo iptables-restore < /etc/iptables/rules.v4
+
+# Install iptables-persistent to automatically restore rules on boot
+sudo apt install iptables-persistent
+sudo netfilter-persistent save</code></pre>
+            
+            <h5>Red Hat/CentOS Systems</h5>
+            <pre><code># Save current rules
+sudo service iptables save
+
+# Restore rules (happens automatically on boot)
+sudo service iptables restart</code></pre>
+            
+            <h4>Implementing a Basic Secure Firewall</h4>
+            
+            <p>A complete example of a secure host firewall setup:</p>
+            
+            <pre><code>#!/bin/bash
+# Basic secure firewall configuration script
+
+# Flush existing rules
+iptables -F
+iptables -X
+iptables -t nat -F
+iptables -t nat -X
+iptables -t mangle -F
+iptables -t mangle -X
+
+# Set default chain policies
+iptables -P INPUT DROP
+iptables -P FORWARD DROP
+iptables -P OUTPUT ACCEPT
+
+# Allow loopback and internal traffic
+iptables -A INPUT -i lo -j ACCEPT
+
+# Allow established and related connections
+iptables -A INPUT -m conntrack --ctstate RELATED,ESTABLISHED -j ACCEPT
+
+# Allow SSH (adjust source network as needed)
+iptables -A INPUT -p tcp -s 192.168.1.0/24 --dport 22 -m conntrack --ctstate NEW -j ACCEPT
+
+# Allow HTTP and HTTPS
+iptables -A INPUT -p tcp --dport 80 -m conntrack --ctstate NEW -j ACCEPT
+iptables -A INPUT -p tcp --dport 443 -m conntrack --ctstate NEW -j ACCEPT
+
+# Allow ping (ICMP echo) with rate limiting
+iptables -A INPUT -p icmp --icmp-type echo-request -m limit --limit 1/s --limit-burst 4 -j ACCEPT
+
+# Log and drop invalid packets
+iptables -A INPUT -m conntrack --ctstate INVALID -j LOG --log-prefix "DROP INVALID " --log-level 6
+iptables -A INPUT -m conntrack --ctstate INVALID -j DROP
+
+# Log other dropped packets
+iptables -A INPUT -j LOG --log-prefix "DROP " --log-level 6
+
+# Save rules (Debian/Ubuntu)
+iptables-save > /etc/iptables/rules.v4</code></pre>
+            
+            <h4>Common IPTables Options</h4>
+            
+            <table>
+                <tr>
+                    <th>Option</th>
+                    <th>Description</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td><code>-p</code></td>
+                    <td>Protocol (tcp, udp, icmp, all)</td>
+                    <td><code>-p tcp</code></td>
+                </tr>
+                <tr>
+                    <td><code>-s</code></td>
+                    <td>Source address</td>
+                    <td><code>-s 192.168.1.0/24</code></td>
+                </tr>
+                <tr>
+                    <td><code>-d</code></td>
+                    <td>Destination address</td>
+                    <td><code>-d 10.0.0.1</code></td>
+                </tr>
+                <tr>
+                    <td><code>-i</code></td>
+                    <td>Input interface</td>
+                    <td><code>-i eth0</code></td>
+                </tr>
+                <tr>
+                    <td><code>-o</code></td>
+                    <td>Output interface</td>
+                    <td><code>-o eth1</code></td>
+                </tr>
+                <tr>
+                    <td><code>--sport</code></td>
+                    <td>Source port(s)</td>
+                    <td><code>--sport 1024:65535</code></td>
+                </tr>
+                <tr>
+                    <td><code>--dport</code></td>
+                    <td>Destination port(s)</td>
+                    <td><code>--dport 80</code></td>
+                </tr>
+                <tr>
+                    <td><code>-m</code></td>
+                    <td>Match extension</td>
+                    <td><code>-m conntrack</code></td>
+                </tr>
+                <tr>
+                    <td><code>--ctstate</code></td>
+                    <td>Connection state</td>
+                    <td><code>--ctstate ESTABLISHED</code></td>
+                </tr>
+                <tr>
+                    <td><code>-j</code></td>
+                    <td>Jump target (action)</td>
+                    <td><code>-j ACCEPT</code></td>
+                </tr>
+            </table>
+            
+            <h4>Best Practices for IPTables Firewall Management</h4>
+            
+            <ol>
+                <li><strong>Default deny policy</strong>: Block all traffic by default, then explicitly allow what's needed</li>
+                <li><strong>Allow established connections</strong>: Always include rules to allow established and related connections</li>
+                <li><strong>Protect loopback interface</strong>: Allow all traffic on the loopback interface</li>
+                <li><strong>Rate limit connections</strong>: Implement rate limiting for services vulnerable to brute force</li>
+                <li><strong>Log dropped packets</strong>: Enable logging to troubleshoot issues and detect attack attempts</li>
+                <li><strong>Use specific rules</strong>: Make rules as specific as possible to minimize security gaps</li>
+                <li><strong>Test thoroughly</strong>: Always test firewall rules before implementing in production</li>
+                <li><strong>Document your rules</strong>: Add comments and maintain documentation of your firewall configuration</li>
+                <li><strong>Regular audits</strong>: Periodically review firewall rules to remove unnecessary ones</li>
+                <li><strong>Backup configurations</strong>: Maintain backups of working firewall configurations</li>
+            </ol>
+            
+            <h4>Troubleshooting IPTables</h4>
+            
+            <ul>
+                <li><strong>Check if rule is being hit</strong>: Add a LOG target before your rule</li>
+                <li><strong>Monitor packet drops</strong>: <code>dmesg | grep DROP</code></li>
+                <li><strong>Test connectivity</strong>: Use tools like <code>telnet</code>, <code>nc</code>, or <code>curl</code> to test if services are accessible</li>
+                <li><strong>Check raw sockets</strong>: <code>tcpdump -i eth0 -n 'tcp port 80'</code></li>
+                <li><strong>Rule order matters</strong>: Rules are processed in order - check if a previous rule might be matching first</li>
+                <li><strong>State tracking</strong>: Connection tracking issues can cause unexpected behavior</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Running Services and Security</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Services running on ports can be attack targets. It's important to minimize active services to only those necessary for your system's function.</p>
+            
+            <h4>Managing Services:</h4>
+            <pre><code># List all active services
+systemctl list-units --type=service --state=active
+
+# Check which services are listening on ports
+sudo ss -tulpn
+sudo netstat -tulpn
+
+# Disable and stop an unnecessary service
+sudo systemctl disable apache2
+sudo systemctl stop apache2</code></pre>
+            
+            <h4>Securing Common Services:</h4>
+            <ul>
+                <li>
+                    <strong>SSH</strong>
+                    <p>Modify <code>/etc/ssh/sshd_config</code> to:</p>
+                    <ul>
+                        <li>Disable root login: <code>PermitRootLogin no</code></li>
+                        <li>Use key-based authentication: <code>PasswordAuthentication no</code></li>
+                        <li>Change default port: <code>Port 2222</code></li>
+                    </ul>
+                </li>
+                <li>
+                    <strong>Web servers</strong>
+                    <p>Remove server banners, disable directory listing, implement HTTPS</p>
+                </li>
+                <li>
+                    <strong>Database servers</strong>
+                    <p>Bind to localhost only, use strong passwords, restrict network access</p>
+                </li>
+            </ul>
+            
+            <p>Always follow the principle of least privilege when configuring services.</p>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="hardening-linux-services" onclick="openModal('hardening-linux-services'); return false;">Learn more: Hardening Linux Services</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Hardening Linux Services information -->
+    <div id="hardening-linux-services" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('hardening-linux-services')">&times;</span>
+            <h3>Hardening Linux Services</h3>
+            
+            <p>Running services on a Linux system potentially exposes your system to various attacks. This guide focuses on how to properly secure common services while maintaining functionality.</p>
+            
+            <h4>General Service Security Principles</h4>
+            
+            <ul>
+                <li><strong>Principle of Least Privilege</strong>: Services should run with the minimum permissions needed to function</li>
+                <li><strong>Principle of Least Functionality</strong>: Enable only required features and components</li>
+                <li><strong>Defense in Depth</strong>: Apply multiple layers of security controls</li>
+                <li><strong>Minimize Attack Surface</strong>: Disable unnecessary services and ports</li>
+                <li><strong>Regular Updates</strong>: Keep services patched and up to date</li>
+            </ul>
+            
+            <h4>Service Discovery and Management</h4>
+            
+            <h5>Identifying Running Services</h5>
+            <pre><code># List all active services
+systemctl list-units --type=service --state=active
+
+# List all services
+systemctl list-unit-files --type=service
+
+# List all services that start at boot
+systemctl list-unit-files --type=service --state=enabled
+
+# Check services listening on network ports
+ss -tulpn
+# or
+netstat -tulpn</code></pre>
+            
+            <h5>Service Management</h5>
+            <pre><code># Disable a service from starting at boot
+sudo systemctl disable service_name
+
+# Stop a running service
+sudo systemctl stop service_name
+
+# Mask a service (prevents it from being started)
+sudo systemctl mask service_name
+
+# Check service status
+sudo systemctl status service_name</code></pre>
+            
+            <h4>Securing Common Linux Services</h4>
+            
+            <h5>1. SSH (Secure Shell) Hardening</h5>
+            
+            <p>SSH is a common target for attackers due to its remote access capabilities:</p>
+            
+            <p>Key security configurations in <code>/etc/ssh/sshd_config</code>:</p>
+            <pre><code># Disable root login
+PermitRootLogin no
+
+# Use key-based authentication only
+PasswordAuthentication no
+ChallengeResponseAuthentication no
+UsePAM yes
+
+# Limit user access to specific users
+AllowUsers user1 user2 user3
+
+# Use strong encryption protocols
+Protocol 2
+Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,umac-128-etm@openssh.com
+
+# Set idle timeout (seconds)
+ClientAliveInterval 300
+ClientAliveCountMax 2
+
+# Restrict host-based authentication
+HostbasedAuthentication no
+
+# Disable X11 forwarding if not needed
+X11Forwarding no
+
+# Set strict permissions for config files and keys
+StrictModes yes
+
+# Change default port (adds obscurity)
+Port 2222</code></pre>
+            
+            <p>After changing SSH configuration, restart the service:</p>
+            <pre><code>sudo systemctl restart sshd</code></pre>
+            
+            <h5>2. Web Server Hardening</h5>
+            
+            <p>Web servers are common targets for attacks due to their public-facing nature.</p>
+            
+            <h6>Apache Hardening</h6>
+            <pre><code># Disable directory listing
+Options -Indexes
+
+# Disable server signature and tokens
+ServerSignature Off
+ServerTokens Prod
+
+# Set secure headers
+Header always set X-Content-Type-Options "nosniff"
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set X-XSS-Protection "1; mode=block"
+Header always set Content-Security-Policy "default-src 'self'"
+
+# Restrict access to .htaccess and sensitive files
+&lt;FilesMatch "^\.ht">
+    Require all denied
+&lt;/FilesMatch>
+
+# Run as non-root user
+User www-data
+Group www-data
+
+# Implement HTTPS with modern TLS settings
+SSLProtocol -all +TLSv1.2 +TLSv1.3
+SSLHonorCipherOrder on
+SSLCipherSuite HIGH:!aNULL:!MD5:!3DES
+SSLCompression off</code></pre>
+            
+            <h6>Nginx Hardening</h6>
+            <pre><code># Hide nginx version
+http {
+    server_tokens off;
+}
+
+# Set secure headers
+add_header X-Content-Type-Options "nosniff" always;
+add_header X-Frame-Options "SAMEORIGIN" always;
+add_header X-XSS-Protection "1; mode=block" always;
+add_header Content-Security-Policy "default-src 'self'" always;
+
+# Set secure TLS settings
+ssl_protocols TLSv1.2 TLSv1.3;
+ssl_prefer_server_ciphers on;
+ssl_ciphers "EECDH+AESGCM:EDH+AESGCM";
+ssl_session_cache shared:SSL:10m;
+
+# Run as non-root user
+user www-data;
+
+# Limit buffer size to prevent buffer overflow attacks
+client_body_buffer_size 1k;
+client_header_buffer_size 1k;
+client_max_body_size 1m;
+large_client_header_buffers 2 1k;</code></pre>
+            
+            <h5>3. Database Server Hardening</h5>
+            
+            <h6>MySQL/MariaDB Hardening</h6>
+            <pre><code># Bind to localhost only if not accessed remotely
+bind-address = 127.0.0.1
+
+# Disable remote root login
+UPDATE mysql.user SET Host='localhost' WHERE User='root';
+FLUSH PRIVILEGES;
+
+# Remove anonymous users
+DELETE FROM mysql.user WHERE User='';
+FLUSH PRIVILEGES;
+
+# Remove test database
+DROP DATABASE test;
+DELETE FROM mysql.db WHERE Db='test' OR Db='test\\_%';
+FLUSH PRIVILEGES;
+
+# Encrypt connections with SSL/TLS
+[mysqld]
+ssl-ca=/path/to/ca.pem
+ssl-cert=/path/to/server-cert.pem
+ssl-key=/path/to/server-key.pem
+
+# Security-related settings
+local-infile=0
+skip-show-database</code></pre>
+            
+            <h6>PostgreSQL Hardening</h6>
+            <pre><code># Connection settings in postgresql.conf
+listen_addresses = 'localhost'  # Listen only on localhost
+ssl = on                       # Enable SSL
+ssl_cert_file = 'server.crt'   # SSL certificate
+ssl_key_file = 'server.key'    # SSL key
+
+# Authentication settings in pg_hba.conf
+# TYPE  DATABASE        USER            ADDRESS                 METHOD
+local   all             postgres                                peer
+local   all             all                                     md5
+host    all             all             127.0.0.1/32            md5
+host    all             all             ::1/128                 md5</code></pre>
+            
+            <h5>4. DNS Server Hardening</h5>
+            
+            <h6>BIND Hardening</h6>
+            <pre><code># Run in a chroot environment
+options {
+    directory "/var/named";
+    version "not available";  # Hide version
+    allow-transfer { none; }; # Prevent zone transfers
+    recursion no;             # Disable recursion if not needed
+    dnssec-enable yes;        # Enable DNSSEC
+    dnssec-validation yes;
+};
+
+# Run as non-root user
+user named;</code></pre>
+            
+            <h5>5. Mail Server Hardening</h5>
+            
+            <h6>Postfix Hardening</h6>
+            <pre><code># Basic security settings
+smtpd_banner = $myhostname ESMTP
+disable_vrfy_command = yes
+smtpd_helo_required = yes
+strict_rfc821_envelopes = yes
+
+# TLS configuration
+smtpd_tls_security_level = may
+smtpd_tls_protocols = !SSLv2, !SSLv3, !TLSv1, !TLSv1.1
+smtpd_tls_mandatory_ciphers = high
+tls_high_cipherlist = EECDH+AESGCM:EDH+AESGCM
+
+# SMTP restrictions to prevent spam/relay
+smtpd_recipient_restrictions =
+    permit_mynetworks,
+    permit_sasl_authenticated,
+    reject_unauth_destination,
+    reject_invalid_hostname,
+    reject_non_fqdn_sender</code></pre>
+            
+            <h5>6. FTP Server Hardening</h5>
+            
+            <div class="warning">
+                <p><strong>Warning:</strong> FTP sends credentials in cleartext. Consider using SFTP (SSH File Transfer Protocol) instead.</p>
+            </div>
+            
+            <h6>vsftpd Hardening (if FTP must be used)</h6>
+            <pre><code># Security settings in vsftpd.conf
+anonymous_enable=NO
+local_enable=YES
+write_enable=YES
+chroot_local_user=YES
+allow_writeable_chroot=NO
+ssl_enable=YES
+ssl_tlsv1=YES
+ssl_sslv2=NO
+ssl_sslv3=NO
+force_local_data_ssl=YES
+force_local_logins_ssl=YES
+require_ssl_reuse=NO
+ssl_ciphers=HIGH</code></pre>
+            
+            <h4>Systemd Service Hardening</h4>
+            
+            <p>Modern Linux systems use systemd for service management. Systemd allows hardening services through its unit file settings.</p>
+            
+            <h5>Security-Related Systemd Directives</h5>
+            <pre><code>[Service]
+# Run service as specific non-root user
+User=serviceuser
+Group=servicegroup
+
+# Make filesystem read-only for service
+ReadOnlyDirectories=/
+ReadWriteDirectories=/var/lib/servicename
+
+# Restrict capabilities
+CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+
+# Isolation directives
+PrivateTmp=yes
+PrivateDevices=yes
+ProtectSystem=strict
+ProtectHome=yes
+NoNewPrivileges=yes
+
+# Network namespacing
+PrivateNetwork=yes</code></pre>
+            
+            <h4>Auditing and Monitoring Services</h4>
+            
+            <h5>1. Service Auditing</h5>
+            <pre><code># Check open ports
+sudo lsof -i -P -n | grep LISTEN
+
+# Identify services with suspicious behavior
+sudo ps aux | grep -v grep | sort -nrk 3,3 | head -n 20
+
+# Audit service configurations
+find /etc -name "*.conf" -type f -exec stat -c "%n %a %U %G" {} \;</code></pre>
+            
+            <h5>2. Service Logging</h5>
+            <pre><code># View service logs
+sudo journalctl -u service_name
+
+# Enable verbose logging for specific services
+# For example, in SSH:
+LogLevel VERBOSE
+
+# Monitor authentication logs
+sudo tail -f /var/log/auth.log
+
+# Set up log rotation to prevent log size issues
+sudo nano /etc/logrotate.d/service_name</code></pre>
+            
+            <h5>3. File Integrity Monitoring</h5>
+            <pre><code># Use AIDE to monitor configuration files
+sudo apt install aide
+sudo aideinit
+sudo update-aide.conf
+
+# Configure AIDE to check service configs
+/etc/ssh/sshd_config R
+/etc/apache2/ R
+/etc/nginx/ R</code></pre>
+            
+            <h4>Best Practices Checklist for Service Hardening</h4>
+            
+            <ol>
+                <li><strong>Minimize service exposure</strong>: Only run necessary services</li>
+                <li><strong>Update regularly</strong>: Keep services patched and updated</li>
+                <li><strong>Implement least privilege</strong>: Run services as non-root users with minimal permissions</li>
+                <li><strong>Configure proper authentication</strong>: Use strong authentication methods (key-based, 2FA)</li>
+                <li><strong>Implement network restrictions</strong>: Limit service access with firewalls</li>
+                <li><strong>Implement TLS/SSL</strong>: Encrypt network communications</li>
+                <li><strong>Remove default accounts/values</strong>: Change default credentials and settings</li>
+                <li><strong>Configure proper logging</strong>: Enable detailed logging and regular review</li>
+                <li><strong>Implement intrusion detection</strong>: Set up alerts for suspicious service activity</li>
+                <li><strong>Create service-specific security policies</strong>: Document security requirements for each service</li>
+                <li><strong>Test security configurations</strong>: Regularly test service security with tools like Nmap</li>
+            </ol>
+            
+            <div class="note">
+                <p><strong>Note:</strong> Security is a balance. Over-hardening can impact functionality, while under-hardening leaves systems vulnerable. Implement appropriate security based on risk assessment and service requirements.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Nmap</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Nmap (Network Mapper) is a powerful scanning tool to discover hosts, open ports, and services on a network. It's used both by system administrators for security auditing and by attackers for reconnaissance.</p>
+            
+            <h4>Basic Nmap Usage:</h4>
+            <pre><code># Basic scan of a single host
+nmap 192.168.1.1
+
+# Scan a subnet
+nmap 192.168.1.0/24
+
+# Stealth scan (SYN scan)
+sudo nmap -sS 192.168.1.1
+
+# Service version detection
+nmap -sV 192.168.1.1
+
+# Operating system detection
+sudo nmap -O 192.168.1.1
+
+# Comprehensive scan
+sudo nmap -A 192.168.1.1</code></pre>
+            
+            <h4>Common Nmap Options:</h4>
+            <table>
+                <tr>
+                    <th>Option</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><code>-p</code></td>
+                    <td>Specify ports to scan (e.g., <code>-p 22,80,443</code> or <code>-p 1-1000</code>)</td>
+                </tr>
+                <tr>
+                    <td><code>-sS</code></td>
+                    <td>SYN scan (stealthy, doesn't complete connections)</td>
+                </tr>
+                <tr>
+                    <td><code>-sT</code></td>
+                    <td>Connect scan (completes TCP connections)</td>
+                </tr>
+                <tr>
+                    <td><code>-sU</code></td>
+                    <td>UDP scan</td>
+                </tr>
+                <tr>
+                    <td><code>-sV</code></td>
+                    <td>Service/version detection</td>
+                </tr>
+                <tr>
+                    <td><code>-O</code></td>
+                    <td>Operating system detection</td>
+                </tr>
+                <tr>
+                    <td><code>-A</code></td>
+                    <td>Aggressive scan (OS detection, version detection, script scanning, traceroute)</td>
+                </tr>
+            </table>
+            
+            <p>Regular network scanning with Nmap helps identify unauthorized services and potential vulnerabilities in your infrastructure.</p>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="nmap-reference" onclick="openModal('nmap-reference'); return false;">Learn more: Nmap Reference Guide</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Nmap Reference Guide information -->
+    <div id="nmap-reference" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('nmap-reference')">&times;</span>
+            <h3>Nmap Reference Guide</h3>
+            
+            <p>Nmap (Network Mapper) is an open-source utility for network discovery and security auditing. It uses raw IP packets to determine available hosts, services, operating systems, packet filters/firewalls, and other network characteristics.</p>
+            
+            <h4>Basic Nmap Usage</h4>
+            <pre><code>nmap [Scan Type] [Options] {target}</code></pre>
+            
+            <h5>Target Specification</h5>
+            <ul>
+                <li>Single IP: <code>nmap 192.168.1.1</code></li>
+                <li>Hostname: <code>nmap example.com</code></li>
+                <li>IP range: <code>nmap 192.168.1.1-254</code></li>
+                <li>CIDR notation: <code>nmap 192.168.1.0/24</code></li>
+                <li>Multiple targets: <code>nmap 192.168.1.1 192.168.1.2</code></li>
+                <li>From file: <code>nmap -iL targets.txt</code></li>
+                <li>Exclude hosts: <code>nmap 192.168.1.0/24 --exclude 192.168.1.5,192.168.1.6</code></li>
+            </ul>
+            
+            <h4>Scan Types</h4>
+            <table>
+                <tr>
+                    <th>Option</th>
+                    <th>Scan Type</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><code>-sS</code></td>
+                    <td>TCP SYN Scan</td>
+                    <td>Default scan. Fast, relatively stealthy "half-open" scan</td>
+                </tr>
+                <tr>
+                    <td><code>-sT</code></td>
+                    <td>TCP Connect Scan</td>
+                    <td>Standard TCP connection, more detectable but works without root privileges</td>
+                </tr>
+                <tr>
+                    <td><code>-sU</code></td>
+                    <td>UDP Scan</td>
+                    <td>Scan UDP ports (often overlooked but important)</td>
+                </tr>
+                <tr>
+                    <td><code>-sN</code></td>
+                    <td>TCP NULL Scan</td>
+                    <td>Sends packets without any flags set</td>
+                </tr>
+                <tr>
+                    <td><code>-sF</code></td>
+                    <td>TCP FIN Scan</td>
+                    <td>Sends packets with FIN flag set</td>
+                </tr>
+                <tr>
+                    <td><code>-sX</code></td>
+                    <td>TCP XMAS Scan</td>
+                    <td>Sends packets with FIN, PSH, and URG flags set</td>
+                </tr>
+                <tr>
+                    <td><code>-sA</code></td>
+                    <td>TCP ACK Scan</td>
+                    <td>Used to map firewall rulesets</td>
+                </tr>
+                <tr>
+                    <td><code>-sP</code> or <code>-sn</code></td>
+                    <td>Ping Scan</td>
+                    <td>Simple host discovery without port scanning</td>
+                </tr>
+                <tr>
+                    <td><code>-sV</code></td>
+                    <td>Version Detection</td>
+                    <td>Determine service/version info on open ports</td>
+                </tr>
+                <tr>
+                    <td><code>-O</code></td>
+                    <td>OS Detection</td>
+                    <td>Identify operating system of target</td>
+                </tr>
+                <tr>
+                    <td><code>-A</code></td>
+                    <td>Aggressive Scan</td>
+                    <td>Enables OS detection, version detection, script scanning, and traceroute</td>
+                </tr>
+            </table>
+            
+            <h4>Port Specification</h4>
+            <ul>
+                <li>Specific port: <code>nmap -p 80 192.168.1.1</code></li>
+                <li>Port range: <code>nmap -p 1-100 192.168.1.1</code></li>
+                <li>Multiple ports: <code>nmap -p 22,80,443 192.168.1.1</code></li>
+                <li>All ports: <code>nmap -p- 192.168.1.1</code></li>
+                <li>Top ports: <code>nmap --top-ports 100 192.168.1.1</code></li>
+                <li>By service: <code>nmap -p http,https 192.168.1.1</code></li>
+            </ul>
+            
+            <h4>Advanced Options</h4>
+            <table>
+                <tr>
+                    <th>Option</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><code>-T[0-5]</code></td>
+                    <td>Set timing template (higher is faster, 0=paranoid, 5=insane)</td>
+                </tr>
+                <tr>
+                    <td><code>-v</code></td>
+                    <td>Increase verbosity level (use -vv for more)</td>
+                </tr>
+                <tr>
+                    <td><code>-d</code></td>
+                    <td>Increase debugging level (use -dd for more)</td>
+                </tr>
+                <tr>
+                    <td><code>--reason</code></td>
+                    <td>Display reason Nmap thinks port is open/closed</td>
+                </tr>
+                <tr>
+                    <td><code>--open</code></td>
+                    <td>Only show open (or possibly open) ports</td>
+                </tr>
+                <tr>
+                    <td><code>--packet-trace</code></td>
+                    <td>Show all packets sent and received</td>
+                </tr>
+                <tr>
+                    <td><code>--dns-servers</code></td>
+                    <td>Specify custom DNS servers</td>
+                </tr>
+                <tr>
+                    <td><code>--system-dns</code></td>
+                    <td>Use system DNS resolver</td>
+                </tr>
+            </table>
+            
+            <h4>Output Options</h4>
+            <table>
+                <tr>
+                    <th>Option</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><code>-oN file.txt</code></td>
+                    <td>Normal output to file</td>
+                </tr>
+                <tr>
+                    <td><code>-oX file.xml</code></td>
+                    <td>XML output to file</td>
+                </tr>
+                <tr>
+                    <td><code>-oG file.gnmap</code></td>
+                    <td>Grepable output to file</td>
+                </tr>
+                <tr>
+                    <td><code>-oA filename</code></td>
+                    <td>Output in all formats</td>
+                </tr>
+                <tr>
+                    <td><code>--append-output</code></td>
+                    <td>Append to output files rather than overwriting</td>
+                </tr>
+            </table>
+            
+            <h4>Timing and Performance</h4>
+            <p>Nmap provides timing templates to simplify performance settings:</p>
+            <ul>
+                <li><code>-T0</code> (Paranoid): Very slow, one port at a time, 5-minute wait between probes</li>
+                <li><code>-T1</code> (Sneaky): Slow, serialized scan, 15-second wait between probes</li>
+                <li><code>-T2</code> (Polite): Slows down to consume less bandwidth, 0.4-second wait between probes</li>
+                <li><code>-T3</code> (Normal): Default timing, a balance between accuracy and speed</li>
+                <li><code>-T4</code> (Aggressive): Faster scanning, assumes a reasonably fast and reliable network</li>
+                <li><code>-T5</code> (Insane): Very aggressive timing, sacrifices accuracy for speed</li>
+            </ul>
+            
+            <p>Fine-grained timing controls:</p>
+            <ul>
+                <li><code>--min-hostgroup/--max-hostgroup</code>: Size of host groups scanned concurrently</li>
+                <li><code>--min-parallelism/--max-parallelism</code>: Number of probes run in parallel</li>
+                <li><code>--min-rtt-timeout/--max-rtt-timeout/--initial-rtt-timeout</code>: Probe timeout</li>
+                <li><code>--max-retries</code>: Maximum number of port scan probe retransmissions</li>
+                <li><code>--host-timeout</code>: Give up on target after this time</li>
+                <li><code>--scan-delay/--max-scan-delay</code>: Adjust delay between probes</li>
+            </ul>
+            
+            <h4>Nmap Scripting Engine (NSE)</h4>
+            <p>NSE extends Nmap's functionality through Lua scripts for advanced discovery, vulnerability detection, and more:</p>
+            
+            <pre><code># Run default set of scripts
+nmap -sC 192.168.1.1
+
+# Run specific script
+nmap --script=http-title 192.168.1.1
+
+# Run scripts from a category
+nmap --script=vuln 192.168.1.1
+
+# Run multiple script categories
+nmap --script=default,safe 192.168.1.1
+
+# Pass arguments to scripts
+nmap --script http-brute --script-args userdb=users.txt,passdb=pass.txt 192.168.1.1</code></pre>
+            
+            <h5>Script Categories</h5>
+            <ul>
+                <li><code>default</code>: Scripts run by default with -sC</li>
+                <li><code>auth</code>: Authentication related scripts</li>
+                <li><code>broadcast</code>: Discover hosts by broadcasting</li>
+                <li><code>brute</code>: Perform brute force password auditing</li>
+                <li><code>discovery</code>: Retrieve accessible information from targets</li>
+                <li><code>dos</code>: Check for denial of service vulnerabilities</li>
+                <li><code>exploit</code>: Actively exploit vulnerabilities</li>
+                <li><code>external</code>: Scripts that use external services</li>
+                <li><code>fuzzer</code>: Scripts for fuzzing</li>
+                <li><code>intrusive</code>: Scripts that might crash services or be considered intrusive</li>
+                <li><code>malware</code>: Check for malware infections</li>
+                <li><code>safe</code>: Scripts that aren't expected to impact target adversely</li>
+                <li><code>version</code>: Version detection scripts</li>
+                <li><code>vuln</code>: Check for specific vulnerabilities</li>
+            </ul>
+            
+            <h4>Common Use Cases</h4>
+            
+            <h5>1. Basic Network Scan</h5>
+            <pre><code># Discover hosts on a network
+nmap -sn 192.168.1.0/24
+
+# Fast scan of the most common 100 ports
+nmap -F 192.168.1.0/24
+
+# Comprehensive scan (may take a long time)
+nmap -p- -A 192.168.1.1</code></pre>
+            
+            <h5>2. Service Detection</h5>
+            <pre><code># Identify services running on standard ports
+nmap -sV 192.168.1.1
+
+# Aggressive service detection (more accurate but slower)
+nmap -sV --version-intensity 9 192.168.1.1
+
+# Service detection with default scripts
+nmap -sV -sC 192.168.1.1</code></pre>
+            
+            <h5>3. OS Detection</h5>
+            <pre><code># Basic OS detection
+sudo nmap -O 192.168.1.1
+
+# More aggressive OS detection
+sudo nmap -O --osscan-guess 192.168.1.1
+
+# Full OS and service detection
+sudo nmap -A 192.168.1.1</code></pre>
+            
+            <h5>4. Vulnerability Scanning</h5>
+            <pre><code># Run vulnerability detection scripts
+nmap --script vuln 192.168.1.1
+
+# Check for specific vulnerabilities (e.g., Heartbleed)
+nmap --script ssl-heartbleed 192.168.1.1
+
+# Scan web servers for common issues
+nmap --script "http-*" 192.168.1.1 -p 80,443</code></pre>
+            
+            <h4>Security Considerations</h4>
+            
+            <div class="warning">
+                <p><strong>Warning:</strong> Nmap scanning without permission can be illegal in many jurisdictions and unethical. Only scan systems you own or have explicit permission to scan.</p>
+            </div>
+            
+            <ul>
+                <li><strong>Legal implications</strong>: Unauthorized scanning may violate laws like the Computer Fraud and Abuse Act (US) or equivalent laws in other countries</li>
+                <li><strong>Service disruption</strong>: Aggressive scanning can cause service disruptions or crashes</li>
+                <li><strong>Alerting security systems</strong>: Scans will likely trigger IDS/IPS systems and security alerts</li>
+                <li><strong>Resource consumption</strong>: Scanning consumes resources on both the scanning and target machines</li>
+            </ul>
+            
+            <p>When conducting security testing:</p>
+            <ul>
+                <li>Obtain written permission before scanning</li>
+                <li>Schedule scans during off-peak hours when possible</li>
+                <li>Start with less intrusive scans and escalate as needed</li>
+                <li>Document all scanning activities</li>
+                <li>Follow responsible disclosure practices for any vulnerabilities found</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Telnet</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Telnet is an older protocol for remote text communication that sends data (including passwords) in plaintext, making it insecure for modern use.</p>
+            
+            <div class="warning">
+                <strong>Security Warning:</strong> Telnet should never be used for remote administration. Use SSH instead.
+            </div>
+            
+            <h4>Why Telnet is Insecure:</h4>
+            <ul>
+                <li>No encryption - all data is transmitted in clear text</li>
+                <li>Vulnerable to eavesdropping and man-in-the-middle attacks</li>
+                <li>No authentication of the server to the client</li>
+                <li>No integrity checking of transmitted data</li>
+            </ul>
+            
+            <p>While Telnet should not be used for remote administration, it can still be useful as a diagnostic tool to test if a port is open:</p>
+            <pre><code># Test if a web server is responding on port 80
+telnet example.com 80
+
+# Then type:
+GET / HTTP/1.0
+Host: example.com
+
+# Press Enter twice</code></pre>
+            
+            <p>For secure remote administration, always use SSH instead of Telnet.</p>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="telnet-security-risks" onclick="openModal('telnet-security-risks'); return false;">Learn more: Security Risks of Telnet and Why SSH is Better</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Telnet Security Risks information -->
+    <div id="telnet-security-risks" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('telnet-security-risks')">&times;</span>
+            <h3>Security Risks of Telnet and Why SSH is Better</h3>
+            
+            <p>Telnet, developed in 1969, is one of the earliest remote administration protocols for communicating with remote computers over a network. Today, it represents a significant security risk and should be avoided in favor of more secure alternatives like SSH.</p>
+            
+            <h4>Understanding Telnet's Core Security Problems</h4>
+            
+            <h5>1. No Encryption</h5>
+            <p>The most critical security flaw in Telnet is that all data, including usernames, passwords, and commands, is transmitted in plaintext with no encryption.</p>
+            
+            <div class="warning">
+                <p><strong>Danger:</strong> Anyone with access to the network traffic (using packet sniffers like Wireshark) can capture sensitive information transmitted via Telnet.</p>
+            </div>
+            
+            <p>Example of captured Telnet credentials:</p>
+            <pre><code>Username: admin
+Password: P@ssw0rd123</code></pre>
+            
+            <h5>2. No Authentication of the Server</h5>
+            <p>When connecting to a remote server using Telnet:</p>
+            <ul>
+                <li>No mechanism exists to verify the server's identity</li>
+                <li>Users have no way to confirm they're connected to the legitimate server</li>
+                <li>Makes man-in-the-middle attacks trivial to execute</li>
+            </ul>
+            
+            <h5>3. Lack of Integrity Checking</h5>
+            <p>Telnet provides no mechanisms to:</p>
+            <ul>
+                <li>Verify that data hasn't been modified in transit</li>
+                <li>Detect if commands or responses have been tampered with</li>
+                <li>Confirm the completeness of transmitted information</li>
+            </ul>
+            
+            <h5>4. Vulnerable to Session Hijacking</h5>
+            <p>An attacker can:</p>
+            <ul>
+                <li>Monitor Telnet traffic to identify active sessions</li>
+                <li>Inject commands into an established session</li>
+                <li>Take over control of the session without needing credentials</li>
+            </ul>
+            
+            <h4>Common Attack Scenarios</h4>
+            
+            <h5>Packet Sniffing Attack</h5>
+            <pre><code># Example of using tcpdump to capture Telnet traffic
+sudo tcpdump -i eth0 port 23 -w telnet_capture.pcap</code></pre>
+            <p>Attackers can later analyze these captures to extract credentials and sensitive information.</p>
+            
+            <h5>Man-in-the-Middle Attack</h5>
+            <p>An attacker positioned between the client and server can:</p>
+            <ul>
+                <li>Intercept all traffic between the user and server</li>
+                <li>Read all transmitted data in plaintext</li>
+                <li>Modify commands or responses without detection</li>
+                <li>Insert malicious commands into the session</li>
+            </ul>
+            
+            <h5>ARP Poisoning with Telnet</h5>
+            <p>Attackers can use ARP poisoning to redirect Telnet traffic through their machine:</p>
+            <pre><code># Example of ARP poisoning attack tool
+sudo arpspoof -i eth0 -t 192.168.1.100 192.168.1.1</code></pre>
+            
+            <h4>SSH: The Secure Alternative</h4>
+            
+            <p>SSH (Secure Shell) was designed specifically to address Telnet's security shortcomings:</p>
+            
+            <table>
+                <tr>
+                    <th>Feature</th>
+                    <th>Telnet</th>
+                    <th>SSH</th>
+                </tr>
+                <tr>
+                    <td>Data Encryption</td>
+                    <td>None (plaintext)</td>
+                    <td>Strong encryption (AES, ChaCha20)</td>
+                </tr>
+                <tr>
+                    <td>Authentication</td>
+                    <td>Username/password only (in plaintext)</td>
+                    <td>Multiple methods (password, public key, certificates, 2FA)</td>
+                </tr>
+                <tr>
+                    <td>Server Verification</td>
+                    <td>None</td>
+                    <td>Cryptographic host key verification</td>
+                </tr>
+                <tr>
+                    <td>Integrity Checking</td>
+                    <td>None</td>
+                    <td>Message Authentication Codes (MACs)</td>
+                </tr>
+                <tr>
+                    <td>Port Forwarding</td>
+                    <td>Not available</td>
+                    <td>Local, remote, and dynamic forwarding capabilities</td>
+                </tr>
+                <tr>
+                    <td>SFTP Capability</td>
+                    <td>No (requires separate FTP)</td>
+                    <td>Yes (secure file transfer built-in)</td>
+                </tr>
+                <tr>
+                    <td>Session Hijacking Protection</td>
+                    <td>None</td>
+                    <td>Strong protection through encryption</td>
+                </tr>
+            </table>
+            
+            <h4>Telnet vs. SSH: A Practical Comparison</h4>
+            
+            <h5>Connection Process</h5>
+            
+            <p><strong>Telnet:</strong></p>
+            <pre><code>$ telnet server.example.com
+Trying 192.168.1.100...
+Connected to server.example.com.
+Escape character is '^]'.
+Ubuntu 20.04 LTS
+login: admin
+Password: 
+Last login: Wed Aug 16 14:23:12 2023 from 192.168.1.50
+admin@server:~$</code></pre>
+            
+            <p><strong>SSH:</strong></p>
+            <pre><code>$ ssh admin@server.example.com
+The authenticity of host 'server.example.com (192.168.1.100)' can't be established.
+ECDSA key fingerprint is SHA256:9j3KJHxzBUfKdkKOZ8xKfja98fjaKJHf9sKKfJHfj.
+Are you sure you want to continue connecting (yes/no/[fingerprint])? yes
+Warning: Permanently added 'server.example.com,192.168.1.100' (ECDSA) to the list of known hosts.
+admin@server.example.com's password: 
+Last login: Wed Aug 16 14:25:36 2023 from 192.168.1.50
+admin@server:~$</code></pre>
+            
+            <h5>Public Key Authentication with SSH</h5>
+            <p>SSH supports key-based authentication, eliminating the need for passwords:</p>
+            <pre><code># Generate SSH key pair
+$ ssh-keygen -t ed25519 -C "admin@client"
+
+# Copy public key to server
+$ ssh-copy-id admin@server.example.com
+
+# Connect without password
+$ ssh admin@server.example.com</code></pre>
+            
+            <h4>Legitimate Use Cases for Telnet</h4>
+            
+            <p>While Telnet should <strong>never</strong> be used for remote administration, it can still serve limited purposes:</p>
+            
+            <h5>Network Diagnostics</h5>
+            <p>Telnet client can be used to test if a port is open or a service is responding:</p>
+            <pre><code># Test if web server is responding on port 80
+$ telnet example.com 80
+
+# Then type:
+GET / HTTP/1.0
+Host: example.com
+
+# Press Enter twice</code></pre>
+            
+            <h5>Testing SMTP Servers</h5>
+            <pre><code>$ telnet mail.example.com 25
+HELO client.example.com
+MAIL FROM:<test@example.com>
+RCPT TO:<recipient@example.com>
+DATA
+Subject: Test Email
+
+This is a test email.
+.
+QUIT</code></pre>
+            
+            <div class="note">
+                <p><strong>Note:</strong> For these diagnostic uses, Telnet is used as a simple TCP client, not for administrative access. All sensitive operations should use secure alternatives.</p>
+            </div>
+            
+            <h4>Best Practices for Eliminating Telnet</h4>
+            
+            <ol>
+                <li><strong>Disable Telnet service</strong> on all systems:
+                <pre><code># On systemd systems
+sudo systemctl stop telnetd
+sudo systemctl disable telnetd
+
+# Remove Telnet server
+sudo apt purge telnetd</code></pre></li>
+                
+                <li><strong>Block Telnet port (23)</strong> at firewall level:
+                <pre><code># Using iptables
+sudo iptables -A INPUT -p tcp --dport 23 -j DROP
+
+# Using UFW
+sudo ufw deny 23/tcp</code></pre></li>
+                
+                <li><strong>Install and configure SSH</strong> as a replacement:
+                <pre><code>sudo apt install openssh-server
+sudo nano /etc/ssh/sshd_config
+# Set secure configuration
+sudo systemctl restart sshd</code></pre></li>
+                
+                <li><strong>Audit systems</strong> for Telnet usage:
+                <pre><code># Check for open port 23
+sudo nmap -p 23 192.168.1.0/24
+
+# Check for telnet package
+dpkg -l | grep telnet</code></pre></li>
+                
+                <li><strong>Update legacy applications</strong> that rely on Telnet to use SSH or API-based communication</li>
+                
+                <li><strong>Document and communicate</strong> the security risks of Telnet to all technical staff</li>
+            </ol>
+            
+            <h4>Conclusion</h4>
+            
+            <p>Telnet represents an outdated and fundamentally insecure technology that should be eliminated from modern networks. The complete lack of encryption, authentication, and integrity checking makes it unsuitable for any sensitive or administrative communication.</p>
+            
+            <p>SSH provides a secure, feature-rich alternative that addresses all of Telnet's security weaknesses while offering additional capabilities. For diagnostic purposes where Telnet client might still be used, consider alternatives like <code>nc</code> (netcat) or purpose-built diagnostic tools.</p>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>SSH (Secure Shell)</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>SSH (Secure Shell) provides secure remote login and command execution, encrypting all communication to prevent eavesdropping. It uses public-key cryptography for authentication.</p>
+            
+            <h4>Basic SSH Commands:</h4>
+            <pre><code># Connect to a remote server
+ssh username@hostname
+
+# Connect to a specific port
+ssh -p 2222 username@hostname
+
+# Run a command on a remote server without logging in
+ssh username@hostname "ls -la"</code></pre>
+            
+            <h4>SSH Key Authentication:</h4>
+            <p>Using SSH keys is more secure than password authentication:</p>
+            <pre><code># Generate SSH key pair
+ssh-keygen -t ed25519 -C "your_email@example.com"
+
+# Copy public key to server
+ssh-copy-id username@hostname
+
+# Or manually by adding the public key to ~/.ssh/authorized_keys on the server</code></pre>
+            
+            <h4>Secure SSH Configuration (in /etc/ssh/sshd_config):</h4>
+            <pre><code># Disable root login
+PermitRootLogin no
+
+# Disable password authentication (use keys only)
+PasswordAuthentication no
+ChallengeResponseAuthentication no
+
+# Change default port
+Port 2222
+
+# Limit user access
+AllowUsers user1 user2
+
+# Set idle timeout (in seconds)
+ClientAliveInterval 300
+ClientAliveCountMax 2</code></pre>
+            
+            <p>After making changes to SSH configuration, restart the SSH service:</p>
+            <pre><code>sudo systemctl restart sshd</code></pre>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="ssh-essentials" onclick="openModal('ssh-essentials'); return false;">Learn more: SSH Essentials - Working with SSH Servers, Clients, and Keys</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for SSH Essentials information -->
+    <div id="ssh-essentials" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('ssh-essentials')">&times;</span>
+            <h3>SSH Essentials: Working with SSH Servers, Clients, and Keys</h3>
+            
+            <p>SSH (Secure Shell) is a cryptographic network protocol that provides secure communication over an unsecured network. It's the standard method for remote administration of Linux systems, offering encryption, authentication, and integrity verification.</p>
+            
+            <h4>How SSH Works</h4>
+            
+            <h5>Basic Connection Flow</h5>
+            <ol>
+                <li><strong>TCP Connection</strong>: Client establishes a TCP connection to the SSH server (default port 22)</li>
+                <li><strong>Protocol Version Exchange</strong>: Client and server exchange supported SSH protocol versions</li>
+                <li><strong>Key Exchange</strong>: The parties negotiate encryption parameters and establish session keys</li>
+                <li><strong>Authentication</strong>: Client authenticates to the server using passwords, keys, or other methods</li>
+                <li><strong>Session Establishment</strong>: After successful authentication, an encrypted session is established</li>
+                <li><strong>Command Execution</strong>: Client can execute commands, transfer files, or tunnel other protocols</li>
+            </ol>
+            
+            <h5>SSH Encryption</h5>
+            <p>SSH employs three types of encryption:</p>
+            <ul>
+                <li><strong>Symmetrical encryption</strong>: Used to encrypt the entire connection</li>
+                <li><strong>Asymmetrical encryption</strong>: Used during the key exchange process</li>
+                <li><strong>Hashing</strong>: Used to verify data integrity</li>
+            </ul>
+            
+            <h4>SSH Client Usage</h4>
+            
+            <h5>Basic SSH Connection</h5>
+            <pre><code># Basic syntax
+ssh username@hostname
+
+# Connect to a specific port
+ssh -p 2222 username@hostname
+
+# Specify identity file (private key)
+ssh -i ~/.ssh/my_key username@hostname
+
+# Run a command on the remote server without logging in
+ssh username@hostname "ls -la /var/log"
+
+# Enable verbosity for troubleshooting
+ssh -v username@hostname      # -vv or -vvv for more verbosity</code></pre>
+            
+            <h5>SSH Config File</h5>
+            <p>You can simplify SSH connections by setting up a configuration file at <code>~/.ssh/config</code>:</p>
+            <pre><code># Global options
+Host *
+    ServerAliveInterval 60
+    ServerAliveCountMax 3
+
+# Specific host configuration
+Host webserver
+    HostName 192.168.1.100
+    User admin
+    Port 2222
+    IdentityFile ~/.ssh/webserver_key
+    
+# Wildcards are supported
+Host *.example.com
+    User deployer
+    IdentityFile ~/.ssh/example_key</code></pre>
+            
+            <p>After creating this configuration, you can connect simply with:</p>
+            <pre><code>ssh webserver</code></pre>
+            
+            <h4>Key-Based Authentication</h4>
+            
+            <h5>Creating SSH Keys</h5>
+            <pre><code># Generate Ed25519 key (modern, recommended)
+ssh-keygen -t ed25519 -C "user@example.com"
+
+# Generate RSA key (broader compatibility, use 4096 bits)
+ssh-keygen -t rsa -b 4096 -C "user@example.com"
+
+# Generate key with custom filename
+ssh-keygen -t ed25519 -f ~/.ssh/custom_key -C "user@example.com"
+
+# Generate key without passphrase (less secure)
+ssh-keygen -t ed25519 -N "" -C "user@example.com"</code></pre>
+            
+            <p>This creates two files:</p>
+            <ul>
+                <li><code>~/.ssh/id_ed25519</code> (private key - never share this!)</li>
+                <li><code>~/.ssh/id_ed25519.pub</code> (public key - can be shared)</li>
+            </ul>
+            
+            <h5>Adding Your Public Key to a Server</h5>
+            
+            <p>Method 1: Using ssh-copy-id (easiest)</p>
+            <pre><code>ssh-copy-id username@hostname
+
+# With custom key
+ssh-copy-id -i ~/.ssh/custom_key.pub username@hostname</code></pre>
+            
+            <p>Method 2: Manual process</p>
+            <pre><code># Copy public key to clipboard
+cat ~/.ssh/id_ed25519.pub
+
+# On the server, add to authorized_keys
+mkdir -p ~/.ssh
+chmod 700 ~/.ssh
+echo "ssh-ed25519 AAAAC3... user@example.com" >> ~/.ssh/authorized_keys
+chmod 600 ~/.ssh/authorized_keys</code></pre>
+            
+            <h5>Managing Multiple Keys</h5>
+            <p>Use SSH config file to specify which key to use for each host:</p>
+            <pre><code>Host github.com
+    IdentityFile ~/.ssh/github_key
+    
+Host bitbucket.org
+    IdentityFile ~/.ssh/bitbucket_key</code></pre>
+            
+            <p>Using SSH Agent to manage passphrases:</p>
+            <pre><code># Start agent (if not already running)
+eval $(ssh-agent)
+
+# Add key to agent (will prompt for passphrase once)
+ssh-add ~/.ssh/id_ed25519
+
+# List keys loaded in agent
+ssh-add -l</code></pre>
+            
+            <h4>SSH Server Configuration</h4>
+            
+            <h5>Basic sshd_config Options</h5>
+            <p>The SSH server is configured in <code>/etc/ssh/sshd_config</code>:</p>
+            <pre><code># Networking
+Port 22                      # Change to a non-standard port for security by obscurity
+ListenAddress 0.0.0.0        # Listen on all interfaces
+AddressFamily inet           # Use IPv4 only (or inet6 for IPv6 only)
+
+# Authentication
+PermitRootLogin no           # Disable direct root login
+PasswordAuthentication no    # Disable password authentication (key-only)
+PubkeyAuthentication yes     # Enable key-based authentication
+AuthorizedKeysFile .ssh/authorized_keys  # Location of authorized keys
+
+# Security
+PermitEmptyPasswords no      # Disallow empty passwords
+MaxAuthTries 3               # Limit authentication attempts
+LoginGraceTime 30            # Disconnect after 30 seconds if not logged in
+
+# Access control
+AllowUsers user1 user2       # Only allow these users to login
+AllowGroups sshusers admins  # Only allow users in these groups to login
+DenyUsers baduser            # Deny these users
+DenyGroups notssh            # Deny users in these groups
+
+# Rate limiting
+MaxStartups 10:30:60         # Start blocking connections when 10+ unauthenticated
+MaxSessions 10               # Maximum number of open sessions
+
+# Timeouts
+ClientAliveInterval 300      # Check client every 5 minutes
+ClientAliveCountMax 3        # Disconnect after 3 failed checks (15 minutes total)
+
+# Features
+X11Forwarding no             # Disable X11 forwarding if not needed
+AllowTcpForwarding no        # Disable TCP forwarding if not needed
+PermitTunnel no              # Disable tun device forwarding</code></pre>
+            
+            <p>After making changes to the SSH server configuration, always restart the SSH service:</p>
+            <pre><code>sudo systemctl restart sshd</code></pre>
+            
+            <h5>SSH Server Security Hardening</h5>
+            <p>Best practices for securing an SSH server:</p>
+            <ol>
+                <li><strong>Use key-based authentication</strong> and disable password authentication</li>
+                <li><strong>Disable root login</strong> via SSH</li>
+                <li><strong>Use strong encryption algorithms</strong>:</li>
+            </ol>
+            
+            <pre><code># Strong ciphers, MACs, and key exchange algorithms
+Ciphers chacha20-poly1305@openssh.com,aes256-gcm@openssh.com,aes128-gcm@openssh.com,aes256-ctr,aes192-ctr,aes128-ctr
+MACs hmac-sha2-512-etm@openssh.com,hmac-sha2-256-etm@openssh.com,hmac-sha2-512,hmac-sha2-256
+KexAlgorithms curve25519-sha256@libssh.org,diffie-hellman-group-exchange-sha256
+
+# Limit SSH protocol version
+Protocol 2                   # Only use SSH protocol version 2</code></pre>
+            
+            <h4>Advanced SSH Features</h4>
+            
+            <h5>1. Port Forwarding</h5>
+            
+            <p><strong>Local Port Forwarding:</strong> Forward a local port to a remote destination</p>
+            <pre><code># Access a remote MySQL server securely
+ssh -L 3306:localhost:3306 username@remote_server
+
+# Forward local port 8080 to a remote web server
+ssh -L 8080:internal-server:80 username@gateway_server</code></pre>
+            
+            <p><strong>Remote Port Forwarding:</strong> Make a local service available on the remote server</p>
+            <pre><code># Make local web server available via remote server
+ssh -R 8080:localhost:80 username@remote_server</code></pre>
+            
+            <p><strong>Dynamic Port Forwarding:</strong> Create a SOCKS proxy for secure browsing</p>
+            <pre><code># Create a SOCKS proxy on local port 1080
+ssh -D 1080 username@remote_server</code></pre>
+            
+            <h5>2. SFTP (SSH File Transfer Protocol)</h5>
+            <p>SSH includes a secure file transfer protocol that works over the SSH connection:</p>
+            <pre><code># Start interactive SFTP session
+sftp username@hostname
+
+# SFTP commands (in SFTP session)
+sftp> pwd           # Print remote working directory
+sftp> lpwd          # Print local working directory
+sftp> ls            # List remote directory
+sftp> lls           # List local directory
+sftp> cd /path      # Change remote directory
+sftp> lcd /path     # Change local directory
+sftp> get file.txt  # Download file
+sftp> put file.txt  # Upload file
+sftp> exit          # Quit SFTP
+
+# Non-interactive SFTP file transfer
+sftp username@hostname:/remote/path/file.txt local/path/</code></pre>
+            
+            <h5>3. SCP (Secure Copy)</h5>
+            <p>For simple file transfers, SCP provides a straightforward syntax:</p>
+            <pre><code># Copy local file to remote server
+scp file.txt username@hostname:/remote/path/
+
+# Copy remote file to local system
+scp username@hostname:/remote/path/file.txt local/path/
+
+# Copy directory recursively
+scp -r local/directory username@hostname:/remote/path/
+
+# Copy with specific key
+scp -i ~/.ssh/my_key file.txt username@hostname:/remote/path/</code></pre>
+            
+            <h5>4. SSH Jumphost/Proxy</h5>
+            <p>Access servers on protected networks through an intermediate server:</p>
+            <pre><code># Connect to internal_server through jump_host
+ssh -J username@jump_host username@internal_server
+
+# In SSH config file
+Host internal
+    HostName internal_server
+    User username
+    ProxyJump username@jump_host</code></pre>
+            
+            <h5>5. SSH Agent Forwarding</h5>
+            <p>Use your local keys on remote servers without copying them:</p>
+            <pre><code># Connect with agent forwarding
+ssh -A username@hostname
+
+# Or in SSH config
+Host server
+    HostName hostname
+    User username
+    ForwardAgent yes</code></pre>
+            
+            <div class="warning">
+                <p><strong>Security Warning:</strong> Only use agent forwarding with trusted hosts, as the remote host could potentially use your forwarded keys.</p>
+            </div>
+            
+            <h4>Troubleshooting SSH</h4>
+            
+            <h5>Connection Issues</h5>
+            <pre><code># Debug SSH connection (increasing verbosity)
+ssh -v username@hostname    # verbose
+ssh -vv username@hostname   # more verbose
+ssh -vvv username@hostname  # most verbose
+
+# Check SSH server status
+sudo systemctl status sshd
+
+# Check SSH server logs
+sudo tail -f /var/log/auth.log     # Debian/Ubuntu
+sudo tail -f /var/log/secure       # RHEL/CentOS
+
+# Test SSH server connectivity
+telnet hostname 22
+nc -zv hostname 22</code></pre>
+            
+            <h5>Permission Issues</h5>
+            <pre><code># Fix permissions for SSH directories and keys
+chmod 700 ~/.ssh
+chmod 600 ~/.ssh/id_ed25519
+chmod 644 ~/.ssh/id_ed25519.pub
+chmod 600 ~/.ssh/authorized_keys
+
+# Check SELinux context (on SELinux systems)
+restorecon -Rv ~/.ssh</code></pre>
+            
+            <h5>Key Authentication Issues</h5>
+            <pre><code># Verify public key in authorized_keys
+grep -f ~/.ssh/id_ed25519.pub ~/.ssh/authorized_keys
+
+# Debug authentication attempt on server
+sudo sshd -T | grep AuthenticationMethods  # Check authentication settings
+
+# Temporarily run SSH server in debug mode (for testing)
+sudo systemctl stop sshd
+sudo /usr/sbin/sshd -d   # Press Ctrl+C to stop when done</code></pre>
+            
+            <h4>Best Practices</h4>
+            
+            <ul>
+                <li><strong>Use SSH keys</strong> instead of passwords</li>
+                <li><strong>Protect private keys</strong> with strong passphrases</li>
+                <li><strong>Use modern key types</strong> (Ed25519 when possible, RSA with 4096 bits otherwise)</li>
+                <li><strong>Rotate keys periodically</strong> for sensitive systems</li>
+                <li><strong>Disable root login</strong> and use sudo for privileged operations</li>
+                <li><strong>Implement 2FA</strong> for SSH where possible (using tools like Google Authenticator)</li>
+                <li><strong>Use fail2ban</strong> to protect against brute force attacks</li>
+                <li><strong>Limit SSH access</strong> using firewall rules to specific IPs when possible</li>
+                <li><strong>Regularly audit SSH logs</strong> for unauthorized access attempts</li>
+                <li><strong>Keep SSH client and server software updated</strong> to patch security vulnerabilities</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>UFW (Uncomplicated Firewall)</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>UFW (Uncomplicated Firewall) provides a simplified interface for managing firewall rules, making it easier to secure your system without complex iptables commands.</p>
+            
+            <h4>Basic UFW Commands:</h4>
+            <pre><code># Install UFW
+sudo apt install ufw
+
+# Check status
+sudo ufw status
+
+# Enable firewall
+sudo ufw enable
+
+# Disable firewall
+sudo ufw disable
+
+# Allow SSH (port 22)
+sudo ufw allow ssh
+# or
+sudo ufw allow 22/tcp
+
+# Allow a range of ports
+sudo ufw allow 5000:5100/tcp
+
+# Allow from specific IP
+sudo ufw allow from 192.168.1.100 to any port 22
+
+# Deny a service
+sudo ufw deny http
+
+# Delete a rule (by number)
+sudo ufw status numbered
+sudo ufw delete 2</code></pre>
+            
+            <h4>Common UFW Application Profiles:</h4>
+            <p>UFW comes with predefined application profiles:</p>
+            <pre><code># List available applications
+sudo ufw app list
+
+# Allow an application
+sudo ufw allow 'Nginx Full'</code></pre>
+            
+            <h4>Default Policy:</h4>
+            <p>Set default policies to deny incoming and allow outgoing traffic:</p>
+            <pre><code>sudo ufw default deny incoming
+sudo ufw default allow outgoing</code></pre>
+            
+            <p>This configuration creates a secure baseline where all incoming connections are blocked by default, and you explicitly allow only necessary services.</p>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="ufw-firewall" onclick="openModal('ufw-firewall'); return false;">Learn more: UFW - Ubuntu's Firewall Security</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for UFW Firewall information -->
+    <div id="ufw-firewall" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('ufw-firewall')">&times;</span>
+            <h3>UFW - Ubuntu's Firewall Security</h3>
+            
+            <p>UFW (Uncomplicated Firewall) is a user-friendly front-end for managing iptables firewall rules in Linux systems. It's designed to make firewall management easier while providing robust network security.</p>
+            
+            <h4>Understanding UFW</h4>
+            
+            <h5>What is UFW?</h5>
+            <ul>
+                <li>A simplified interface for managing the more complex iptables firewall</li>
+                <li>Default firewall tool in Ubuntu and many other Debian-based distributions</li>
+                <li>Provides both command-line and GUI (via gufw) interfaces</li>
+                <li>Built to be straightforward while not sacrificing functionality</li>
+            </ul>
+            
+            <h5>How UFW Works</h5>
+            <p>UFW acts as a configuration layer over the standard Linux netfilter framework:</p>
+            <ol>
+                <li>UFW translates simple commands into complex iptables rules</li>
+                <li>It manages IPv4 and IPv6 packet filtering simultaneously</li>
+                <li>Configuration is stored in <code>/etc/ufw/</code> directory</li>
+                <li>Rules are saved persistently and load at system boot</li>
+            </ol>
+            
+            <h4>Getting Started with UFW</h4>
+            
+            <h5>Installation</h5>
+            <p>UFW is included in Ubuntu by default but can be installed on other distributions:</p>
+            <pre><code># Debian/Ubuntu (if not already installed)
+sudo apt update
+sudo apt install ufw
+
+# Fedora
+sudo dnf install ufw
+
+# Arch Linux
+sudo pacman -S ufw</code></pre>
+            
+            <h5>Basic UFW Configuration</h5>
+            <pre><code># Check UFW status
+sudo ufw status
+sudo ufw status verbose  # For more details
+
+# Enable UFW (will start and load at boot)
+sudo ufw enable
+
+# Disable UFW temporarily
+sudo ufw disable
+
+# Reset UFW to default settings
+sudo ufw reset</code></pre>
+            
+            <h5>Setting Default Policies</h5>
+            <p>Best practice is to deny all incoming traffic and allow all outgoing traffic by default:</p>
+            <pre><code>sudo ufw default deny incoming
+sudo ufw default allow outgoing</code></pre>
+            
+            <p>Alternative configurations:</p>
+            <pre><code># Highly restrictive setup (requires explicit rules for all traffic)
+sudo ufw default deny incoming
+sudo ufw default deny outgoing
+
+# Very permissive setup (not recommended)
+sudo ufw default allow incoming
+sudo ufw default allow outgoing</code></pre>
+            
+            <h4>Managing UFW Rules</h4>
+            
+            <h5>Allow/Deny by Service Name</h5>
+            <p>UFW recognizes common service names from <code>/etc/services</code>:</p>
+            <pre><code># Allow SSH connections
+sudo ufw allow ssh
+
+# Allow HTTP and HTTPS
+sudo ufw allow http
+sudo ufw allow https
+
+# Deny Telnet
+sudo ufw deny telnet</code></pre>
+            
+            <h5>Allow/Deny by Port Number</h5>
+            <pre><code># Allow port 22 (SSH)
+sudo ufw allow 22/tcp
+
+# Allow port range
+sudo ufw allow 6000:6007/tcp
+
+# Allow multiple ports
+sudo ufw allow 80,443/tcp</code></pre>
+            
+            <h5>Specifying Network Protocols</h5>
+            <pre><code># Allow specific protocol
+sudo ufw allow 53/udp  # DNS
+sudo ufw allow 53/tcp  # DNS zone transfers
+
+# Allow both TCP and UDP for a port
+sudo ufw allow 53</code></pre>
+            
+            <h5>Source and Destination Filtering</h5>
+            <pre><code># Allow traffic from specific IP address
+sudo ufw allow from 192.168.1.100
+
+# Allow traffic to specific port from specific IP
+sudo ufw allow from 192.168.1.100 to any port 22
+
+# Allow traffic from specific subnet
+sudo ufw allow from 192.168.1.0/24 to any port 22
+
+# Allow traffic to specific interface
+sudo ufw allow in on eth0 to any port 80</code></pre>
+            
+            <h5>Managing Rules</h5>
+            <pre><code># List rules with numbers
+sudo ufw status numbered
+
+# Delete rule by number
+sudo ufw delete 2
+
+# Delete rule by specification
+sudo ufw delete allow 80/tcp</code></pre>
+            
+            <h4>Advanced UFW Features</h4>
+            
+            <h5>Application Profiles</h5>
+            <p>UFW includes predefined application profiles for common services:</p>
+            <pre><code># List available application profiles
+sudo ufw app list
+
+# Get details of an application profile
+sudo ufw app info "Nginx Full"
+
+# Allow application by profile
+sudo ufw allow "Nginx Full"</code></pre>
+            
+            <h5>Creating Custom Application Profiles</h5>
+            <p>Create a new file in <code>/etc/ufw/applications.d/</code>:</p>
+            <pre><code># Example: /etc/ufw/applications.d/myapp
+[MyApp]
+title=My Custom Application
+description=My App Server (TCP ports 8080,8443)
+ports=8080,8443/tcp</code></pre>
+            
+            <p>Then use it with:</p>
+            <pre><code>sudo ufw allow "MyApp"</code></pre>
+            
+            <h5>Rate Limiting</h5>
+            <p>Protect against brute force attacks by limiting connection attempts:</p>
+            <pre><code># Limit SSH connections
+sudo ufw limit ssh
+
+# Limit custom port
+sudo ufw limit 22/tcp</code></pre>
+            
+            <p>This creates rules that limit connections to 6 per minute from a single IP address.</p>
+            
+            <h5>Logging</h5>
+            <pre><code># Enable logging
+sudo ufw logging on
+
+# Set logging level
+sudo ufw logging medium  # options: low, medium, high, full
+
+# View logs
+sudo tail -f /var/log/ufw.log</code></pre>
+            
+            <h4>Common UFW Configurations</h4>
+            
+            <h5>Basic Web Server Setup</h5>
+            <pre><code># Allow SSH, HTTP, and HTTPS
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow ssh
+sudo ufw allow http
+sudo ufw allow https
+sudo ufw enable</code></pre>
+            
+            <h5>Secure SSH Server</h5>
+            <pre><code># Allow SSH with rate limiting
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw limit ssh
+sudo ufw enable</code></pre>
+            
+            <h5>Database Server</h5>
+            <pre><code># Allow SSH and MySQL from specific network only
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow ssh
+sudo ufw allow from 192.168.1.0/24 to any port 3306
+sudo ufw enable</code></pre>
+            
+            <h5>Home Router/Firewall</h5>
+            <pre><code># Setup a machine as a router with NAT
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+sudo ufw allow ssh
+sudo ufw allow from 192.168.1.0/24  # Internal network
+sudo ufw allow http
+sudo ufw allow https
+sudo ufw allow 53  # DNS
+sudo ufw enable
+
+# Enable IP forwarding (in /etc/sysctl.conf)
+net.ipv4.ip_forward=1
+
+# Setup NAT (run after enabling UFW)
+sudo iptables -t nat -A POSTROUTING -s 192.168.1.0/24 -o eth0 -j MASQUERADE</code></pre>
+            
+            <h4>UFW with IPv6</h4>
+            
+            <p>UFW handles both IPv4 and IPv6 by default. To configure IPv6 settings:</p>
+            
+            <pre><code># Check if IPv6 is enabled in UFW
+grep IPV6 /etc/default/ufw
+
+# If you want to disable IPv6 support, edit /etc/default/ufw
+# Change the line to:
+IPV6=no</code></pre>
+            
+            <p>IPv6 rules are automatically created alongside IPv4 rules when IPv6 is enabled.</p>
+            
+            <h4>GUI Front-end: GUFW</h4>
+            
+            <p>For desktop users, GUFW provides a graphical interface to UFW:</p>
+            
+            <pre><code># Install GUFW
+sudo apt install gufw</code></pre>
+            
+            <p>GUFW provides all UFW functionality through an easy-to-use interface with:</p>
+            <ul>
+                <li>Visual rule creation and management</li>
+                <li>Pre-configured application profiles</li>
+                <li>Simple status monitoring</li>
+                <li>Rule import/export capabilities</li>
+            </ul>
+            
+            <h4>Troubleshooting UFW</h4>
+            
+            <h5>Common Issues</h5>
+            <table>
+                <tr>
+                    <th>Problem</th>
+                    <th>Possible Solution</th>
+                </tr>
+                <tr>
+                    <td>UFW blocks legitimate traffic</td>
+                    <td>Check rules with <code>sudo ufw status verbose</code> and add missing allow rules</td>
+                </tr>
+                <tr>
+                    <td>Changes not taking effect</td>
+                    <td>Ensure UFW is enabled with <code>sudo ufw enable</code></td>
+                </tr>
+                <tr>
+                    <td>Connection issues after enabling</td>
+                    <td>Did you allow SSH? If not, disable with <code>sudo ufw disable</code> from console</td>
+                </tr>
+                <tr>
+                    <td>Rules not persisting after reboot</td>
+                    <td>Check if UFW service starts at boot: <code>sudo systemctl enable ufw</code></td>
+                </tr>
+                <tr>
+                    <td>Application can't be accessed</td>
+                    <td>Verify correct ports are open with <code>sudo ss -tulpn</code> and add necessary rules</td>
+                </tr>
+            </table>
+            
+            <h5>Debugging UFW</h5>
+            <pre><code># Check UFW service status
+sudo systemctl status ufw
+
+# View raw iptables rules created by UFW
+sudo iptables -L -v -n
+
+# Test connection to a specific port
+nc -zv 192.168.1.100 80
+
+# Check UFW logs
+sudo grep UFW /var/log/syslog</code></pre>
+            
+            <h4>UFW vs. Other Firewall Solutions</h4>
+            
+            <table>
+                <tr>
+                    <th>Feature</th>
+                    <th>UFW</th>
+                    <th>iptables</th>
+                    <th>firewalld</th>
+                </tr>
+                <tr>
+                    <td>Ease of use</td>
+                    <td>High</td>
+                    <td>Low</td>
+                    <td>Medium</td>
+                </tr>
+                <tr>
+                    <td>Flexibility</td>
+                    <td>Medium</td>
+                    <td>Very High</td>
+                    <td>High</td>
+                </tr>
+                <tr>
+                    <td>Default on</td>
+                    <td>Ubuntu</td>
+                    <td>Most Linux</td>
+                    <td>RHEL/Fedora</td>
+                </tr>
+                <tr>
+                    <td>Dynamic updates</td>
+                    <td>No</td>
+                    <td>No</td>
+                    <td>Yes</td>
+                </tr>
+                <tr>
+                    <td>Zone-based security</td>
+                    <td>No</td>
+                    <td>No (manual)</td>
+                    <td>Yes</td>
+                </tr>
+            </table>
+            
+            <p>Choose UFW when:</p>
+            <ul>
+                <li>You want a straightforward, easy-to-manage firewall</li>
+                <li>You have standard security requirements</li>
+                <li>You prefer simplicity over advanced features</li>
+                <li>You're running Ubuntu or Debian-based distributions</li>
+            </ul>
+            
+            <h4>Best Practices</h4>
+            
+            <ol>
+                <li><strong>Enable UFW</strong> - Many distributions don't enable it by default</li>
+                <li><strong>Set default policies</strong> - Deny incoming, allow outgoing</li>
+                <li><strong>Allow SSH first</strong> - Before enabling the firewall to avoid lockout</li>
+                <li><strong>Use specific rules</strong> - Be as specific as possible with source/destination</li>
+                <li><strong>Limit SSH</strong> - Always rate limit SSH connections</li>
+                <li><strong>Review rules regularly</strong> - Audit and remove unnecessary rules</li>
+                <li><strong>Enable logging</strong> - For security monitoring and troubleshooting</li>
+                <li><strong>Use application profiles</strong> - For standard services</li>
+                <li><strong>Document your rules</strong> - Keep track of what each rule is for</li>
+                <li><strong>Test after changes</strong> - Verify connectivity after making changes</li>
+            </ol>
+            
+            <div class="note">
+                <p><strong>Remember:</strong> UFW provides a balance between simplicity and security. For more complex networking requirements or advanced packet manipulation, you might need to use iptables or nftables directly.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>TCP Wrappers</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>TCP Wrappers provides host-based access control for network services via <code>/etc/hosts.allow</code> and <code>/etc/hosts.deny</code> files. It controls access by hostname or IP address.</p>
+            
+            <p>Note: TCP Wrappers is considered legacy technology and has been removed from some modern distributions (like Red Hat 8). However, it's still used in many systems and is part of the security layering approach.</p>
+            
+            <h4>How TCP Wrappers Works:</h4>
+            <ul>
+                <li>When a connection request arrives for a supported service, TCP Wrappers checks the rules</li>
+                <li>It first checks <code>/etc/hosts.allow</code> - if a matching rule is found, access is granted</li>
+                <li>If no match in <code>hosts.allow</code>, it checks <code>/etc/hosts.deny</code> - if a match is found, access is denied</li>
+                <li>If no match in either file, access is granted</li>
+            </ul>
+            
+            <h4>Configuration Examples:</h4>
+            <p>In <code>/etc/hosts.allow</code>:</p>
+            <pre><code># Allow SSH access from local network
+sshd: 192.168.1.0/24
+
+# Allow FTP access from specific hosts
+vsftpd: 192.168.1.10, 192.168.1.11
+
+# Allow all services for localhost
+ALL: 127.0.0.1</code></pre>
+            
+            <p>In <code>/etc/hosts.deny</code>:</p>
+            <pre><code># Deny SSH from a specific IP
+sshd: 10.0.0.5
+
+# Deny all services from a network
+ALL: 10.0.0.0/24
+
+# Deny all services to all hosts (put at the end of the file)
+ALL: ALL</code></pre>
+            
+            <h4>Testing TCP Wrappers:</h4>
+            <p>You can use the <code>tcpdmatch</code> command to test rules:</p>
+            <pre><code>tcpdmatch sshd 192.168.1.50</code></pre>
+            
+            <p>TCP Wrappers provides an additional layer of security beyond firewall rules, especially for controlling access to specific services.</p>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="tcp-wrappers-guide" onclick="openModal('tcp-wrappers-guide'); return false;">Learn more: TCP Wrappers Configuration Guide</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for TCP Wrappers information -->
+    <div id="tcp-wrappers-guide" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('tcp-wrappers-guide')">&times;</span>
+            <h3>TCP Wrappers Configuration Guide</h3>
+            
+            <div class="note">
+                <p><strong>Legacy Technology Note:</strong> TCP Wrappers is considered legacy technology and has been deprecated or removed from some modern Linux distributions (including RHEL 8+). However, it's still found in many systems and remains an important layer in a defense-in-depth security strategy where present.</p>
+            </div>
+            
+            <h4>What are TCP Wrappers?</h4>
+            <p>TCP Wrappers is a host-based network access control system that provides a simple way to filter incoming network connections for services that support libwrap. It works by wrapping the listening service (daemon) with access control functionality, verifying each connection attempt against a set of rules before either allowing the connection or refusing it.</p>
+            
+            <h5>Key Features:</h5>
+            <ul>
+                <li>Simple configuration through two main files: <code>/etc/hosts.allow</code> and <code>/etc/hosts.deny</code></li>
+                <li>Connection logging capabilities</li>
+                <li>Ability to execute commands when connections are accepted or rejected</li>
+                <li>Pattern matching using hostnames, IP addresses, network blocks, and wildcards</li>
+                <li>Fast evaluation with minimal performance overhead</li>
+            </ul>
+            
+            <h4>How TCP Wrappers Works</h4>
+            
+            <h5>Architecture:</h5>
+            <ol>
+                <li>A service that uses TCP Wrappers is compiled to use the <code>libwrap</code> library</li>
+                <li>When a connection attempt arrives, the service calls the <code>hosts_access()</code> function</li>
+                <li>The system checks the rules in <code>/etc/hosts.allow</code> first</li>
+                <li>If a matching rule is found in <code>hosts.allow</code>, access is granted</li>
+                <li>If no matching rule is found, it checks <code>/etc/hosts.deny</code></li>
+                <li>If a matching rule is found in <code>hosts.deny</code>, access is denied</li>
+                <li>If no matching rules are found in either file, access is granted by default</li>
+            </ol>
+            
+            <h5>Services That Use TCP Wrappers:</h5>
+            <p>Common services that typically support TCP Wrappers include:</p>
+            <ul>
+                <li>sshd (OpenSSH)</li>
+                <li>ftpd</li>
+                <li>telnetd</li>
+                <li>rpcbind</li>
+                <li>vsftpd</li>
+                <li>Services managed by inetd/xinetd</li>
+            </ul>
+            
+            <h5>Checking if a Service Uses TCP Wrappers:</h5>
+            <pre><code># Method 1: Check for libwrap dependency
+ldd /path/to/daemon | grep libwrap
+
+# Method 2: Use strings to look for libwrap references
+strings /path/to/daemon | grep hosts_access</code></pre>
+            
+            <h4>Configuration Files</h4>
+            
+            <h5>Basic Syntax:</h5>
+            <p>The basic format of entries in both <code>/etc/hosts.allow</code> and <code>/etc/hosts.deny</code> is:</p>
+            <pre><code>daemon_list : client_list [: command]</code></pre>
+            <p>Where:</p>
+            <ul>
+                <li><strong>daemon_list</strong>: List of services to apply the rule to</li>
+                <li><strong>client_list</strong>: List of clients/hosts to match</li>
+                <li><strong>command</strong>: Optional command to execute when the rule matches</li>
+            </ul>
+            
+            <h5>The hosts.allow File:</h5>
+            <p>This file contains rules that explicitly allow access. Example content:</p>
+            <pre><code># Allow SSH access from the local network
+sshd : 192.168.1.0/24 : ALLOW
+
+# Allow FTP access from specific hosts
+vsftpd : 192.168.1.10, 192.168.1.11 : ALLOW
+
+# Allow telnet from localhost only
+telnetd : 127.0.0.1 : ALLOW
+
+# Allow all services for the administrator's workstation
+ALL : 192.168.1.5 : ALLOW</code></pre>
+            
+            <h5>The hosts.deny File:</h5>
+            <p>This file contains rules that explicitly deny access. Typical configuration:</p>
+            <pre><code># Block a specific malicious IP address from all services
+ALL : 203.0.113.42 : DENY
+
+# Block a network range from accessing SSH
+sshd : 198.51.100.0/24 : DENY
+
+# Deny all services by default (safest approach)
+ALL : ALL : DENY</code></pre>
+            
+            <h4>Advanced Configuration</h4>
+            
+            <h5>Wildcards and Special Keywords:</h5>
+            <table>
+                <tr>
+                    <th>Wildcard/Keyword</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><code>ALL</code></td>
+                    <td>Matches all daemons or all hosts</td>
+                </tr>
+                <tr>
+                    <td><code>LOCAL</code></td>
+                    <td>Matches hosts without a dot in their name (local domain)</td>
+                </tr>
+                <tr>
+                    <td><code>PARANOID</code></td>
+                    <td>Matches hosts whose name doesn't match their IP address</td>
+                </tr>
+                <tr>
+                    <td><code>KNOWN</code></td>
+                    <td>Matches hosts whose name and address are known</td>
+                </tr>
+                <tr>
+                    <td><code>UNKNOWN</code></td>
+                    <td>Matches hosts whose name or address lookup fails</td>
+                </tr>
+            </table>
+            
+            <h5>Operators:</h5>
+            <p>TCP Wrappers supports several operators to create complex matching conditions:</p>
+            <table>
+                <tr>
+                    <th>Operator</th>
+                    <th>Description</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td><code>EXCEPT</code></td>
+                    <td>Excludes a subset from a match</td>
+                    <td><code>192.168.1.0/24 EXCEPT 192.168.1.5</code></td>
+                </tr>
+                <tr>
+                    <td><code>@/etc/file</code></td>
+                    <td>Read a list from a file</td>
+                    <td><code>sshd : @/etc/ssh/allowed_hosts</code></td>
+                </tr>
+            </table>
+            
+            <h5>Advanced Pattern Matching:</h5>
+            <pre><code># Match all hosts in a domain
+ALL : .example.com
+
+# Match all hosts in multiple domains
+ftpd : .example1.com, .example2.com
+
+# Match specific IP pattern
+sshd : 192.168.1.
+
+# Using netmask notation
+sshd : 192.168.1.0/255.255.255.0
+
+# Using CIDR notation
+sshd : 192.168.1.0/24</code></pre>
+            
+            <h5>Executing Commands:</h5>
+            <p>You can execute commands when rules match:</p>
+            <pre><code># Log blocked SSH attempts to a special file
+sshd : 198.51.100.0/24 : spawn /bin/echo `date` blocked SSH from %h >> /var/log/ssh-blocked.log : DENY
+
+# Send an email when someone connects from an unknown source
+sshd : UNKNOWN : spawn (echo "SSH attempt from unknown host %h" | mail -s "SSH Warning" admin@example.com) & : ALLOW
+
+# Perform a reverse banner attack (send warning to attacker)
+ALL : ALL : spawn (/bin/echo -e "WARNING: Access from %h logged!\n" | /usr/sbin/safe_finger @%h) &</code></pre>
+            
+            <p>Placeholder strings that can be used in commands:</p>
+            <table>
+                <tr>
+                    <th>Placeholder</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><code>%a</code></td>
+                    <td>Client's IP address</td>
+                </tr>
+                <tr>
+                    <td><code>%h</code></td>
+                    <td>Client's hostname (or IP if hostname is unavailable)</td>
+                </tr>
+                <tr>
+                    <td><code>%d</code></td>
+                    <td>Daemon process name</td>
+                </tr>
+                <tr>
+                    <td><code>%p</code></td>
+                    <td>Daemon process ID</td>
+                </tr>
+                <tr>
+                    <td><code>%s</code></td>
+                    <td>Server information (daemon@host)</td>
+                </tr>
+                <tr>
+                    <td><code>%%</code></td>
+                    <td>Literal % character</td>
+                </tr>
+            </table>
+            
+            <h4>Practical Examples</h4>
+            
+            <h5>Example 1: Basic Protection</h5>
+            <p>A minimal but effective TCP Wrappers configuration:</p>
+            <p><code>/etc/hosts.allow</code>:</p>
+            <pre><code># Allow SSH from internal network only
+sshd : 192.168.0.0/16
+# Allow all services from localhost
+ALL : 127.0.0.1</code></pre>
+            
+            <p><code>/etc/hosts.deny</code>:</p>
+            <pre><code># Deny everything else
+ALL : ALL</code></pre>
+            
+            <h5>Example 2: Server Hardening</h5>
+            <p><code>/etc/hosts.allow</code>:</p>
+            <pre><code># SSH access - admin network and specific external IPs only
+sshd : 10.0.0.0/8, 203.0.113.10, 203.0.113.11
+
+# FTP access - internal only
+vsftpd : 10.0.0.0/8
+
+# Web-based administration tools - localhost only
+webmin, usermin : 127.0.0.1
+
+# Database server - application servers only
+mysqld : 10.0.1.5, 10.0.1.6, 10.0.1.7</code></pre>
+            
+            <p><code>/etc/hosts.deny</code>:</p>
+            <pre><code># Log and deny all other connection attempts
+ALL : ALL : spawn /bin/echo "TCP Wrappers: Connection refused from %h to %d" | /usr/bin/logger -t security : DENY</code></pre>
+            
+            <h5>Example 3: Dynamically Generated Rules</h5>
+            <p>Using files to store lists of allowed or denied hosts:</p>
+            <p>Create a list file <code>/etc/tcp_wrappers/allowed_ssh.txt</code>:</p>
+            <pre><code>192.168.1.5
+192.168.1.10
+10.0.0.15
+admin-workstation.example.com</code></pre>
+            
+            <p>Then in <code>/etc/hosts.allow</code>:</p>
+            <pre><code>sshd : @/etc/tcp_wrappers/allowed_ssh.txt</code></pre>
+            
+            <h4>Troubleshooting</h4>
+            
+            <h5>Logging:</h5>
+            <p>TCP Wrappers logs via syslog, typically to <code>/var/log/secure</code> or <code>/var/log/auth.log</code>:</p>
+            <pre><code># View logs related to TCP Wrappers
+grep "refused connect" /var/log/secure
+grep "connection from" /var/log/secure</code></pre>
+            
+            <h5>Testing Rules:</h5>
+            <pre><code># Test if a host would be allowed to connect to a service
+/usr/sbin/tcpdchk  # Check configuration syntax
+
+/usr/sbin/tcpdmatch sshd 192.168.1.10  # Test specific host/service combination
+
+# Validate your configs
+tcpdchk -v</code></pre>
+            
+            <h5>Common Problems:</h5>
+            <ul>
+                <li><strong>Access denied unexpectedly</strong>: Check if the service is compiled with TCP Wrappers support</li>
+                <li><strong>Rules not working</strong>: Remember <code>hosts.allow</code> is checked before <code>hosts.deny</code></li>
+                <li><strong>Hostname/IP issues</strong>: DNS problems can cause host identification issues; use IP addresses for reliability</li>
+            </ul>
+            
+            <h4>Best Practices</h4>
+            
+            <ol>
+                <li><strong>Default deny stance</strong>: Deny all by default, and explicitly allow only necessary connections</li>
+                <li><strong>Use IP addresses</strong>: Prefer IP addresses over hostnames to avoid DNS-related security issues</li>
+                <li><strong>Add comments</strong>: Document your rules with comments (lines starting with #)</li>
+                <li><strong>Log denied connections</strong>: Add logging commands to track unauthorized access attempts</li>
+                <li><strong>Layer with other security</strong>: Use TCP Wrappers as one component in a multi-layered security approach</li>
+                <li><strong>Regular reviews</strong>: Periodically review and update your TCP Wrappers configuration</li>
+                <li><strong>Test before implementation</strong>: Test configuration changes before applying them in production</li>
+            </ol>
+            
+            <h4>Limitations and Alternatives</h4>
+            
+            <h5>Limitations:</h5>
+            <ul>
+                <li>Only works with services specifically compiled to use libwrap</li>
+                <li>Limited to connection-time decisions (can't filter based on connection content)</li>
+                <li>No state tracking or deep packet inspection</li>
+                <li>Being phased out in modern Linux distributions</li>
+            </ul>
+            
+            <h5>Modern Alternatives:</h5>
+            <ul>
+                <li><strong>Firewalld/IPTables</strong>: More powerful and flexible packet filtering</li>
+                <li><strong>SELinux/AppArmor</strong>: Mandatory access control systems</li>
+                <li><strong>fail2ban</strong>: Dynamic blocking based on log monitoring</li>
+                <li><strong>PAM</strong>: Pluggable Authentication Modules</li>
+                <li><strong>Application-specific ACLs</strong>: Built into services like SSH (AllowUsers directive)</li>
+            </ul>
+            
+            <h4>Conclusion</h4>
+            
+            <p>Despite being considered legacy technology, TCP Wrappers remains a simple yet effective additional security layer when available. Its low overhead, straightforward configuration, and integration with many traditional services make it valuable in a defense-in-depth strategy, particularly for older systems where more modern alternatives might not be fully available.</p>
+            
+            <p>However, for new deployments or when designing security architecture on modern distributions, consider more contemporary and actively maintained security mechanisms that provide more granular control and better integration with current system components.</p>
+        </div>
+    </div>
+
+    <div class="topic quiz-topic">
+        <div class="topic-header quiz-header">
+            <h3>Linux Security Quiz 📝</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <h4>Test Your Knowledge of Linux Security</h4>
+            <p>Answer the following questions to check your understanding of Linux security and hardening concepts.</p>
+
+    <div class="quiz-container">
+                <h4 class="quiz-question">1. Why should Telnet never be used for remote administration?</h4>
+        <ul class="quiz-options">
+            <li class="quiz-option" data-correct="true">It transmits all data including passwords in plaintext</li>
+            <li class="quiz-option" data-correct="false">It uses too much bandwidth</li>
+            <li class="quiz-option" data-correct="false">It requires a GUI interface</li>
+            <li class="quiz-option" data-correct="false">It only works on Windows systems</li>
+        </ul>
+        <div class="quiz-feedback"></div>
+        <button class="quiz-button">Check Answer</button>
+    </div>
+
+    <div class="quiz-container">
+                <h4 class="quiz-question">2. Which command would you use to enable the UFW firewall?</h4>
+        <ul class="quiz-options">
+            <li class="quiz-option" data-correct="false">sudo ufw start</li>
+            <li class="quiz-option" data-correct="true">sudo ufw enable</li>
+            <li class="quiz-option" data-correct="false">sudo ufw --on</li>
+            <li class="quiz-option" data-correct="false">sudo service ufw start</li>
+        </ul>
+        <div class="quiz-feedback"></div>
+        <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">3. Which file should be checked first when TCP Wrappers evaluates access control?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="true">/etc/hosts.allow</li>
+                    <li class="quiz-option" data-correct="false">/etc/hosts.deny</li>
+                    <li class="quiz-option" data-correct="false">/etc/hosts.config</li>
+                    <li class="quiz-option" data-correct="false">/etc/hosts</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">4. Which SSH configuration option disables password authentication and requires key-based authentication?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">PermitRootLogin no</li>
+                    <li class="quiz-option" data-correct="true">PasswordAuthentication no</li>
+                    <li class="quiz-option" data-correct="false">AllowUsers</li>
+                    <li class="quiz-option" data-correct="false">StrictModes yes</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">5. What is the purpose of running a security audit using tools like Lynis?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">To automatically fix all security vulnerabilities</li>
+                    <li class="quiz-option" data-correct="false">To hack other systems on the network</li>
+                    <li class="quiz-option" data-correct="true">To identify security weaknesses and suggest improvements</li>
+                    <li class="quiz-option" data-correct="false">To generate security certificates</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">6. What is the primary purpose of SELinux?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">Network packet filtering</li>
+                    <li class="quiz-option" data-correct="false">User authentication</li>
+                    <li class="quiz-option" data-correct="true">Mandatory access control for system resources</li>
+                    <li class="quiz-option" data-correct="false">File encryption</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">7. Which tool can be used to detect changes in system files and alert administrators?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">nmap</li>
+                    <li class="quiz-option" data-correct="true">AIDE (Advanced Intrusion Detection Environment)</li>
+                    <li class="quiz-option" data-correct="false">syslog</li>
+                    <li class="quiz-option" data-correct="false">grep</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Resources Section -->
+    <h3 class="video-resources-title">Video Resources 📺</h3>
+    
+    <div class="direct-video-links">
+        <div class="video-card">
+            <a href="https://youtu.be/t9F3hcleyis?si=FA1VPzSOWM3RtsLV" target="_blank" class="video-link-direct">
+                <i class="fab fa-youtube"></i>
+                <span class="video-link-text">Linux Security & Hardening</span>
+            </a>
+        </div>
+    </div>
+</section>

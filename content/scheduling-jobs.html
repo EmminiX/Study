@@ -1,0 +1,1868 @@
+<section id="scheduling-jobs">
+    <h2>Scheduling Jobs in Linux</h2>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Scheduling Jobs Overview</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Scheduling allows automation of tasks to run at specific times or intervals without manual intervention. This is essential for system maintenance, backups, and routine tasks.</p>
+            
+            <p>Linux offers two main types of scheduled jobs:</p>
+            <ul>
+                <li><strong>Recurring jobs</strong> (e.g., cron jobs) - Run on a schedule at specific times or intervals</li>
+                <li><strong>Ad hoc jobs</strong> (e.g., at jobs) - Run once at a specified time</li>
+            </ul>
+            
+            <p>Scheduling jobs helps administrators automate routine tasks, ensuring they run consistently without requiring manual intervention.</p>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="job-scheduling-overview" onclick="openModal('job-scheduling-overview'); return false;">Learn more: Introduction to Job Scheduling in Linux</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Job Scheduling Overview information -->
+    <div id="job-scheduling-overview" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('job-scheduling-overview')">&times;</span>
+            <h3>Introduction to Job Scheduling in Linux</h3>
+            
+            <p>In Linux systems, job scheduling refers to the process of automating tasks to execute at predetermined times or intervals without requiring manual intervention. This capability is fundamental to system administration, allowing for the efficient management of resources and execution of routine operations.</p>
+            
+            <h4>Why Schedule Jobs?</h4>
+            <p>Job scheduling is essential in Linux environments for several reasons:</p>
+            <ul>
+                <li><strong>Automation:</strong> Reduce manual effort and human error by automating routine tasks</li>
+                <li><strong>Consistency:</strong> Ensure tasks run regularly without oversight</li>
+                <li><strong>Resource optimization:</strong> Schedule resource-intensive jobs during off-peak hours</li>
+                <li><strong>System maintenance:</strong> Automate backups, updates, and system housekeeping</li>
+                <li><strong>Business continuity:</strong> Ensure critical processes run on schedule</li>
+                <li><strong>Workload distribution:</strong> Balance system load by scheduling tasks appropriately</li>
+            </ul>
+            
+            <h4>Types of Scheduled Jobs</h4>
+            
+            <h5>1. Recurring Jobs</h5>
+            <p>These jobs run repeatedly according to a defined schedule:</p>
+            <ul>
+                <li><strong>Time-based recurrence:</strong> Execute at specific times (hourly, daily, weekly, etc.)</li>
+                <li><strong>Interval-based recurrence:</strong> Run at fixed intervals (every 5 minutes, every 2 hours)</li>
+                <li><strong>Calendar-based recurrence:</strong> Execute on specific dates or days of the week</li>
+            </ul>
+            <p>Primary tool: <strong>cron</strong> (crond daemon and crontab)</p>
+            
+            <h5>2. Ad Hoc (One-time) Jobs</h5>
+            <p>These jobs execute once at a specified future time:</p>
+            <ul>
+                <li><strong>Absolute timing:</strong> Run at a specific time and date</li>
+                <li><strong>Relative timing:</strong> Execute after a specified delay (e.g., 30 minutes from now)</li>
+                <li><strong>Event-based:</strong> Run when a specific condition is met</li>
+            </ul>
+            <p>Primary tool: <strong>at</strong> command</p>
+            
+            <h5>3. Conditional Jobs</h5>
+            <p>These jobs execute based on system conditions:</p>
+            <ul>
+                <li><strong>Load-based:</strong> Run when system load is below a threshold</li>
+                <li><strong>Event-triggered:</strong> Execute in response to system events</li>
+            </ul>
+            <p>Tools: <strong>batch</strong> command, systemd timers, anacron</p>
+            
+            <h4>Job Scheduling Infrastructure</h4>
+            
+            <table>
+                <tr>
+                    <th>Component</th>
+                    <th>Description</th>
+                    <th>Common Use Cases</th>
+                </tr>
+                <tr>
+                    <td><strong>cron</strong></td>
+                    <td>Time-based job scheduler daemon</td>
+                    <td>Recurring tasks (backups, log rotation, reports)</td>
+                </tr>
+                <tr>
+                    <td><strong>at</strong></td>
+                    <td>One-time job execution service</td>
+                    <td>Delayed execution, planned maintenance</td>
+                </tr>
+                <tr>
+                    <td><strong>systemd timers</strong></td>
+                    <td>Modern timer-based activation</td>
+                    <td>Service activation, complex timing patterns</td>
+                </tr>
+                <tr>
+                    <td><strong>anacron</strong></td>
+                    <td>Non-continuous system job scheduler</td>
+                    <td>Ensuring jobs run on intermittently powered systems</td>
+                </tr>
+                <tr>
+                    <td><strong>batch</strong></td>
+                    <td>Load-sensitive job execution</td>
+                    <td>CPU-intensive tasks during system idle time</td>
+                </tr>
+            </table>
+            
+            <h4>Evolution of Job Scheduling in Linux</h4>
+            <p>Job scheduling in Linux has evolved over time:</p>
+            <ul>
+                <li><strong>Traditional approach:</strong> cron and at services, focusing on time-based execution</li>
+                <li><strong>Modern additions:</strong> systemd timers providing more sophisticated scheduling capabilities</li>
+                <li><strong>Enterprise solutions:</strong> Advanced job schedulers like Jenkins, Kubernetes CronJobs, etc. for complex workflows</li>
+            </ul>
+            
+            <h4>Key Scheduling Considerations</h4>
+            <ul>
+                <li><strong>Environment variables:</strong> Scheduled jobs run in a limited environment that may differ from interactive sessions</li>
+                <li><strong>Resource constraints:</strong> Consider CPU, memory, and disk I/O requirements</li>
+                <li><strong>Error handling:</strong> Implement proper logging and notification mechanisms</li>
+                <li><strong>Dependencies:</strong> Manage relationships between jobs</li>
+                <li><strong>Security:</strong> Control which users can schedule jobs</li>
+                <li><strong>Monitoring:</strong> Track job execution and performance</li>
+            </ul>
+            
+            <h4>Best Practices</h4>
+            <ul>
+                <li>Use absolute paths in scheduled commands</li>
+                <li>Redirect output to log files for troubleshooting</li>
+                <li>Test commands manually before scheduling</li>
+                <li>Document scheduled jobs and their purpose</li>
+                <li>Consider implications of job failures</li>
+                <li>Use appropriate timing to balance system load</li>
+                <li>Implement proper error notification mechanisms</li>
+            </ul>
+            
+            <p>Understanding Linux job scheduling mechanisms allows administrators to automate routine tasks, optimize system resources, and ensure critical operations run on schedule, significantly improving system management efficiency and reliability.</p>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Scheduling Methods</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Linux provides several methods for scheduling tasks:</p>
+            
+            <table>
+                <tr>
+                    <th>Method</th>
+                    <th>Description</th>
+                    <th>Use Case Example</th>
+                </tr>
+                <tr>
+                    <td><strong>Cron jobs</strong></td>
+                    <td>Schedule recurring jobs (minute, hour, day, etc.) for users or system</td>
+                    <td>Automated backups, regular updates</td>
+                </tr>
+                <tr>
+                    <td><strong>At command</strong></td>
+                    <td>Schedule one-time (ad hoc) jobs for later execution</td>
+                    <td>Run a script once at 13:00 today</td>
+                </tr>
+                <tr>
+                    <td><strong>Systemd timers</strong></td>
+                    <td>(Advanced) Control timers and schedules for systemd services</td>
+                    <td>More granular control on modern systems</td>
+                </tr>
+                <tr>
+                    <td><strong>Batch</strong></td>
+                    <td>Run jobs when system load is low</td>
+                    <td>Non-urgent processes</td>
+                </tr>
+            </table>
+            
+            <p>Each method has its strengths and is suitable for different scheduling needs.</p>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="scheduling-methods-info" onclick="openModal('scheduling-methods-info'); return false;">Learn more: Methods for Scheduling Tasks in Linux</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Scheduling Methods information -->
+    <div id="scheduling-methods-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('scheduling-methods-info')">&times;</span>
+            <h3>Methods for Scheduling Tasks in Linux</h3>
+            
+            <p>Linux offers a diverse ecosystem of task scheduling tools, each designed to address specific scheduling needs. Understanding the strengths, limitations, and use cases of each method enables administrators to select the right tool for each job scheduling scenario.</p>
+            
+            <h4>Cron: The Workhorse of Linux Scheduling</h4>
+            
+            <p>The cron system is the most widely used scheduling mechanism in Linux, focused on recurring time-based job execution.</p>
+            
+            <h5>Components of the Cron System:</h5>
+            <ul>
+                <li><strong>crond:</strong> The daemon that runs in the background and executes scheduled tasks</li>
+                <li><strong>crontab:</strong> The configuration file format and command for managing scheduled jobs</li>
+                <li><strong>system crontabs:</strong> Global scheduling configurations (/etc/crontab and /etc/cron.d/)</li>
+                <li><strong>cron directories:</strong> Special directories for common intervals (/etc/cron.daily/, etc.)</li>
+            </ul>
+            
+            <h5>Advantages of Cron:</h5>
+            <ul>
+                <li>Mature, stable, and available on virtually all Linux distributions</li>
+                <li>Precise time-based scheduling with minute granularity</li>
+                <li>Supports both system-wide and per-user scheduling</li>
+                <li>Simple text-based configuration</li>
+                <li>Low resource overhead</li>
+            </ul>
+            
+            <h5>Limitations of Cron:</h5>
+            <ul>
+                <li>Cannot execute missed jobs after system downtime (see anacron below)</li>
+                <li>No built-in dependency handling between jobs</li>
+                <li>Limited to fixed time intervals (minimum: 1 minute)</li>
+                <li>No native job output capture (requires redirection)</li>
+            </ul>
+            
+            <h4>At: One-time Execution</h4>
+            
+            <p>The at command schedules jobs for a single execution at a specified future time.</p>
+            
+            <h5>Components of the At System:</h5>
+            <ul>
+                <li><strong>atd:</strong> The daemon that executes scheduled at jobs</li>
+                <li><strong>at:</strong> Command for scheduling jobs</li>
+                <li><strong>atq/atrm:</strong> Commands for managing at job queue</li>
+            </ul>
+            
+            <h5>Advantages of At:</h5>
+            <ul>
+                <li>Ideal for tasks that need to run once</li>
+                <li>Flexible time specification options (e.g., "tomorrow," "next week")</li>
+                <li>Preserves the current environment for job execution</li>
+                <li>Simple interface for delaying command execution</li>
+            </ul>
+            
+            <h5>Limitations of At:</h5>
+            <ul>
+                <li>Not designed for recurring tasks</li>
+                <li>Jobs are lost if the system is down at the scheduled time</li>
+                <li>Limited management capabilities compared to modern schedulers</li>
+            </ul>
+            
+            <h4>Batch: Load-sensitive Scheduling</h4>
+            
+            <p>The batch command is a variation of at that executes jobs when system load permits.</p>
+            
+            <h5>Key Features:</h5>
+            <ul>
+                <li>Runs jobs when system load average falls below a threshold (usually 1.5)</li>
+                <li>Uses the same at daemon (atd) for job execution</li>
+                <li>Ideal for non-time-sensitive, resource-intensive tasks</li>
+            </ul>
+            
+            <h5>Example Usage:</h5>
+            <pre><code>batch
+> find / -type f -name "*.log" -exec gzip {} \;
+> ^D</code></pre>
+            
+            <h4>Anacron: For Non-continuously Running Systems</h4>
+            
+            <p>Anacron ensures jobs run even on systems that aren't powered on 24/7.</p>
+            
+            <h5>How Anacron Works:</h5>
+            <ul>
+                <li>Executes jobs with daily, weekly, or monthly frequency</li>
+                <li>Tracks when jobs last ran using timestamp files</li>
+                <li>Executes missed jobs when the system is up again</li>
+                <li>Typically configured to run at boot and periodically while the system runs</li>
+            </ul>
+            
+            <h5>Advantages of Anacron:</h5>
+            <ul>
+                <li>Ensures periodic tasks are run even on laptops or desktops</li>
+                <li>Prevents job accumulation after system downtime</li>
+                <li>Simple configuration for common periodic tasks</li>
+            </ul>
+            
+            <h5>Limitations:</h5>
+            <ul>
+                <li>Not suitable for sub-daily schedules (minimum: daily)</li>
+                <li>Cannot schedule jobs at precise times</li>
+                <li>Only available for system-wide jobs (not per-user)</li>
+            </ul>
+            
+            <h4>Systemd Timers: Modern Scheduling</h4>
+            
+            <p>On systemd-based distributions, systemd timers provide an alternative to traditional cron jobs.</p>
+            
+            <h5>Components:</h5>
+            <ul>
+                <li><strong>Timer units:</strong> .timer files defining when to trigger a service</li>
+                <li><strong>Service units:</strong> .service files defining what to execute</li>
+            </ul>
+            
+            <h5>Advantages of Systemd Timers:</h5>
+            <ul>
+                <li>More precise timing options (down to microseconds)</li>
+                <li>Better logging and status tracking integration</li>
+                <li>Supports dependencies between services</li>
+                <li>Can trigger on calendar time or relative to events</li>
+                <li>Randomized delays to spread system load</li>
+                <li>Persistent tracking of missed executions</li>
+            </ul>
+            
+            <h5>Example of Systemd Timer Unit:</h5>
+            <pre><code>[Unit]
+Description=Run backup daily
+
+[Timer]
+OnCalendar=*-*-* 02:00:00
+RandomizedDelaySec=15m
+Persistent=true
+
+[Install]
+WantedBy=timers.target</code></pre>
+            
+            <h5>Limitations:</h5>
+            <ul>
+                <li>More complex configuration than cron</li>
+                <li>Only available on systemd-based distributions</li>
+                <li>Steeper learning curve</li>
+            </ul>
+            
+            <h4>Selecting the Right Scheduling Method</h4>
+            
+            <table>
+                <tr>
+                    <th>If you need to...</th>
+                    <th>Consider using...</th>
+                </tr>
+                <tr>
+                    <td>Run recurring tasks at specific times</td>
+                    <td>cron</td>
+                </tr>
+                <tr>
+                    <td>Run a job once at a future time</td>
+                    <td>at</td>
+                </tr>
+                <tr>
+                    <td>Ensure tasks run on non-continuously powered systems</td>
+                    <td>anacron</td>
+                </tr>
+                <tr>
+                    <td>Run resource-intensive jobs during idle times</td>
+                    <td>batch</td>
+                </tr>
+                <tr>
+                    <td>Complex scheduling with dependencies</td>
+                    <td>systemd timers</td>
+                </tr>
+                <tr>
+                    <td>Precise timing beyond minute granularity</td>
+                    <td>systemd timers</td>
+                </tr>
+                <tr>
+                    <td>Enterprise-level workflow scheduling</td>
+                    <td>Jenkins, Airflow, or other specialized tools</td>
+                </tr>
+            </table>
+            
+            <h4>Best Practices for Method Selection</h4>
+            <ul>
+                <li>Choose the simplest tool that meets your requirements</li>
+                <li>Consider system uptime patterns when selecting between cron and anacron</li>
+                <li>For modern systemd-based systems, prefer systemd timers for new scheduling needs</li>
+                <li>Document which scheduling method is used for each automated task</li>
+                <li>Ensure proper error handling and logging regardless of the chosen method</li>
+                <li>For complex workflow orchestration, consider dedicated job scheduling solutions</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Cron Jobs</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>The <strong>cron daemon</strong> runs scheduled jobs defined in cron tables (crontabs). Cron is the most commonly used scheduling tool in Linux.</p>
+            
+            <h4>Crontab Syntax:</h4>
+            <pre><code>* * * * * command_to_execute
+| | | | |
+| | | | +----- Day of week (0-7) (Sunday=0 or 7)
+| | | +------- Month (1-12)
+| | +--------- Day of month (1-31)
+| +----------- Hour (0-23)
++------------- Minute (0-59)</code></pre>
+            
+            <p>Each field specifies when the command runs. An asterisk (*) means "every" for that field.</p>
+            
+            <h4>Common Crontab Patterns:</h4>
+            <table>
+                <tr>
+                    <th>Pattern</th>
+                    <th>Meaning</th>
+                </tr>
+                <tr>
+                    <td><code>* * * * *</code></td>
+                    <td>Every minute</td>
+                </tr>
+                <tr>
+                    <td><code>0 * * * *</code></td>
+                    <td>Every hour at minute 0</td>
+                </tr>
+                <tr>
+                    <td><code>0 0 * * *</code></td>
+                    <td>Daily at midnight</td>
+                </tr>
+                <tr>
+                    <td><code>0 0 * * 0</code></td>
+                    <td>Weekly at midnight on Sunday</td>
+                </tr>
+                <tr>
+                    <td><code>0 0 1 * *</code></td>
+                    <td>Monthly at midnight on the 1st</td>
+                </tr>
+                <tr>
+                    <td><code>*/5 * * * *</code></td>
+                    <td>Every 5 minutes</td>
+                </tr>
+                <tr>
+                    <td><code>0 9-17 * * 1-5</code></td>
+                    <td>Every hour from 9 AM to 5 PM, Monday to Friday</td>
+                </tr>
+            </table>
+            
+            <h4>Example Crontab Entries:</h4>
+            <pre><code># Run a backup script every day at 2:30 AM
+30 2 * * * /usr/local/bin/backup.sh
+
+# Run a cleanup script at 1:45 PM on Mondays, Wednesdays, and Fridays
+45 13 * * 1,3,5 /usr/local/bin/cleanup.sh
+
+# Check system health every 15 minutes
+*/15 * * * * /usr/local/bin/health_check.sh</code></pre>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="crontab-syntax-info" onclick="openModal('crontab-syntax-info'); return false;">Learn more: Mastering Crontab Expressions</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Crontab Syntax information -->
+    <div id="crontab-syntax-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('crontab-syntax-info')">&times;</span>
+            <h3>Mastering Crontab Expressions</h3>
+            
+            <p>Crontab expressions provide a powerful and flexible way to schedule recurring jobs in Linux. Understanding the syntax and special features allows precise control over when your commands execute.</p>
+            
+            <h4>The Five Time Fields</h4>
+            <p>Every crontab entry consists of five time fields followed by the command to execute:</p>
+            
+            <pre><code>┌───────────── minute (0 - 59)
+│ ┌───────────── hour (0 - 23)
+│ │ ┌───────────── day of the month (1 - 31)
+│ │ │ ┌───────────── month (1 - 12)
+│ │ │ │ ┌───────────── day of the week (0 - 6) (Sunday to Saturday)
+│ │ │ │ │                                   (or 7 for Sunday)
+│ │ │ │ │
+│ │ │ │ │
+* * * * * command to execute</code></pre>
+            
+            <h4>Field Values and Special Characters</h4>
+            
+            <table>
+                <tr>
+                    <th>Character</th>
+                    <th>Description</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td><code>*</code></td>
+                    <td>Wildcard - matches any value</td>
+                    <td><code>* * * * *</code> - Every minute</td>
+                </tr>
+                <tr>
+                    <td><code>,</code></td>
+                    <td>Value list separator</td>
+                    <td><code>0 0 * * 1,3,5</code> - Midnight on Monday, Wednesday, Friday</td>
+                </tr>
+                <tr>
+                    <td><code>-</code></td>
+                    <td>Range of values</td>
+                    <td><code>0 9-17 * * *</code> - Every hour from 9 AM to 5 PM</td>
+                </tr>
+                <tr>
+                    <td><code>/</code></td>
+                    <td>Step values</td>
+                    <td><code>*/10 * * * *</code> - Every 10 minutes</td>
+                </tr>
+            </table>
+            
+            <h4>Advanced Examples Explained</h4>
+            
+            <table>
+                <tr>
+                    <th>Expression</th>
+                    <th>Meaning</th>
+                    <th>Detailed Explanation</th>
+                </tr>
+                <tr>
+                    <td><code>0 0 * * 1-5</code></td>
+                    <td>Weekday midnight</td>
+                    <td>Runs at 00:00 (midnight) Monday through Friday (not on weekends)</td>
+                </tr>
+                <tr>
+                    <td><code>*/10 9-17 * * 1-5</code></td>
+                    <td>Business hours every 10 minutes</td>
+                    <td>Runs every 10 minutes (00, 10, 20, 30, 40, 50) between 9 AM and 5 PM on weekdays</td>
+                </tr>
+                <tr>
+                    <td><code>0 12 15,30 * *</code></td>
+                    <td>Twice monthly at noon</td>
+                    <td>Runs at 12:00 PM on the 15th and 30th of each month (note: February doesn't always have a 30th)</td>
+                </tr>
+                <tr>
+                    <td><code>0 0 1 */3 *</code></td>
+                    <td>First day of every third month</td>
+                    <td>Runs at midnight on the 1st day of January, April, July, and October</td>
+                </tr>
+                <tr>
+                    <td><code>0 8-18/2 * * *</code></td>
+                    <td>Every even hour during daytime</td>
+                    <td>Runs at 8:00, 10:00, 12:00, 14:00, 16:00, and 18:00 every day</td>
+                </tr>
+                <tr>
+                    <td><code>0 0 * * 0,6</code></td>
+                    <td>Weekend midnight</td>
+                    <td>Runs at midnight on Saturday and Sunday</td>
+                </tr>
+                <tr>
+                    <td><code>30 3 1 1,7 *</code></td>
+                    <td>Specific biannual schedule</td>
+                    <td>Runs at 3:30 AM on January 1 and July 1</td>
+                </tr>
+            </table>
+            
+            <h4>Special Strings</h4>
+            <p>Some crontab implementations support special shorthand strings:</p>
+            
+            <table>
+                <tr>
+                    <th>String</th>
+                    <th>Meaning</th>
+                    <th>Equivalent</th>
+                </tr>
+                <tr>
+                    <td><code>@yearly</code> or <code>@annually</code></td>
+                    <td>Once a year at midnight on January 1st</td>
+                    <td><code>0 0 1 1 *</code></td>
+                </tr>
+                <tr>
+                    <td><code>@monthly</code></td>
+                    <td>Once a month at midnight on the 1st</td>
+                    <td><code>0 0 1 * *</code></td>
+                </tr>
+                <tr>
+                    <td><code>@weekly</code></td>
+                    <td>Once a week at midnight on Sunday</td>
+                    <td><code>0 0 * * 0</code></td>
+                </tr>
+                <tr>
+                    <td><code>@daily</code> or <code>@midnight</code></td>
+                    <td>Once a day at midnight</td>
+                    <td><code>0 0 * * *</code></td>
+                </tr>
+                <tr>
+                    <td><code>@hourly</code></td>
+                    <td>Once an hour at the beginning of the hour</td>
+                    <td><code>0 * * * *</code></td>
+                </tr>
+                <tr>
+                    <td><code>@reboot</code></td>
+                    <td>Run once at startup</td>
+                    <td>No direct equivalent</td>
+                </tr>
+            </table>
+            
+            <h4>Common Gotchas and Solutions</h4>
+            
+            <h5>1. Day of Month vs Day of Week Logic</h5>
+            <p>When both day-of-month and day-of-week are specified (not *), the job runs when <em>either</em> condition is met:</p>
+            <pre><code>0 0 1 * 1</code> # Runs at midnight on either the 1st of the month OR on Mondays</pre>
+            
+            <h5>2. Month and Day Names</h5>
+            <p>Some implementations support three-letter abbreviations:</p>
+            <pre><code>0 0 * Jan,Apr,Jul,Oct *</code> # Runs at midnight every day during specified months
+<code>0 0 * * Sun</code> # Runs at midnight every Sunday</pre>
+            
+            <h5>3. Execution Environment</h5>
+            <p>Cron jobs run with a limited environment. Define any needed variables in the crontab:</p>
+            <pre><code># Set environment variables at the top of crontab
+PATH=/usr/local/bin:/usr/bin:/bin
+SHELL=/bin/bash
+MAILTO=admin@example.com
+
+# Now jobs can use commands in the specified PATH
+0 * * * * backup_script.sh</code></pre>
+            
+            <h5>4. Percent Signs</h5>
+            <p>In crontab, % signs have special meaning (they represent newlines). Escape them with backslashes:</p>
+            <pre><code>0 0 * * * db_backup.sh --message "Backup at \%Y-\%m-\%d"</code></pre>
+            
+            <h5>5. Timezone Considerations</h5>
+            <p>Cron typically uses the system timezone. Be explicit if needed:</p>
+            <pre><code># Set timezone for all cron jobs
+CRON_TZ=UTC
+
+# Or use a command to adjust for timezone
+0 0 * * * TZ=America/New_York backup_script.sh</code></pre>
+            
+            <h4>Troubleshooting Crontab Issues</h4>
+            
+            <ul>
+                <li><strong>Job doesn't run:</strong> Check cron service status with <code>systemctl status cron</code></li>
+                <li><strong>Job runs but fails:</strong> Redirect output to a log file for debugging
+                <pre><code>0 * * * * /path/to/script.sh >> /path/to/logfile.log 2>&1</code></pre></li>
+                <li><strong>Email notifications:</strong> Cron sends job output to the user's email by default. Configure MAILTO for custom recipients.</li>
+                <li><strong>Permission issues:</strong> Ensure the script has execute permissions (<code>chmod +x script.sh</code>)</li>
+                <li><strong>Path problems:</strong> Use absolute paths for all commands and files</li>
+            </ul>
+            
+            <h4>Online Crontab Tools</h4>
+            <p>For help creating and understanding crontab expressions, try these online tools:</p>
+            <ul>
+                <li>Crontab Guru - Helps visualize and explain crontab expressions</li>
+                <li>Cronitor - Validates and monitors cron jobs</li>
+                <li>Crontab Generator - Creates expressions through a simple UI</li>
+            </ul>
+            
+            <h4>Best Practices</h4>
+            <ul>
+                <li>Always use full paths to commands and scripts</li>
+                <li>Add comments to document each job's purpose</li>
+                <li>Include error handling in your scripts</li>
+                <li>Redirect output to log files for troubleshooting</li>
+                <li>Group related jobs together in your crontab</li>
+                <li>Test commands manually before adding them to crontab</li>
+                <li>Use <code>date</code> command in scripts to log execution times</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Types of Cron Jobs</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Linux systems have several types of cron jobs with different purposes:</p>
+            
+            <table>
+                <tr>
+                    <th>Type</th>
+                    <th>Location</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>User's <strong>personal</strong> cron jobs</td>
+                    <td><code>crontab -e</code> (per user)</td>
+                    <td>Users schedule their own tasks</td>
+                </tr>
+                <tr>
+                    <td>System-wide cron jobs</td>
+                    <td><code>/etc/crontab</code></td>
+                    <td>Runs jobs system-wide, includes user field</td>
+                </tr>
+                <tr>
+                    <td>Cron directories</td>
+                    <td><code>/etc/cron.daily/</code>, <code>/etc/cron.hourly/</code> etc.</td>
+                    <td>Scripts placed here run at fixed intervals</td>
+                </tr>
+            </table>
+            
+            <p>The system-wide crontab in <code>/etc/crontab</code> includes an extra field for the user to run the command as:</p>
+            <pre><code># m h dom mon dow user  command
+0 4 * * * root    /usr/sbin/logrotate</code></pre>
+            
+            <p>For convenience, many Linux distributions provide directories for common intervals:</p>
+            <ul>
+                <li><code>/etc/cron.hourly/</code> - Scripts run once per hour</li>
+                <li><code>/etc/cron.daily/</code> - Scripts run once per day</li>
+                <li><code>/etc/cron.weekly/</code> - Scripts run once per week</li>
+                <li><code>/etc/cron.monthly/</code> - Scripts run once per month</li>
+            </ul>
+            
+            <p>To use these directories, simply place executable scripts in them, and they will run automatically at the specified interval.</p>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="cron-automate-info" onclick="openModal('cron-automate-info'); return false;">Learn more: How To Use Cron to Automate Tasks</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for How To Use Cron to Automate Tasks information -->
+    <div id="cron-automate-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('cron-automate-info')">&times;</span>
+            <h3>How To Use Cron to Automate Tasks in Linux</h3>
+            
+            <p>Cron is one of the most powerful utilities in Linux for automating recurring tasks. This guide explores the different types of cron jobs and provides practical advice for implementing automated tasks effectively.</p>
+            
+            <h4>Types of Cron Jobs in Linux Systems</h4>
+            
+            <h5>1. User Crontabs</h5>
+            <p>Each user on a Linux system (including root) can have their own crontab file to schedule personal jobs.</p>
+            
+            <ul>
+                <li><strong>Location:</strong> Typically stored in <code>/var/spool/cron/crontabs/</code> but should be accessed through the crontab command</li>
+                <li><strong>Access:</strong> Managed with <code>crontab -e</code> (edit), <code>crontab -l</code> (list), <code>crontab -r</code> (remove)</li>
+                <li><strong>Ownership:</strong> Jobs run with the permissions of the user who owns the crontab</li>
+                <li><strong>Use case:</strong> Personal tasks like backups, data processing, or personal reminders</li>
+            </ul>
+            
+            <p>Example of editing a user's crontab:</p>
+            <pre><code>$ crontab -e
+# Add this line to run a script every day at 3 AM
+0 3 * * * /home/username/scripts/daily-tasks.sh</code></pre>
+            
+            <h5>2. System-wide Crontab (/etc/crontab)</h5>
+            <p>This is a system crontab file used for system-wide tasks, with an additional field to specify which user should run each command.</p>
+            
+            <ul>
+                <li><strong>Location:</strong> <code>/etc/crontab</code></li>
+                <li><strong>Format:</strong> Includes an extra field for the username</li>
+                <li><strong>Access:</strong> Requires root privileges to modify</li>
+                <li><strong>Use case:</strong> System maintenance tasks that need to run as specific users</li>
+            </ul>
+            
+            <p>Example of /etc/crontab entries:</p>
+            <pre><code># Format: minute hour day month day_of_week user command
+# Run system updates at 4:30 AM as root
+30 4 * * * root /usr/local/sbin/system-updates.sh
+
+# Run web server log rotation as www-data user at midnight
+0 0 * * * www-data /usr/local/bin/rotate-logs.sh</code></pre>
+            
+            <h5>3. Cron Job Directories</h5>
+            <p>Many Linux distributions provide special directories for organizing cron jobs by their frequency:</p>
+            
+            <ul>
+                <li><strong>/etc/cron.hourly/</strong> - Scripts run once every hour</li>
+                <li><strong>/etc/cron.daily/</strong> - Scripts run once every day (typically around 6:25 AM)</li>
+                <li><strong>/etc/cron.weekly/</strong> - Scripts run once every week (typically on Sunday at 6:47 AM)</li>
+                <li><strong>/etc/cron.monthly/</strong> - Scripts run once every month (typically on the 1st at 6:52 AM)</li>
+            </ul>
+            
+            <p>The exact timing of these directories is controlled by the <code>run-parts</code> script, which is usually scheduled in <code>/etc/crontab</code>.</p>
+            
+            <p>To use these directories:</p>
+            <ol>
+                <li>Create a script with your commands</li>
+                <li>Make it executable (<code>chmod +x script</code>)</li>
+                <li>Place it in the appropriate directory</li>
+            </ol>
+            
+            <h5>4. Systemd Timer-triggered Cron Jobs</h5>
+            <p>On systems using systemd, timer units can trigger services at specified intervals, providing an alternative to traditional cron:</p>
+            
+            <ul>
+                <li><strong>Location:</strong> <code>/etc/systemd/system/</code> (for system-wide timers)</li>
+                <li><strong>Components:</strong> A .timer file and a corresponding .service file</li>
+                <li><strong>Advantages:</strong> More detailed logging, dependency management, and better error handling</li>
+            </ul>
+            
+            <h5>5. Package-specific Cron Jobs</h5>
+            <p>Many software packages install their own cron jobs in:</p>
+            <ul>
+                <li><strong>Location:</strong> <code>/etc/cron.d/</code> directory</li>
+                <li><strong>Format:</strong> Same as /etc/crontab, including the user field</li>
+                <li><strong>Examples:</strong> Database maintenance, log rotation, software updates</li>
+            </ul>
+            
+            <h4>Setting Up Effective Cron Jobs</h4>
+            
+            <h5>Creating Robust Scripts for Cron</h5>
+            <p>Scripts executed by cron should be designed to handle the limited environment and lack of interactive feedback:</p>
+            
+            <pre><code>#!/bin/bash
+# Example of a robust script for cron
+
+# Set up proper PATH
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+
+# Set up logging
+LOGFILE="/var/log/my-cron-job.log"
+DATE=$(date '+%Y-%m-%d %H:%M:%S')
+
+# Log the start
+echo "[$DATE] Starting job" >> $LOGFILE
+
+# Error handling
+set -e  # Exit on error
+
+# Main task with error handling
+if ! /usr/local/bin/main-task-command; then
+    echo "[$DATE] ERROR: Task failed" >> $LOGFILE
+    exit 1
+fi
+
+# Log the success
+echo "[$DATE] Job completed successfully" >> $LOGFILE</code></pre>
+            
+            <h5>Environmental Considerations</h5>
+            <p>Cron jobs run in a limited environment that differs from interactive shells:</p>
+            <ul>
+                <li><strong>PATH:</strong> Limited, so use absolute paths for commands</li>
+                <li><strong>Working directory:</strong> Typically the user's home directory</li>
+                <li><strong>Environment variables:</strong> Minimal set; define important ones in the script or crontab</li>
+                <li><strong>Shell:</strong> Usually <code>/bin/sh</code> unless specified otherwise</li>
+            </ul>
+            
+            <h5>Output Handling and Error Notification</h5>
+            <p>By default, cron emails the output of jobs to the user, but you can control this behavior:</p>
+            
+            <pre><code># Discard all output (no emails)
+0 * * * * command > /dev/null 2>&1
+
+# Log stdout and stderr to a file
+0 * * * * command >> /var/log/cron-output.log 2>&1
+
+# Send errors to a log, discard standard output
+0 * * * * command > /dev/null 2>> /var/log/cron-errors.log
+
+# Email specific user with the results
+MAILTO=admin@example.com
+0 * * * * command</code></pre>
+            
+            <h4>Access Control and Security</h4>
+            
+            <h5>Restricting Cron Access</h5>
+            <p>System administrators can control which users are allowed to use cron:</p>
+            <ul>
+                <li><strong>/etc/cron.allow:</strong> If this file exists, only users listed in it can use cron</li>
+                <li><strong>/etc/cron.deny:</strong> If this file exists, users listed in it cannot use cron</li>
+                <li>If neither file exists, only root can use cron</li>
+                <li>If <code>/etc/cron.allow</code> doesn't exist but <code>/etc/cron.deny</code> does and is empty, all users can use cron</li>
+            </ul>
+            
+            <h5>Security Best Practices</h5>
+            <ul>
+                <li>Run jobs with the least necessary privileges</li>
+                <li>Avoid embedding passwords or sensitive data in crontab entries</li>
+                <li>Secure script files with appropriate permissions (0700 recommended)</li>
+                <li>Validate and sanitize any external input used by cron jobs</li>
+                <li>Monitor and log cron job activity</li>
+            </ul>
+            
+            <h4>Common Use Cases and Examples</h4>
+            
+            <h5>1. System Maintenance</h5>
+            <pre><code># Clean temporary files older than 7 days at 2:30 AM
+30 2 * * * find /tmp -type f -mtime +7 -delete</code></pre>
+            
+            <h5>2. Database Backups</h5>
+            <pre><code># Daily database backup at 1 AM
+0 1 * * * /usr/local/bin/backup-database.sh >> /var/log/backups.log 2>&1</code></pre>
+            
+            <h5>3. Log Rotation</h5>
+            <pre><code># Rotate and compress logs weekly on Sunday at 3 AM
+0 3 * * 0 /usr/local/sbin/rotate-logs.sh</code></pre>
+            
+            <h5>4. Website Content Updates</h5>
+            <pre><code># Pull latest content every hour during business hours
+0 9-17 * * 1-5 cd /var/www/site && git pull</code></pre>
+            
+            <h5>5. System Monitoring</h5>
+            <pre><code># Check system health every 5 minutes
+*/5 * * * * /usr/local/bin/health-check.sh | grep -i error | mail -s "System Alert" admin@example.com</code></pre>
+            
+            <h4>Troubleshooting and Monitoring</h4>
+            
+            <h5>Common Cron Issues and Solutions</h5>
+            <table>
+                <tr>
+                    <th>Problem</th>
+                    <th>Possible Causes</th>
+                    <th>Solutions</th>
+                </tr>
+                <tr>
+                    <td>Job never runs</td>
+                    <td>
+                        - Syntax error in crontab<br>
+                        - cron daemon not running<br>
+                        - User in cron.deny
+                    </td>
+                    <td>
+                        - Validate with <code>crontab -l</code><br>
+                        - Check <code>systemctl status cron</code><br>
+                        - Check cron.allow/cron.deny files
+                    </td>
+                </tr>
+                <tr>
+                    <td>Job runs but fails</td>
+                    <td>
+                        - PATH issues<br>
+                        - Permission problems<br>
+                        - Script errors
+                    </td>
+                    <td>
+                        - Use absolute paths<br>
+                        - Check file permissions<br>
+                        - Test script manually
+                    </td>
+                </tr>
+                <tr>
+                    <td>Unexpected behavior</td>
+                    <td>
+                        - Environment differences<br>
+                        - Resource limitations<br>
+                        - Timezone issues
+                    </td>
+                    <td>
+                        - Set environment variables<br>
+                        - Check system resources<br>
+                        - Specify timezone in crontab
+                    </td>
+                </tr>
+            </table>
+            
+            <h5>Monitoring Cron Execution</h5>
+            <p>To ensure your cron jobs are running properly:</p>
+            <ul>
+                <li>Check system logs: <code>grep cron /var/log/syslog</code></li>
+                <li>Implement robust logging in scripts</li>
+                <li>Consider using tools like Cronitor or Healthchecks.io for monitoring</li>
+                <li>Add job completion timestamps to verify timing</li>
+            </ul>
+            
+            <h4>Advanced Strategies</h4>
+            <ul>
+                <li><strong>Job queuing:</strong> Use a locking mechanism to prevent multiple instances of a job from running simultaneously</li>
+                <li><strong>Retry logic:</strong> Implement retry mechanisms for jobs that might occasionally fail</li>
+                <li><strong>Distributed scheduling:</strong> For large-scale environments, consider dedicated job schedulers</li>
+                <li><strong>Configuration management:</strong> Use tools like Ansible, Puppet, or Chef to manage cron jobs across multiple servers</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Crontab Commands</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Managing crontabs is done with the following commands:</p>
+            
+            <table>
+                <tr>
+                    <th>Command</th>
+                    <th>Purpose</th>
+                </tr>
+                <tr>
+                    <td><code>crontab -e</code></td>
+                    <td>Edit current user's crontab</td>
+                </tr>
+                <tr>
+                    <td><code>crontab -l</code></td>
+                    <td>List current user's cron jobs</td>
+                </tr>
+                <tr>
+                    <td><code>crontab -r</code></td>
+                    <td>Remove current user's crontab</td>
+                </tr>
+                <tr>
+                    <td><code>crontab -u username -l</code></td>
+                    <td>List a specific user's crontab (requires root privileges)</td>
+                </tr>
+            </table>
+            
+            <p>When using <code>crontab -e</code>, the system opens the crontab in the default editor (usually vi or nano). After making changes, save and exit to apply them.</p>
+            
+            <h4>Tips for Working with Cron:</h4>
+            <ul>
+                <li>Always use absolute paths in cron jobs</li>
+                <li>Redirect output to a log file or /dev/null</li>
+                <li>Set the PATH variable in the crontab if needed</li>
+                <li>Test your commands before adding them to crontab</li>
+            </ul>
+            
+            <h4>Example of a Well-structured Crontab:</h4>
+            <pre><code># Environment variables
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+MAILTO=admin@example.com
+
+# Daily backup at 2:30 AM
+30 2 * * * /usr/local/bin/backup.sh >> /var/log/backup.log 2>&1
+
+# Weekly report on Sundays at 7:00 AM
+0 7 * * 0 /usr/local/bin/weekly_report.sh
+
+# Run every 10 minutes during business hours on weekdays
+*/10 8-17 * * 1-5 /usr/local/bin/monitor.sh</code></pre>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="crontab-commands-info" onclick="openModal('crontab-commands-info'); return false;">Learn more: Managing Crontabs in Linux</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Crontab Commands information -->
+    <div id="crontab-commands-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('crontab-commands-info')">&times;</span>
+            <h3>Managing Crontabs in Linux</h3>
+            
+            <p>Crontab (cron table) is a file that contains scheduled tasks and their execution times. Linux provides a set of commands to manage these crontab files efficiently. Understanding these commands is essential for proper job scheduling administration.</p>
+            
+            <h4>Core Crontab Commands</h4>
+            
+            <table>
+                <tr>
+                    <th>Command</th>
+                    <th>Description</th>
+                    <th>Common Options</th>
+                </tr>
+                <tr>
+                    <td><strong>crontab -e</strong></td>
+                    <td>Edit the current user's crontab</td>
+                    <td>Opens in default editor (EDITOR environment variable)</td>
+                </tr>
+                <tr>
+                    <td><strong>crontab -l</strong></td>
+                    <td>List the current user's crontab contents</td>
+                    <td>Displays to standard output</td>
+                </tr>
+                <tr>
+                    <td><strong>crontab -r</strong></td>
+                    <td>Remove the current user's crontab</td>
+                    <td>Use with caution - deletes entire crontab</td>
+                </tr>
+                <tr>
+                    <td><strong>crontab -i</strong></td>
+                    <td>Remove with confirmation prompt</td>
+                    <td>Safer than -r alone</td>
+                </tr>
+                <tr>
+                    <td><strong>crontab -u [user]</strong></td>
+                    <td>Specify a user's crontab to manage</td>
+                    <td>Must have appropriate permissions (typically root)</td>
+                </tr>
+            </table>
+            
+            <h4>Editing Crontabs Safely</h4>
+            
+            <p>When you run <code>crontab -e</code>:</p>
+            
+            <ol>
+                <li>The system creates a temporary copy of your crontab</li>
+                <li>Opens this copy in your default text editor</li>
+                <li>When you save and exit, the system checks the file for syntax errors</li>
+                <li>If valid, it replaces your crontab with the edited version</li>
+                <li>If errors are found, you're given a chance to re-edit</li>
+            </ol>
+            
+            <p>This workflow prevents corruption of your crontab with invalid entries.</p>
+            
+            <h4>Crontab Management Examples</h4>
+            
+            <pre><code># Edit your crontab
+$ crontab -e
+
+# List your crontab entries
+$ crontab -l
+
+# Edit another user's crontab (as root)
+$ sudo crontab -u www-data -e
+
+# Backup a user's crontab
+$ crontab -l > crontab_backup.txt
+
+# Restore from a backup
+$ crontab crontab_backup.txt
+
+# Remove crontab with confirmation
+$ crontab -i -r
+</code></pre>
+            
+            <h4>Crontab Locations and System Files</h4>
+            
+            <p>While you should use the crontab command to manage files, it's helpful to understand where they're stored:</p>
+            
+            <ul>
+                <li><strong>/var/spool/cron/crontabs/</strong> - User crontabs (filename = username)</li>
+                <li><strong>/etc/crontab</strong> - System-wide crontab</li>
+                <li><strong>/etc/cron.d/</strong> - Directory for additional system crontabs</li>
+                <li><strong>/etc/cron.allow</strong> - List of users allowed to use crontab</li>
+                <li><strong>/etc/cron.deny</strong> - List of users denied from using crontab</li>
+            </ul>
+            
+            <div class="note">
+                <p><strong>Note:</strong> Direct editing of files in /var/spool/cron/crontabs/ is not recommended as it bypasses syntax checking and may not properly notify the cron daemon of changes.</p>
+            </div>
+            
+            <h4>User Access Control</h4>
+            
+            <p>System administrators can control which users can create and edit crontab entries:</p>
+            
+            <ul>
+                <li>If <code>/etc/cron.allow</code> exists, only users listed in it can use crontab commands</li>
+                <li>If <code>/etc/cron.allow</code> doesn't exist but <code>/etc/cron.deny</code> does, users NOT listed in cron.deny can use crontab</li>
+                <li>If neither file exists, crontab access depends on system configuration (often restricted to root)</li>
+                <li>If <code>/etc/cron.allow</code> doesn't exist and <code>/etc/cron.deny</code> exists but is empty, all users can use crontab</li>
+            </ul>
+            
+            <h4>Structured Crontab Format</h4>
+            
+            <p>A well-organized crontab typically includes:</p>
+            
+            <ol>
+                <li>Environment variable settings at the top</li>
+                <li>Comments describing the purpose of each job</li>
+                <li>Jobs grouped by function or frequency</li>
+                <li>Proper output redirection for logging</li>
+            </ol>
+            
+            <pre><code># Environment variables
+SHELL=/bin/bash
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+MAILTO=admin@example.com
+
+# System maintenance jobs
+# Run logrotate daily at 1:30 AM
+30 1 * * * /usr/sbin/logrotate /etc/logrotate.conf > /dev/null 2>&1
+
+# Database maintenance jobs
+# Daily database backup at 2 AM
+0 2 * * * /usr/local/bin/backup-db.sh > /var/log/backup-db.log 2>&1
+# Weekly database optimization on Sundays at 3 AM
+0 3 * * 0 /usr/local/bin/optimize-db.sh > /var/log/optimize-db.log 2>&1
+
+# Monitoring jobs
+# Check system health every 15 minutes
+*/15 * * * * /usr/local/bin/health-check.sh > /dev/null 2>&1
+</code></pre>
+            
+            <h4>Best Practices for Crontab Management</h4>
+            
+            <ul>
+                <li><strong>Document thoroughly:</strong> Add comments to explain each job's purpose</li>
+                <li><strong>Use absolute paths:</strong> Always use full paths for commands and files</li>
+                <li><strong>Redirect output:</strong> Send stdout/stderr to logs or /dev/null to prevent mail</li>
+                <li><strong>Set environment variables:</strong> Define PATH and other necessary variables</li>
+                <li><strong>Version control:</strong> Keep backups of crontabs in a version control system</li>
+                <li><strong>Mind security:</strong> Avoid putting sensitive information (like passwords) in crontabs</li>
+                <li><strong>Test thoroughly:</strong> Test commands manually before adding to crontab</li>
+                <li><strong>Avoid overlaps:</strong> Consider job duration to prevent overlapping executions</li>
+                <li><strong>Monitor execution:</strong> Implement logging to verify jobs are running as expected</li>
+            </ul>
+            
+            <h4>Troubleshooting Crontab Issues</h4>
+            
+            <ul>
+                <li><strong>Check syntax:</strong> Ensure proper crontab format with correct fields</li>
+                <li><strong>Verify permissions:</strong> Ensure scripts are executable and accessible</li>
+                <li><strong>Check system logs:</strong> Review syslog or journal for cron errors</li>
+                <li><strong>Debug with echo:</strong> Add debug echo commands to trace execution</li>
+                <li><strong>Test environment:</strong> Verify that the script works in a limited environment</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>At Command (Ad Hoc Scheduling)</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>The <code>at</code> command schedules one-time jobs for a future time. Unlike cron, which is for recurring tasks, <code>at</code> is ideal for tasks that only need to run once.</p>
+            
+            <h4>Basic Syntax:</h4>
+            <pre><code>at HH:MM YYYY-MM-DD
+at> command
+at> <Ctrl-D></code></pre>
+            
+            <p>You can also pipe commands to <code>at</code>:</p>
+            <pre><code>echo "/path/to/backup.sh" | at 13:00</code></pre>
+            
+            <p>Time specifications can be flexible:</p>
+            <ul>
+                <li><code>at 2:30pm tomorrow</code></li>
+                <li><code>at 10:00 July 31, 2023</code></li>
+                <li><code>at now + 1 hour</code></li>
+                <li><code>at 17:00 + 3 days</code></li>
+                <li><code>at midnight</code></li>
+                <li><code>at noon next week</code></li>
+            </ul>
+            
+            <h4>Examples:</h4>
+            <pre><code># Schedule a backup at 10:30 PM today
+at 22:30
+at> /home/user/scripts/backup.sh
+at> <Ctrl-D>
+
+# Schedule system restart in 30 minutes
+echo "shutdown -r now" | at now + 30 minutes
+
+# Schedule a reminder at noon tomorrow
+at 12:00 tomorrow
+at> echo "Team meeting at 2:00 PM" | mail -s "Reminder" user@example.com
+at> <Ctrl-D></code></pre>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="at-command-info" onclick="openModal('at-command-info'); return false;">Learn more: Using the at Command in Linux</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for At Command information -->
+    <div id="at-command-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('at-command-info')">&times;</span>
+            <h3>Using the at Command in Linux</h3>
+            
+            <p>The <code>at</code> command is a powerful utility for scheduling one-time tasks to run at a specified future time. Unlike cron, which is designed for recurring tasks, <code>at</code> is perfect for ad hoc scheduling needs when a task needs to execute just once.</p>
+            
+            <h4>How the at Command Works</h4>
+            
+            <p>The at command works with the atd daemon (at daemon), which runs in the background and executes commands at the specified times. When you schedule a job with at, it's stored in the at spool directory (typically <code>/var/spool/at/</code>) until its execution time.</p>
+            
+            <h4>Basic Syntax and Usage</h4>
+            
+            <p>The basic syntax for the at command is:</p>
+            
+            <pre><code>at [options] time [date]</code></pre>
+            
+            <p>There are multiple ways to use the at command:</p>
+            
+            <h5>Interactive Mode</h5>
+            <p>In this mode, you enter commands after invoking at:</p>
+            
+            <pre><code>$ at 10:00 tomorrow
+at> /path/to/script.sh
+at> echo "Task completed" | mail -s "Notification" user@example.com
+at> <Ctrl+D> (to save and exit)
+job 3 at Wed Apr 26 10:00:00 2023</code></pre>
+            
+            <h5>Pipe Mode</h5>
+            <p>You can pipe commands directly to at:</p>
+            
+            <pre><code>$ echo "/path/to/script.sh" | at 14:30
+job 4 at Wed Apr 26 14:30:00 2023</code></pre>
+            
+            <h5>File Input</h5>
+            <p>You can also use a file containing commands:</p>
+            
+            <pre><code>$ at -f commands.txt 22:00
+job 5 at Wed Apr 26 22:00:00 2023</code></pre>
+            
+            <h4>Time Specification Formats</h4>
+            
+            <p>The at command accepts a wide variety of time specifications, making it very flexible:</p>
+            
+            <h5>Absolute Time</h5>
+            <ul>
+                <li><code>at 10:00</code> - Run at 10:00 AM today (or tomorrow if it's already past 10:00 AM)</li>
+                <li><code>at 22:30</code> - Run at 10:30 PM</li>
+                <li><code>at 2:30PM</code> - Run at 2:30 PM</li>
+                <li><code>at 14:30</code> - Run at 2:30 PM (24-hour format)</li>
+            </ul>
+            
+            <h5>Relative Time</h5>
+            <ul>
+                <li><code>at now + 30 minutes</code> - Run 30 minutes from now</li>
+                <li><code>at now + 1 hour</code> - Run 1 hour from now</li>
+                <li><code>at now + 2 days</code> - Run 2 days from now at the current time</li>
+                <li><code>at 10:00 + 3 days</code> - Run at 10:00 AM 3 days from today</li>
+            </ul>
+            
+            <h5>Named Times</h5>
+            <ul>
+                <li><code>at midnight</code> - Run at 12:00 AM tonight</li>
+                <li><code>at noon</code> - Run at 12:00 PM today (or tomorrow if already past noon)</li>
+                <li><code>at teatime</code> - Run at 4:00 PM (a predefined time in at)</li>
+            </ul>
+            
+            <h5>Date Specifications</h5>
+            <ul>
+                <li><code>at 10:00 tomorrow</code> - Run at 10:00 AM tomorrow</li>
+                <li><code>at 14:00 next week</code> - Run at 2:00 PM on the same day next week</li>
+                <li><code>at 9:00 next monday</code> - Run at 9:00 AM next Monday</li>
+                <li><code>at 15:00 July 31, 2023</code> - Run at 3:00 PM on July 31, 2023</li>
+                <li><code>at 8:00 July 31</code> - Run at 8:00 AM on July 31 (current or next year)</li>
+            </ul>
+            
+            <h4>Command Options</h4>
+            
+            <table>
+                <tr>
+                    <th>Option</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><code>-f file</code></td>
+                    <td>Read commands from a file instead of standard input</td>
+                </tr>
+                <tr>
+                    <td><code>-m</code></td>
+                    <td>Send mail to the user when the job finishes, even if there was no output</td>
+                </tr>
+                <tr>
+                    <td><code>-v</code></td>
+                    <td>Display the time when the job will be executed</td>
+                </tr>
+                <tr>
+                    <td><code>-q queue</code></td>
+                    <td>Use a specific queue (a-z, A-Z). Higher letters run with increased niceness</td>
+                </tr>
+            </table>
+            
+            <h4>Practical Examples</h4>
+            
+            <h5>1. System Maintenance</h5>
+            <pre><code># Schedule a system update at midnight
+$ at midnight
+at> apt-get update && apt-get -y upgrade
+at> <Ctrl+D></code></pre>
+            
+            <h5>2. Delayed System Restart</h5>
+            <pre><code># Restart the system in 30 minutes
+$ echo "shutdown -r now" | at now + 30 minutes</code></pre>
+            
+            <h5>3. Resource-intensive Processing</h5>
+            <pre><code># Process large files during off-hours
+$ at 1:00 tomorrow
+at> find /var/logs -type f -name "*.log" -mtime +30 -exec gzip {} \;
+at> <Ctrl+D></code></pre>
+            
+            <h5>4. Reminder/Notification</h5>
+            <pre><code># Set a reminder for a meeting
+$ at 9:45 tomorrow
+at> echo "Meeting with team in 15 minutes" | mail -s "Meeting Reminder" user@example.com
+at> <Ctrl+D></code></pre>
+            
+            <h5>5. Database Backup</h5>
+            <pre><code># Schedule a one-time database backup
+$ at 23:00
+at> /usr/local/bin/backup-database.sh
+at> <Ctrl+D></code></pre>
+            
+            <h4>Environment Considerations</h4>
+            
+            <p>When a job runs via at, it inherits several aspects of the environment from when it was scheduled:</p>
+            
+            <ul>
+                <li><strong>Current directory:</strong> The job runs in the same directory where at was executed</li>
+                <li><strong>Environment variables:</strong> Most environment variables are preserved</li>
+                <li><strong>Shell:</strong> The default login shell is used unless SHELL is set</li>
+                <li><strong>Permissions:</strong> The job runs with the user's permissions who scheduled it</li>
+                <li><strong>Output:</strong> Any output is mailed to the user unless redirected</li>
+            </ul>
+            
+            <h4>When to Use at vs. cron</h4>
+            
+            <table>
+                <tr>
+                    <th>Use at when:</th>
+                    <th>Use cron when:</th>
+                </tr>
+                <tr>
+                    <td>The task needs to run just once</td>
+                    <td>The task needs to run repeatedly on a schedule</td>
+                </tr>
+                <tr>
+                    <td>You need to schedule an ad hoc task</td>
+                    <td>The schedule is predictable and recurring</td>
+                </tr>
+                <tr>
+                    <td>The timing is relative to now (e.g., in 2 hours)</td>
+                    <td>The timing is based on specific clock times</td>
+                </tr>
+                <tr>
+                    <td>You need a one-time maintenance task</td>
+                    <td>You need routine maintenance</td>
+                </tr>
+                <tr>
+                    <td>The task is event-driven but needs a delay</td>
+                    <td>The task needs to run regardless of events</td>
+                </tr>
+            </table>
+            
+            <h4>Limitations</h4>
+            
+            <ul>
+                <li>Jobs won't run if the system is down at the scheduled time</li>
+                <li>No built-in retry mechanism if a job fails</li>
+                <li>Limited control over resource usage compared to more advanced job schedulers</li>
+                <li>Jobs are lost if the atd service is restarted unless persistent job storage is configured</li>
+            </ul>
+            
+            <h4>Security Considerations</h4>
+            
+            <p>The at command can potentially be used for malicious purposes, so access to it is often restricted. System administrators should:</p>
+            
+            <ul>
+                <li>Configure /etc/at.allow and /etc/at.deny appropriately</li>
+                <li>Monitor at job submissions through system logs</li>
+                <li>Review the at spool directory periodically</li>
+                <li>Consider using SELinux or AppArmor policies to further restrict at usage</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>At Command Utilities</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Several utilities help manage scheduled <code>at</code> jobs:</p>
+            
+            <table>
+                <tr>
+                    <th>Command</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><code>atq</code></td>
+                    <td>List pending jobs (also <code>at -l</code>)</td>
+                </tr>
+                <tr>
+                    <td><code>atrm jobid</code></td>
+                    <td>Remove a scheduled job by job ID (also <code>at -r jobid</code>)</td>
+                </tr>
+                <tr>
+                    <td><code>at -c jobid</code></td>
+                    <td>Display the content of a scheduled job</td>
+                </tr>
+            </table>
+            
+            <p>Example workflow:</p>
+            <pre><code># Schedule a job
+$ echo "/path/to/script.sh" | at 22:00
+job 3 at Wed Apr 26 22:00:00 2023
+
+# List pending jobs
+$ atq
+3       Wed Apr 26 22:00:00 2023 a user
+
+# Check what's in the job
+$ at -c 3
+#!/bin/sh
+# atrun uid=1000 gid=1000
+# mail user 0
+umask 22
+...
+/path/to/script.sh
+
+# Remove the job
+$ atrm 3
+$ atq
+$</code></pre>
+            
+            <h4>Access Control:</h4>
+            <p>Access to <code>at</code> can be restricted using these files:</p>
+            <ul>
+                <li><code>/etc/at.allow</code> - If this file exists, only users listed here can use <code>at</code></li>
+                <li><code>/etc/at.deny</code> - If this file exists, users listed here cannot use <code>at</code></li>
+            </ul>
+            
+            <p>If neither file exists, only root can use <code>at</code>. If <code>at.deny</code> exists but is empty, all users can use <code>at</code>.</p>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="at-utilities-info" onclick="openModal('at-utilities-info'); return false;">Learn more: Managing at Jobs and Access Control</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for At Command Utilities information -->
+    <div id="at-utilities-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('at-utilities-info')">&times;</span>
+            <h3>Managing at Jobs and Access Control</h3>
+            
+            <p>The at command system includes several utilities to help manage scheduled jobs and control user access. These utilities provide a complete ecosystem for one-time job scheduling in Linux.</p>
+            
+            <h4>At Job Management Utilities</h4>
+            
+            <h5>1. atq - List Pending Jobs</h5>
+            
+            <p>The <code>atq</code> command (at queue) lists all pending jobs scheduled with at:</p>
+            
+            <pre><code>$ atq
+14      Mon Apr 25 14:30:00 2023 a user1
+15      Tue Apr 26 02:00:00 2023 a user2
+16      Wed Apr 27 23:15:00 2023 a user1</code></pre>
+            
+            <p>Each line shows:</p>
+            <ul>
+                <li>Job ID number</li>
+                <li>Scheduled execution date and time</li>
+                <li>Queue (the letter 'a' indicates the default queue)</li>
+                <li>Username of who created the job</li>
+            </ul>
+            
+            <p>Non-root users can only see their own jobs. Root can see all users' jobs.</p>
+            
+            <div class="note">
+                <p><strong>Note:</strong> <code>at -l</code> is equivalent to <code>atq</code> and provides the same functionality.</p>
+            </div>
+            
+            <h5>2. atrm - Remove Scheduled Jobs</h5>
+            
+            <p>The <code>atrm</code> command removes jobs from the at queue:</p>
+            
+            <pre><code># Remove job #14
+$ atrm 14
+
+# Remove multiple jobs
+$ atrm 15 16</code></pre>
+            
+            <p>Users can only remove their own jobs, while root can remove any job.</p>
+            
+            <div class="note">
+                <p><strong>Note:</strong> <code>at -r [jobid]</code> is equivalent to <code>atrm [jobid]</code>.</p>
+            </div>
+            
+            <h5>3. at -c - Display Job Content</h5>
+            
+            <p>To view the actual commands in a scheduled job:</p>
+            
+            <pre><code>$ at -c 14
+#!/bin/sh
+# atrun uid=1000 gid=1000
+# mail user1 0
+umask 22
+XDG_SESSION_ID=4; export XDG_SESSION_ID
+...
+cd /home/user1 || {
+	 echo 'Execution directory inaccessible' >&2
+	 exit 1
+}
+${SHELL:-/bin/sh} << 'marcinDELIMITER0a0f0908'
+/home/user1/scripts/backup.sh
+echo "Backup completed" | mail -s "Backup Status" user1@example.com
+marcinDELIMITER0a0f0908</code></pre>
+            
+            <p>The output shows:</p>
+            <ul>
+                <li>The shell used to run the job</li>
+                <li>Environment variables that will be set</li>
+                <li>The working directory</li>
+                <li>The actual commands to be executed</li>
+            </ul>
+            
+            <p>This is useful for verifying what a job will do before it runs or for debugging jobs that failed.</p>
+            
+            <h4>The atd Daemon</h4>
+            
+            <p>The <code>atd</code> daemon is the background service that executes scheduled at jobs:</p>
+            
+            <ul>
+                <li>It starts automatically during system boot on most Linux distributions</li>
+                <li>It periodically checks the at spool directory for jobs that need to be run</li>
+                <li>It executes jobs at their scheduled time</li>
+                <li>It processes mail notifications for job completion</li>
+            </ul>
+            
+            <h5>Managing the atd Service</h5>
+            
+            <p>On systemd-based systems (most modern Linux distributions):</p>
+            
+            <pre><code># Check atd status
+$ systemctl status atd
+
+# Start atd if it's not running
+$ sudo systemctl start atd
+
+# Enable atd to start at boot
+$ sudo systemctl enable atd
+
+# Restart atd
+$ sudo systemctl restart atd</code></pre>
+            
+            <p>On older SysV init systems:</p>
+            
+            <pre><code># Check atd status
+$ service atd status
+
+# Start atd
+$ sudo service atd start
+
+# Configure atd to start at boot
+$ sudo chkconfig atd on</code></pre>
+            
+            <h4>Access Control for the at Command</h4>
+            
+            <p>Linux provides two configuration files to control which users can schedule at jobs:</p>
+            
+            <h5>1. /etc/at.allow</h5>
+            
+            <p>If this file exists, only users listed in it can use the at command. One username per line:</p>
+            
+            <pre><code># Example /etc/at.allow file
+user1
+admin
+operator</code></pre>
+            
+            <h5>2. /etc/at.deny</h5>
+            
+            <p>If at.allow doesn't exist but at.deny does, all users except those listed in at.deny can use at:</p>
+            
+            <pre><code># Example /etc/at.deny file
+guestuser
+temporaryuser</code></pre>
+            
+            <h5>Access Control Rules</h5>
+            
+            <ol>
+                <li>If <code>/etc/at.allow</code> exists, only users listed in it can use at (at.deny is ignored)</li>
+                <li>If <code>/etc/at.allow</code> doesn't exist but <code>/etc/at.deny</code> does, all users except those in at.deny can use at</li>
+                <li>If neither file exists, only root can use at (most restrictive)</li>
+                <li>If <code>/etc/at.allow</code> doesn't exist and <code>/etc/at.deny</code> exists but is empty, all users can use at</li>
+            </ol>
+            
+            <div class="warning">
+                <p><strong>Security Note:</strong> For maximum security, create an empty at.allow file and don't create an at.deny file. This restricts at command usage to root only.</p>
+            </div>
+            
+            <h4>Job Queues in at</h4>
+            
+            <p>The at command supports multiple queues, indicated by single letters:</p>
+            
+            <pre><code># Schedule a job in queue 'c'
+$ at -q c 23:00
+at> /path/to/script.sh
+at> <Ctrl+D></code></pre>
+            
+            <p>Higher queue letters (a-z, then A-Z) run at lower niceness values (higher priority), with 'a' being the default queue.</p>
+            
+            <h5>Viewing Jobs in Specific Queues</h5>
+            
+            <pre><code># List jobs in queue 'c'
+$ atq -q c</code></pre>
+            
+            <h4>Batch Command - Load-dependent Execution</h4>
+            
+            <p>The <code>batch</code> command is a variation of at that schedules jobs to run when the system load is low:</p>
+            
+            <pre><code>$ batch
+at> /path/to/resource_intensive_script.sh
+at> <Ctrl+D></code></pre>
+            
+            <p>Jobs scheduled with batch will run when:</p>
+            <ul>
+                <li>The system load average falls below 1.5 (default), or</li>
+                <li>Below the level specified in the atd configuration</li>
+            </ul>
+            
+            <p>This is useful for running resource-intensive tasks without affecting system performance for interactive users.</p>
+            
+            <h4>Common Use Cases for at Utilities</h4>
+            
+            <h5>1. Job Monitoring and Management</h5>
+            <pre><code># Script to monitor at jobs
+#!/bin/bash
+echo "Current at jobs:"
+atq
+echo ""
+echo "Jobs scheduled for tonight:"
+atq | grep "$(date +%Y-%m-%d)" | grep -E "2[0-9]:00:00"</code></pre>
+            
+            <h5>2. Job Cleanup</h5>
+            <pre><code># Remove all pending jobs for a specific user
+for job in $(atq | grep username | cut -f1); do
+    atrm "$job"
+done</code></pre>
+            
+            <h5>3. Transferring Jobs</h5>
+            <pre><code># Save job details
+at -c 14 > job14.txt
+
+# Remove the original
+atrm 14
+
+# Reschedule with modifications
+at -f job14.txt 22:00 tomorrow</code></pre>
+            
+            <h5>4. System Maintenance Scripts</h5>
+            <pre><code># Example script that uses at to schedule a follow-up task
+#!/bin/bash
+# Perform backup
+/usr/local/bin/backup.sh
+
+# Schedule verification for 30 minutes later
+echo "/usr/local/bin/verify_backup.sh" | at now + 30 minutes</code></pre>
+            
+            <h4>Troubleshooting at Jobs</h4>
+            
+            <table>
+                <tr>
+                    <th>Problem</th>
+                    <th>Possible Causes</th>
+                    <th>Solutions</th>
+                </tr>
+                <tr>
+                    <td>Job doesn't execute</td>
+                    <td>
+                        - atd daemon not running<br>
+                        - Permission issues<br>
+                        - System time incorrect
+                    </td>
+                    <td>
+                        - Check atd status with systemctl<br>
+                        - Verify file permissions<br>
+                        - Check system clock
+                    </td>
+                </tr>
+                <tr>
+                    <td>Permission denied</td>
+                    <td>
+                        - User in at.deny<br>
+                        - User not in at.allow<br>
+                        - at command restrictions
+                    </td>
+                    <td>
+                        - Check at.allow and at.deny<br>
+                        - Verify user permissions<br>
+                        - Contact system administrator
+                    </td>
+                </tr>
+                <tr>
+                    <td>Job executes but fails</td>
+                    <td>
+                        - Environment differences<br>
+                        - Path issues<br>
+                        - Resource constraints
+                    </td>
+                    <td>
+                        - Set required environment variables<br>
+                        - Use absolute paths<br>
+                        - Test command manually
+                    </td>
+                </tr>
+            </table>
+            
+            <h4>Best Practices for at Job Management</h4>
+            
+            <ul>
+                <li>Document scheduled jobs and their purpose</li>
+                <li>Use descriptive email subjects in notification messages</li>
+                <li>Clean up completed or obsolete jobs regularly</li>
+                <li>Use absolute paths in at job commands</li>
+                <li>Redirect output to log files for troubleshooting</li>
+                <li>Test commands manually before scheduling</li>
+                <li>Include error handling and status reporting</li>
+                <li>Consider security implications of scheduled tasks</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic quiz-topic">
+        <div class="topic-header quiz-header">
+            <h3>Scheduling Jobs Quiz 📝</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <h4>Test Your Knowledge of Job Scheduling</h4>
+            <p>Answer the following questions to check your understanding of Linux job scheduling concepts.</p>
+
+    <div class="quiz-container">
+                <h4 class="quiz-question">1. Which crontab entry would run a backup script at 3:15 AM every Monday?</h4>
+        <ul class="quiz-options">
+            <li class="quiz-option" data-correct="false">15 3 * * *</li>
+            <li class="quiz-option" data-correct="true">15 3 * * 1</li>
+            <li class="quiz-option" data-correct="false">3 15 * * 1</li>
+            <li class="quiz-option" data-correct="false">* * * 3 15</li>
+        </ul>
+        <div class="quiz-feedback"></div>
+        <button class="quiz-button">Check Answer</button>
+    </div>
+
+    <div class="quiz-container">
+                <h4 class="quiz-question">2. Which command would you use to schedule a script to run once at 5:30 PM today?</h4>
+        <ul class="quiz-options">
+            <li class="quiz-option" data-correct="false">crontab -e "30 17 * * * /path/to/script.sh"</li>
+            <li class="quiz-option" data-correct="true">echo "/path/to/script.sh" | at 17:30</li>
+            <li class="quiz-option" data-correct="false">schedule -t 17:30 /path/to/script.sh</li>
+            <li class="quiz-option" data-correct="false">run --at=17:30 /path/to/script.sh</li>
+        </ul>
+        <div class="quiz-feedback"></div>
+        <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">3. Which symbol in a crontab means "every possible value" for that field?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="true">*</li>
+                    <li class="quiz-option" data-correct="false">%</li>
+                    <li class="quiz-option" data-correct="false">@</li>
+                    <li class="quiz-option" data-correct="false">$</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">4. What does the special crontab entry "@daily" mean?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">Run every hour</li>
+                    <li class="quiz-option" data-correct="true">Equivalent to "0 0 * * *" (run at midnight)</li>
+                    <li class="quiz-option" data-correct="false">Run every day at system start</li>
+                    <li class="quiz-option" data-correct="false">Run once per 24 hours of system uptime</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">5. Which command shows the scheduled at jobs?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="true">atq</li>
+                    <li class="quiz-option" data-correct="false">atls</li>
+                    <li class="quiz-option" data-correct="false">at -l</li>
+                    <li class="quiz-option" data-correct="false">Both A and C are correct</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">6. Which of the following crontab entries will run a script at 2:30 PM on the 15th of every month?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">30 2 15 * *</li>
+                    <li class="quiz-option" data-correct="true">30 14 15 * *</li>
+                    <li class="quiz-option" data-correct="false">15 30 14 * *</li>
+                    <li class="quiz-option" data-correct="false">15 * * 30 14</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">7. Which file controls which users are allowed to use the crontab command?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">/etc/cron.allow</li>
+                    <li class="quiz-option" data-correct="false">/etc/cron.deny</li>
+                    <li class="quiz-option" data-correct="false">/etc/crontab.allow</li>
+                    <li class="quiz-option" data-correct="true">Both A and B are correct</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- End of quiz section or last section in the file -->
+
+    <!-- Video Resources Section -->
+    <h3 class="video-resources-title">Video Resources 📺</h3>
+    
+    <div class="direct-video-links">
+        <div class="video-card">
+            <a href="https://youtu.be/7cbP7fzn0D8?si=3B1nDMvnNJlE_j3z" target="_blank" class="video-link-direct">
+                <i class="fab fa-youtube"></i>
+                <span class="video-link-text">Scheduling Jobs in Linux</span>
+            </a>
+        </div>
+    </div>
+</section> 

@@ -1,0 +1,1692 @@
+<section id="user-administration">
+    <h2>User and System Administration</h2>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Role of System Administrator (SysAdmin)</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>A System Administrator (SysAdmin) is responsible for managing and maintaining computer systems and networks. Their core responsibilities include:</p>
+            <ul>
+                <li>Managing user accounts and permissions</li>
+                <li>Maintaining system security</li>
+                <li>Installing, configuring, and maintaining system software and services</li>
+                <li>Monitoring system performance and troubleshooting issues</li>
+                <li>Managing groups and permissions for collaborative access</li>
+                <li>Enforcing policies such as password and account lockout rules</li>
+            </ul>
+            <p>System administrators need to have a broad range of skills, including understanding of operating systems, networking, security, and scripting to effectively manage complex IT infrastructures.</p>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="sysadmin-info" onclick="openModal('sysadmin-info'); return false;">Learn more: What is a Linux Systems Administrator</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for System Administrator Role information -->
+    <div id="sysadmin-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('sysadmin-info')">&times;</span>
+            <h3>Role of System Administrator (SysAdmin)</h3>
+            
+            <p>The System Administrator, commonly known as SysAdmin, is the pivotal figure responsible for maintaining the overall health, security, and performance of a Linux system. Their core responsibilities include installing and configuring hardware and software, ensuring system security through updates and access controls, monitoring system performance, troubleshooting and resolving hardware or software issues, and performing regular backups for disaster recovery.</p>
+            
+            <p>They also manage network configurations, setting up and maintaining services such as web servers, mail servers, and databases, and implement automation via scripting to improve efficiency.</p>
+            
+            <p>A SysAdmin must possess a deep understanding of Linux operating system architecture, security best practices, and have problem-solving skills to swiftly resolve emergencies. Their role is crucial in ensuring that the system operates reliably, remains secure from vulnerabilities, and supports the needs of users and applications effectively.</p>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Important Linux Files for User Management</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Linux stores user account information in several critical files:</p>
+            
+            <table>
+                <tr>
+                    <th>File</th>
+                    <th>Purpose</th>
+                </tr>
+                <tr>
+                    <td><code>/etc/passwd</code></td>
+                    <td>Stores user account info — username, UID, GID, shell, home directory (publicly readable but no passwords)</td>
+                </tr>
+                <tr>
+                    <td><code>/etc/shadow</code></td>
+                    <td>Stores encrypted password data and password aging details (restricted access)</td>
+                </tr>
+                <tr>
+                    <td><code>/etc/group</code></td>
+                    <td>Defines groups and their members</td>
+                </tr>
+                <tr>
+                    <td><code>/etc/gshadow</code></td>
+                    <td>Stores secure group passwords and group info</td>
+                </tr>
+                <tr>
+                    <td><code>/etc/login.defs</code></td>
+                    <td>Configuration for user account parameters like password expiry, UID range</td>
+                </tr>
+            </table>
+            
+            <h4>Example of /etc/passwd entry:</h4>
+            <pre><code>username:x:1000:1000:Full Name:/home/username:/bin/bash
+|        | |    |    |         |              |
+|        | |    |    |         |              +-> Login shell
+|        | |    |    |         +-> Home directory
+|        | |    |    +-> Comment/full name
+|        | |    +-> GID (Group ID)
+|        | +-> UID (User ID)
+|        +-> Password (x means in /etc/shadow)
++-> Username</code></pre>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="linux-files-info" onclick="openModal('linux-files-info'); return false;">Learn more: Understanding Linux User Management Files</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Linux User Management Files information -->
+    <div id="linux-files-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('linux-files-info')">&times;</span>
+            <h3>Important Linux Files for User Management</h3>
+            
+            <p>Linux relies on specific configuration files to manage user and group information, enforce permissions, and control system security. Understanding these files is essential for effective system administration.</p>
+            
+            <h4>/etc/passwd - User Account Information</h4>
+            <p>This file contains fundamental user account details and is readable by all users on the system:</p>
+            <ul>
+                <li><strong>Format:</strong> username:password:UID:GID:comment:home_directory:shell</li>
+                <li><strong>Purpose:</strong> Defines all user accounts on the system</li>
+                <li><strong>Password field:</strong> Contains 'x' indicating password is stored in /etc/shadow</li>
+                <li><strong>UID:</strong> User ID number (0 for root, 1-999 typically for system accounts, 1000+ for regular users)</li>
+                <li><strong>GID:</strong> Primary group ID for the user</li>
+                <li><strong>Comment:</strong> Optional field for full name or description</li>
+                <li><strong>Access:</strong> World-readable (mode 644)</li>
+            </ul>
+            
+            <h4>/etc/shadow - Password and Aging Information</h4>
+            <p>This file contains the encrypted passwords and password aging policies:</p>
+            <ul>
+                <li><strong>Format:</strong> username:encrypted_password:last_changed:min_days:max_days:warn_days:inactive_days:expire_date:reserved</li>
+                <li><strong>Purpose:</strong> Securely store password hashes and enforce password policies</li>
+                <li><strong>Security:</strong> Only readable by root (mode 640 or 600)</li>
+                <li><strong>Password field:</strong> Contains the encrypted password hash or special values:
+                    <ul>
+                        <li>'*' or '!!' - Account disabled</li>
+                        <li>'$6$...' - SHA-512 hash (common in modern systems)</li>
+                        <li>'$5$...' - SHA-256 hash</li>
+                        <li>'$1$...' - MD5 hash (legacy)</li>
+                    </ul>
+                </li>
+                <li><strong>Aging fields:</strong> Control when passwords expire and when to warn users</li>
+            </ul>
+            
+            <h4>/etc/group - Group Definitions</h4>
+            <p>This file defines all groups on the system:</p>
+            <ul>
+                <li><strong>Format:</strong> group_name:password:GID:user_list</li>
+                <li><strong>Purpose:</strong> Define groups and their members</li>
+                <li><strong>Password field:</strong> Usually contains 'x' (group passwords stored in /etc/gshadow)</li>
+                <li><strong>Members:</strong> Comma-separated list of users who belong to the group as a secondary group</li>
+                <li><strong>Access:</strong> World-readable (mode 644)</li>
+            </ul>
+            
+            <h4>/etc/gshadow - Group Security Information</h4>
+            <p>This file contains secure group information:</p>
+            <ul>
+                <li><strong>Format:</strong> group_name:encrypted_password:administrators:members</li>
+                <li><strong>Purpose:</strong> Store group passwords and administrative information</li>
+                <li><strong>Administrators:</strong> Users who can modify group membership</li>
+                <li><strong>Security:</strong> Only readable by root (mode 640 or 600)</li>
+            </ul>
+            
+            <h4>/etc/login.defs - Login Configuration Defaults</h4>
+            <p>This file defines system-wide defaults for user accounts:</p>
+            <ul>
+                <li><strong>Purpose:</strong> Define password aging restrictions, UID/GID ranges, and login policies</li>
+                <li><strong>Common settings:</strong>
+                    <ul>
+                        <li>PASS_MAX_DAYS - Maximum password age</li>
+                        <li>PASS_MIN_DAYS - Minimum time between password changes</li>
+                        <li>UID_MIN, UID_MAX - Range for regular user IDs</li>
+                        <li>ENCRYPT_METHOD - Default password encryption algorithm</li>
+                    </ul>
+                </li>
+            </ul>
+            
+            <h4>Security Implications</h4>
+            <p>These files are critical to system security:</p>
+            <ul>
+                <li>Improper permissions on these files can lead to security vulnerabilities</li>
+                <li>Regular auditing of /etc/passwd and /etc/shadow is recommended</li>
+                <li>Modern systems use the Shadow Password Suite to separate public data from secure password information</li>
+                <li>Tools like passwd, useradd, and usermod modify these files safely - direct editing is not recommended</li>
+            </ul>
+            
+            <h4>Best Practices</h4>
+            <ul>
+                <li>Never edit these files directly - use system commands (useradd, usermod, etc.)</li>
+                <li>Verify file permissions regularly with 'ls -l /etc/passwd /etc/shadow /etc/group /etc/gshadow'</li>
+                <li>Back up these files before making system-wide changes</li>
+                <li>Use tools like pwck and grpck to check file integrity</li>
+                <li>Consider enhanced security modules like SELinux or AppArmor for additional protection</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>System Accounts</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>System accounts are special user accounts (usually with UIDs below 1000) used for running system processes and daemons. These accounts typically have limited or no direct login access but have specific roles in system operation.</p>
+            
+            <p>Common system accounts include:</p>
+            <ul>
+                <li><strong>root</strong> - The superuser account with complete system control (UID 0)</li>
+                <li><strong>daemon</strong> - For background system processes</li>
+                <li><strong>bin</strong> - Historically owned system binaries</li>
+                <li><strong>sys</strong> - Owns system files</li>
+                <li><strong>nobody</strong> - Used by processes that don't need special permissions</li>
+            </ul>
+            
+            <p>System accounts enhance security by limiting privileges to only what's necessary for each service to function.</p>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="system-accounts-info" onclick="openModal('system-accounts-info'); return false;">Learn more: Linux Users and Groups</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for System Accounts information -->
+    <div id="system-accounts-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('system-accounts-info')">&times;</span>
+            <h3>System Accounts in Linux</h3>
+            
+            <p>System accounts are special purpose user accounts created specifically to run services, daemons, or perform system tasks rather than being used by human users. They form a critical part of Linux security architecture by implementing the principle of least privilege.</p>
+            
+            <h4>Characteristics of System Accounts</h4>
+            <ul>
+                <li><strong>Low UIDs:</strong> Usually assigned UIDs below 1000 (varies by distribution)</li>
+                <li><strong>Restricted shells:</strong> Often assigned /sbin/nologin or /bin/false as shells to prevent interactive login</li>
+                <li><strong>No password:</strong> Typically have locked password fields in /etc/shadow</li>
+                <li><strong>Special home directories:</strong> Often have system directories like /var or /etc as home</li>
+                <li><strong>Limited privileges:</strong> Granted only the specific permissions needed for their function</li>
+            </ul>
+            
+            <h4>Common System Accounts and Their Functions</h4>
+            
+            <table>
+                <tr>
+                    <th>Account</th>
+                    <th>UID</th>
+                    <th>Primary Function</th>
+                </tr>
+                <tr>
+                    <td><strong>root</strong></td>
+                    <td>0</td>
+                    <td>System administrator with unrestricted privileges</td>
+                </tr>
+                <tr>
+                    <td><strong>daemon</strong></td>
+                    <td>1 or 2</td>
+                    <td>Generic account for background processes/services</td>
+                </tr>
+                <tr>
+                    <td><strong>bin</strong></td>
+                    <td>Varies</td>
+                    <td>Owns executable files and directories</td>
+                </tr>
+                <tr>
+                    <td><strong>sys</strong></td>
+                    <td>Varies</td>
+                    <td>Owns system files and kernel parameters</td>
+                </tr>
+                <tr>
+                    <td><strong>nobody</strong></td>
+                    <td>Usually high (65534)</td>
+                    <td>Unprivileged account for processes requiring minimal access</td>
+                </tr>
+                <tr>
+                    <td><strong>www-data</strong></td>
+                    <td>Varies</td>
+                    <td>Used by web servers (Apache, Nginx)</td>
+                </tr>
+                <tr>
+                    <td><strong>mail</strong></td>
+                    <td>Varies</td>
+                    <td>Used by mail delivery services</td>
+                </tr>
+                <tr>
+                    <td><strong>sshd</strong></td>
+                    <td>Varies</td>
+                    <td>Used by SSH server</td>
+                </tr>
+            </table>
+            
+            <h4>Security Advantages</h4>
+            <p>Using system accounts provides several security benefits:</p>
+            <ul>
+                <li><strong>Service isolation:</strong> Each service runs with its own identity</li>
+                <li><strong>Defense in depth:</strong> Compromised service has limited access to system</li>
+                <li><strong>Audit trail:</strong> Actions can be traced to specific service accounts</li>
+                <li><strong>Controlled access:</strong> File permissions limit what services can access</li>
+            </ul>
+            
+            <h4>Best Practices</h4>
+            <ul>
+                <li>Never use system accounts for regular user activities</li>
+                <li>Disable interactive login for system accounts</li>
+                <li>Use appropriate groups to manage permissions</li>
+                <li>Regularly audit system accounts for unauthorized changes</li>
+                <li>Create separate system accounts for different services rather than reusing accounts</li>
+                <li>Implement proper constraints like resource limits and access restrictions</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>User Management Commands</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <h4>Adding Users</h4>
+            <table>
+                <tr>
+                    <th>Command</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><code>adduser</code></td>
+                    <td>Friendly interactive user creation script (common on Debian-based systems)</td>
+                </tr>
+                <tr>
+                    <td><code>useradd</code></td>
+                    <td>Low-level user creation command, less interactive but more versatile</td>
+                </tr>
+            </table>
+            
+            <p>Example:</p>
+            <pre><code># Create a new user with default settings
+sudo useradd -m -s /bin/bash username
+
+# Create a user with specific UID, GID, and comment
+sudo useradd -m -u 1500 -g developers -c "John Doe" -s /bin/bash johndoe</code></pre>
+            
+            <h4>User Private Groups (UPG)</h4>
+            <p>By default, each user has their own private group named the same as their username. This enhances security and group ownership management by isolating each user's default permissions.</p>
+            
+            <h4>User Skeleton Directory</h4>
+            <p>The <code>/etc/skel</code> directory contains default files and directories that are copied to a new user's home directory when it's created. Common files include:</p>
+            <ul>
+                <li><code>.bashrc</code> - Configuration for Bash shell</li>
+                <li><code>.profile</code> - User environment settings</li>
+                <li><code>.bash_logout</code> - Commands executed on logout</li>
+            </ul>
+            
+            <p>You can customize the skeleton directory to provide standard configurations, welcome messages, or default files for all new users.</p>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="user-management-info" onclick="openModal('user-management-info'); return false;">Learn more: Creating Users in Linux</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for User Management Commands information -->
+    <div id="user-management-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('user-management-info')">&times;</span>
+            <h3>Creating Users in Linux</h3>
+            
+            <p>Linux provides powerful commands for managing user accounts. Understanding these commands is essential for proper system administration and security management.</p>
+            
+            <h4>Adding Users: useradd vs adduser</h4>
+            
+            <p><strong>useradd</strong> - Low-level binary utility:</p>
+            <ul>
+                <li>Included in all Linux distributions</li>
+                <li>Provides precise control over account parameters</li>
+                <li>Requires multiple options to create a fully functional account</li>
+                <li>Does not create home directory or set password by default</li>
+                <li>Best for scripting and automated account creation</li>
+            </ul>
+            
+            <p><strong>adduser</strong> - User-friendly frontend:</p>
+            <ul>
+                <li>Perl script found primarily in Debian-based distributions</li>
+                <li>Interactive, with prompts for necessary information</li>
+                <li>Creates home directory, copies skeleton files, and prompts for password by default</li>
+                <li>Handles most configuration details automatically</li>
+                <li>Best for manual, one-off user creation</li>
+            </ul>
+            
+            <h4>Common useradd Options</h4>
+            <table>
+                <tr>
+                    <th>Option</th>
+                    <th>Description</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td><code>-m</code></td>
+                    <td>Create home directory</td>
+                    <td><code>useradd -m john</code></td>
+                </tr>
+                <tr>
+                    <td><code>-d</code></td>
+                    <td>Specify home directory path</td>
+                    <td><code>useradd -m -d /home/custom/john john</code></td>
+                </tr>
+                <tr>
+                    <td><code>-s</code></td>
+                    <td>Set login shell</td>
+                    <td><code>useradd -m -s /bin/bash john</code></td>
+                </tr>
+                <tr>
+                    <td><code>-u</code></td>
+                    <td>Specify UID</td>
+                    <td><code>useradd -m -u 1500 john</code></td>
+                </tr>
+                <tr>
+                    <td><code>-g</code></td>
+                    <td>Set primary group (by name or GID)</td>
+                    <td><code>useradd -m -g developers john</code></td>
+                </tr>
+                <tr>
+                    <td><code>-G</code></td>
+                    <td>Add to supplementary groups</td>
+                    <td><code>useradd -m -G sudo,developers john</code></td>
+                </tr>
+                <tr>
+                    <td><code>-c</code></td>
+                    <td>Add comment (typically full name)</td>
+                    <td><code>useradd -m -c "John Smith" john</code></td>
+                </tr>
+                <tr>
+                    <td><code>-e</code></td>
+                    <td>Set account expiry date</td>
+                    <td><code>useradd -m -e 2023-12-31 john</code></td>
+                </tr>
+                <tr>
+                    <td><code>-k</code></td>
+                    <td>Specify alternate skeleton directory</td>
+                    <td><code>useradd -m -k /etc/custom-skel john</code></td>
+                </tr>
+            </table>
+            
+            <h4>User Private Groups (UPG)</h4>
+            <p>Modern Linux distributions use User Private Groups to improve security and file sharing:</p>
+            <ul>
+                <li>Each user gets a primary group with the same name as their username</li>
+                <li>New files created by the user belong to their private group</li>
+                <li>Avoids permission issues when users need to share files</li>
+                <li>Can be supplemented with additional group memberships for shared access</li>
+            </ul>
+            
+            <h4>The User Skeleton Directory</h4>
+            <p>The /etc/skel directory serves as a template for new user home directories:</p>
+            <ul>
+                <li>Files in /etc/skel are copied to each new user's home directory</li>
+                <li>Administrators can standardize environment settings, shell configurations, and default applications</li>
+                <li>Common files include .bashrc, .profile, .bash_logout</li>
+                <li>Can be customized to include welcome messages, security policies, or starter documents</li>
+                <li>Custom skeleton directories can be specified with useradd -k</li>
+            </ul>
+            
+            <h4>Complete User Creation Process</h4>
+            <ol>
+                <li>Create user account with useradd or adduser</li>
+                <li>Set password with passwd command</li>
+                <li>Add user to appropriate groups</li>
+                <li>Set appropriate ownership of home directory</li>
+                <li>Configure any specific permissions or quotas</li>
+                <li>Verify account settings</li>
+            </ol>
+            
+            <p>Example of a complete user setup:</p>
+            <pre><code># Create user
+sudo useradd -m -s /bin/bash -c "Jane Smith" -G developers,sudo jane
+
+# Set password
+sudo passwd jane
+
+# Set ownership
+sudo chown -R jane:jane /home/jane
+
+# Verify account
+id jane
+ls -la /home/jane
+grep jane /etc/passwd</code></pre>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>User Account Commands</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>The <code>passwd</code> command manages user passwords and account status:</p>
+            
+            <table>
+                <tr>
+                    <th>Command</th>
+                    <th>Purpose / Options</th>
+                </tr>
+                <tr>
+                    <td><code>passwd</code></td>
+                    <td>Change user password</td>
+                </tr>
+                <tr>
+                    <td><code>passwd -S</code></td>
+                    <td>Show password status</td>
+                </tr>
+                <tr>
+                    <td><code>passwd -e</code></td>
+                    <td>Expire password (force password change on next login)</td>
+                </tr>
+                <tr>
+                    <td><code>passwd -u</code></td>
+                    <td>Unlock a locked account</td>
+                </tr>
+                <tr>
+                    <td><code>passwd -l</code></td>
+                    <td>Lock a user account (disable login)</td>
+                </tr>
+            </table>
+            
+            <p>Examples:</p>
+            <pre><code># Change your own password
+passwd
+
+# Change another user's password (requires root privileges)
+sudo passwd username
+
+# Force user to change password at next login
+sudo passwd -e username
+
+# Lock a user account
+sudo passwd -l username</code></pre>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="passwd-info" onclick="openModal('passwd-info'); return false;">Learn more: Managing User Passwords in Linux</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for User Account Commands information -->
+    <div id="passwd-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('passwd-info')">&times;</span>
+            <h3>Managing User Passwords in Linux</h3>
+            
+            <p>Password management is a critical aspect of Linux system security. The <code>passwd</code> command provides comprehensive tools for setting passwords and managing account access states.</p>
+            
+            <h4>Basic Password Management</h4>
+            <p>At its most basic, the passwd command allows users to change their own passwords:</p>
+            <pre><code>passwd</code></pre>
+            <p>When executed, the command will prompt for:</p>
+            <ol>
+                <li>Current password (for verification)</li>
+                <li>New password (entered twice for confirmation)</li>
+            </ol>
+            
+            <p>Root users can change any user's password without knowing their current password:</p>
+            <pre><code>sudo passwd username</code></pre>
+            
+            <h4>Password Security Features</h4>
+            <p>Linux enforces several password security measures:</p>
+            <ul>
+                <li><strong>Password strength:</strong> Most distributions use PAM (Pluggable Authentication Modules) to enforce password complexity requirements</li>
+                <li><strong>Password history:</strong> Prevents reuse of recent passwords</li>
+                <li><strong>Minimum password age:</strong> Prevents rapid cycling through passwords</li>
+                <li><strong>Maximum password age:</strong> Forces periodic password changes</li>
+            </ul>
+            
+            <h4>Password Storage</h4>
+            <p>Linux stores passwords securely in <code>/etc/shadow</code> using hashing algorithms:</p>
+            <ul>
+                <li>Modern systems typically use SHA-512 ($6$) or SHA-256 ($5$)</li>
+                <li>Older systems may use MD5 ($1$) or DES (no $ prefix)</li>
+                <li>Each password hash includes a salt to prevent rainbow table attacks</li>
+                <li>Example shadow file entry: <code>user:$6$salt$hashedpassword:lastchange:min:max:warn:inactive:expire:</code></li>
+            </ul>
+            
+            <h4>Advanced passwd Options</h4>
+            <table>
+                <tr>
+                    <th>Option</th>
+                    <th>Description</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td><code>-S</code></td>
+                    <td>Display password status</td>
+                    <td><code>passwd -S username</code></td>
+                </tr>
+                <tr>
+                    <td><code>-l</code></td>
+                    <td>Lock account by prefixing the password hash with '!'</td>
+                    <td><code>passwd -l username</code></td>
+                </tr>
+                <tr>
+                    <td><code>-u</code></td>
+                    <td>Unlock account by removing the '!' prefix</td>
+                    <td><code>passwd -u username</code></td>
+                </tr>
+                <tr>
+                    <td><code>-e</code></td>
+                    <td>Expire password (force change at next login)</td>
+                    <td><code>passwd -e username</code></td>
+                </tr>
+                <tr>
+                    <td><code>-d</code></td>
+                    <td>Delete password (dangerous - makes account passwordless)</td>
+                    <td><code>passwd -d username</code></td>
+                </tr>
+                <tr>
+                    <td><code>-n days</code></td>
+                    <td>Set minimum password age</td>
+                    <td><code>passwd -n 7 username</code></td>
+                </tr>
+                <tr>
+                    <td><code>-x days</code></td>
+                    <td>Set maximum password age</td>
+                    <td><code>passwd -x 90 username</code></td>
+                </tr>
+                <tr>
+                    <td><code>-w days</code></td>
+                    <td>Set warning period before expiration</td>
+                    <td><code>passwd -w 7 username</code></td>
+                </tr>
+                <tr>
+                    <td><code>-i days</code></td>
+                    <td>Set inactive days after expiration before locking</td>
+                    <td><code>passwd -i 30 username</code></td>
+                </tr>
+            </table>
+            
+            <h4>Account Locking vs. Password Disabling</h4>
+            <p>Linux provides multiple ways to disable account access:</p>
+            <ul>
+                <li><strong>Lock (passwd -l):</strong> Prepends '!' to password hash, preventing password authentication but allowing other methods like SSH keys</li>
+                <li><strong>Disable (usermod -s /sbin/nologin):</strong> Changes login shell to prevent shell access</li>
+                <li><strong>Expire (usermod -e):</strong> Sets account expiration date</li>
+                <li><strong>Delete (userdel):</strong> Removes the account entirely</li>
+            </ul>
+            
+            <h4>Best Practices</h4>
+            <ul>
+                <li>Enforce strong password policies with PAM modules</li>
+                <li>Implement password aging to ensure regular password changes</li>
+                <li>Use account locking rather than deletion for temporary disabling</li>
+                <li>Audit password status regularly with <code>passwd -S</code> or by reviewing /etc/shadow</li>
+                <li>Consider multi-factor authentication for sensitive systems</li>
+                <li>Use the principle of least privilege when granting password management capabilities</li>
+            </ul>
+            
+            <h4>Password Management at Scale</h4>
+            <p>For managing multiple users, consider these approaches:</p>
+            <ul>
+                <li>Shell scripts to automate password operations across multiple accounts</li>
+                <li>Configuration management tools like Ansible, Puppet, or Chef</li>
+                <li>Directory services like LDAP or Active Directory for centralized authentication</li>
+                <li>Password management systems that integrate with Linux authentication</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Account Aging & Password Policies: chage command</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>The <code>chage</code> command controls aging parameters of user passwords:</p>
+            
+            <table>
+                <tr>
+                    <th>Option</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><code>-M</code></td>
+                    <td>Maximum number of days a password is valid</td>
+                </tr>
+                <tr>
+                    <td><code>-m</code></td>
+                    <td>Minimum number of days between password changes</td>
+                </tr>
+                <tr>
+                    <td><code>-W</code></td>
+                    <td>Days before expiration to warn the user</td>
+                </tr>
+                <tr>
+                    <td><code>-I</code></td>
+                    <td>Idle days after password expiry before account is locked</td>
+                </tr>
+                <tr>
+                    <td><code>-E</code></td>
+                    <td>Date when account expires (in YYYY-MM-DD format)</td>
+                </tr>
+                <tr>
+                    <td><code>-l</code></td>
+                    <td>List account aging information</td>
+                </tr>
+            </table>
+            
+            <p>Examples:</p>
+            <pre><code># Set maximum password age to 90 days
+sudo chage -M 90 username
+
+# Set minimum password age to 7 days
+sudo chage -m 7 username
+
+# Set password expiration warning to 14 days
+sudo chage -W 14 username
+
+# Set account expiration date
+sudo chage -E 2023-12-31 username
+
+# View account aging information
+sudo chage -l username</code></pre>
+            
+            <p>Implementing good password policies helps maintain system security. Common best practices include:</p>
+            <ul>
+                <li>Setting password expiration (typically 60-90 days)</li>
+                <li>Requiring minimum password age to prevent rapid cycling</li>
+                <li>Setting up expiration warnings so users aren't surprised</li>
+                <li>Automatically locking inactive accounts</li>
+            </ul>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="chage-info" onclick="openModal('chage-info'); return false;">Learn more: Password Expiry Information</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Account Aging & Password Policies information -->
+    <div id="chage-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('chage-info')">&times;</span>
+            <h3>Password Aging and Policies in Linux</h3>
+            
+            <p>Password aging is a security feature that enforces regular password changes and helps manage account lifecycles. The <code>chage</code> command (short for "change age") provides fine-grained control over password expiration and account validity periods.</p>
+            
+            <h4>Understanding Password Aging</h4>
+            <p>Linux tracks several time-related properties for each user account:</p>
+            <ul>
+                <li><strong>Last password change:</strong> When the password was last modified</li>
+                <li><strong>Minimum age:</strong> How long a user must keep a password before changing it</li>
+                <li><strong>Maximum age:</strong> How long a password remains valid before requiring a change</li>
+                <li><strong>Warning period:</strong> Days before expiration when the user receives warnings</li>
+                <li><strong>Inactivity period:</strong> Days after password expiration before the account is locked</li>
+                <li><strong>Account expiration:</strong> When the entire account becomes invalid</li>
+            </ul>
+            
+            <h4>Using the chage Command</h4>
+            <p>The chage command requires root privileges and offers comprehensive options for managing account aging parameters:</p>
+            
+            <h5>Viewing Account Information</h5>
+            <pre><code>sudo chage -l username</code></pre>
+            <p>This displays all aging parameters for the specified user, including:</p>
+            <ul>
+                <li>Last password change date</li>
+                <li>Password expires date</li>
+                <li>Account expires date</li>
+                <li>Minimum and maximum password ages</li>
+                <li>Warning period and inactivity period</li>
+            </ul>
+            
+            <h5>Setting Maximum Password Age</h5>
+            <pre><code>sudo chage -M 90 username</code></pre>
+            <p>This forces users to change their password every 90 days. Values include:</p>
+            <ul>
+                <li><code>-M 90</code>: Password expires after 90 days</li>
+                <li><code>-M 0</code>: Password must be changed immediately at next login</li>
+                <li><code>-M -1</code>: Password never expires</li>
+            </ul>
+            
+            <h5>Setting Minimum Password Age</h5>
+            <pre><code>sudo chage -m 7 username</code></pre>
+            <p>This prevents users from changing their password more than once within 7 days, helping to prevent password cycling.</p>
+            
+            <h5>Setting Password Expiration Warning</h5>
+            <pre><code>sudo chage -W 14 username</code></pre>
+            <p>Users will be warned 14 days before their password expires, giving them time to change it before losing access.</p>
+            
+            <h5>Setting Account Inactivity Period</h5>
+            <pre><code>sudo chage -I 30 username</code></pre>
+            <p>If a password expires and the user doesn't log in for 30 days, the account will be automatically locked.</p>
+            
+            <h5>Setting Account Expiration Date</h5>
+            <pre><code>sudo chage -E 2023-12-31 username</code></pre>
+            <p>The entire account will expire on December 31, 2023. To remove an account expiration date:</p>
+            <pre><code>sudo chage -E -1 username</code></pre>
+            
+            <h5>Interactive Mode</h5>
+            <pre><code>sudo chage username</code></pre>
+            <p>Running chage without options enters interactive mode, prompting for each aging parameter.</p>
+            
+            <h4>Forcing Password Changes</h4>
+            <p>To force a user to change their password at next login, set the last password change date to 0:</p>
+            <pre><code>sudo chage -d 0 username</code></pre>
+            <p>This is equivalent to <code>passwd -e username</code> and is useful for:</p>
+            <ul>
+                <li>New accounts where users should set their own passwords</li>
+                <li>After a potential security breach</li>
+                <li>When administrators have set a temporary password</li>
+            </ul>
+            
+            <h4>Password Policies Implementation</h4>
+            <p>Effective password policies typically include:</p>
+            <table>
+                <tr>
+                    <th>Policy Component</th>
+                    <th>Typical Setting</th>
+                    <th>Purpose</th>
+                </tr>
+                <tr>
+                    <td>Maximum Age</td>
+                    <td>60-90 days</td>
+                    <td>Limit exposure time of compromised passwords</td>
+                </tr>
+                <tr>
+                    <td>Minimum Age</td>
+                    <td>7 days</td>
+                    <td>Prevent password cycling to bypass history checks</td>
+                </tr>
+                <tr>
+                    <td>Warning Period</td>
+                    <td>14 days</td>
+                    <td>Give users adequate notice before expiration</td>
+                </tr>
+                <tr>
+                    <td>Inactivity Period</td>
+                    <td>30 days</td>
+                    <td>Automatically secure abandoned accounts</td>
+                </tr>
+                <tr>
+                    <td>Password History</td>
+                    <td>5-10 passwords</td>
+                    <td>Prevent reuse of recent passwords (PAM setting)</td>
+                </tr>
+                <tr>
+                    <td>Complexity Requirements</td>
+                    <td>Mixed case, numbers, symbols</td>
+                    <td>Increase password strength (PAM setting)</td>
+                </tr>
+            </table>
+            
+            <h4>System-Wide Password Aging Defaults</h4>
+            <p>Default password aging parameters are set in <code>/etc/login.defs</code> and include:</p>
+            <pre><code># Password aging controls
+PASS_MAX_DAYS   90
+PASS_MIN_DAYS   7
+PASS_WARN_AGE   14</code></pre>
+            <p>These defaults apply to new accounts but don't affect existing accounts. To apply them to existing accounts, use chage.</p>
+            
+            <h4>Monitoring Password Aging</h4>
+            <p>Administrators should regularly audit password aging status:</p>
+            <pre><code># List users with passwords that never expire
+sudo awk -F: '($2 != "*" && $2 != "!!" && $5 == -1) {print $1}' /etc/shadow
+
+# List users with expiring passwords in the next 7 days
+sudo awk -F: 'BEGIN {now=systime()} {max=$5*86400; last=$3*86400; if ((last+max-now)/(86400) < 7 && (last+max-now)/(86400) > 0) print $1}' /etc/shadow</code></pre>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Modify User Accounts: usermod</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>The <code>usermod</code> command is used to modify user account properties like username, shell, groups, and home directory.</p>
+            
+            <p>Common options:</p>
+            <table>
+                <tr>
+                    <th>Option</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><code>-l</code></td>
+                    <td>Change username</td>
+                </tr>
+                <tr>
+                    <td><code>-s</code></td>
+                    <td>Change login shell</td>
+                </tr>
+                <tr>
+                    <td><code>-G</code></td>
+                    <td>Set supplementary groups (replaces existing groups)</td>
+                </tr>
+                <tr>
+                    <td><code>-a -G</code></td>
+                    <td>Add to supplementary groups (appends to existing groups)</td>
+                </tr>
+                <tr>
+                    <td><code>-d</code></td>
+                    <td>Change home directory</td>
+                </tr>
+                <tr>
+                    <td><code>-m</code></td>
+                    <td>Move contents of current home to new location (use with -d)</td>
+                </tr>
+                <tr>
+                    <td><code>-c</code></td>
+                    <td>Change the user's comment field</td>
+                </tr>
+                <tr>
+                    <td><code>-L</code></td>
+                    <td>Lock user account</td>
+                </tr>
+                <tr>
+                    <td><code>-U</code></td>
+                    <td>Unlock user account</td>
+                </tr>
+            </table>
+            
+            <p>Examples:</p>
+            <pre><code># Change username from oldname to newname
+sudo usermod -l newname oldname
+
+# Change a user's shell to Bash
+sudo usermod -s /bin/bash username
+
+# Add user to supplementary groups
+sudo usermod -a -G sudo,developers username
+
+# Change home directory and move content
+sudo usermod -m -d /home/new_home username
+
+# Lock a user account
+sudo usermod -L username</code></pre>
+            
+            <p>Note that some changes only take effect after the user logs out and logs back in.</p>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="usermod-info" onclick="openModal('usermod-info'); return false;">Learn more: Modifying Users with usermod Command</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Modify User Accounts information -->
+    <div id="usermod-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('usermod-info')">&times;</span>
+            <h3>Modifying User Accounts with usermod</h3>
+            
+            <p>The <code>usermod</code> command is a powerful tool for modifying existing user accounts in Linux systems. It allows administrators to change various user attributes without having to delete and recreate accounts.</p>
+            
+            <h4>Understanding usermod</h4>
+            <p>UserMod (user modification) is part of the shadow-utils package and works by directly modifying system files like /etc/passwd, /etc/shadow, and /etc/group. While these files could technically be edited manually, usermod provides a safer approach with proper error checking and file locking.</p>
+            
+            <h4>Comprehensive usermod Options</h4>
+            <table>
+                <tr>
+                    <th>Option</th>
+                    <th>Description</th>
+                    <th>Example</th>
+                    <th>Impact</th>
+                </tr>
+                <tr>
+                    <td><code>-c "comment"</code></td>
+                    <td>Modify the comment field (GECOS)</td>
+                    <td><code>usermod -c "John Smith - IT Dept" john</code></td>
+                    <td>Updates user information in /etc/passwd</td>
+                </tr>
+                <tr>
+                    <td><code>-d directory</code></td>
+                    <td>Change home directory</td>
+                    <td><code>usermod -d /home/newdir john</code></td>
+                    <td>Only updates path in /etc/passwd; doesn't move files</td>
+                </tr>
+                <tr>
+                    <td><code>-e date</code></td>
+                    <td>Set account expiration date</td>
+                    <td><code>usermod -e 2023-12-31 john</code></td>
+                    <td>Account will be disabled on specified date</td>
+                </tr>
+                <tr>
+                    <td><code>-g group</code></td>
+                    <td>Change primary group</td>
+                    <td><code>usermod -g developers john</code></td>
+                    <td>New files will belong to the new group</td>
+                </tr>
+                <tr>
+                    <td><code>-G groups</code></td>
+                    <td>Set supplementary groups</td>
+                    <td><code>usermod -G dev,admin john</code></td>
+                    <td>Replaces all existing supplementary groups</td>
+                </tr>
+                <tr>
+                    <td><code>-a -G groups</code></td>
+                    <td>Add to supplementary groups</td>
+                    <td><code>usermod -a -G sudo john</code></td>
+                    <td>Preserves existing group memberships</td>
+                </tr>
+                <tr>
+                    <td><code>-l login</code></td>
+                    <td>Change username</td>
+                    <td><code>usermod -l jsmith john</code></td>
+                    <td>Updates username but not home directory</td>
+                </tr>
+                <tr>
+                    <td><code>-L</code></td>
+                    <td>Lock account</td>
+                    <td><code>usermod -L john</code></td>
+                    <td>Prevents password login but not other methods</td>
+                </tr>
+                <tr>
+                    <td><code>-m</code></td>
+                    <td>Move home directory content</td>
+                    <td><code>usermod -m -d /home/newdir john</code></td>
+                    <td>Use with -d to move existing files</td>
+                </tr>
+                <tr>
+                    <td><code>-p password</code></td>
+                    <td>Change encrypted password</td>
+                    <td><code>usermod -p encrypted_passwd john</code></td>
+                    <td>Rarely used directly; passwd is preferred</td>
+                </tr>
+                <tr>
+                    <td><code>-s shell</code></td>
+                    <td>Change login shell</td>
+                    <td><code>usermod -s /bin/zsh john</code></td>
+                    <td>Takes effect on next login</td>
+                </tr>
+                <tr>
+                    <td><code>-U</code></td>
+                    <td>Unlock account</td>
+                    <td><code>usermod -U john</code></td>
+                    <td>Reverses the -L option</td>
+                </tr>
+                <tr>
+                    <td><code>-u UID</code></td>
+                    <td>Change user ID</td>
+                    <td><code>usermod -u 1500 john</code></td>
+                    <td>Updates file ownership automatically</td>
+                </tr>
+            </table>
+            
+            <h4>Common Usage Scenarios</h4>
+            
+            <h5>1. Renaming a User and Their Home Directory</h5>
+            <p>To completely rename a user, you need to change both the username and home directory:</p>
+            <pre><code># Change username
+sudo usermod -l newname oldname
+
+# Update home directory path and move contents
+sudo usermod -m -d /home/newname newname
+
+# Update primary group name (if following UPG model)
+sudo groupmod -n newname oldname</code></pre>
+            
+            <h5>2. Changing User's Shell</h5>
+            <p>To change a user's login shell:</p>
+            <pre><code># Change to Bash
+sudo usermod -s /bin/bash username
+
+# Prevent interactive login (disable shell access)
+sudo usermod -s /sbin/nologin username
+
+# List available shells
+cat /etc/shells</code></pre>
+            
+            <h5>3. Managing Group Memberships</h5>
+            <pre><code># Add user to multiple groups without removing existing memberships
+sudo usermod -a -G sudo,docker,developers username
+
+# Replace all supplementary groups with new set
+sudo usermod -G sales,marketing username
+
+# Change primary group
+sudo usermod -g accounting username</code></pre>
+            <p>The <code>-a</code> (append) flag is critical when adding to groups; without it, all existing group memberships are replaced.</p>
+            
+            <h5>4. Temporarily Disabling Accounts</h5>
+            <pre><code># Lock an account
+sudo usermod -L username
+
+# Unlock an account
+sudo usermod -U username
+
+# For more complete disabling, also change the shell
+sudo usermod -L -s /sbin/nologin username</code></pre>
+            
+            <h4>Important Considerations</h4>
+            <ul>
+                <li><strong>Active sessions:</strong> Changes generally don't affect currently logged-in users</li>
+                <li><strong>Group changes:</strong> New group memberships require logout/login to take effect</li>
+                <li><strong>File ownership:</strong> When changing UID/GID, file ownership is updated automatically, but not for files outside the home directory</li>
+                <li><strong>Account locking:</strong> The -L option doesn't disable all access methods (SSH keys still work)</li>
+                <li><strong>Permissions:</strong> Only root or privileged users can use usermod</li>
+                <li><strong>System users:</strong> Be extremely cautious when modifying system accounts (UIDs < 1000)</li>
+            </ul>
+            
+            <h4>Best Practices</h4>
+            <ul>
+                <li>Always verify changes with <code>id username</code> after modification</li>
+                <li>Use <code>-a -G</code> when adding groups to avoid accidentally removing existing memberships</li>
+                <li>For critical systems, test commands on non-production environments first</li>
+                <li>Consider temporarily backing up critical system files (/etc/passwd, /etc/shadow, /etc/group) before major changes</li>
+                <li>Combine usermod with chown commands when changing user attributes to ensure proper file permissions</li>
+                <li>Document changes to user accounts, especially for shared administrative responsibilities</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Delete Users: userdel</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>The <code>userdel</code> command is used to remove user accounts from the system.</p>
+            
+            <p>Options:</p>
+            <ul>
+                <li><code>-r</code> - Remove the user's home directory and mail spool</li>
+                <li><code>-f</code> - Force removal, even if user is still logged in</li>
+            </ul>
+            
+            <p>Examples:</p>
+            <pre><code># Delete a user but keep their home directory
+sudo userdel username
+
+# Delete a user and their home directory
+sudo userdel -r username</code></pre>
+            
+            <p>Before deleting a user account, it's good practice to:</p>
+            <ul>
+                <li>Backup their files if needed</li>
+                <li>Check if they own any processes or files that need to be reassigned</li>
+                <li>Transfer ownership of important files to another user</li>
+            </ul>
+            
+            <p>You can transfer ownership of files using <code>chown</code>:</p>
+            <pre><code># Transfer ownership of all files in user's home directory
+sudo find /home/username -user username -exec chown newowner:newgroup {} \;</code></pre>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="userdel-info" onclick="openModal('userdel-info'); return false;">Learn more: Deleting Users in Linux with userdel</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Delete Users information -->
+    <div id="userdel-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('userdel-info')">&times;</span>
+            <h3>Deleting User Accounts in Linux</h3>
+            
+            <p>Properly removing user accounts is an important system administration task that requires careful planning and execution to avoid system issues or data loss.</p>
+            
+            <h4>The userdel Command</h4>
+            <p>The <code>userdel</code> command removes a user account and related files from the system. It modifies system files like /etc/passwd, /etc/shadow, /etc/group, and /etc/gshadow to remove user entries.</p>
+            
+            <h4>Basic Syntax and Options</h4>
+            <pre><code>userdel [options] username</code></pre>
+            
+            <table>
+                <tr>
+                    <th>Option</th>
+                    <th>Description</th>
+                    <th>Potential Impact</th>
+                </tr>
+                <tr>
+                    <td><code>-r</code></td>
+                    <td>Remove home directory and mail spool</td>
+                    <td>Permanently deletes all user data in home directory</td>
+                </tr>
+                <tr>
+                    <td><code>-f</code></td>
+                    <td>Force removal even if user is logged in</td>
+                    <td>May cause system instability if processes are still running</td>
+                </tr>
+                <tr>
+                    <td><code>-Z</code></td>
+                    <td>Remove SELinux user mappings for the user</td>
+                    <td>Only relevant on systems using SELinux</td>
+                </tr>
+            </table>
+            
+            <h4>Pre-Deletion Checklist</h4>
+            <p>Before removing a user account, perform these checks to prevent problems:</p>
+            
+            <h5>1. Check for Running Processes</h5>
+            <pre><code># List processes owned by the user
+ps -u username
+
+# Kill all processes owned by the user
+sudo pkill -u username</code></pre>
+            
+            <h5>2. Find Files Owned by the User</h5>
+            <pre><code># Find all files owned by user in the system
+sudo find / -user username -ls 2>/dev/null
+
+# Find files owned by user's primary group
+sudo find / -group username -ls 2>/dev/null</code></pre>
+            
+            <h5>3. Backup Important Data</h5>
+            <pre><code># Create archive of user's home directory
+sudo tar -czf username-backup.tar.gz /home/username
+
+# Include specific files from other locations
+sudo find / -user username -not -path "/proc/*" -not -path "/sys/*" | sudo tar -czf username-files.tar.gz -T -</code></pre>
+            
+            <h5>4. Check for Cron Jobs</h5>
+            <pre><code># Check user's crontab
+sudo crontab -u username -l</code></pre>
+            
+            <h5>5. Verify Group Memberships</h5>
+            <pre><code># Check all groups the user belongs to
+groups username
+
+# Check if user is the only member of any groups
+grep ":$username$" /etc/group</code></pre>
+            
+            <h4>Transfer File Ownership</h4>
+            <p>Before deleting a user, you may need to transfer ownership of their files to another user:</p>
+            <pre><code># Transfer ownership of all files in home directory
+sudo find /home/username -user username -exec chown newuser:newgroup {} \;
+
+# Transfer ownership of files in a specific directory
+sudo find /var/www -user username -exec chown newuser:newgroup {} \;</code></pre>
+            
+            <h4>Executing User Deletion</h4>
+            <p>There are several approaches to user deletion depending on your requirements:</p>
+            
+            <h5>Basic Deletion (Preserve Home Directory)</h5>
+            <pre><code># Remove user account but keep home directory intact
+sudo userdel username</code></pre>
+            <p>This removes the user from system files but preserves their data. The home directory ownership changes to UID that no longer exists in the system.</p>
+            
+            <h5>Complete Deletion (Remove Home Directory)</h5>
+            <pre><code># Remove user account and delete home directory
+sudo userdel -r username</code></pre>
+            <p>This completely removes the user and their home directory. All data in the home directory will be permanently deleted.</p>
+            
+            <h5>Force Deletion (When User is Logged In)</h5>
+            <pre><code># Force removal even if user is still logged in
+sudo userdel -f -r username</code></pre>
+            <p>This forces deletion even if the user has active processes, but may cause system instability.</p>
+            
+            <h4>Post-Deletion Verification</h4>
+            <p>After deleting a user, verify the account has been completely removed:</p>
+            <pre><code># Verify user no longer exists in passwd file
+grep "^username:" /etc/passwd
+
+# Verify user no longer exists in shadow file
+sudo grep "^username:" /etc/shadow
+
+# Check for any remaining group memberships
+grep "username" /etc/group
+
+# Look for orphaned files (files with numeric owner ID)
+sudo find / -nouser -ls 2>/dev/null</code></pre>
+            
+            <h4>Special Considerations</h4>
+            
+            <h5>System Users vs. Regular Users</h5>
+            <p>Never delete system accounts (typically UIDs < 1000) unless you're absolutely certain they're not needed. These accounts are often required for proper system operation.</p>
+            
+            <h5>Mail Spools</h5>
+            <p>The <code>-r</code> option removes the mail spool at /var/mail/username or /var/spool/mail/username. If you need to preserve mail, back it up before deletion.</p>
+            
+            <h5>Handling Shared Files</h5>
+            <p>Files outside a user's home directory aren't automatically deleted even with the <code>-r</code> option. Remember to check other common locations:</p>
+            <ul>
+                <li>Web server directories (/var/www/)</li>
+                <li>Application data directories (/var/lib/)</li>
+                <li>FTP directories</li>
+                <li>Database files</li>
+            </ul>
+            
+            <h5>Cleaning Up After Deletion</h5>
+            <p>After deleting a user, you might want to:</p>
+            <ul>
+                <li>Remove groups that were specific to the user (if they were the only member)</li>
+                <li>Update any configuration files that reference the user</li>
+                <li>Modify service configurations that might have been set up for the user</li>
+            </ul>
+            
+            <h4>Best Practices</h4>
+            <ul>
+                <li>Always backup important data before deleting a user</li>
+                <li>When possible, disable accounts before deletion to ensure no issues arise</li>
+                <li>Document the deletion process for audit purposes</li>
+                <li>Use the <code>-r</code> option cautiously, especially for system accounts</li>
+                <li>Check for and reassign ownership of files outside the home directory</li>
+                <li>Consider creating a standardized user offboarding checklist</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Group Management</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Linux groups help organize users and manage permissions collectively. Groups are defined in:</p>
+            <ul>
+                <li><code>/etc/group</code> - Group definitions and membership</li>
+                <li><code>/etc/gshadow</code> - Group passwords and security info</li>
+            </ul>
+            
+            <h4>Group Management Commands:</h4>
+            <table>
+                <tr>
+                    <th>Command</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><code>groupadd groupname</code></td>
+                    <td>Create a new group</td>
+                </tr>
+                <tr>
+                    <td><code>groupdel groupname</code></td>
+                    <td>Delete a group</td>
+                </tr>
+                <tr>
+                    <td><code>groupmod -n newname oldname</code></td>
+                    <td>Rename a group</td>
+                </tr>
+                <tr>
+                    <td><code>gpasswd -a user group</code></td>
+                    <td>Add a user to a group</td>
+                </tr>
+                <tr>
+                    <td><code>gpasswd -d user group</code></td>
+                    <td>Remove a user from a group</td>
+                </tr>
+                <tr>
+                    <td><code>groups username</code></td>
+                    <td>Show the groups a user belongs to</td>
+                </tr>
+                <tr>
+                    <td><code>id username</code></td>
+                    <td>Show UID, GID, and group membership for a user</td>
+                </tr>
+            </table>
+            
+            <p>Examples:</p>
+            <pre><code># Create a new group
+sudo groupadd developers
+
+# Add a user to a group
+sudo gpasswd -a john developers
+
+# Show groups for a user
+groups john
+
+# Show detailed user and group information
+id john</code></pre>
+            
+            <p>Group permissions are critical for collaboration in Linux environments. Files and directories can be owned by both a user and a group, allowing for shared access while maintaining security.</p>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="group-management-info" onclick="openModal('group-management-info'); return false;">Learn more: Linux Group Management Guide</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Group Management information -->
+    <div id="group-management-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('group-management-info')">&times;</span>
+            <h3>Linux Group Management Guide</h3>
+            
+            <p>Groups in Linux serve as a fundamental mechanism for organizing users and controlling resource access. They simplify permission management, enable collaboration, and enhance security by allowing administrators to define access privileges for collections of users rather than individually.</p>
+            
+            <h4>Understanding Group Types</h4>
+            <p>Linux recognizes two main types of groups:</p>
+            <ul>
+                <li><strong>Primary Group:</strong> Each user has one primary group (specified in /etc/passwd). When a user creates files, they're assigned to this group by default.</li>
+                <li><strong>Secondary/Supplementary Groups:</strong> Users can belong to multiple secondary groups to gain additional permissions.</li>
+            </ul>
+            
+            <h4>System and Regular Groups</h4>
+            <p>Similar to users, groups can be categorized as:</p>
+            <ul>
+                <li><strong>System Groups:</strong> Used by services and applications, typically with GIDs below 1000</li>
+                <li><strong>Regular Groups:</strong> Created for human users, typically with GIDs 1000 and above</li>
+            </ul>
+            
+            <h4>Group Configuration Files</h4>
+            
+            <h5>1. /etc/group</h5>
+            <p>This file defines all groups on the system and has the following format:</p>
+            <pre><code>groupname:password:GID:user_list</code></pre>
+            <p>For example:</p>
+            <pre><code>developers:x:1001:john,lisa,alex
+sudo:x:27:admin,john</code></pre>
+            <p>The fields represent:</p>
+            <ul>
+                <li><strong>groupname:</strong> The name of the group</li>
+                <li><strong>password:</strong> Group password placeholder (typically 'x' indicating password is in /etc/gshadow)</li>
+                <li><strong>GID:</strong> Numeric Group ID</li>
+                <li><strong>user_list:</strong> Comma-separated list of users who belong to this group as a secondary group</li>
+            </ul>
+            
+            <h5>2. /etc/gshadow</h5>
+            <p>This file contains secure information about groups:</p>
+            <pre><code>groupname:encrypted_password:administrators:members</code></pre>
+            <p>The fields represent:</p>
+            <ul>
+                <li><strong>groupname:</strong> The name of the group</li>
+                <li><strong>encrypted_password:</strong> Encrypted group password (if any)</li>
+                <li><strong>administrators:</strong> Users who can modify group membership and password</li>
+                <li><strong>members:</strong> Group members (should match the user_list in /etc/group)</li>
+            </ul>
+            
+            <h4>Comprehensive Group Management Commands</h4>
+            
+            <h5>Creating Groups</h5>
+            <pre><code># Basic group creation
+sudo groupadd developers
+
+# Create a system group
+sudo groupadd -r appgroup
+
+# Create a group with specific GID
+sudo groupadd -g 1500 marketing</code></pre>
+            
+            <h5>Modifying Groups</h5>
+            <pre><code># Rename a group
+sudo groupmod -n newname oldname
+
+# Change a group's GID
+sudo groupmod -g 1600 groupname
+
+# Update files owned by the old GID to the new GID
+sudo find / -group oldgid -exec chgrp -h newgid {} \;</code></pre>
+            
+            <h5>Deleting Groups</h5>
+            <pre><code># Delete a group
+sudo groupdel groupname</code></pre>
+            <p>Note: You cannot delete a primary group of an existing user. You must change the user's primary group or delete the user first.</p>
+            
+            <h5>Managing Group Membership</h5>
+            <p>Linux provides several ways to add and remove users from groups:</p>
+            
+            <table>
+                <tr>
+                    <th>Command</th>
+                    <th>Purpose</th>
+                    <th>Examples</th>
+                </tr>
+                <tr>
+                    <td><code>gpasswd</code></td>
+                    <td>Preferred tool for group membership management</td>
+                    <td>
+                        <pre><code># Add a user to a group
+sudo gpasswd -a username groupname
+
+# Remove a user from a group
+sudo gpasswd -d username groupname
+
+# Set group administrators
+sudo gpasswd -A admin1,admin2 groupname
+
+# Set entire member list at once
+sudo gpasswd -M user1,user2,user3 groupname</code></pre>
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>usermod</code></td>
+                    <td>User modification tool with group capabilities</td>
+                    <td>
+                        <pre><code># Add user to supplementary groups
+sudo usermod -a -G group1,group2 username
+
+# Replace all supplementary groups
+sudo usermod -G group1,group2 username
+
+# Change primary group
+sudo usermod -g groupname username</code></pre>
+                    </td>
+                </tr>
+            </table>
+            
+            <h5>Viewing Group Information</h5>
+            <pre><code># List all groups on the system
+cat /etc/group
+
+# Show groups a user belongs to
+groups username
+
+# Get detailed user and group info
+id username
+
+# View members of a specific group
+getent group groupname</code></pre>
+            
+            <h4>Group Passwords and Administration</h4>
+            <p>Groups can have passwords, allowing users to temporarily join groups by using the <code>newgrp</code> command:</p>
+            <pre><code># Set a password for a group
+sudo gpasswd groupname
+
+# Join a group temporarily (prompts for password if set)
+newgrp groupname</code></pre>
+            
+            <p>Group administrators can be designated to manage membership without root privileges:</p>
+            <pre><code># Designate group administrators
+sudo gpasswd -A user1,user2 groupname</code></pre>
+            <p>These administrators can add/remove members using the gpasswd command.</p>
+            
+            <h4>Group Permissions and Access Control</h4>
+            <p>Groups are fundamental to Linux's permission system:</p>
+            
+            <h5>File Permissions</h5>
+            <pre><code># Change group ownership of a file
+sudo chgrp groupname filename
+
+# Change permissions for group
+chmod g+rwx filename
+
+# Set SGID bit to force new files to inherit directory's group
+chmod g+s directory</code></pre>
+            
+            <h5>Special Group Access</h5>
+            <p>Certain groups have special significance:</p>
+            <ul>
+                <li><strong>sudo/wheel:</strong> Members can run commands with sudo</li>
+                <li><strong>adm:</strong> Often has access to log files</li>
+                <li><strong>audio:</strong> Access to audio devices</li>
+                <li><strong>docker:</strong> Can run docker commands</li>
+                <li><strong>disk:</strong> Access to disk devices</li>
+            </ul>
+            
+            <h4>Group Management Strategies</h4>
+            
+            <h5>Functional Groups</h5>
+            <p>Organize groups by function or department:</p>
+            <ul>
+                <li>development, marketing, accounting, hr</li>
+                <li>webadmin, dbadmin, sysadmin</li>
+            </ul>
+            
+            <h5>Permission-Based Groups</h5>
+            <p>Create groups based on permission levels:</p>
+            <ul>
+                <li>readonly, readwrite, fullaccess</li>
+                <li>project-viewers, project-editors, project-admins</li>
+            </ul>
+            
+            <h4>Best Practices for Group Management</h4>
+            <ul>
+                <li><strong>Naming conventions:</strong> Use descriptive, consistent group names</li>
+                <li><strong>Documentation:</strong> Maintain a record of groups, their purposes, and membership policies</li>
+                <li><strong>Least privilege:</strong> Assign users only to groups they absolutely need</li>
+                <li><strong>Periodic review:</strong> Regularly audit group memberships to remove unnecessary access</li>
+                <li><strong>Use UPG model:</strong> Create a private group for each user when appropriate</li>
+                <li><strong>Group hierarchy:</strong> Consider organizing groups hierarchically for complex environments</li>
+                <li><strong>Avoid direct edits:</strong> Use group management commands rather than editing files directly</li>
+            </ul>
+            
+            <h4>Advanced Group Concepts</h4>
+            
+            <h5>SGID (Set Group ID)</h5>
+            <p>When set on a directory, files created within inherit the group ownership of the directory rather than the user's primary group:</p>
+            <pre><code># Set SGID on a directory
+chmod g+s /shared/projects
+
+# Verify (look for the 's' in the group execute position)
+ls -ld /shared/projects
+# Output: drwxr-s--- ...</code></pre>
+            <p>This is particularly useful for collaborative directories where all files should be accessible to group members.</p>
+            
+            <h5>ACLs (Access Control Lists)</h5>
+            <p>For more fine-grained control than the standard permission model, use ACLs:</p>
+            <pre><code># Set specific permissions for a group
+sudo setfacl -m g:marketing:rx file.txt
+
+# View ACLs
+getfacl file.txt</code></pre>
+        </div>
+    </div>
+
+    <div class="topic quiz-topic">
+        <div class="topic-header quiz-header">
+            <h3>User & System Administration Quiz 📝</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <h4>Test Your User & System Administration Knowledge</h4>
+            <p>Answer the following questions to check your understanding of user and system administration concepts.</p>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">1. What file in Linux contains encrypted passwords?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">/etc/passwd</li>
+                    <li class="quiz-option" data-correct="true">/etc/shadow</li>
+                    <li class="quiz-option" data-correct="false">/etc/users</li>
+                    <li class="quiz-option" data-correct="false">/etc/security</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">2. What command would you use to change a user's login shell?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">chsh username</li>
+                    <li class="quiz-option" data-correct="false">passwd -s username</li>
+                    <li class="quiz-option" data-correct="true">usermod -s /bin/bash username</li>
+                    <li class="quiz-option" data-correct="false">shellmod username</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">3. Which command is used to set or change password expiration information?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">passwd -e</li>
+                    <li class="quiz-option" data-correct="true">chage</li>
+                    <li class="quiz-option" data-correct="false">usermod -p</li>
+                    <li class="quiz-option" data-correct="false">pwconfig</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">4. What is the default UID range for regular user accounts in most Linux distributions?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">1-99</li>
+                    <li class="quiz-option" data-correct="false">100-499</li>
+                    <li class="quiz-option" data-correct="true">1000-60000</li>
+                    <li class="quiz-option" data-correct="false">10000-99999</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">5. Which command would add a user to the 'developers' group without removing them from their existing groups?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">usermod -G developers username</li>
+                    <li class="quiz-option" data-correct="false">groupadd -m username developers</li>
+                    <li class="quiz-option" data-correct="true">usermod -a -G developers username</li>
+                    <li class="quiz-option" data-correct="false">gpasswd developers -a username</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">6. Which of these is a valid entry in the /etc/passwd file?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="true">user:x:1000:1000:User Name:/home/user:/bin/bash</li>
+                    <li class="quiz-option" data-correct="false">user::1000:1000:User Name:/home/user:/bin/bash</li>
+                    <li class="quiz-option" data-correct="false">user:1000:1000:User Name:/home/user:/bin/bash:x</li>
+                    <li class="quiz-option" data-correct="false">user:x:1000:User Name:/home/user:/bin/bash</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">7. What is the purpose of the /etc/skel directory in Linux?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">It stores the skeleton or basic structure of the filesystem</li>
+                    <li class="quiz-option" data-correct="false">It contains system backup skeletons or templates</li>
+                    <li class="quiz-option" data-correct="true">It contains files that are copied to a new user's home directory when the account is created</li>
+                    <li class="quiz-option" data-correct="false">It stores skeletal or unused account information</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">8. Which file permission mode would grant read and write access to the owner, read access to the group, and no access to others?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">644</li>
+                    <li class="quiz-option" data-correct="true">640</li>
+                    <li class="quiz-option" data-correct="false">755</li>
+                    <li class="quiz-option" data-correct="false">750</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">9. What does the sticky bit do when set on a directory?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">Makes the directory immutable (cannot be modified)</li>
+                    <li class="quiz-option" data-correct="false">Ensures the directory remains in RAM for faster access</li>
+                    <li class="quiz-option" data-correct="true">Prevents users from deleting files owned by other users in that directory</li>
+                    <li class="quiz-option" data-correct="false">Makes the directory executable like a program</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Resources Section -->
+    <h3 class="video-resources-title">Video Resources 📺</h3>
+    
+    <div class="direct-video-links">
+        <div class="video-card">
+            <a href="https://youtu.be/8c5y78pWxJ4?si=E9P04Lmi-Kcujqzi" target="_blank" class="video-link-direct">
+                <i class="fab fa-youtube"></i>
+                <span class="video-link-text">User and System Administration</span>
+            </a>
+        </div>
+    </div>
+</section> 

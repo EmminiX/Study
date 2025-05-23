@@ -1,0 +1,3036 @@
+<section id="pseudocode-standard">
+    <h2>Pseudocode Standard</h2>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Introduction to Pseudocode</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Pseudocode is a method of describing algorithms using a combination of natural language and programming-like constructs. It allows system administrators and programmers to plan and communicate logic without being tied to a specific programming language syntax.</p>
+            
+            <p>Key benefits of using pseudocode include:</p>
+            <ul>
+                <li><strong>Language Independence</strong> — Focus on logic rather than syntax</li>
+                <li><strong>Clear Communication</strong> — Expresses algorithms in an understandable way</li>
+                <li><strong>Planning Tool</strong> — Design before implementation</li>
+                <li><strong>Documentation</strong> — Serves as reference for implemented code</li>
+                <li><strong>Problem-Solving</strong> — Helps break down complex problems</li>
+            </ul>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="pseudocode-intro" onclick="openModal('pseudocode-intro'); return false;">Learn more: How to Write Pseudocode</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Basic Pseudocode Structure</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>A well-formed pseudocode algorithm typically follows this structure:</p>
+            <pre><code>ALGORITHM NameOfAlgorithm
+// Input: Description of input parameters
+// Output: Description of output or results
+// Description: Brief explanation of what the algorithm does
+
+BEGIN
+    // Main logic steps
+    Initialize variables
+    Perform operations
+    Return or output results
+END</code></pre>
+
+            <p>When writing pseudocode, maintain consistency in your style and indentation to ensure readability. The standard structure helps other administrators and developers understand your algorithms quickly.</p>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="pseudocode-structure" onclick="openModal('pseudocode-structure'); return false;">Learn more: Pseudocode Standard Format</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Standard Control Structures</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <h4>Conditionals</h4>
+            <p>Conditional statements allow for decision-making within algorithms:</p>
+            <pre><code>IF condition THEN
+    statement(s)
+ELSEIF another_condition THEN
+    statement(s)
+ELSE
+    statement(s)
+ENDIF</code></pre>
+
+            <h4>Loops</h4>
+            <p>Loop structures for repetitive tasks:</p>
+            <pre><code>// For loop
+FOR variable FROM start TO end [STEP increment] DO
+    statement(s)
+ENDFOR
+
+// While loop
+WHILE condition DO
+    statement(s)
+ENDWHILE
+
+// Do-While loop
+DO
+    statement(s)
+WHILE condition</code></pre>
+
+            <p>In system administration, loops are commonly used for batch processing files, iterating through user lists, or monitoring system resources over time.</p>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="control-structures" onclick="openModal('control-structures'); return false;">Learn more: Control Structures in Pseudocode</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Common Pseudocode Operators</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>These operators are used to represent common operations in pseudocode:</p>
+            <table>
+                <tr>
+                    <th>Category</th>
+                    <th>Operators</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td>Assignment</td>
+                    <td>←, =</td>
+                    <td><code>x ← 5</code></td>
+                </tr>
+                <tr>
+                    <td>Arithmetic</td>
+                    <td>+, -, *, /, mod, div</td>
+                    <td><code>result ← x + y</code></td>
+                </tr>
+                <tr>
+                    <td>Comparison</td>
+                    <td>=, ≠, <, >, ≤, ≥</td>
+                    <td><code>IF x > 10 THEN</code></td>
+                </tr>
+                <tr>
+                    <td>Logical</td>
+                    <td>AND, OR, NOT</td>
+                    <td><code>IF (x > 0) AND (y < 10) THEN</code></td>
+                </tr>
+            </table>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="pseudocode-operators" onclick="openModal('pseudocode-operators'); return false;">Learn more: Pseudocode Syntax and Operators</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Data Structures in Pseudocode</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Pseudocode can represent various data structures used in system administration:</p>
+            
+            <h4>Arrays</h4>
+            <pre><code>// Declaration
+DECLARE array[size]
+
+// Access
+value ← array[index]
+
+// Assignment
+array[index] ← value</code></pre>
+
+            <h4>Lists</h4>
+            <pre><code>// Operations
+APPEND item TO list
+REMOVE item FROM list
+INSERT item AT position IN list
+item ← GET position FROM list</code></pre>
+
+            <p>These structures help represent collections of data such as user lists, file collections, or configuration options in system administration tasks.</p>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="data-structures" onclick="openModal('data-structures'); return false;">Learn more: Data Structures in Algorithms</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Functions and Procedures</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>For modular code organization:</p>
+            <pre><code>FUNCTION name(parameters)
+    // Body of function
+    statement(s)
+    RETURN value
+ENDFUNCTION
+
+PROCEDURE name(parameters)
+    // Body of procedure
+    statement(s)
+ENDPROCEDURE</code></pre>
+
+            <p>Use functions when you need to return a value, and procedures when you just perform actions without returning values.</p>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="functions-procedures" onclick="openModal('functions-procedures'); return false;">Learn more: Functions and Procedures in Algorithmic Design</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Example: User Account Management Algorithm</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>A practical example of pseudocode for Linux system administration:</p>
+            <pre><code>ALGORITHM CreateUserAccount
+// Input: username, fullName, userType, initialPassword
+// Output: success status and new userId
+// Description: Creates a new user account in the Linux system
+
+BEGIN
+    IF UserExists(username) THEN
+        RETURN error, "Username already exists"
+    ENDIF
+    
+    userId ← GetNextAvailableUserId()
+    
+    // Create home directory
+    homeDir ← "/home/" + username
+    CREATE DIRECTORY homeDir
+    
+    // Add user to system
+    EXECUTE COMMAND "useradd -m -d " + homeDir + " -u " + userId + " " + username
+    
+    // Set initial password
+    EXECUTE COMMAND "echo " + username + ":" + initialPassword + " | chpasswd"
+    
+    // Set password expiration for security
+    EXECUTE COMMAND "passwd -e " + username
+    
+    // Add to appropriate groups based on userType
+    IF userType = "admin" THEN
+        EXECUTE COMMAND "usermod -aG sudo,adm " + username
+    ELSEIF userType = "developer" THEN
+        EXECUTE COMMAND "usermod -aG developers " + username
+    ENDIF
+    
+    // Log the user creation
+    LogActivity("User " + username + " created with ID " + userId)
+    
+    RETURN success, userId
+END</code></pre>
+
+            <p>This pseudocode example illustrates how a system administrator might plan a user creation script, including error handling, system command execution, and conditional logic based on user type.</p>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="user-account-algorithm" onclick="openModal('user-account-algorithm'); return false;">Learn more: Linux User Administration Concepts</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Best Practices for Pseudocode</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <ul>
+                <li><strong>Be Consistent</strong> — Use the same style throughout your pseudocode</li>
+                <li><strong>Use Meaningful Names</strong> — Choose descriptive variable and function names</li>
+                <li><strong>Include Comments</strong> — Explain complex logic or reasoning</li>
+                <li><strong>Proper Indentation</strong> — Make code structure visually clear</li>
+                <li><strong>Keep It Simple</strong> — Pseudocode should be easier to understand than actual code</li>
+                <li><strong>Focus on Logic</strong> — Emphasize algorithms, not implementation details</li>
+                <li><strong>Use Standard Conventions</strong> — Follow established pseudocode practices</li>
+            </ul>
+            
+            <div class="quiz-container">
+                <h4>Knowledge Check</h4>
+                <p>Which of the following is NOT a benefit of using pseudocode?</p>
+                <div class="quiz-options">
+                    <div class="quiz-option" data-correct="false">Planning algorithms before implementation</div>
+                    <div class="quiz-option" data-correct="false">Language-independent algorithm description</div>
+                    <div class="quiz-option" data-correct="true">Automatic code generation and compilation</div>
+                    <div class="quiz-option" data-correct="false">Clear communication of logic to other team members</div>
+                </div>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="best-practices-pseudocode" onclick="openModal('best-practices-pseudocode'); return false;">Learn more: Pseudocode Best Practices for Better Algorithm Design</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="topic quiz-topic">
+        <div class="topic-header quiz-header">
+            <h3>Pseudocode Standard Quiz 📝</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <h4>Test Your Pseudocode Knowledge</h4>
+            <p>Answer the following questions to check your understanding of pseudocode standards and practices.</p>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">1. In pseudocode, which of the following is the proper way to represent a FOR loop?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">FOR (i = 0; i < 10; i++) { statements }</li>
+                    <li class="quiz-option" data-correct="true">FOR variable FROM start TO end DO statements ENDFOR</li>
+                    <li class="quiz-option" data-correct="false">FOR i IN range(10): statements</li>
+                    <li class="quiz-option" data-correct="false">FOR i = 1:10 statements END</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">2. Which symbol is commonly used for assignment in pseudocode?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">==</li>
+                    <li class="quiz-option" data-correct="false">:=:</li>
+                    <li class="quiz-option" data-correct="true">←</li>
+                    <li class="quiz-option" data-correct="false">=></li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">3. What is the difference between a FUNCTION and a PROCEDURE in pseudocode?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">Functions can only perform mathematical operations, while procedures can perform any operation</li>
+                    <li class="quiz-option" data-correct="false">Procedures are always faster than functions</li>
+                    <li class="quiz-option" data-correct="true">Functions return a value, while procedures do not return values</li>
+                    <li class="quiz-option" data-correct="false">Procedures can accept parameters, while functions cannot</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">4. Which of the following pseudocode structures correctly represents a conditional statement?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="true">IF condition THEN statements ELSE statements ENDIF</li>
+                    <li class="quiz-option" data-correct="false">IF (condition) { statements } ELSE { statements }</li>
+                    <li class="quiz-option" data-correct="false">WHEN condition DO statements OTHERWISE statements ENDWHEN</li>
+                    <li class="quiz-option" data-correct="false">IF condition: statements ELSE: statements</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">5. How would you properly represent a list append operation in pseudocode?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">list.append(item)</li>
+                    <li class="quiz-option" data-correct="false">list += item</li>
+                    <li class="quiz-option" data-correct="true">APPEND item TO list</li>
+                    <li class="quiz-option" data-correct="false">list[length(list) + 1] = item</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">6. Which best describes the primary purpose of pseudocode in system administration tasks?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">To replace actual programming languages in production environments</li>
+                    <li class="quiz-option" data-correct="false">To provide executable code that works across all operating systems</li>
+                    <li class="quiz-option" data-correct="true">To plan and communicate the logic of administrative scripts before implementation</li>
+                    <li class="quiz-option" data-correct="false">To document code in a way that requires less maintenance than comments</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">7. What is the best practice for representing system commands in pseudocode?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">SYSTEM("command")</li>
+                    <li class="quiz-option" data-correct="true">EXECUTE COMMAND "command"</li>
+                    <li class="quiz-option" data-correct="false">RUN "command"</li>
+                    <li class="quiz-option" data-correct="false">$ command</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">8. Which of the following is a key benefit of proper indentation in pseudocode?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">It makes the pseudocode execute faster when converted to real code</li>
+                    <li class="quiz-option" data-correct="false">It allows automated tools to analyze the pseudocode</li>
+                    <li class="quiz-option" data-correct="true">It visually represents the logical structure and nesting of the algorithm</li>
+                    <li class="quiz-option" data-correct="false">It is required by the pseudocode compiler to generate proper code</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">9. What is NOT typically included in the header of a pseudocode algorithm?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">Input description</li>
+                    <li class="quiz-option" data-correct="false">Output description</li>
+                    <li class="quiz-option" data-correct="true">Time complexity analysis</li>
+                    <li class="quiz-option" data-correct="false">Brief explanation of what the algorithm does</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">10. When representing a WHILE loop in pseudocode, which of the following is the correct structure?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">WHILE (condition) { statements }</li>
+                    <li class="quiz-option" data-correct="true">WHILE condition DO statements ENDWHILE</li>
+                    <li class="quiz-option" data-correct="false">WHILE condition: statements</li>
+                    <li class="quiz-option" data-correct="false">LOOP WHILE condition BEGIN statements END</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Resources Section -->
+    <h3 class="video-resources-title">Video Resources 📺</h3>
+    
+    <div class="direct-video-links">
+        <div class="video-card">
+            <a href="https://youtu.be/zMRlK7mzows?si=R6e7xlZAtEd5yEvZ" target="_blank" class="video-link-direct">
+                <i class="fab fa-youtube"></i>
+                <span class="video-link-text">What Is Pseudocode?</span>
+            </a>
+        </div>
+        
+        <div class="video-card">
+            <a href="https://youtu.be/qfckDdsEIq8?si=sqy8gjoZpRluC9d0" target="_blank" class="video-link-direct">
+                <i class="fab fa-youtube"></i>
+                <span class="video-link-text">How to Write Pseudocode Algorithm</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Modal for Introduction to Pseudocode -->
+    <div id="pseudocode-intro" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('pseudocode-intro')">&times;</span>
+            <h3>How to Write Pseudocode: A Comprehensive Guide</h3>
+            
+            <p>Pseudocode is a high-level description of an algorithm that uses a mixture of natural language and programming concepts to outline program logic. It serves as a bridge between human thinking and actual programming code.</p>
+            
+            <h4>Why Use Pseudocode?</h4>
+            <ul>
+                <li><strong>Problem Understanding</strong> - Helps clarify the problem before implementation</li>
+                <li><strong>Algorithm Design</strong> - Allows focus on logic rather than syntax</li>
+                <li><strong>Communication</strong> - Provides a language-neutral way to explain algorithms</li>
+                <li><strong>Documentation</strong> - Creates a blueprint for implementation</li>
+                <li><strong>Testing & Debugging</strong> - Allows detection of logical errors before coding</li>
+            </ul>
+            
+            <h4>Fundamentals of Writing Pseudocode</h4>
+            
+            <h5>1. Keep It Simple and Clear</h5>
+            <p>Use plain language that clearly conveys meaning. Avoid ambiguity and be precise in your instructions.</p>
+            
+            <div class="example-box">
+                <p><strong>Example:</strong></p>
+                <p>Instead of: <code>x ← computeValueBasedOnComplexLogic()</code></p>
+                <p>Write: <code>// Calculate average temperature
+averageTemp ← SUM(temperatures) / COUNT(temperatures)</code></p>
+            </div>
+            
+            <h5>2. Use Consistent Formatting</h5>
+            <p>Maintain consistent indentation, capitalization, and naming conventions. Capitalize keywords and use clear indentation to show code structure.</p>
+            
+            <div class="example-box">
+                <pre><code>IF condition THEN
+    statement1
+    statement2
+ELSE
+    statement3
+ENDIF</code></pre>
+            </div>
+            
+            <h5>3. Be Precise with Control Structures</h5>
+            <p>Clearly indicate the start and end of loops, conditions, and other control structures.</p>
+            
+            <div class="example-box">
+                <pre><code>WHILE not end_of_file DO
+    Read record
+    Process record
+ENDWHILE</code></pre>
+            </div>
+            
+            <h4>Structure of Good Pseudocode</h4>
+            
+            <h5>1. Header Information</h5>
+            <pre><code>ALGORITHM Name
+// Input: What data the algorithm receives
+// Output: What data the algorithm produces
+// Description: Brief description of the algorithm's purpose</code></pre>
+            
+            <h5>2. Main Body</h5>
+            <pre><code>BEGIN
+    Initialization steps
+    Main processing steps
+    Finalization steps
+END</code></pre>
+            
+            <h5>3. Functions and Procedures</h5>
+            <pre><code>FUNCTION Name(parameters)
+    Processing steps
+    RETURN value
+ENDFUNCTION
+
+PROCEDURE Name(parameters)
+    Processing steps
+ENDPROCEDURE</code></pre>
+            
+            <h4>Common Pseudocode Elements</h4>
+            
+            <table>
+                <tr>
+                    <th>Element</th>
+                    <th>Pseudocode Representation</th>
+                </tr>
+                <tr>
+                    <td>Variable Assignment</td>
+                    <td><code>variable ← value</code></td>
+                </tr>
+                <tr>
+                    <td>Input/Output</td>
+                    <td><code>READ variable</code><br><code>PRINT value</code></td>
+                </tr>
+                <tr>
+                    <td>Conditionals</td>
+                    <td><code>IF condition THEN ... ELSE ... ENDIF</code></td>
+                </tr>
+                <tr>
+                    <td>Loops</td>
+                    <td><code>FOR ... DO ... ENDFOR</code><br><code>WHILE ... DO ... ENDWHILE</code></td>
+                </tr>
+                <tr>
+                    <td>Function Calls</td>
+                    <td><code>result ← FunctionName(arguments)</code></td>
+                </tr>
+                <tr>
+                    <td>Arrays/Lists</td>
+                    <td><code>array[index]</code><br><code>APPEND item TO list</code></td>
+                </tr>
+                <tr>
+                    <td>Comments</td>
+                    <td><code>// This is a comment</code></td>
+                </tr>
+            </table>
+            
+            <h4>Pseudocode Examples for System Administration</h4>
+            
+            <h5>Example 1: Backing Up User Data</h5>
+            <pre><code>ALGORITHM BackupUserData
+// Input: username, backupLocation
+// Output: success status
+// Description: Backs up a user's home directory
+
+BEGIN
+    homeDir ← "/home/" + username
+    
+    IF NOT DirectoryExists(homeDir) THEN
+        RETURN error, "User home directory not found"
+    ENDIF
+    
+    backupFile ← backupLocation + "/" + username + "_" + CurrentDate() + ".tar.gz"
+    
+    // Create backup archive
+    EXECUTE COMMAND "tar -czf " + backupFile + " " + homeDir
+    
+    IF CommandFailed() THEN
+        RETURN error, "Backup creation failed"
+    ENDIF
+    
+    // Set proper permissions
+    EXECUTE COMMAND "chmod 600 " + backupFile
+    
+    // Log the backup operation
+    LogActivity("Backup created for " + username + " at " + backupFile)
+    
+    RETURN success, backupFile
+END</code></pre>
+            
+            <h5>Example 2: Monitoring Disk Space</h5>
+            <pre><code>ALGORITHM MonitorDiskSpace
+// Input: threshold percentage
+// Output: list of filesystems exceeding threshold
+// Description: Checks filesystem usage and alerts if above threshold
+
+BEGIN
+    alerts ← empty list
+    
+    // Get filesystem usage data
+    EXECUTE COMMAND "df -h | grep -v 'tmpfs'"
+    output ← CommandResult()
+    
+    FOR EACH line IN output DO
+        // Parse filesystem data
+        filesystem ← ExtractFilesystem(line)
+        usagePercent ← ExtractUsagePercent(line)
+        
+        IF usagePercent > threshold THEN
+            CREATE alert with filesystem and usagePercent
+            APPEND alert TO alerts
+        ENDIF
+    ENDFOR
+    
+    IF Length(alerts) > 0 THEN
+        // Send notification if alerts exist
+        SendNotification("Disk space alert", FormatAlerts(alerts))
+    ENDIF
+    
+    RETURN alerts
+END</code></pre>
+            
+            <h4>Tips for Effective Pseudocode</h4>
+            
+            <ol>
+                <li><strong>Start High-Level</strong> - Begin with major steps, then refine with more detail</li>
+                <li><strong>Focus on Logic</strong> - Emphasize what to do, not how to do it in a specific language</li>
+                <li><strong>Use Meaningful Names</strong> - Choose descriptive variable and function names</li>
+                <li><strong>Include Error Handling</strong> - Consider what might go wrong and how to handle it</li>
+                <li><strong>Review and Refine</strong> - Simplify and clarify your pseudocode before implementation</li>
+                <li><strong>Test with Walkthroughs</strong> - Manually trace through your pseudocode with sample data</li>
+                <li><strong>Keep Audience in Mind</strong> - Adjust complexity based on who will read your pseudocode</li>
+            </ol>
+            
+            <div class="note">
+                <p><strong>Remember:</strong> There is no single standard for pseudocode. The most important aspect is that it clearly communicates the logic of your algorithm in a way that is understandable to your intended audience and can be easily translated into actual code.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Pseudocode Structure -->
+    <div id="pseudocode-structure" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('pseudocode-structure')">&times;</span>
+            <h3>Pseudocode Standard Format</h3>
+            
+            <p>A well-structured pseudocode follows standard conventions to maximize clarity and minimize ambiguity. This guide outlines the standard format for writing pseudocode that can be easily understood by programmers and system administrators.</p>
+            
+            <h4>Basic Structure of a Pseudocode Algorithm</h4>
+            
+            <p>A complete pseudocode algorithm typically includes these main sections:</p>
+            
+            <pre><code>ALGORITHM AlgorithmName
+// Input: Description of input parameters
+// Output: Description of return values or results
+// Description: Brief explanation of the algorithm's purpose
+
+BEGIN
+    // Initialization section
+    Variable declarations and initializations
+    
+    // Main processing section
+    Main logic and operations
+    
+    // Finalization section
+    Cleanup operations
+    Return values or results
+END</code></pre>
+            
+            <h4>Header Components</h4>
+            
+            <ul>
+                <li><strong>ALGORITHM Name</strong> - Use a descriptive name in PascalCase or camelCase</li>
+                <li><strong>Input description</strong> - List all inputs required by the algorithm</li>
+                <li><strong>Output description</strong> - Explain what the algorithm returns or produces</li>
+                <li><strong>Description</strong> - Provide a concise, clear explanation of what the algorithm does</li>
+            </ul>
+            
+            <h4>Main Algorithm Body</h4>
+            
+            <p>The body should be enclosed between BEGIN and END keywords and include these elements:</p>
+            
+            <h5>1. Variable Declarations and Constants</h5>
+            <pre><code>// Declare variables with meaningful names
+DECLARE count ← 0
+DECLARE fileName ← "data.txt"
+DECLARE MAX_ATTEMPTS ← 5  // Constants in UPPER_CASE</code></pre>
+            
+            <h5>2. Sequence of Operations</h5>
+            <p>Operations should be listed in the order they will be executed:</p>
+            <pre><code>// Sequential operations
+Read input value
+Process input
+Store result</code></pre>
+            
+            <h5>3. Proper Indentation</h5>
+            <p>Consistent indentation helps visualize the structure and nesting levels:</p>
+            <pre><code>IF condition THEN
+    operation1
+    operation2
+    IF nested_condition THEN
+        nested_operation
+    ENDIF
+ELSE
+    alternative_operation
+ENDIF</code></pre>
+            
+            <h4>Standard Components and Notation</h4>
+            
+            <h5>1. Assignment</h5>
+            <pre><code>variable ← value  // Preferred notation
+variable = value   // Alternative notation</code></pre>
+            
+            <h5>2. Input/Output Operations</h5>
+            <pre><code>READ variable [FROM source]
+PRINT value [TO destination]
+DISPLAY message
+INPUT prompt, variable</code></pre>
+            
+            <h5>3. Conditional Structures</h5>
+            <pre><code>// Simple if-then
+IF condition THEN
+    statements
+ENDIF
+
+// If-then-else
+IF condition THEN
+    statements1
+ELSE
+    statements2
+ENDIF
+
+// If-elseif-else
+IF condition1 THEN
+    statements1
+ELSEIF condition2 THEN
+    statements2
+ELSE
+    statements3
+ENDIF
+
+// Case/Switch statement
+CASE expression OF
+    value1: statements1
+    value2: statements2
+    ...
+    DEFAULT: default_statements
+ENDCASE</code></pre>
+            
+            <h5>4. Loop Structures</h5>
+            <pre><code>// For loop
+FOR variable FROM start TO end [STEP increment] DO
+    statements
+ENDFOR
+
+// While loop
+WHILE condition DO
+    statements
+ENDWHILE
+
+// Do-while loop
+DO
+    statements
+WHILE condition
+
+// For-each loop
+FOR EACH item IN collection DO
+    statements
+ENDFOR
+
+// Infinite loop with exit condition
+LOOP
+    statements
+    IF exit_condition THEN
+        BREAK
+    ENDIF
+ENDLOOP</code></pre>
+            
+            <h5>5. Function and Procedure Declarations</h5>
+            <pre><code>// Function (returns a value)
+FUNCTION FunctionName(parameter1, parameter2, ...)
+    statements
+    RETURN value
+ENDFUNCTION
+
+// Procedure (does not return a value)
+PROCEDURE ProcedureName(parameter1, parameter2, ...)
+    statements
+ENDPROCEDURE</code></pre>
+            
+            <h5>6. Function and Procedure Calls</h5>
+            <pre><code>// Function call with return value
+result ← FunctionName(argument1, argument2)
+
+// Procedure call
+CALL ProcedureName(argument1, argument2)</code></pre>
+            
+            <h5>7. Data Structures</h5>
+            <pre><code>// Arrays and lists
+DECLARE array[size]
+array[index] ← value
+APPEND item TO list
+REMOVE item FROM list
+
+// Dictionaries/Maps
+DECLARE map
+SET map[key] TO value
+value ← map[key]</code></pre>
+            
+            <h4>System Administration Examples</h4>
+            
+            <h5>Example 1: Log File Rotation Algorithm</h5>
+            <pre><code>ALGORITHM RotateLogFiles
+// Input: logDirectory, maxSize, keepCount
+// Output: Success status
+// Description: Rotates log files when they exceed a certain size
+
+BEGIN
+    // Get list of log files
+    DECLARE logFiles ← LIST_FILES(logDirectory, "*.log")
+    
+    FOR EACH logFile IN logFiles DO
+        // Check file size
+        fileSize ← GET_FILE_SIZE(logFile)
+        
+        IF fileSize > maxSize THEN
+            // Shift existing rotated logs
+            FOR i FROM keepCount DOWNTO 2 DO
+                oldName ← logFile + "." + (i-1)
+                newName ← logFile + "." + i
+                
+                IF FILE_EXISTS(oldName) THEN
+                    RENAME_FILE(oldName, newName)
+                ENDIF
+            ENDFOR
+            
+            // Rotate current log
+            RENAME_FILE(logFile, logFile + ".1")
+            
+            // Create new empty log file
+            CREATE_EMPTY_FILE(logFile)
+            
+            // Log the rotation
+            LOG("Rotated log file: " + logFile)
+        ENDIF
+    ENDFOR
+    
+    RETURN success
+END</code></pre>
+            
+            <h5>Example 2: System Backup Algorithm</h5>
+            <pre><code>ALGORITHM PerformSystemBackup
+// Input: backupPaths, destinationPath, compressionLevel
+// Output: Backup file path or error message
+// Description: Creates a compressed backup of specified system paths
+
+BEGIN
+    // Generate timestamp for backup file
+    timestamp ← GET_CURRENT_TIMESTAMP()
+    backupFile ← destinationPath + "/backup_" + timestamp + ".tar.gz"
+    
+    // Validate paths before backup
+    FOR EACH path IN backupPaths DO
+        IF NOT PATH_EXISTS(path) THEN
+            RETURN error, "Path does not exist: " + path
+        ENDIF
+    ENDFOR
+    
+    // Ensure destination directory exists
+    IF NOT DIRECTORY_EXISTS(destinationPath) THEN
+        CREATE_DIRECTORY(destinationPath)
+        IF error THEN
+            RETURN error, "Could not create destination directory"
+        ENDIF
+    ENDIF
+    
+    // Build command with proper compression level
+    command ← "tar -cz"
+    command ← command + compressionLevel
+    command ← command + "f " + backupFile
+    
+    // Add paths to command
+    FOR EACH path IN backupPaths DO
+        command ← command + " " + path
+    ENDFOR
+    
+    // Execute backup command
+    result ← EXECUTE_COMMAND(command)
+    
+    IF result.exitCode != 0 THEN
+        RETURN error, "Backup failed: " + result.errorMessage
+    ENDIF
+    
+    // Verify backup file was created
+    IF NOT FILE_EXISTS(backupFile) THEN
+        RETURN error, "Backup file was not created"
+    ENDIF
+    
+    // Return success and backup file path
+    RETURN success, backupFile
+END</code></pre>
+            
+            <h4>Formatting Best Practices</h4>
+            
+            <ol>
+                <li><strong>Consistency</strong> - Use the same style and conventions throughout your pseudocode</li>
+                <li><strong>Clear Delineation</strong> - Clearly mark the beginning and end of all blocks</li>
+                <li><strong>Appropriate Detail Level</strong> - Include enough detail to understand the logic without implementation specifics</li>
+                <li><strong>Meaningful Comments</strong> - Add comments to explain complex logic or reasoning</li>
+                <li><strong>Whitespace</strong> - Use blank lines to separate logical sections</li>
+                <li><strong>Capitalize Keywords</strong> - Makes control structures and commands stand out</li>
+                <li><strong>Variable Naming</strong> - Use descriptive, meaningful names for variables and functions</li>
+            </ol>
+            
+            <div class="note">
+                <p><strong>Note:</strong> While pseudocode doesn't have a universal standard that is strictly enforced, following these conventions makes your pseudocode more readable and accessible to others. The most important aspect is consistency within your team or organization.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Control Structures -->
+    <div id="control-structures" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('control-structures')">&times;</span>
+            <h3>Control Structures in Pseudocode</h3>
+            
+            <p>Control structures are the backbone of algorithm design, enabling conditional execution and repetition of code. Properly implementing these structures in pseudocode is essential for creating clear, logical algorithms.</p>
+            
+            <h4>Conditional Structures</h4>
+            
+            <p>Conditional structures allow the algorithm to make decisions based on specific conditions.</p>
+            
+            <h5>1. IF-THEN Statement</h5>
+            <p>The most basic conditional that executes code only when a condition is true:</p>
+            <pre><code>IF condition THEN
+    statement(s)
+ENDIF</code></pre>
+            
+            <div class="example-box">
+                <p><strong>Example:</strong></p>
+                <pre><code>IF fileSize > maxSize THEN
+    PRINT "File exceeds maximum allowed size"
+ENDIF</code></pre>
+            </div>
+            
+            <h5>2. IF-THEN-ELSE Statement</h5>
+            <p>Provides an alternative action when the condition is false:</p>
+            <pre><code>IF condition THEN
+    statement(s) executed when condition is true
+ELSE
+    statement(s) executed when condition is false
+ENDIF</code></pre>
+            
+            <div class="example-box">
+                <p><strong>Example:</strong></p>
+                <pre><code>IF userExists(username) THEN
+    PRINT "Username already taken"
+ELSE
+    createUser(username, password)
+    PRINT "User created successfully"
+ENDIF</code></pre>
+            </div>
+            
+            <h5>3. IF-ELSEIF-ELSE Statement</h5>
+            <p>Handles multiple conditions in sequence:</p>
+            <pre><code>IF condition1 THEN
+    statement(s) executed when condition1 is true
+ELSEIF condition2 THEN
+    statement(s) executed when condition2 is true
+ELSEIF condition3 THEN
+    statement(s) executed when condition3 is true
+ELSE
+    statement(s) executed when all conditions are false
+ENDIF</code></pre>
+            
+            <div class="example-box">
+                <p><strong>Example:</strong></p>
+                <pre><code>IF cpuUsage > 90 THEN
+    PRINT "Critical: CPU usage extremely high"
+    sendAlert("critical")
+ELSEIF cpuUsage > 75 THEN
+    PRINT "Warning: CPU usage high"
+    sendAlert("warning")
+ELSEIF cpuUsage > 50 THEN
+    PRINT "Notice: CPU usage moderate"
+ELSE
+    PRINT "CPU usage normal"
+ENDIF</code></pre>
+            </div>
+            
+            <h5>4. CASE (Switch) Statement</h5>
+            <p>Handles multiple possible values of a single expression:</p>
+            <pre><code>CASE expression OF
+    value1: statement(s)
+    value2: statement(s)
+    value3: statement(s)
+    ...
+    DEFAULT: statement(s)
+ENDCASE</code></pre>
+            
+            <div class="example-box">
+                <p><strong>Example:</strong></p>
+                <pre><code>CASE userRole OF
+    "admin": 
+        grantFullAccess()
+        logAdminLogin(userId)
+    "manager": 
+        grantManagementAccess()
+    "user": 
+        grantBasicAccess()
+    DEFAULT: 
+        grantGuestAccess()
+        logUnknownRoleAccess(userId, userRole)
+ENDCASE</code></pre>
+            </div>
+            
+            <h5>5. Nested Conditionals</h5>
+            <p>Conditionals can be nested within each other to create complex decision trees:</p>
+            <div class="example-box">
+                <p><strong>Example:</strong></p>
+                <pre><code>IF isLoggedIn THEN
+    IF hasPermission("delete") THEN
+        IF itemBelongsToUser(userId, itemId) THEN
+            deleteItem(itemId)
+            PRINT "Item deleted successfully"
+        ELSE
+            PRINT "You can only delete your own items"
+        ENDIF
+    ELSE
+        PRINT "Insufficient permissions"
+    ENDIF
+ELSE
+    PRINT "Please log in to continue"
+ENDIF</code></pre>
+            </div>
+            
+            <h4>Loop Structures</h4>
+            
+            <p>Loops allow repeated execution of code blocks, either a specific number of times or until a condition is met.</p>
+            
+            <h5>1. FOR Loop</h5>
+            <p>Used when the number of iterations is known in advance:</p>
+            <pre><code>FOR variable FROM start TO end [STEP increment] DO
+    statements
+ENDFOR</code></pre>
+            
+            <div class="example-box">
+                <p><strong>Examples:</strong></p>
+                <pre><code>// Standard counting loop
+FOR i FROM 1 TO 10 DO
+    PRINT i
+ENDFOR
+
+// Loop with custom step size
+FOR i FROM 0 TO 100 STEP 10 DO
+    PRINT i
+ENDFOR
+
+// Descending loop
+FOR i FROM 10 TO 1 STEP -1 DO
+    PRINT i
+ENDFOR</code></pre>
+            </div>
+            
+            <h5>2. WHILE Loop</h5>
+            <p>Repeats as long as a condition remains true (pre-test loop):</p>
+            <pre><code>WHILE condition DO
+    statements
+ENDWHILE</code></pre>
+            
+            <div class="example-box">
+                <p><strong>Example:</strong></p>
+                <pre><code>attempts ← 0
+WHILE connectionFailed AND attempts < maxAttempts DO
+    attempts ← attempts + 1
+    tryConnection()
+    PRINT "Connection attempt " + attempts
+    IF attempts = maxAttempts THEN
+        PRINT "Maximum connection attempts reached"
+    ENDIF
+ENDWHILE</code></pre>
+            </div>
+            
+            <h5>3. DO-WHILE Loop</h5>
+            <p>Similar to WHILE but guarantees at least one execution (post-test loop):</p>
+            <pre><code>DO
+    statements
+WHILE condition</code></pre>
+            
+            <div class="example-box">
+                <p><strong>Example:</strong></p>
+                <pre><code>DO
+    displayMenu()
+    choice ← getUserInput()
+    processMenuChoice(choice)
+WHILE choice != "quit"</code></pre>
+            </div>
+            
+            <h5>4. FOR EACH Loop</h5>
+            <p>Iterates over all elements in a collection:</p>
+            <pre><code>FOR EACH item IN collection DO
+    statements
+ENDFOR</code></pre>
+            
+            <div class="example-box">
+                <p><strong>Example:</strong></p>
+                <pre><code>userList ← getAllUsers()
+FOR EACH user IN userList DO
+    IF user.lastLogin < (currentDate - 90 days) THEN
+        flagInactiveUser(user.id)
+    ENDIF
+ENDFOR</code></pre>
+            </div>
+            
+            <h5>5. Indefinite Loop with BREAK</h5>
+            <p>Creates a loop that continues until explicitly broken:</p>
+            <pre><code>LOOP
+    statements
+    IF exit_condition THEN
+        BREAK
+    ENDIF
+ENDLOOP</code></pre>
+            
+            <div class="example-box">
+                <p><strong>Example:</strong></p>
+                <pre><code>LOOP
+    data ← readNextDataChunk()
+    processData(data)
+    IF endOfFileReached OR errorOccurred THEN
+        BREAK
+    ENDIF
+ENDLOOP</code></pre>
+            </div>
+            
+            <h4>Loop Control Statements</h4>
+            
+            <h5>1. BREAK Statement</h5>
+            <p>Exits a loop immediately, regardless of the loop condition:</p>
+            <pre><code>WHILE condition DO
+    IF break_condition THEN
+        BREAK    // Exits the loop immediately
+    ENDIF
+    statement(s)
+ENDWHILE</code></pre>
+            
+            <h5>2. CONTINUE Statement</h5>
+            <p>Skips the rest of the current iteration and moves to the next one:</p>
+            <pre><code>FOR i FROM 1 TO 10 DO
+    IF i MOD 2 = 0 THEN
+        CONTINUE    // Skip even numbers
+    ENDIF
+    PRINT i    // Only prints odd numbers
+ENDFOR</code></pre>
+            
+            <h5>3. RETURN Statement</h5>
+            <p>Exits the entire function or procedure, not just the loop:</p>
+            <pre><code>FUNCTION findItem(collection, target)
+    FOR EACH item IN collection DO
+        IF item = target THEN
+            RETURN true    // Exits the function immediately
+        ENDIF
+    ENDFOR
+    RETURN false
+ENDFUNCTION</code></pre>
+            
+            <h4>Nested Control Structures</h4>
+            
+            <p>Control structures can be nested within each other to create more complex algorithms:</p>
+            
+            <div class="example-box">
+                <p><strong>Example: Nested Loops with Conditionals</strong></p>
+                <pre><code>ALGORITHM ProcessLogFiles
+// Processes multiple log files and flags suspicious entries
+
+BEGIN
+    logDirectories ← ["system", "security", "application"]
+    
+    FOR EACH directory IN logDirectories DO
+        logFiles ← LIST_FILES(directory, "*.log")
+        
+        FOR EACH logFile IN logFiles DO
+            IF FILE_SIZE(logFile) = 0 THEN
+                LOG("Empty log file found: " + logFile)
+                CONTINUE    // Skip empty files
+            ENDIF
+            
+            fileHandle ← OPEN_FILE(logFile)
+            lineCount ← 0
+            
+            WHILE NOT END_OF_FILE(fileHandle) DO
+                line ← READ_LINE(fileHandle)
+                lineCount ← lineCount + 1
+                
+                IF CONTAINS(line, "ERROR") THEN
+                    IF CONTAINS(line, "security breach") THEN
+                        FLAG_CRITICAL(logFile, lineCount, line)
+                        BREAK    // Stop processing this file, move to next one
+                    ELSEIF CONTAINS(line, "authentication failure") THEN
+                        FLAG_WARNING(logFile, lineCount, line)
+                    ELSE
+                        FLAG_NOTICE(logFile, lineCount, line)
+                    ENDIF
+                ENDIF
+            ENDWHILE
+            
+            CLOSE_FILE(fileHandle)
+        ENDFOR
+    ENDFOR
+END</code></pre>
+            </div>
+            
+            <h4>Best Practices for Control Structures</h4>
+            
+            <ol>
+                <li><strong>Clear Entry and Exit Points</strong> - Make it obvious where control structures begin and end</li>
+                <li><strong>Consistent Indentation</strong> - Use consistent spacing to show nesting levels</li>
+                <li><strong>Avoid Deep Nesting</strong> - Consider refactoring deeply nested structures (more than 3-4 levels)</li>
+                <li><strong>Use BREAK and CONTINUE Sparingly</strong> - These can make flow harder to follow</li>
+                <li><strong>Keep Conditions Simple</strong> - Break complex conditions into multiple simpler conditions</li>
+                <li><strong>Avoid Infinite Loops</strong> - Ensure there's always a way to exit loops</li>
+                <li><strong>Comment Complex Logic</strong> - Explain the purpose of difficult-to-understand structures</li>
+            </ol>
+            
+            <h4>System Administration Examples</h4>
+            
+            <h5>Example: Automated System Maintenance</h5>
+            <pre><code>ALGORITHM PerformSystemMaintenance
+// Performs routine system maintenance tasks
+
+BEGIN
+    maintenanceTasks ← ["disk_cleanup", "update_check", "log_rotation", "backup"]
+    results ← empty map
+    
+    // Main processing loop with error handling
+    FOR EACH task IN maintenanceTasks DO
+        TRY
+            CASE task OF
+                "disk_cleanup":
+                    IF diskSpaceLow() THEN
+                        cleanupTemporaryFiles()
+                        cleanupOldLogs()
+                    ELSE
+                        PRINT "Disk space sufficient, skipping cleanup"
+                        CONTINUE
+                    ENDIF
+                
+                "update_check":
+                    updates ← checkForUpdates()
+                    IF updates.criticalUpdates > 0 THEN
+                        installCriticalUpdates()
+                    ELSEIF updates.standardUpdates > 0 AND isMaintenanceWindow() THEN
+                        installStandardUpdates()
+                    ENDIF
+                
+                "log_rotation":
+                    FOR EACH logFile IN getLogFiles() DO
+                        IF logFileNeedsRotation(logFile) THEN
+                            rotateLogFile(logFile)
+                        ENDIF
+                    ENDFOR
+                
+                "backup":
+                    IF isBackupDay() THEN
+                        IF lastBackupSuccessful() THEN
+                            performIncrementalBackup()
+                        ELSE
+                            performFullBackup()
+                        ENDIF
+                    ENDIF
+                
+                DEFAULT:
+                    PRINT "Unknown maintenance task: " + task
+            ENDCASE
+            
+            results[task] ← "success"
+        CATCH error
+            results[task] ← "failed: " + error
+            LOG("Maintenance task failed: " + task + ", Error: " + error)
+            
+            // Don't stop all maintenance if one task fails
+            CONTINUE
+        ENDTRY
+    ENDFOR
+    
+    // Report results
+    PRINT "Maintenance Summary:"
+    FOR EACH task IN maintenanceTasks DO
+        PRINT task + ": " + results[task]
+    ENDFOR
+END</code></pre>
+            
+            <div class="note">
+                <p><strong>Note:</strong> Control structures form the logical framework of your algorithms. Well-designed control structures make your pseudocode more readable and your eventual implementation more maintainable. When writing pseudocode for system administration tasks, pay special attention to error handling and ensure your control structures account for unexpected conditions.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Pseudocode Operators -->
+    <div id="pseudocode-operators" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('pseudocode-operators')">&times;</span>
+            <h3>Pseudocode Syntax and Operators</h3>
+            
+            <p>Operators are essential elements in pseudocode that perform operations on variables and values. Understanding common operators and their usage helps create clear, precise algorithms. This guide covers the standard operators used in pseudocode and their applications in system administration tasks.</p>
+            
+            <h4>Assignment Operators</h4>
+            
+            <p>Assignment operators are used to assign values to variables.</p>
+            
+            <table>
+                <tr>
+                    <th>Operator</th>
+                    <th>Description</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td>←</td>
+                    <td>Assignment (preferred in pseudocode)</td>
+                    <td><code>count ← 0</code></td>
+                </tr>
+                <tr>
+                    <td>=</td>
+                    <td>Alternative assignment</td>
+                    <td><code>count = 0</code></td>
+                </tr>
+                <tr>
+                    <td>:=</td>
+                    <td>Assignment (used in some notations)</td>
+                    <td><code>count := 0</code></td>
+                </tr>
+            </table>
+            
+            <div class="example-box">
+                <p><strong>Example in context:</strong></p>
+                <pre><code>username ← "admin"
+maxRetries ← 3
+isAuthenticated ← false
+serverAddress ← getServerFromConfig()</code></pre>
+            </div>
+            
+            <h4>Arithmetic Operators</h4>
+            
+            <p>Arithmetic operators perform mathematical calculations.</p>
+            
+            <table>
+                <tr>
+                    <th>Operator</th>
+                    <th>Description</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td>+</td>
+                    <td>Addition</td>
+                    <td><code>sum ← a + b</code></td>
+                </tr>
+                <tr>
+                    <td>-</td>
+                    <td>Subtraction</td>
+                    <td><code>difference ← a - b</code></td>
+                </tr>
+                <tr>
+                    <td>*</td>
+                    <td>Multiplication</td>
+                    <td><code>product ← a * b</code></td>
+                </tr>
+                <tr>
+                    <td>/</td>
+                    <td>Division</td>
+                    <td><code>quotient ← a / b</code></td>
+                </tr>
+                <tr>
+                    <td>%</td>
+                    <td>Modulus (remainder)</td>
+                    <td><code>remainder ← a % b</code></td>
+                </tr>
+                <tr>
+                    <td>^</td>
+                    <td>Exponentiation</td>
+                    <td><code>power ← a ^ b</code></td>
+                </tr>
+                <tr>
+                    <td>MOD</td>
+                    <td>Modulus (alternative notation)</td>
+                    <td><code>remainder ← a MOD b</code></td>
+                </tr>
+                <tr>
+                    <td>DIV</td>
+                    <td>Integer division</td>
+                    <td><code>intQuotient ← a DIV b</code></td>
+                </tr>
+            </table>
+            
+            <div class="example-box">
+                <p><strong>Example in context:</strong></p>
+                <pre><code>// Calculate disk usage percentage
+usedSpace ← 156.7
+totalSpace ← 500.0
+usagePercentage ← (usedSpace / totalSpace) * 100
+
+// Determine if a process ID is odd or even
+IF processId MOD 2 = 0 THEN
+    PRINT "Process ID is even"
+ELSE
+    PRINT "Process ID is odd"
+ENDIF
+
+// Calculate exponential backoff for retry
+waitTime ← baseWaitTime * (2 ^ retryCount)</code></pre>
+            </div>
+            
+            <h4>Comparison Operators</h4>
+            
+            <p>Comparison operators are used to compare values and return boolean (true/false) results.</p>
+            
+            <table>
+                <tr>
+                    <th>Operator</th>
+                    <th>Description</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td>=</td>
+                    <td>Equal to</td>
+                    <td><code>IF status = "active" THEN</code></td>
+                </tr>
+                <tr>
+                    <td>≠ or !=</td>
+                    <td>Not equal to</td>
+                    <td><code>IF status ≠ "active" THEN</code></td>
+                </tr>
+                <tr>
+                    <td><</td>
+                    <td>Less than</td>
+                    <td><code>IF count < maxAttempts THEN</code></td>
+                </tr>
+                <tr>
+                    <td>></td>
+                    <td>Greater than</td>
+                    <td><code>IF usedSpace > threshold THEN</code></td>
+                </tr>
+                <tr>
+                    <td>≤ or <=</td>
+                    <td>Less than or equal to</td>
+                    <td><code>IF retries ≤ 3 THEN</code></td>
+                </tr>
+                <tr>
+                    <td>≥ or >=</td>
+                    <td>Greater than or equal to</td>
+                    <td><code>IF priority ≥ HIGH THEN</code></td>
+                </tr>
+            </table>
+            
+            <div class="example-box">
+                <p><strong>Example in context:</strong></p>
+                <pre><code>// Check system resource thresholds
+IF cpuUsage > 90 THEN
+    triggerAlert("Critical CPU usage")
+ENDIF
+
+IF availableMemory < 500 AND swapUsage ≥ 50 THEN
+    initiateMemoryCleanup()
+ENDIF
+
+// Compare strings
+IF username = "root" AND password ≠ "password123" THEN
+    grantRootAccess()
+ENDIF
+
+// Time-based checks
+IF currentTime ≥ scheduledTime AND currentTime ≤ endWindow THEN
+    executeScheduledTask()
+ENDIF</code></pre>
+            </div>
+            
+            <h4>Logical Operators</h4>
+            
+            <p>Logical operators combine boolean values and expressions.</p>
+            
+            <table>
+                <tr>
+                    <th>Operator</th>
+                    <th>Description</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td>AND</td>
+                    <td>Logical AND (both must be true)</td>
+                    <td><code>IF isAdmin AND hasPermission THEN</code></td>
+                </tr>
+                <tr>
+                    <td>OR</td>
+                    <td>Logical OR (either can be true)</td>
+                    <td><code>IF isLocalUser OR isAuthenticated THEN</code></td>
+                </tr>
+                <tr>
+                    <td>NOT</td>
+                    <td>Logical NOT (negation)</td>
+                    <td><code>IF NOT fileExists THEN</code></td>
+                </tr>
+                <tr>
+                    <td>XOR</td>
+                    <td>Exclusive OR (one but not both is true)</td>
+                    <td><code>IF isProduction XOR isTestEnv THEN</code></td>
+                </tr>
+            </table>
+            
+            <div class="example-box">
+                <p><strong>Example in context:</strong></p>
+                <pre><code>// Authentication logic
+IF (username = "admin" AND password = correctPassword) OR hasValidToken THEN
+    grantAccess()
+ELSE
+    logFailedAttempt()
+ENDIF
+
+// File operation safety checks
+IF fileExists AND NOT isFileLocked THEN
+    openFileForEditing()
+ENDIF
+
+// Environment validation
+IF isProduction XOR isDebugModeEnabled THEN
+    // Ensure debug mode is never enabled in production
+    proceed()
+ELSE
+    abortOperation("Invalid environment configuration")
+ENDIF</code></pre>
+            </div>
+            
+            <h4>String Operators</h4>
+            
+            <p>String operators manipulate text data.</p>
+            
+            <table>
+                <tr>
+                    <th>Operator</th>
+                    <th>Description</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td>+</td>
+                    <td>String concatenation</td>
+                    <td><code>fullPath ← directory + "/" + filename</code></td>
+                </tr>
+                <tr>
+                    <td>&</td>
+                    <td>Alternative concatenation</td>
+                    <td><code>greeting ← "Hello, " & username</code></td>
+                </tr>
+            </table>
+            
+            <div class="example-box">
+                <p><strong>Example in context:</strong></p>
+                <pre><code>// Building command strings
+command ← "find " + searchPath + " -name " + "\"" + pattern + "\"" + " -type f"
+
+// Creating log messages
+logEntry ← currentTimestamp + " [" + logLevel + "]: " + message + " (User: " + currentUser + ")"
+
+// Building file paths
+configPath ← "/etc/" + serviceName + "/" + configFileName
+
+// Creating display messages
+statusMessage ← "Server " + serverName + " status: " + (isOnline ? "ONLINE" : "OFFLINE")</code></pre>
+            </div>
+            
+            <h4>Array/Collection Operators</h4>
+            
+            <p>These operators are used with arrays, lists, and collections.</p>
+            
+            <table>
+                <tr>
+                    <th>Operator</th>
+                    <th>Description</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td>[ ]</td>
+                    <td>Array indexing</td>
+                    <td><code>element ← array[index]</code></td>
+                </tr>
+                <tr>
+                    <td>IN</td>
+                    <td>Membership test</td>
+                    <td><code>IF element IN collection THEN</code></td>
+                </tr>
+            </table>
+            
+            <div class="example-box">
+                <p><strong>Example in context:</strong></p>
+                <pre><code>// Access elements in array
+servers ← ["web1", "web2", "db1", "cache1"]
+primaryServer ← servers[0]
+backupServer ← servers[1]
+
+// Check if user is in a specific group
+allowedUsers ← ["admin", "operator", "manager"]
+IF username IN allowedUsers THEN
+    grantAccess()
+ENDIF
+
+// Process array of log files
+FOR i FROM 0 TO LENGTH(logFiles) - 1 DO
+    currentLog ← logFiles[i]
+    processLogFile(currentLog)
+ENDFOR</code></pre>
+            </div>
+            
+            <h4>Special Operators and Notations</h4>
+            
+            <p>Special purpose operators and notations for specific operations.</p>
+            
+            <table>
+                <tr>
+                    <th>Operator</th>
+                    <th>Description</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td>LENGTH</td>
+                    <td>Get length of a collection</td>
+                    <td><code>size ← LENGTH(array)</code></td>
+                </tr>
+                <tr>
+                    <td>APPEND</td>
+                    <td>Add to a collection</td>
+                    <td><code>APPEND item TO list</code></td>
+                </tr>
+                <tr>
+                    <td>REMOVE</td>
+                    <td>Remove from a collection</td>
+                    <td><code>REMOVE item FROM list</code></td>
+                </tr>
+                <tr>
+                    <td>CONTAINS</td>
+                    <td>Check if string contains substring</td>
+                    <td><code>IF CONTAINS(text, "error") THEN</code></td>
+                </tr>
+                <tr>
+                    <td>SUBSTRING</td>
+                    <td>Extract part of a string</td>
+                    <td><code>ext ← SUBSTRING(filename, -4)</code></td>
+                </tr>
+            </table>
+            
+            <div class="example-box">
+                <p><strong>Example in context:</strong></p>
+                <pre><code>// Dynamic collection management
+servers ← [] // Empty array
+APPEND "web1.example.com" TO servers
+APPEND "web2.example.com" TO servers
+IF LENGTH(servers) < minServerCount THEN
+    APPEND "web3.example.com" TO servers
+ENDIF
+
+// Remove failed server
+IF serverStatus = "failed" THEN
+    REMOVE failedServer FROM serverList
+ENDIF
+
+// String processing
+IF CONTAINS(logLine, "ERROR") OR CONTAINS(logLine, "FATAL") THEN
+    flagCriticalLog(logLine)
+ENDIF
+
+// Extract file extension
+filename ← "document.pdf"
+extension ← SUBSTRING(filename, LENGTH(filename) - 3)
+IF extension = "pdf" THEN
+    convertToPdf(document)
+ENDIF</code></pre>
+            </div>
+            
+            <h4>System Administration Operator Examples</h4>
+            
+            <h5>Example 1: Log File Analysis</h5>
+            <pre><code>ALGORITHM AnalyzeLogFile
+// Analyzes a log file for critical patterns
+
+BEGIN
+    logPatterns ← ["ERROR", "CRITICAL", "FAILURE", "EXCEPTION"]
+    results ← empty map
+    lineCount ← 0
+    errorCount ← 0
+    
+    // Initialize result counters for each pattern
+    FOR EACH pattern IN logPatterns DO
+        results[pattern] ← 0
+    ENDFOR
+    
+    // Open and read the log file
+    logFile ← OPEN_FILE(logFilePath)
+    
+    WHILE NOT END_OF_FILE(logFile) DO
+        line ← READ_LINE(logFile)
+        lineCount ← lineCount + 1
+        
+        // Check each pattern
+        FOR EACH pattern IN logPatterns DO
+            IF CONTAINS(line, pattern) THEN
+                results[pattern] ← results[pattern] + 1
+                errorCount ← errorCount + 1
+                
+                // Extract timestamp if present
+                IF CONTAINS(line, "[") AND CONTAINS(line, "]") THEN
+                    startPos ← FIND(line, "[") + 1
+                    endPos ← FIND(line, "]")
+                    timestamp ← SUBSTRING(line, startPos, endPos - startPos)
+                    APPEND {timestamp, pattern, line} TO detailedErrors
+                ENDIF
+            ENDIF
+        ENDFOR
+    ENDWHILE
+    
+    CLOSE_FILE(logFile)
+    
+    // Calculate error percentage
+    IF lineCount > 0 THEN
+        errorPercentage ← (errorCount / lineCount) * 100
+    ELSE
+        errorPercentage ← 0
+    ENDIF
+    
+    // Generate summary
+    summary ← "Log Analysis Summary:\n"
+    summary ← summary + "Total lines: " + lineCount + "\n"
+    summary ← summary + "Total errors: " + errorCount + "\n"
+    summary ← summary + "Error percentage: " + errorPercentage + "%\n\n"
+    
+    FOR EACH pattern IN logPatterns DO
+        summary ← summary + pattern + ": " + results[pattern] + "\n"
+    ENDFOR
+    
+    RETURN summary, detailedErrors
+END</code></pre>
+            
+            <h5>Example 2: System Resource Monitor</h5>
+            <pre><code>ALGORITHM MonitorSystemResources
+// Monitors system resources and triggers alerts
+
+BEGIN
+    // Define threshold values
+    thresholds ← {
+        "cpu": 85,
+        "memory": 90,
+        "disk": 95,
+        "swap": 80
+    }
+    
+    // Get current resource usage
+    cpu ← getCpuUsagePercentage()
+    memory ← getMemoryUsagePercentage()
+    swap ← getSwapUsagePercentage()
+    
+    // Check disk usage for each mounted filesystem
+    filesystems ← getMountedFilesystems()
+    diskAlerts ← empty list
+    
+    FOR EACH fs IN filesystems DO
+        usagePercent ← getDiskUsage(fs)
+        
+        IF usagePercent > thresholds["disk"] THEN
+            APPEND {fs, usagePercent} TO diskAlerts
+        ENDIF
+    ENDFOR
+    
+    // Generate status message
+    status ← "System Status: "
+    
+    IF cpu > thresholds["cpu"] OR memory > thresholds["memory"] OR 
+       swap > thresholds["swap"] OR LENGTH(diskAlerts) > 0 THEN
+        status ← status + "WARNING"
+    ELSE
+        status ← status + "OK"
+    ENDIF
+    
+    // Build detailed report
+    report ← "Resource Usage Report:\n"
+    report ← report + "CPU: " + cpu + "% (Threshold: " + thresholds["cpu"] + "%)\n"
+    report ← report + "Memory: " + memory + "% (Threshold: " + thresholds["memory"] + "%)\n"
+    report ← report + "Swap: " + swap + "% (Threshold: " + thresholds["swap"] + "%)\n\n"
+    
+    IF LENGTH(diskAlerts) > 0 THEN
+        report ← report + "Disk Usage Alerts:\n"
+        
+        FOR EACH alert IN diskAlerts DO
+            report ← report + alert.fs + ": " + alert.usagePercent + "%\n"
+        ENDFOR
+    ENDIF
+    
+    // Determine if alerts need to be sent
+    sendAlert ← false
+    
+    IF cpu > thresholds["cpu"] THEN
+        triggerAlert("CPU usage critical: " + cpu + "%")
+        sendAlert ← true
+    ENDIF
+    
+    IF memory > thresholds["memory"] THEN
+        triggerAlert("Memory usage critical: " + memory + "%")
+        sendAlert ← true
+    ENDIF
+    
+    IF swap > thresholds["swap"] THEN
+        triggerAlert("Swap usage critical: " + swap + "%")
+        sendAlert ← true
+    ENDIF
+    
+    IF LENGTH(diskAlerts) > 0 THEN
+        diskMessage ← "Disk usage critical on " + LENGTH(diskAlerts) + " filesystems"
+        triggerAlert(diskMessage)
+        sendAlert ← true
+    ENDIF
+    
+    IF sendAlert THEN
+        sendNotification(report)
+        logCriticalEvent(report)
+    ENDIF
+    
+    RETURN status, report
+END</code></pre>
+            
+            <div class="note">
+                <p><strong>Note:</strong> When representing data structures in pseudocode, focus on clearly showing the operations that can be performed on the structure rather than implementation details. Choose the appropriate data structure based on the operations you need to perform most frequently. For example, use dictionaries/maps for fast lookups by key, queues for processing items in order, and trees for representing hierarchical data like file systems or organization charts.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Data Structures -->
+    <div id="data-structures" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('data-structures')">&times;</span>
+            <h3>Data Structures in Pseudocode</h3>
+            
+            <p>Data structures are fundamental components for organizing and storing data in algorithms. In pseudocode, we represent these structures using standardized notation that clearly communicates how data is organized and manipulated.</p>
+            
+            <h4>Basic Data Structures</h4>
+            
+            <h5>1. Arrays</h5>
+            <p>Arrays store collections of elements accessible by index.</p>
+            
+            <div class="code-block">
+                <h6>Declaration and Initialization:</h6>
+                <pre><code>// Declare empty array of specific size
+DECLARE array[size]
+
+// Initialize with values
+array ← [value1, value2, value3, ...]
+
+// Access element
+element ← array[index]
+
+// Modify element
+array[index] ← newValue
+
+// Get array length
+length ← LENGTH(array)
+
+// Iterate through array
+FOR i FROM 0 TO LENGTH(array) - 1 DO
+    ProcessElement(array[i])
+ENDFOR</code></pre>
+            </div>
+            
+            <div class="example-box">
+                <p><strong>Example: Server Management</strong></p>
+                <pre><code>// Array of server hostnames
+servers ← ["web01", "web02", "db1", "cache1", "logging01"]
+
+// Print status of each server
+FOR i FROM 0 TO LENGTH(servers) - 1 DO
+    status ← checkServerStatus(servers[i])
+    PRINT servers[i] + " status: " + status
+ENDFOR
+
+// Access specific server
+primaryDB ← servers[2]  // db1</code></pre>
+            </div>
+            
+            <h5>2. Lists</h5>
+            <p>Lists are dynamic arrays that can grow or shrink in size.</p>
+            
+            <div class="code-block">
+                <h6>Common Operations:</h6>
+                <pre><code>// Create empty list
+list ← empty list
+
+// Add elements
+APPEND item TO list     // Add to end
+INSERT item AT position IN list  // Add at specific position
+
+// Remove elements
+REMOVE item FROM list   // Remove by value
+REMOVE_AT position FROM list  // Remove by position
+
+// Access elements
+item ← list[index]
+firstItem ← FIRST(list)
+lastItem ← LAST(list)
+
+// Find element
+position ← FIND(list, item)
+
+// Iterate through list
+FOR EACH item IN list DO
+    ProcessItem(item)
+ENDFOR</code></pre>
+            </div>
+            
+            <div class="example-box">
+                <p><strong>Example: User Session Management</strong></p>
+                <pre><code>// List of active user sessions
+activeSessions ← empty list
+
+// Add new session
+FUNCTION addSession(userId, sessionId)
+    session ← {userId: userId, sessionId: sessionId, timestamp: getCurrentTime()}
+    APPEND session TO activeSessions
+    RETURN "Session added successfully"
+ENDFUNCTION
+
+// Remove expired sessions
+FUNCTION cleanupSessions()
+    currentTime ← getCurrentTime()
+    i ← 0
+    WHILE i < LENGTH(activeSessions) DO
+        session ← activeSessions[i]
+        IF (currentTime - session.timestamp) > SESSION_TIMEOUT THEN
+            REMOVE_AT i FROM activeSessions
+        ELSE
+            i ← i + 1
+        ENDIF
+    ENDWHILE
+ENDFUNCTION</code></pre>
+            </div>
+            
+            <h5>3. Dictionaries/Maps</h5>
+            <p>Key-value pairs where values are accessed by their associated keys.</p>
+            
+            <div class="code-block">
+                <h6>Common Operations:</h6>
+                <pre><code>// Create empty dictionary
+dict ← empty dictionary
+
+// Add or update entries
+dict[key] ← value
+
+// Access value by key
+value ← dict[key]
+
+// Check if key exists
+IF key IN dict THEN
+    ProcessValue(dict[key])
+ENDIF
+
+// Remove entry
+REMOVE key FROM dict
+
+// Iterate through keys
+FOR EACH key IN dict.keys DO
+    value ← dict[key]
+    ProcessKeyValue(key, value)
+ENDFOR</code></pre>
+            </div>
+            
+            <div class="example-box">
+                <p><strong>Example: Configuration Management</strong></p>
+                <pre><code>// Server configuration dictionary
+config ← {
+    "hostname": "webserver01",
+    "ip": "192.168.1.100",
+    "ports": [80, 443, 8080],
+    "maxConnections": 1000,
+    "logLevel": "info"
+}
+
+// Access configuration values
+serverName ← config["hostname"]
+address ← config["ip"]
+
+// Update configuration
+config["logLevel"] ← "debug"
+
+// Add new setting
+config["timeout"] ← 30
+
+// Check if setting exists before using
+IF "maxThreads" IN config THEN
+    threads ← config["maxThreads"]
+ELSE
+    threads ← DEFAULT_THREADS  // Use default value
+ENDIF</code></pre>
+            </div>
+            
+            <h5>4. Sets</h5>
+            <p>Collections of unique elements with no duplicates.</p>
+            
+            <div class="code-block">
+                <h6>Common Operations:</h6>
+                <pre><code>// Create empty set
+set ← empty set
+
+// Add elements
+ADD item TO set
+
+// Remove elements
+REMOVE item FROM set
+
+// Check membership
+IF item IN set THEN
+    // Item exists in set
+ENDIF
+
+// Set operations
+union ← UNION(set1, set2)
+intersection ← INTERSECTION(set1, set2)
+difference ← DIFFERENCE(set1, set2)</code></pre>
+            </div>
+            
+            <div class="example-box">
+                <p><strong>Example: Permission Management</strong></p>
+                <pre><code>// Sets of user permissions
+adminPermissions ← {"read", "write", "delete", "configure", "manage-users"}
+operatorPermissions ← {"read", "write", "configure"}
+userPermissions ← {"read", "write"}
+
+// Check user authorization
+FUNCTION checkPermission(user, requiredPermission)
+    IF user.role = "admin" THEN
+        permissions ← adminPermissions
+    ELSEIF user.role = "operator" THEN
+        permissions ← operatorPermissions
+    ELSE
+        permissions ← userPermissions
+    ENDIF
+    
+    IF requiredPermission IN permissions THEN
+        RETURN true
+    ELSE
+        RETURN false
+    ENDIF
+ENDFUNCTION</code></pre>
+            </div>
+            
+            <h5>5. Stacks</h5>
+            <p>Last-in, first-out (LIFO) collections.</p>
+            
+            <div class="code-block">
+                <h6>Common Operations:</h6>
+                <pre><code>// Create empty stack
+stack ← empty stack
+
+// Add element to top
+PUSH item ONTO stack
+
+// Remove and return top element
+item ← POP FROM stack
+
+// View top element without removing
+item ← PEEK(stack)
+
+// Check if empty
+IF EMPTY(stack) THEN
+    // Stack is empty
+ENDIF</code></pre>
+            </div>
+            
+            <div class="example-box">
+                <p><strong>Example: Command History</strong></p>
+                <pre><code>// Command history implementation
+commandHistory ← empty stack
+
+// Add new command
+FUNCTION executeCommand(command)
+    result ← processCommand(command)
+    PUSH command ONTO commandHistory
+    RETURN result
+ENDFUNCTION
+
+// Undo last command
+FUNCTION undoLastCommand()
+    IF NOT EMPTY(commandHistory) THEN
+        lastCommand ← POP FROM commandHistory
+        RETURN reverseCommand(lastCommand)
+    ELSE
+        RETURN "Nothing to undo"
+    ENDIF
+ENDFUNCTION</code></pre>
+            </div>
+            
+            <h5>6. Queues</h5>
+            <p>First-in, first-out (FIFO) collections.</p>
+            
+            <div class="code-block">
+                <h6>Common Operations:</h6>
+                <pre><code>// Create empty queue
+queue ← empty queue
+
+// Add element to end
+ENQUEUE item INTO queue
+
+// Remove and return first element
+item ← DEQUEUE FROM queue
+
+// View first element without removing
+item ← FRONT(queue)
+
+// Check if empty
+IF EMPTY(queue) THEN
+    // Queue is empty
+ENDIF</code></pre>
+            </div>
+            
+            <div class="example-box">
+                <p><strong>Example: Print Job Spooler</strong></p>
+                <pre><code>// Print job queue management
+printQueue ← empty queue
+
+// Add new print job
+FUNCTION submitPrintJob(document, user)
+    job ← {document: document, user: user, timestamp: getCurrentTime()}
+    ENQUEUE job INTO printQueue
+    RETURN "Job added to print queue"
+ENDFUNCTION
+
+// Process next print job
+FUNCTION processNextPrintJob()
+    IF NOT EMPTY(printQueue) THEN
+        job ← DEQUEUE FROM printQueue
+        PRINT "Processing print job: " + job.document + " for user " + job.user
+        sendToPrinter(job)
+        RETURN true
+    ELSE
+        PRINT "No print jobs in queue"
+        RETURN false
+    ENDIF
+ENDFUNCTION</code></pre>
+            </div>
+            
+            <h4>Advanced Data Structures</h4>
+            
+            <h5>1. Trees</h5>
+            <p>Hierarchical structures with a root node and child nodes.</p>
+            
+            <div class="code-block">
+                <h6>Node Structure:</h6>
+                <pre><code>// Define tree node
+NODE TreeNode
+    value
+    children // List of child nodes
+ENDNODE
+
+// Create tree
+root ← CREATE_NODE(rootValue)
+ADD_CHILD(root, child1)
+ADD_CHILD(root, child2)
+
+// Traverse tree (example: depth-first)
+FUNCTION traverseTree(node)
+    PRINT node.value
+    
+    FOR EACH child IN node.children DO
+        traverseTree(child)
+    ENDFOR
+ENDFUNCTION</code></pre>
+            </div>
+            
+            <div class="example-box">
+                <p><strong>Example: File System Navigation</strong></p>
+                <pre><code>// File system directory structure representation
+FUNCTION listDirectoryContents(path, indentation)
+    IF indentation = undefined THEN
+        indentation ← 0
+    ENDIF
+    
+    PRINT REPEAT(" ", indentation) + GetDirectoryName(path)
+    
+    entries ← ListFilesAndDirectories(path)
+    
+    FOR EACH entry IN entries DO
+        IF IsDirectory(entry) THEN
+            listDirectoryContents(path + "/" + entry, indentation + 4)
+        ELSE
+            PRINT REPEAT(" ", indentation + 4) + entry
+        ENDIF
+    ENDFOR
+ENDFUNCTION</code></pre>
+            </div>
+            
+            <h5>2. Graphs</h5>
+            <p>Collections of nodes (vertices) connected by edges.</p>
+            
+            <div class="code-block">
+                <h6>Representation:</h6>
+                <pre><code>// Adjacency list representation
+graph ← empty dictionary
+
+// Add node
+graph[node] ← empty list  // List of adjacent nodes
+
+// Add edge
+APPEND target TO graph[source]  // Directed edge
+APPEND source TO graph[target]  // Undirected edge (bidirectional)
+
+// Check if edge exists
+IF target IN graph[source] THEN
+    // Edge exists
+ENDIF
+
+// Traverse graph (breadth-first search)
+FUNCTION BFS(graph, startNode)
+    visited ← empty set
+    queue ← empty queue
+    
+    ADD startNode TO visited
+    ENQUEUE startNode INTO queue
+    
+    WHILE NOT EMPTY(queue) DO
+        node ← DEQUEUE FROM queue
+        PRINT node
+        
+        FOR EACH neighbor IN graph[node] DO
+            IF neighbor NOT IN visited THEN
+                ADD neighbor TO visited
+                ENQUEUE neighbor INTO queue
+            ENDIF
+        ENDFOR
+    ENDWHILE
+ENDFUNCTION</code></pre>
+            </div>
+            
+            <div class="example-box">
+                <p><strong>Example: Network Topology</strong></p>
+                <pre><code>// Network topology representation
+network ← {
+    "router1": ["switch1", "switch2", "firewall"],
+    "switch1": ["router1", "server1", "server2"],
+    "switch2": ["router1", "server3", "server4"],
+    "firewall": ["router1", "internet"],
+    "server1": ["switch1"],
+    "server2": ["switch1"],
+    "server3": ["switch2"],
+    "server4": ["switch2"],
+    "internet": ["firewall"]
+}
+
+// Find all devices connected to a specific device
+FUNCTION findConnectedDevices(deviceName)
+    IF deviceName IN network THEN
+        RETURN network[deviceName]
+    ELSE
+        RETURN "Device not found in network"
+    ENDIF
+ENDFUNCTION
+
+// Find path between two devices
+FUNCTION findPath(source, target)
+    IF source = target THEN
+        RETURN [source]
+    ENDIF
+    
+    visited ← empty set
+    queue ← empty queue
+    
+    // Store node and path to reach it
+    ENQUEUE {node: source, path: [source]} INTO queue
+    ADD source TO visited
+    
+    WHILE NOT EMPTY(queue) DO
+        current ← DEQUEUE FROM queue
+        
+        FOR EACH neighbor IN network[current.node] DO
+            IF neighbor = target THEN
+                RETURN APPEND(current.path, neighbor)
+            ENDIF
+            
+            IF neighbor NOT IN visited THEN
+                ADD neighbor TO visited
+                newPath ← COPY(current.path)
+                APPEND neighbor TO newPath
+                ENQUEUE {node: neighbor, path: newPath} INTO queue
+            ENDIF
+        ENDFOR
+    ENDWHILE
+    
+    RETURN "No path found"
+ENDFUNCTION</code></pre>
+            </div>
+            
+            <h4>System Administration Examples</h4>
+            
+            <h5>Example 1: Process Monitoring System</h5>
+            <pre><code>ALGORITHM MonitorProcesses
+// Monitors system processes and tracks resource usage
+
+BEGIN
+    // Dictionary mapping process IDs to details
+    processMap ← empty dictionary
+    
+    // Historical data for trend analysis
+    historyMap ← empty dictionary
+    
+    // Priority queue for high-CPU processes
+    highCpuQueue ← empty priority queue
+    
+    // Main monitoring loop
+    WHILE true DO
+        processList ← getRunningProcesses()
+        currentTime ← getCurrentTime()
+        
+        // Track each process
+        FOR EACH process IN processList DO
+            pid ← process.id
+            
+            // New process discovered
+            IF pid NOT IN processMap THEN
+                processMap[pid] ← {
+                    "command": process.command,
+                    "user": process.user,
+                    "startTime": process.startTime,
+                    "cpuHistory": empty list,
+                    "memHistory": empty list
+                }
+                
+                historyMap[pid] ← empty list
+            ENDIF
+            
+            // Update process statistics
+            APPEND process.cpuUsage TO processMap[pid]["cpuHistory"]
+            APPEND process.memUsage TO processMap[pid]["memHistory"]
+            
+            // Keep just recent history (last 10 readings)
+            IF LENGTH(processMap[pid]["cpuHistory"]) > 10 THEN
+                processMap[pid]["cpuHistory"] ← processMap[pid]["cpuHistory"][1:10]
+                processMap[pid]["memHistory"] ← processMap[pid]["memHistory"][1:10]
+            ENDIF
+            
+            // Track high CPU usage processes
+            IF process.cpuUsage > HIGH_CPU_THRESHOLD THEN
+                ENQUEUE {pid: pid, cpuUsage: process.cpuUsage} INTO highCpuQueue
+                WITH priority process.cpuUsage
+            ENDIF
+            
+            // Record hourly snapshots for long-term analysis
+            timeKey ← formatTimeToHour(currentTime)
+            IF timeKey NOT IN historyMap[pid] THEN
+                historyMap[pid][timeKey] ← {
+                    "cpu": process.cpuUsage,
+                    "memory": process.memUsage
+                }
+            ENDIF
+        ENDFOR
+        
+        // Clean up processes that are no longer running
+        FOR EACH pid IN processMap.keys DO
+            IF pid NOT IN processList.ids THEN
+                processData ← processMap[pid]
+                
+                // Log process termination
+                logProcessTermination(pid, processData)
+                
+                // Archive process data if it was notable
+                IF wasNotableProcess(processData) THEN
+                    archiveProcessData(pid, processData)
+                ENDIF
+                
+                // Remove from tracking maps
+                REMOVE pid FROM processMap
+            ENDIF
+        ENDFOR
+        
+        // Report high CPU processes
+        PRINT "High CPU Processes:"
+        tempQueue ← COPY(highCpuQueue)  // Work with a copy to preserve original
+        
+        WHILE NOT EMPTY(tempQueue) DO
+            process ← DEQUEUE FROM tempQueue
+            pid ← process.pid
+            cpuUsage ← process.cpuUsage
+            
+            PRINT pid + ": " + processMap[pid]["command"] + " (" + cpuUsage + "% CPU)"
+        ENDWHILE
+        
+        // Clear high CPU queue for next iteration
+        highCpuQueue ← empty priority queue
+        
+        // Wait before next sample
+        SLEEP(SAMPLING_INTERVAL)
+    ENDWHILE
+END</code></pre>
+            
+            <h5>Example 2: System Configuration Database</h5>
+            <pre><code>ALGORITHM ConfigurationDatabase
+// Manages hierarchical system configuration with change tracking
+
+BEGIN
+    // Tree structure for configuration hierarchy
+    configTree ← CREATE_NODE("root")
+    
+    // Timestamp-indexed history of changes
+    changeHistory ← empty list
+    
+    // Function to set a configuration value
+    FUNCTION setConfig(path, value, user)
+        // Split path into components (e.g., "system/network/dns/primary")
+        components ← SPLIT(path, "/")
+        
+        // Navigate/create path in tree
+        currentNode ← configTree
+        
+        FOR i FROM 0 TO LENGTH(components) - 2 DO
+            component ← components[i]
+            found ← false
+            
+            // Check if component exists as a child
+            FOR EACH child IN currentNode.children DO
+                IF child.name = component THEN
+                    currentNode ← child
+                    found ← true
+                    BREAK
+                ENDIF
+            ENDFOR
+            
+            // Create if doesn't exist
+            IF NOT found THEN
+                newNode ← CREATE_NODE(component)
+                ADD_CHILD(currentNode, newNode)
+                currentNode ← newNode
+            ENDIF
+        ENDFOR
+        
+        // Last component is the setting name
+        settingName ← components[LENGTH(components) - 1]
+        oldValue ← null
+        found ← false
+        
+        // Check if setting already exists
+        FOR EACH child IN currentNode.children DO
+            IF child.name = settingName THEN
+                oldValue ← child.value
+                child.value ← value
+                found ← true
+                BREAK
+            ENDIF
+        ENDFOR
+        
+        // Create if doesn't exist
+        IF NOT found THEN
+            newNode ← CREATE_NODE(settingName)
+            newNode.value ← value
+            ADD_CHILD(currentNode, newNode)
+        ENDIF
+        
+        // Record change in history
+        change ← {
+            "timestamp": getCurrentTime(),
+            "path": path,
+            "oldValue": oldValue,
+            "newValue": value,
+            "user": user
+        }
+        
+        APPEND change TO changeHistory
+        
+        // Trigger any associated actions
+        notifyConfigChanged(path, oldValue, value)
+        
+        RETURN "Configuration updated successfully"
+    ENDFUNCTION
+    
+    // Function to get a configuration value
+    FUNCTION getConfig(path)
+        // Split path into components
+        components ← SPLIT(path, "/")
+        
+        // Navigate path in tree
+        currentNode ← configTree
+        
+        FOR i FROM 0 TO LENGTH(components) - 2 DO
+            component ← components[i]
+            found ← false
+            
+            // Find component in children
+            FOR EACH child IN currentNode.children DO
+                IF child.name = component THEN
+                    currentNode ← child
+                    found ← true
+                    BREAK
+                ENDIF
+            ENDFOR
+            
+            IF NOT found THEN
+                RETURN null  // Path doesn't exist
+            ENDIF
+        ENDFOR
+        
+        // Last component is the setting name
+        settingName ← components[LENGTH(components) - 1]
+        
+        // Find setting in children
+        FOR EACH child IN currentNode.children DO
+            IF child.name = settingName THEN
+                RETURN child.value
+            ENDIF
+        ENDFOR
+        
+        RETURN null  // Setting doesn't exist
+    ENDFUNCTION
+    
+    // Function to export entire configuration
+    FUNCTION exportConfig()
+        configMap ← empty dictionary
+        
+        FUNCTION traverseExport(node, currentPath, configMap)
+            IF node.value ≠ undefined THEN
+                configMap[currentPath] ← node.value
+            ENDIF
+            
+            FOR EACH child IN node.children DO
+                newPath ← IF currentPath = "" THEN child.name ELSE currentPath + "/" + child.name
+                traverseExport(child, newPath, configMap)
+            ENDFOR
+        ENDFUNCTION
+        
+        traverseExport(configTree, "", configMap)
+        RETURN configMap
+    ENDFUNCTION
+    
+    // Function to get configuration history for a path
+    FUNCTION getConfigHistory(path)
+        pathHistory ← empty list
+        
+        FOR EACH change IN changeHistory DO
+            IF change.path = path THEN
+                APPEND change TO pathHistory
+            ENDIF
+        ENDFOR
+        
+        RETURN pathHistory
+    ENDFUNCTION
+END</code></pre>
+            
+            <div class="note">
+                <p><strong>Note:</strong> When representing data structures in pseudocode, focus on clearly showing the operations that can be performed on the structure rather than implementation details. Choose the appropriate data structure based on the operations you need to perform most frequently. For example, use dictionaries/maps for fast lookups by key, queues for processing items in order, and trees for representing hierarchical data like file systems or organization charts.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Functions and Procedures -->
+    <div id="functions-procedures" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('functions-procedures')">&times;</span>
+            <h3>Functions and Procedures in Algorithmic Design</h3>
+            
+            <p>Functions and procedures are fundamental building blocks for modular algorithm design. They allow for code reuse, abstraction, and better organization of complex logic. This guide explores how to effectively use functions and procedures in pseudocode for system administration tasks.</p>
+            
+            <h4>Basic Concepts</h4>
+            
+            <h5>Functions vs. Procedures</h5>
+            <p>The key distinction between functions and procedures:</p>
+            <ul>
+                <li><strong>Function</strong>: Returns a value after performing operations</li>
+                <li><strong>Procedure</strong>: Performs operations without returning a value</li>
+            </ul>
+            
+            <div class="code-block">
+                <h6>Function Syntax:</h6>
+                <pre><code>FUNCTION FunctionName(parameter1, parameter2, ...)
+    // Body of function
+    statement(s)
+    RETURN value
+ENDFUNCTION</code></pre>
+                
+                <h6>Procedure Syntax:</h6>
+                <pre><code>PROCEDURE ProcedureName(parameter1, parameter2, ...)
+    // Body of procedure
+    statement(s)
+ENDPROCEDURE</code></pre>
+            </div>
+            
+            <h4>Benefits of Functions and Procedures</h4>
+            
+            <ul>
+                <li><strong>Modularity</strong> - Break complex problems into smaller, manageable parts</li>
+                <li><strong>Reusability</strong> - Use the same code multiple times without duplication</li>
+                <li><strong>Abstraction</strong> - Hide implementation details behind a simple interface</li>
+                <li><strong>Readability</strong> - Make code more understandable with descriptive function names</li>
+                <li><strong>Maintainability</strong> - Update code in one place rather than in multiple locations</li>
+                <li><strong>Testability</strong> - Test individual functions in isolation</li>
+            </ul>
+            
+            <h4>Parameter Passing</h4>
+            
+            <h5>Input Parameters</h5>
+            <p>Data passed into the function/procedure for processing.</p>
+            <pre><code>FUNCTION CalculateDiskUsage(directoryPath, includeSubdirectories)
+    // Parameters used within the function body
+    totalSize ← 0
+    
+    IF includeSubdirectories THEN
+        // Process directory and all subdirectories
+    ELSE
+        // Process only files in the specified directory
+    ENDIF
+    
+    RETURN totalSize
+ENDFUNCTION</code></pre>
+            
+            <h5>Output Parameters</h5>
+            <p>In some pseudocode styles, parameters can be designated as outputs:</p>
+            <pre><code>PROCEDURE GetUserInfo(username, OUT fullName, OUT userID, OUT isAdmin)
+    // Fetch user data
+    userData ← FetchUserFromDatabase(username)
+    
+    // Assign values to output parameters
+    fullName ← userData.fullName
+    userID ← userData.userID
+    isAdmin ← userData.isAdmin
+ENDPROCEDURE</code></pre>
+            
+            <h5>Return Values (Functions Only)</h5>
+            <p>The value that a function produces after execution.</p>
+            <pre><code>FUNCTION IsPortOpen(ipAddress, port)
+    // Check if the port is open
+    status ← TestConnection(ipAddress, port)
+    
+    IF status = SUCCESS THEN
+        RETURN true
+    ELSE
+        RETURN false
+    ENDIF
+ENDFUNCTION</code></pre>
+            
+            <h4>Function and Procedure Design Patterns</h4>
+            
+            <h5>1. Helper Functions</h5>
+            <p>Small, focused functions that perform a specific task.</p>
+            <pre><code>FUNCTION FormatTimestamp(timestamp)
+    year ← timestamp.year
+    month ← PADLEFT(timestamp.month, 2, "0")
+    day ← PADLEFT(timestamp.day, 2, "0")
+    hour ← PADLEFT(timestamp.hour, 2, "0")
+    minute ← PADLEFT(timestamp.minute, 2, "0")
+    second ← PADLEFT(timestamp.second, 2, "0")
+    
+    RETURN year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second
+ENDFUNCTION</code></pre>
+            
+            <h5>2. Factory Functions</h5>
+            <p>Functions that create and return new objects.</p>
+            <pre><code>FUNCTION CreateUser(username, email, role)
+    user ← empty dictionary
+    user["username"] ← username
+    user["email"] ← email
+    user["role"] ← role
+    user["created"] ← getCurrentTimestamp()
+    user["active"] ← true
+    
+    RETURN user
+ENDFUNCTION</code></pre>
+            
+            <h5>3. Validation Functions</h5>
+            <p>Functions that check if data meets certain criteria.</p>
+            <pre><code>FUNCTION ValidateIPAddress(ipAddress)
+    // Check if IP address has correct format
+    IF NOT MATCHES(ipAddress, IP_PATTERN) THEN
+        RETURN false, "Invalid IP address format"
+    ENDIF
+    
+    // Check if IP is in allowed range
+    IF NOT IsInAllowedRange(ipAddress) THEN
+        RETURN false, "IP address outside allowed range"
+    ENDIF
+    
+    RETURN true, ""
+ENDFUNCTION</code></pre>
+            
+            <h5>4. Wrapper Procedures</h5>
+            <p>Procedures that encapsulate a series of operations for simpler use.</p>
+            <pre><code>PROCEDURE DeployApplication(appName, version, serverList)
+    // Log the deployment start
+    LogDeploymentStart(appName, version)
+    
+    // Perform pre-deployment checks
+    IF NOT VerifyDeploymentPrerequisites(appName, version) THEN
+        LogDeploymentFailure(appName, version, "Failed prerequisites check")
+        RETURN
+    ENDIF
+    
+    // Deploy to each server
+    FOR EACH server IN serverList DO
+        status ← DeployToServer(server, appName, version)
+        
+        IF status ≠ SUCCESS THEN
+            LogServerDeploymentFailure(server, appName, version)
+        ENDIF
+    ENDFOR
+    
+    // Perform post-deployment verification
+    VerifyDeployment(appName, version, serverList)
+    
+    // Log the deployment completion
+    LogDeploymentComplete(appName, version)
+ENDPROCEDURE</code></pre>
+            
+            <h5>5. Recursive Functions</h5>
+            <p>Functions that call themselves to solve a problem.</p>
+            <pre><code>FUNCTION CalculateDirectorySize(path)
+    totalSize ← 0
+    
+    // Add size of files in current directory
+    files ← ListFiles(path)
+    FOR EACH file IN files DO
+        totalSize ← totalSize + GetFileSize(path + "/" + file)
+    ENDFOR
+    
+    // Recursively process subdirectories
+    directories ← ListDirectories(path)
+    FOR EACH directory IN directories DO
+        totalSize ← totalSize + CalculateDirectorySize(path + "/" + directory)
+    ENDFOR
+    
+    RETURN totalSize
+ENDFUNCTION</code></pre>
+            
+            <h4>Best Practices</h4>
+            
+            <ol>
+                <li><strong>Single Responsibility</strong> - Each function should do one thing well</li>
+                <li><strong>Appropriate Size</strong> - Functions should be neither too large nor too small</li>
+                <li><strong>Descriptive Names</strong> - Names should clearly indicate what the function does</li>
+                <li><strong>Consistent Parameter Order</strong> - Maintain a logical order for parameters</li>
+                <li><strong>Minimize Side Effects</strong> - Functions should avoid modifying global state</li>
+                <li><strong>Early Returns</strong> - Return early for error conditions or simple cases</li>
+                <li><strong>Document Inputs and Outputs</strong> - Clearly specify what goes in and comes out</li>
+                <li><strong>Error Handling</strong> - Include appropriate error handling and validation</li>
+            </ol>
+            
+            <h4>System Administration Examples</h4>
+            
+            <h5>Example 1: Backup Management System</h5>
+            <pre><code>// Main procedure for performing backups
+PROCEDURE PerformBackup(configPath)
+    // Load configuration
+    config ← LoadBackupConfiguration(configPath)
+    
+    // Validate the configuration
+    valid, errorMsg ← ValidateBackupConfig(config)
+    IF NOT valid THEN
+        LogError("Invalid backup configuration: " + errorMsg)
+        RETURN
+    ENDIF
+    
+    // Prepare backup directory
+    backupPath ← PrepareBackupDirectory(config.destinationPath)
+    
+    // Perform the backup
+    success, backupFiles ← BackupFiles(config.sourcePaths, backupPath, config.exclusions)
+    
+    // Compress the backup if needed
+    IF success AND config.compressBackup THEN
+        compressSuccess ← CompressBackup(backupPath, config.compressionLevel)
+        
+        IF NOT compressSuccess THEN
+            LogWarning("Backup compression failed, uncompressed files retained")
+        ENDIF
+    ENDIF
+    
+    // Clean up old backups
+    CleanupOldBackups(config.destinationPath, config.retentionDays)
+    
+    // Send notification
+    IF success THEN
+        SendBackupNotification(config.notifyEmail, "Backup completed successfully", GenerateBackupReport(backupFiles))
+    ELSE
+        SendBackupNotification(config.notifyEmail, "Backup failed", GenerateErrorReport())
+    ENDIF
+ENDPROCEDURE</code></pre>
+            
+            <h5>Example 2: User Account Management System</h5>
+            <pre><code>// Main procedure for creating a new user
+PROCEDURE CreateUserAccount(userData)
+    // Validate user data
+    valid, errorMsg ← ValidateUserData(userData)
+    IF NOT valid THEN
+        LogError("Invalid user data: " + errorMsg)
+        RETURN "error", errorMsg
+    ENDIF
+    
+    // Check if user already exists
+    IF UserExists(userData.username) THEN
+        LogError("User already exists: " + userData.username)
+        RETURN "error", "User already exists"
+    ENDIF
+    
+    // Generate user ID
+    userId ← GenerateUniqueUserID()
+    
+    // Create user home directory
+    homeDir ← "/home/" + userData.username
+    success ← CreateUserHomeDirectory(homeDir)
+    
+    IF NOT success THEN
+        LogError("Failed to create home directory for user: " + userData.username)
+        RETURN "error", "Failed to create home directory"
+    ENDIF
+    
+    // Add user to system
+    success, errorMsg ← AddUserToSystem(userData.username, userId, homeDir, userData.initialPassword)
+    
+    IF NOT success THEN
+        // Clean up home directory if user creation fails
+        DeleteDirectory(homeDir)
+        LogError("Failed to add user to system: " + errorMsg)
+        RETURN "error", errorMsg
+    ENDIF
+    
+    // Add user to appropriate groups
+    success, errorMsg ← AddUserToGroups(userData.username, userData.groups)
+    
+    IF NOT success THEN
+        LogWarning("Some group assignments failed for user " + userData.username + ": " + errorMsg)
+    ENDIF
+    
+    // Send welcome email if specified
+    IF userData.sendWelcomeEmail THEN
+        SendWelcomeEmail(userData.email, userData.username, userData.initialPassword)
+    ENDIF
+    
+    // Log the user creation
+    LogInfo("User " + userData.username + " created successfully with ID " + userId)
+    
+    RETURN "success", userId
+ENDPROCEDURE</code></pre>
+            
+            <div class="note">
+                <p><strong>Note:</strong> Functions and procedures form the backbone of modular pseudocode design. When writing pseudocode for system administration tasks, strive for a balance between abstraction and clarity. Create functions that handle a single, well-defined task, and use procedures to orchestrate multiple operations for a larger system task. This approach leads to more maintainable, readable, and reusable pseudocode that can be easily translated into actual code.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for User Account Algorithm -->
+    <div id="user-account-algorithm" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('user-account-algorithm')">&times;</span>
+            <h3>Linux User Administration Concepts</h3>
+            
+            <p>This modal provides an overview of Linux user administration concepts, including user creation, group management, and password policies. These concepts are essential for understanding how pseudocode can be used to plan and implement user account management scripts.</p>
+            
+            <h4>User Creation</h4>
+            <p>Creating a new user account involves several steps:</p>
+            <ul>
+                <li>Checking if the username already exists</li>
+                <li>Generating a unique user ID</li>
+                <li>Creating a home directory for the user</li>
+                <li>Setting the initial password</li>
+                <li>Adding the user to appropriate groups</li>
+                <li>Logging the user creation</li>
+            </ul>
+            
+            <h4>Group Management</h4>
+            <p>Groups allow for easier management of permissions and shared resources. Users can be added to multiple groups, and group memberships can be managed through commands like <code>usermod</code> and <code>groupadd</code>.</p>
+            
+            <h4>Password Policies</h4>
+            <p>Setting strong password policies is crucial for security. Linux systems use tools like <code>passwd</code> and PAM (Pluggable Authentication Modules) to enforce password complexity and expiration. Pseudocode can be used to plan and implement these policies.</p>
+            
+            <h4>Common Commands</h4>
+            <p>Some common commands used in user administration include:</p>
+            <ul>
+                <li><code>useradd</code> - Adds a new user account</li>
+                <li><code>usermod</code> - Modifies user account attributes</li>
+                <li><code>userdel</code> - Deletes a user account</li>
+                <li><code>groupadd</code> - Adds a new group</li>
+                <li><code>groupmod</code> - Modifies group attributes</li>
+                <li><code>groupdel</code> - Deletes a group</li>
+                <li><code>chpasswd</code> - Changes user passwords</li>
+                <li><code>passwd</code> - Changes user passwords</li>
+            </ul>
+            
+            <h4>Pseudocode Example</h4>
+            <p>Below is a pseudocode example of a user account management algorithm:</p>
+            <pre><code>ALGORITHM CreateUserAccount
+// Input: username, fullName, userType, initialPassword
+// Output: success status and new userId
+// Description: Creates a new user account in the Linux system
+
+BEGIN
+    IF UserExists(username) THEN
+        RETURN error, "Username already exists"
+    ENDIF
+    
+    userId ← GetNextAvailableUserId()
+    
+    // Create home directory
+    homeDir ← "/home/" + username
+    CREATE DIRECTORY homeDir
+    
+    // Add user to system
+    EXECUTE COMMAND "useradd -m -d " + homeDir + " -u " + userId + " " + username
+    
+    // Set initial password
+    EXECUTE COMMAND "echo " + username + ":" + initialPassword + " | chpasswd"
+    
+    // Set password expiration for security
+    EXECUTE COMMAND "passwd -e " + username
+    
+    // Add to appropriate groups based on userType
+    IF userType = "admin" THEN
+        EXECUTE COMMAND "usermod -aG sudo,adm " + username
+    ELSEIF userType = "developer" THEN
+        EXECUTE COMMAND "usermod -aG developers " + username
+    ENDIF
+    
+    // Log the user creation
+    LogActivity("User " + username + " created with ID " + userId)
+    
+    RETURN success, userId
+END</code></pre>
+            
+            <div class="note">
+                <p><strong>Remember:</strong> Pseudocode is a high-level description of an algorithm. It's important to translate pseudocode into actual code that can be executed on a specific programming language. The pseudocode provided here is a simplified example and may need to be adjusted for specific Linux distributions or versions.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Best Practices for Pseudocode -->
+    <div id="best-practices-pseudocode" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('best-practices-pseudocode')">&times;</span>
+            <h3>Pseudocode Best Practices for Better Algorithm Design</h3>
+            
+            <p>Effective pseudocode enhances algorithm design by providing a clear blueprint for implementation. Following these best practices will help you create more useful and maintainable pseudocode.</p>
+            
+            <h4>1. Maintain Consistency</h4>
+            <p>Using a consistent style throughout your pseudocode helps readers understand your logic without getting confused by changing conventions.</p>
+            <ul>
+                <li>Use the same indentation style for all blocks of code</li>
+                <li>Be consistent with capitalization (e.g., always uppercase keywords like IF, WHILE, FOR)</li>
+                <li>Use the same notation for operations (e.g., always use ← for assignment)</li>
+                <li>Maintain consistent naming conventions for variables and functions</li>
+            </ul>
+            
+            <h4>2. Choose Meaningful Variable and Function Names</h4>
+            <p>Clear, descriptive names make your pseudocode easier to understand and maintain.</p>
+            <ul>
+                <li>Use names that describe what the variable or function represents</li>
+                <li>Avoid single-letter variables except for simple loop counters</li>
+                <li>Use camelCase or snake_case consistently</li>
+            </ul>
+            <p>Example: Use <code>userCount</code> instead of <code>uc</code> or <code>x</code></p>
+            
+            <h4>3. Add Explanatory Comments</h4>
+            <p>Comments should explain the "why" behind complex logic or unusual approaches.</p>
+            <ul>
+                <li>Add comments before sections that might be confusing</li>
+                <li>Explain the purpose of algorithms and functions</li>
+                <li>Document any assumptions or constraints</li>
+            </ul>
+            <p>Example: <code>// Sort users by login time to optimize cache performance</code></p>
+            
+            <h4>4. Use Proper Indentation</h4>
+            <p>Indentation visually communicates the structure and nesting level of your code.</p>
+            <ul>
+                <li>Indent nested blocks consistently (typically 2-4 spaces)</li>
+                <li>Align related code elements</li>
+                <li>Use indentation to show hierarchy and flow control</li>
+            </ul>
+            
+            <h4>5. Keep It Simple</h4>
+            <p>Pseudocode should be clearer and simpler than the final code.</p>
+            <ul>
+                <li>Focus on the algorithm's logic, not implementation details</li>
+                <li>Avoid overly complex expressions</li>
+                <li>Break complex operations into simpler steps</li>
+            </ul>
+            
+            <h4>6. Focus on Logic, Not Syntax</h4>
+            <p>Pseudocode is about expressing ideas, not adhering to programming language rules.</p>
+            <ul>
+                <li>Emphasize algorithm steps and decision points</li>
+                <li>Don't worry about language-specific syntax details</li>
+                <li>Use natural language when it makes the logic clearer</li>
+            </ul>
+            
+            <h4>7. Include Error Handling</h4>
+            <p>Good pseudocode anticipates and addresses potential problems.</p>
+            <ul>
+                <li>Consider edge cases and boundary conditions</li>
+                <li>Include validation checks where appropriate</li>
+                <li>Specify error responses or recovery actions</li>
+            </ul>
+            
+            <h4>8. Structure Your Algorithm</h4>
+            <p>Well-structured pseudocode follows a logical organization.</p>
+            <ul>
+                <li>Include header information (algorithm name, inputs, outputs)</li>
+                <li>Organize related operations into logical sections</li>
+                <li>Use functions or procedures for reusable operations</li>
+            </ul>
+            
+            <h4>9. Test with Dry Runs</h4>
+            <p>Mentally step through your pseudocode with test cases to verify the logic.</p>
+            <ul>
+                <li>Choose representative test cases</li>
+                <li>Trace variable values throughout execution</li>
+                <li>Verify the logic handles all scenarios</li>
+            </ul>
+            
+            <h4>10. Revise and Refine</h4>
+            <p>Like all technical writing, pseudocode benefits from revision.</p>
+            <ul>
+                <li>Review for clarity and completeness</li>
+                <li>Look for opportunities to simplify</li>
+                <li>Check that all cases are handled</li>
+                <li>Get feedback from peers</li>
+            </ul>
+            
+            <div class="example-box">
+                <h5>Example: Well-Written Pseudocode</h5>
+                <pre><code>ALGORITHM FindMaximumValue
+// Input: array of numbers
+// Output: maximum value in the array
+// Description: Finds the maximum value in an array of numbers
+
+BEGIN
+    IF array is empty THEN
+        RETURN error, "Array is empty"
+    ENDIF
+    
+    max ← array[0]  // Assume first element is maximum
+    
+    // Iterate through remaining elements
+    FOR i FROM 1 TO LENGTH(array) - 1 DO
+        IF array[i] > max THEN
+            max ← array[i]  // Found a new maximum
+        ENDIF
+    ENDFOR
+    
+    RETURN max
+END</code></pre>
+            </div>
+            
+            <div class="note">
+                <p><strong>Remember:</strong> Good pseudocode strikes a balance between brevity and clarity. It should be detailed enough to capture the algorithm's logic but simple enough to be understood at a glance. The goal is to communicate your algorithm effectively to others and to your future self.</p>
+            </div>
+        </div>
+    </div>
+</section>

@@ -1,0 +1,1171 @@
+<section id="file-systems">
+    <h2>Linux File Systems and Storage Management</h2>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Linux Filesystem Hierarchy Standard (FHS)</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>The <strong>Filesystem Hierarchy Standard (FHS)</strong> defines the directory structure and contents in Linux operating systems. It provides consistency across distributions, helping users and software locate files and directories.</p>
+            
+            <p>Key directories in the Linux FHS include:</p>
+            <table>
+                <tr>
+                    <th>Directory</th>
+                    <th>Purpose</th>
+                    <th>Contents</th>
+                </tr>
+                <tr>
+                    <td><code>/</code> (root)</td>
+                    <td>Primary hierarchy root</td>
+                    <td>The starting point of the filesystem</td>
+                </tr>
+                <tr>
+                    <td><code>/bin</code></td>
+                    <td>Essential user binaries</td>
+                    <td>Commands needed during boot, recovery, or repair</td>
+                </tr>
+                <tr>
+                    <td><code>/boot</code></td>
+                    <td>Boot loader files</td>
+                    <td>Kernel, initrd, bootloader configuration</td>
+                </tr>
+                <tr>
+                    <td><code>/dev</code></td>
+                    <td>Device files</td>
+                    <td>Hardware and device interfaces</td>
+                </tr>
+                <tr>
+                    <td><code>/etc</code></td>
+                    <td>System configuration</td>
+                    <td>Host-specific system configuration files</td>
+                </tr>
+                <tr>
+                    <td><code>/home</code></td>
+                    <td>User home directories</td>
+                    <td>Personal files, configurations, and data</td>
+                </tr>
+                <tr>
+                    <td><code>/lib</code></td>
+                    <td>Essential shared libraries</td>
+                    <td>Libraries needed for binaries in /bin and /sbin</td>
+                </tr>
+                <tr>
+                    <td><code>/media</code></td>
+                    <td>Removable media</td>
+                    <td>Mount points for removable devices</td>
+                </tr>
+                <tr>
+                    <td><code>/mnt</code></td>
+                    <td>Temporary mounts</td>
+                    <td>Temporarily mounted filesystems</td>
+                </tr>
+                <tr>
+                    <td><code>/opt</code></td>
+                    <td>Optional software</td>
+                    <td>Add-on application packages</td>
+                </tr>
+                <tr>
+                    <td><code>/proc</code></td>
+                    <td>Process information</td>
+                    <td>Virtual filesystem providing process and kernel information</td>
+                </tr>
+                <tr>
+                    <td><code>/sbin</code></td>
+                    <td>System binaries</td>
+                    <td>Essential system administration commands</td>
+                </tr>
+                <tr>
+                    <td><code>/srv</code></td>
+                    <td>Service data</td>
+                    <td>Data for services provided by the system</td>
+                </tr>
+                <tr>
+                    <td><code>/tmp</code></td>
+                    <td>Temporary files</td>
+                    <td>Temporary files (often cleared on reboot)</td>
+                </tr>
+                <tr>
+                    <td><code>/usr</code></td>
+                    <td>User utilities and applications</td>
+                    <td>Secondary hierarchy for read-only user data</td>
+                </tr>
+                <tr>
+                    <td><code>/var</code></td>
+                    <td>Variable data</td>
+                    <td>Files whose content is expected to change (logs, spool files, caches)</td>
+                </tr>
+            </table>
+            
+            <p>Following the FHS ensures:</p>
+            <ul>
+                <li>Software can predict the location of files and directories</li>
+                <li>Users can navigate any Linux system with familiar paths</li>
+                <li>System administration tasks remain consistent across distributions</li>
+                <li>Applications install in predictable locations</li>
+            </ul>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="fhs-info" onclick="openModal('fhs-info'); return false;">Learn more: Linux Filesystem Hierarchy Standard</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for FHS information -->
+    <div id="fhs-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('fhs-info')">&times;</span>
+            <h3>Linux Filesystem Hierarchy Standard (FHS)</h3>
+            
+            <p>The Filesystem Hierarchy Standard (FHS) is a reference that defines the organization of file systems in Linux and other Unix-like operating systems. It was created to provide software developers and system administrators with a standard layout for files and directories, improving consistency across different distributions.</p>
+            
+            <h4>Key Principles of the FHS:</h4>
+            <ul>
+                <li><strong>Shareable vs. non-shareable files:</strong> Shareable files can be used by multiple hosts, while non-shareable are specific to a particular host.</li>
+                <li><strong>Static vs. variable files:</strong> Static content doesn't change without administrator intervention, while variable content can change at any time.</li>
+                <li><strong>Compatibility:</strong> The standard aims to ensure backward compatibility while allowing for innovation.</li>
+            </ul>
+            
+            <h4>Important Subdirectories of /usr:</h4>
+            <ul>
+                <li><code>/usr/bin</code>: Non-essential command binaries</li>
+                <li><code>/usr/include</code>: Standard include files for C programs</li>
+                <li><code>/usr/lib</code>: Libraries for programming and packages</li>
+                <li><code>/usr/local</code>: Local hierarchy (for software installed on the local system)</li>
+                <li><code>/usr/share</code>: Architecture-independent data</li>
+                <li><code>/usr/src</code>: Source code for reference</li>
+            </ul>
+            
+            <h4>Important Subdirectories of /var:</h4>
+            <ul>
+                <li><code>/var/cache</code>: Application cache data</li>
+                <li><code>/var/log</code>: Log files and directories</li>
+                <li><code>/var/mail</code>: User mailbox files</li>
+                <li><code>/var/spool</code>: Spool files for printing, mail queue, etc.</li>
+                <li><code>/var/tmp</code>: Temporary files preserved between reboots</li>
+            </ul>
+            
+            <h4>Benefits of Following FHS:</h4>
+            <ul>
+                <li>Improves software portability across Linux distributions</li>
+                <li>Makes systems more manageable for administrators</li>
+                <li>Creates a predictable environment for users</li>
+                <li>Facilitates troubleshooting by standardizing file locations</li>
+            </ul>
+            
+            <p>The FHS has evolved over time, with the current version addressing modern system needs while maintaining the traditional Unix filesystem structure that has proven effective for decades.</p>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Common Linux Filesystem Types</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Linux supports numerous filesystem types, each with different features, performance characteristics, and use cases. Understanding the differences helps in selecting the right filesystem for specific requirements.</p>
+            
+            <h4>Major Linux Filesystem Types:</h4>
+            
+            <table>
+                <tr>
+                    <th>Filesystem</th>
+                    <th>Key Features</th>
+                    <th>Best Use Cases</th>
+                </tr>
+                <tr>
+                    <td><strong>ext4</strong></td>
+                    <td>
+                        <ul>
+                            <li>Journaling for crash recovery</li>
+                            <li>Support for large file/volume sizes</li>
+                            <li>Backward compatibility with ext2/3</li>
+                            <li>Delayed allocation for performance</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Default filesystem for many distributions</li>
+                            <li>General-purpose usage</li>
+                            <li>System partitions</li>
+                            <li>Personal computers</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>XFS</strong></td>
+                    <td>
+                        <ul>
+                            <li>High performance and scalability</li>
+                            <li>Efficient with large files</li>
+                            <li>Online defragmentation</li>
+                            <li>Journaling for metadata</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Enterprise systems</li>
+                            <li>Media servers</li>
+                            <li>Storage with large files</li>
+                            <li>High-throughput requirements</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Btrfs</strong></td>
+                    <td>
+                        <ul>
+                            <li>Copy-on-write (CoW) functionality</li>
+                            <li>Built-in RAID support</li>
+                            <li>Snapshots and rollbacks</li>
+                            <li>Online filesystem defragmentation</li>
+                            <li>Checksums for data integrity</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Modern servers</li>
+                            <li>Systems needing snapshots</li>
+                            <li>Storage pools</li>
+                            <li>Data integrity-critical applications</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>ZFS</strong></td>
+                    <td>
+                        <ul>
+                            <li>Advanced data integrity protection</li>
+                            <li>Pooled storage (no volume management needed)</li>
+                            <li>Snapshots and clones</li>
+                            <li>Compression and deduplication</li>
+                            <li>Self-healing capabilities</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Enterprise storage servers</li>
+                            <li>Data centers</li>
+                            <li>NAS systems</li>
+                            <li>Critical data storage</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>ReiserFS</strong></td>
+                    <td>
+                        <ul>
+                            <li>Good performance with small files</li>
+                            <li>Online resizing</li>
+                            <li>Journaling</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Email servers</li>
+                            <li>Databases with many small files</li>
+                            <li>Legacy systems</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>F2FS</strong></td>
+                    <td>
+                        <ul>
+                            <li>Designed for flash-based storage</li>
+                            <li>Log-structured filesystem</li>
+                            <li>Wear-leveling awareness</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>SSDs</li>
+                            <li>eMMC storage</li>
+                            <li>Mobile devices</li>
+                            <li>Embedded systems</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+            
+            <p>When selecting a filesystem, consider these factors:</p>
+            <ul>
+                <li><strong>Performance requirements:</strong> Read/write speed, handling of small/large files</li>
+                <li><strong>Storage size:</strong> Maximum volume and file size limitations</li>
+                <li><strong>Reliability needs:</strong> Journaling, crash recovery capabilities</li>
+                <li><strong>Special features:</strong> Snapshots, compression, deduplication, etc.</li>
+                <li><strong>Hardware considerations:</strong> SSD vs. HDD, flash storage optimization</li>
+                <li><strong>Maintenance requirements:</strong> Backup compatibility, defragmentation needs</li>
+            </ul>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="filesystem-types-info" onclick="openModal('filesystem-types-info'); return false;">Learn more: Linux Filesystem Types</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Filesystem Types information -->
+    <div id="filesystem-types-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('filesystem-types-info')">&times;</span>
+            <h3>Linux Filesystem Types In-Depth</h3>
+            
+            <h4>Extended Filesystem Family (ext2, ext3, ext4)</h4>
+            <p>The extended filesystem family has been the traditional choice for Linux systems:</p>
+            <ul>
+                <li><strong>ext2:</strong> The original extended filesystem with no journaling, still used for small, non-critical partitions like /boot.</li>
+                <li><strong>ext3:</strong> Added journaling to ext2, improving reliability and crash recovery.</li>
+                <li><strong>ext4:</strong> Current generation with enhanced features like extents (contiguous blocks), delayed allocation, faster fsck, larger file/filesystem support, and improved timestamps.</li>
+            </ul>
+            
+            <h4>XFS</h4>
+            <p>Originally developed by SGI for their IRIX operating system, XFS excels in handling large files and high-performance environments:</p>
+            <ul>
+                <li>Allocation groups distribute metadata to improve parallel operations</li>
+                <li>Delayed logging reduces journal overhead</li>
+                <li>Supports up to 16 exbibytes (EiB) for both file and filesystem size</li>
+                <li>Extent-based allocation for efficient space management</li>
+                <li>Limited options for shrinking (cannot reduce size)</li>
+            </ul>
+            
+            <h4>Btrfs (B-tree FS)</h4>
+            <p>A newer filesystem focusing on fault tolerance, repair, and easy administration:</p>
+            <ul>
+                <li>Built with a focus on administration features and functional extensibility</li>
+                <li>Native RAID support (0, 1, 10) without requiring mdadm</li>
+                <li>Subvolumes allow multiple filesystem roots within a single mount</li>
+                <li>Online filesystem checking without unmounting</li>
+                <li>Transparent compression (zlib, lzo, zstd) reduces storage needs</li>
+                <li>Send/receive functionality for efficient backups</li>
+            </ul>
+            
+            <h4>ZFS</h4>
+            <p>Originally developed by Sun Microsystems, now available on Linux through OpenZFS:</p>
+            <ul>
+                <li>Combines volume manager and filesystem for simplified management</li>
+                <li>End-to-end checksumming detects and corrects silent data corruption</li>
+                <li>Advanced RAID-Z implementations (single, double, or triple parity)</li>
+                <li>Efficient snapshots and clones with minimal overhead</li>
+                <li>Adaptive Read Cache (ARC) and L2ARC for performance optimization</li>
+                <li>ZFS Intent Log (ZIL) and SLOG devices for improved write performance</li>
+                <li>License compatibility issues with GPL in Linux kernel</li>
+            </ul>
+            
+            <h4>Comparing Performance Characteristics</h4>
+            <p>Different filesystems excel in different scenarios:</p>
+            <ul>
+                <li><strong>ext4:</strong> Good all-around performer, excellent mount time, reliable journaling</li>
+                <li><strong>XFS:</strong> Excels with large files and high throughput, slower with many small files</li>
+                <li><strong>Btrfs:</strong> Good with mixed workloads, snapshot operations add overhead</li>
+                <li><strong>ZFS:</strong> Excellent data integrity, memory-intensive, benefits from dedicated hardware</li>
+                <li><strong>F2FS:</strong> Optimized for flash storage, better endurance for SSDs</li>
+            </ul>
+            
+            <h4>Conversion Between Filesystems</h4>
+            <p>Converting between filesystem types typically involves backing up data, reformatting with the new filesystem, and restoring data. Some specific conversion tools exist:</p>
+            <ul>
+                <li>ext2/3 to ext4: <code>tune2fs -O extents,uninit_bg,dir_index /dev/device</code></li>
+                <li>ext4 to Btrfs: <code>btrfs-convert /dev/device</code> (preserves data but verify first)</li>
+                <li>For most other conversions: backup, format new filesystem, restore data</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Partitioning Tools and Techniques</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Partitioning divides a physical storage device into logical sections that can be managed independently. Linux offers various tools for creating, modifying, and managing partitions.</p>
+            
+            <h4>Common Partition Table Types:</h4>
+            <ul>
+                <li><strong>MBR (Master Boot Record):</strong> Traditional partitioning scheme limited to 2TB disks and 4 primary partitions</li>
+                <li><strong>GPT (GUID Partition Table):</strong> Modern standard supporting larger disks and up to 128 partitions</li>
+            </ul>
+            
+            <h4>Key Partitioning Tools:</h4>
+            
+            <table>
+                <tr>
+                    <th>Tool</th>
+                    <th>Interface</th>
+                    <th>Features</th>
+                    <th>Best For</th>
+                </tr>
+                <tr>
+                    <td><code>fdisk</code></td>
+                    <td>Command-line (TUI)</td>
+                    <td>
+                        <ul>
+                            <li>Traditional tool</li>
+                            <li>MBR partitioning</li>
+                            <li>Simple interface</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Basic partitioning tasks</li>
+                            <li>Older systems</li>
+                            <li>Scripting</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>gdisk</code></td>
+                    <td>Command-line (TUI)</td>
+                    <td>
+                        <ul>
+                            <li>GPT partitioning</li>
+                            <li>Similar interface to fdisk</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Modern systems</li>
+                            <li>Disks larger than 2TB</li>
+                            <li>UEFI systems</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>parted</code></td>
+                    <td>Command-line</td>
+                    <td>
+                        <ul>
+                            <li>Supports both MBR and GPT</li>
+                            <li>Can resize partitions</li>
+                            <li>Advanced features</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Advanced partitioning</li>
+                            <li>Partition resizing</li>
+                            <li>Scripting complex operations</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>gparted</code></td>
+                    <td>Graphical (GUI)</td>
+                    <td>
+                        <ul>
+                            <li>Visual representation</li>
+                            <li>Resize, move, copy partitions</li>
+                            <li>Format operations</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Desktop users</li>
+                            <li>Visual learners</li>
+                            <li>Complex partition layouts</li>
+                        </ul>
+                    </td>
+                </tr>
+                <tr>
+                    <td><code>cfdisk</code></td>
+                    <td>Command-line (TUI)</td>
+                    <td>
+                        <ul>
+                            <li>Curses-based interface</li>
+                            <li>More intuitive than fdisk</li>
+                        </ul>
+                    </td>
+                    <td>
+                        <ul>
+                            <li>Server environments</li>
+                            <li>Users new to command line</li>
+                        </ul>
+                    </td>
+                </tr>
+            </table>
+            
+            <h4>Common Partition Schemes:</h4>
+            <p>For a typical Linux system, consider these partitions:</p>
+            <ul>
+                <li><strong>/</strong> (root): 15-25GB for OS, applications, and configuration</li>
+                <li><strong>/boot</strong>: 500MB-1GB for kernel and bootloader files</li>
+                <li><strong>/home</strong>: Largest portion for user files</li>
+                <li><strong>swap</strong>: Typically equal to RAM (for systems with &lt;8GB) or half RAM (for systems with &gt;8GB)</li>
+                <li><strong>/var</strong>: 8-12GB for logs, caches, and variable data (larger for servers)</li>
+                <li><strong>/tmp</strong>: 2-5GB for temporary files</li>
+            </ul>
+            
+            <h4>Basic Partitioning Commands:</h4>
+            <p>Using fdisk to create a new partition:</p>
+            <pre><code># List all disks
+lsblk
+
+# Start fdisk on a specific disk
+sudo fdisk /dev/sda
+
+# Inside fdisk:
+# 'n' to create new partition
+# 'p' for primary partition
+# Enter partition number (1-4)
+# Enter start sector (default)
+# Enter end sector or size (e.g., +10G for 10GB)
+# 'w' to write changes and exit</code></pre>
+            
+            <p>Using parted for partitioning with GPT:</p>
+            <pre><code># Start parted on a specific disk
+sudo parted /dev/sda
+
+# Create a GPT partition table
+(parted) mklabel gpt
+
+# Create a partition
+(parted) mkpart primary ext4 0% 100%
+
+# Print the partition table
+(parted) print
+
+# Exit parted
+(parted) quit</code></pre>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="partitioning-info" onclick="openModal('partitioning-info'); return false;">Learn more: Partitioning Tools and Techniques</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Partitioning information -->
+    <div id="partitioning-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('partitioning-info')">&times;</span>
+            <h3>Partitioning Tools and Techniques In-Depth</h3>
+            
+            <h4>Understanding Partition Types</h4>
+            <p>Different partition types serve different purposes in Linux:</p>
+            <ul>
+                <li><strong>Primary Partitions:</strong> Limited to 4 per disk in MBR. Can be bootable.</li>
+                <li><strong>Extended Partition:</strong> A special type of primary partition that can contain multiple logical partitions (MBR only).</li>
+                <li><strong>Logical Partitions:</strong> Created within an extended partition to overcome the 4-partition limit in MBR.</li>
+                <li><strong>GPT Partitions:</strong> No distinction between primary/extended/logical in GPT; supports up to 128 partitions.</li>
+            </ul>
+            
+            <h4>Partition Alignment</h4>
+            <p>Modern storage devices, especially SSDs, require proper partition alignment for optimal performance:</p>
+            <ul>
+                <li>Most modern tools (parted, gdisk, gparted) handle alignment automatically</li>
+                <li>Default alignment is typically 1MB boundaries</li>
+                <li>Check alignment with: <code>parted /dev/sdX align-check optimal 1</code> (for partition 1)</li>
+                <li>Misalignment can reduce performance by 10-50% on SSDs and advanced format HDDs</li>
+            </ul>
+            
+            <h4>Advanced fdisk Techniques</h4>
+            <p>Beyond basic partitioning, fdisk offers several advanced options:</p>
+            <ul>
+                <li><strong>Change partition type ('t'):</strong> Used to set specific partition types (e.g., Linux, Swap, LVM, RAID)</li>
+                <li><strong>Toggle bootable flag ('a'):</strong> Mark a partition as bootable for MBR systems</li>
+                <li><strong>Display partition information ('p'):</strong> View current partition table</li>
+                <li><strong>Delete partitions ('d'):</strong> Remove existing partitions</li>
+                <li><strong>Write table to disk ('w'):</strong> Save changes</li>
+                <li><strong>Quit without saving ('q'):</strong> Exit without applying changes</li>
+            </ul>
+            
+            <h4>Partition Flags and Attributes in GPT</h4>
+            <p>GPT partitions support various flags for special functionality:</p>
+            <ul>
+                <li><strong>boot:</strong> EFI System Partition (ESP) for UEFI booting</li>
+                <li><strong>msftdata:</strong> Microsoft basic data partition</li>
+                <li><strong>bios_grub:</strong> GRUB BIOS boot partition</li>
+                <li><strong>legacy_boot:</strong> Legacy BIOS bootable flag</li>
+            </ul>
+            <p>Set flags in parted with: <code>set partition-number flag on/off</code></p>
+            
+            <h4>Non-Destructive Partitioning</h4>
+            <p>To resize partitions without data loss:</p>
+            <ol>
+                <li>Always backup critical data first</li>
+                <li>Use GParted Live CD/USB for complex operations</li>
+                <li>For online resizing of mounted partitions:
+                    <ul>
+                        <li>LVM volumes: <code>lvextend -r -L +10G /dev/vg/lv</code> (resize and grow filesystem)</li>
+                        <li>XFS (grow only): <code>xfs_growfs /mount/point</code></li>
+                        <li>ext4: <code>resize2fs /dev/device</code> (after resizing the partition)</li>
+                    </ul>
+                </li>
+            </ol>
+            
+            <h4>Specialized Partitioning Scenarios</h4>
+            <ul>
+                <li><strong>Dual-boot systems:</strong> Create separate partitions for each OS, share a data partition</li>
+                <li><strong>Server partitioning:</strong> Separate partitions for /var, /tmp, and /home to prevent log files or user files from filling the root partition</li>
+                <li><strong>High-performance systems:</strong> Place different partitions on different physical disks for I/O distribution</li>
+                <li><strong>High-security systems:</strong> Separate partitions with different mount options (noexec, nosuid, etc.)</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Logical Volume Management (LVM)</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p><strong>Logical Volume Management (LVM)</strong> provides a layer of abstraction between physical storage devices and the file systems, offering flexibility in storage allocation and management.</p>
+            
+            <h4>Key LVM Concepts:</h4>
+            <table>
+                <tr>
+                    <th>Component</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td>Physical Volume (PV)</td>
+                    <td>Physical storage device or partition that has been initialized for LVM</td>
+                </tr>
+                <tr>
+                    <td>Volume Group (VG)</td>
+                    <td>Pool of storage combining multiple physical volumes</td>
+                </tr>
+                <tr>
+                    <td>Logical Volume (LV)</td>
+                    <td>Virtual partition created from a volume group, where filesystems are created</td>
+                </tr>
+                <tr>
+                    <td>Physical Extent (PE)</td>
+                    <td>Small fixed-size blocks that make up physical volumes (typically 4MB)</td>
+                </tr>
+                <tr>
+                    <td>Logical Extent (LE)</td>
+                    <td>Blocks that make up logical volumes, mapped to physical extents</td>
+                </tr>
+            </table>
+            
+            <h4>LVM Architecture:</h4>
+            <p>LVM works in a three-tier architecture:</p>
+            <pre><code>Physical Storage Devices
+       |
+       v
+Physical Volumes (PVs)
+       |
+       v
+  Volume Groups (VGs)
+       |
+       v
+ Logical Volumes (LVs)
+       |
+       v
+    Filesystems</code></pre>
+            
+            <h4>Advantages of LVM:</h4>
+            <ul>
+                <li><strong>Flexible storage capacity:</strong> Easily resize logical volumes as needed</li>
+                <li><strong>Storage pooling:</strong> Combine multiple physical devices into a single logical volume</li>
+                <li><strong>Online resizing:</strong> Expand or reduce storage without downtime</li>
+                <li><strong>Snapshots:</strong> Create point-in-time copies for backups</li>
+                <li><strong>Striping:</strong> Distribute data across multiple physical volumes for performance</li>
+                <li><strong>Mirroring:</strong> Duplicate data across multiple physical volumes for redundancy</li>
+                <li><strong>Thin provisioning:</strong> Allocate space on-demand rather than up-front</li>
+            </ul>
+            
+            <h4>Basic LVM Commands:</h4>
+            <p>Setting up LVM from scratch:</p>
+            <pre><code># 1. Create Physical Volumes
+sudo pvcreate /dev/sdb /dev/sdc
+
+# 2. Create a Volume Group named 'vg_data' from those PVs
+sudo vgcreate vg_data /dev/sdb /dev/sdc
+
+# 3. Create a Logical Volume named 'lv_data' using 10GB from the VG
+sudo lvcreate -n lv_data -L 10G vg_data
+
+# 4. Format the Logical Volume with a filesystem
+sudo mkfs.ext4 /dev/vg_data/lv_data
+
+# 5. Mount the filesystem
+sudo mkdir -p /data
+sudo mount /dev/vg_data/lv_data /data</code></pre>
+            
+            <h4>Common LVM Management Commands:</h4>
+            <table>
+                <tr>
+                    <th>Operation</th>
+                    <th>Command</th>
+                </tr>
+                <tr>
+                    <td>Display PV information</td>
+                    <td><code>pvdisplay</code> or <code>pvs</code></td>
+                </tr>
+                <tr>
+                    <td>Display VG information</td>
+                    <td><code>vgdisplay</code> or <code>vgs</code></td>
+                </tr>
+                <tr>
+                    <td>Display LV information</td>
+                    <td><code>lvdisplay</code> or <code>lvs</code></td>
+                </tr>
+                <tr>
+                    <td>Extend a Volume Group</td>
+                    <td><code>vgextend vg_data /dev/sdd</code></td>
+                </tr>
+                <tr>
+                    <td>Extend a Logical Volume</td>
+                    <td><code>lvextend -L +5G /dev/vg_data/lv_data</code></td>
+                </tr>
+                <tr>
+                    <td>Resize filesystem after extending</td>
+                    <td><code>resize2fs /dev/vg_data/lv_data</code></td>
+                </tr>
+                <tr>
+                    <td>Create LVM snapshot</td>
+                    <td><code>lvcreate -s -n snap_name -L 1G /dev/vg_data/lv_data</code></td>
+                </tr>
+            </table>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="lvm-info" onclick="openModal('lvm-info'); return false;">Learn more: Logical Volume Management</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for LVM information -->
+    <div id="lvm-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('lvm-info')">&times;</span>
+            <h3>Logical Volume Management (LVM) In-Depth</h3>
+            
+            <h4>Advanced LVM Features</h4>
+            
+            <h5>LVM Snapshots</h5>
+            <p>Snapshots provide a point-in-time copy of a logical volume, useful for backups or testing:</p>
+            <ul>
+                <li>Create a snapshot: <code>lvcreate -s -n lv_data_snap -L 1G /dev/vg_data/lv_data</code></li>
+                <li>Mount the snapshot: <code>mkdir /mnt/snap && mount /dev/vg_data/lv_data_snap /mnt/snap</code></li>
+                <li>Snapshots use copy-on-write technology - only changed blocks are stored</li>
+                <li>Size should be adequate to store changes during the snapshot's lifetime</li>
+                <li>Remove when finished: <code>umount /mnt/snap && lvremove /dev/vg_data/lv_data_snap</code></li>
+            </ul>
+            
+            <h5>LVM Stripes</h5>
+            <p>Striping distributes data across multiple physical volumes for improved performance:</p>
+            <ul>
+                <li>Create a striped volume: <code>lvcreate -n lv_striped -L 10G -i 2 vg_data</code></li>
+                <li>The <code>-i 2</code> parameter specifies using 2 physical volumes for striping</li>
+                <li>Best for I/O-intensive applications like databases</li>
+                <li>Requires at least two physical volumes in the volume group</li>
+            </ul>
+            
+            <h5>LVM Mirrors</h5>
+            <p>Mirroring provides redundancy by maintaining identical copies of data on different physical volumes:</p>
+            <ul>
+                <li>Create a mirrored volume: <code>lvcreate -n lv_mirror -L 10G -m 1 vg_data</code></li>
+                <li>The <code>-m 1</code> parameter creates one mirror, resulting in two copies of data</li>
+                <li>Requires at least two physical volumes in the volume group</li>
+                <li>Offers protection against device failure</li>
+            </ul>
+            
+            <h5>Thin Provisioning</h5>
+            <p>Thin provisioning allows allocating more logical space than physically available, utilizing space only when actually used:</p>
+            <ul>
+                <li>Create a thin pool: <code>lvcreate -T -L 20G vg_data/thin_pool</code></li>
+                <li>Create a thin volume: <code>lvcreate -n thin_vol1 -V 50G --thinpool vg_data/thin_pool</code></li>
+                <li>Monitor usage carefully to avoid running out of physical space</li>
+                <li>Useful in virtualization environments and cloud storage</li>
+            </ul>
+            
+            <h4>LVM Recovery and Backup</h4>
+            <p>LVM metadata is crucial - it maps logical volumes to physical storage. Back it up regularly:</p>
+            <ul>
+                <li>Back up LVM metadata: <code>vgcfgbackup vg_data</code></li>
+                <li>Restore from backup: <code>vgcfgrestore vg_data</code></li>
+                <li>Metadata is stored in <code>/etc/lvm/backup/</code> and <code>/etc/lvm/archive/</code></li>
+                <li>If a PV is lost, you can try to recreate it with: <code>pvcreate --uuid [uuid] --restorefile /etc/lvm/archive/file /dev/new_device</code></li>
+            </ul>
+            
+            <h4>Best Practices for LVM</h4>
+            <ul>
+                <li>Leave some free space in volume groups for flexibility</li>
+                <li>Use meaningful names for volume groups and logical volumes</li>
+                <li>Regularly back up LVM metadata</li>
+                <li>For critical data, combine LVM with RAID for both flexibility and redundancy</li>
+                <li>Monitor thin pools to prevent overallocation issues</li>
+                <li>Document your LVM setup for easier disaster recovery</li>
+                <li>When extending logical volumes, remember to resize the filesystem afterward</li>
+            </ul>
+            
+            <h4>LVM and SSD Considerations</h4>
+            <p>When using LVM with SSDs:</p>
+            <ul>
+                <li>Enable TRIM/discard support: <code>lvmconf --set devices/issue_discards=1</code></li>
+                <li>Use the <code>discard</code> mount option in /etc/fstab</li>
+                <li>Consider using smaller extent sizes for better granularity</li>
+                <li>Align logical volumes to SSD erase block boundaries for optimal performance</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Mount Points and the fstab File</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>In Linux, <strong>mount points</strong> are directories where filesystems are attached to the directory tree. The <strong>fstab</strong> (filesystem table) file maintains the configuration for automatic mounting of filesystems at boot time.</p>
+            
+            <h4>Mount Points:</h4>
+            <ul>
+                <li>Each filesystem is attached to a specific directory in the file hierarchy</li>
+                <li>Common mount points include <code>/</code>, <code>/home</code>, <code>/boot</code>, <code>/mnt</code>, and <code>/media</code></li>
+                <li>When a filesystem is mounted, its contents replace whatever was previously visible at that location</li>
+                <li>The <code>mount</code> command is used to manually attach filesystems</li>
+            </ul>
+            
+            <h4>Basic Mount Commands:</h4>
+            <pre><code># Mount a filesystem
+sudo mount /dev/sdb1 /mnt/data
+
+# Mount with specific filesystem type
+sudo mount -t ext4 /dev/sdb1 /mnt/data
+
+# Mount with specific options
+sudo mount -o rw,noexec /dev/sdb1 /mnt/data
+
+# Unmount a filesystem
+sudo umount /mnt/data
+# or
+sudo umount /dev/sdb1
+
+# List all mounted filesystems
+mount
+# or in more readable format
+mount | column -t
+
+# Show filesystem type
+df -T</code></pre>
+            
+            <h4>The /etc/fstab File:</h4>
+            <p>The <code>/etc/fstab</code> file contains information about filesystems to be mounted automatically at boot. Each line represents a filesystem with six fields:</p>
+            
+            <table>
+                <tr>
+                    <th>Field</th>
+                    <th>Purpose</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td>1. Device</td>
+                    <td>Filesystem to mount (device/label/UUID)</td>
+                    <td><code>/dev/sda1</code> or <code>UUID=0a3407de-014b-458b-b5c1-848e92a327a3</code></td>
+                </tr>
+                <tr>
+                    <td>2. Mount Point</td>
+                    <td>Directory where the filesystem is mounted</td>
+                    <td><code>/home</code></td>
+                </tr>
+                <tr>
+                    <td>3. Filesystem Type</td>
+                    <td>Type of filesystem (ext4, xfs, etc.)</td>
+                    <td><code>ext4</code></td>
+                </tr>
+                <tr>
+                    <td>4. Mount Options</td>
+                    <td>Comma-separated list of options</td>
+                    <td><code>defaults</code> or <code>rw,noexec,nosuid</code></td>
+                </tr>
+                <tr>
+                    <td>5. Dump</td>
+                    <td>Used by dump utility for backups (0=skip, 1=backup)</td>
+                    <td><code>0</code></td>
+                </tr>
+                <tr>
+                    <td>6. Fsck Order</td>
+                    <td>Order for filesystem checks at boot (0=skip, 1=root, 2+=others)</td>
+                    <td><code>2</code></td>
+                </tr>
+            </table>
+            
+            <h4>Example /etc/fstab File:</h4>
+            <pre><code># Device                                 Mount Point  FS Type  Options    Dump  Fsck
+UUID=1234-5678-90ab-cdef                /boot/efi    vfat     defaults    0     1
+UUID=a1b2c3d4-e5f6-7890-abcd-1234567890 /            ext4     defaults    0     1
+UUID=0a3407de-014b-458b-b5c1-848e92a327a3 /home      ext4     defaults    0     2
+/dev/mapper/vg_data-lv_data            /data        ext4     defaults    0     2
+/dev/sdb1                              /media/backup ext4     ro,noauto   0     0
+tmpfs                                  /tmp         tmpfs    size=2G,nodev,nosuid 0 0
+//server/share                         /mnt/samba   cifs     credentials=/etc/samba/creds,uid=1000 0 0</code></pre>
+            
+            <h4>Common Mount Options:</h4>
+            <table>
+                <tr>
+                    <th>Option</th>
+                    <th>Description</th>
+                </tr>
+                <tr>
+                    <td><code>defaults</code></td>
+                    <td>Use default options: rw, suid, dev, exec, auto, nouser, async</td>
+                </tr>
+                <tr>
+                    <td><code>ro</code> / <code>rw</code></td>
+                    <td>Mount read-only / read-write</td>
+                </tr>
+                <tr>
+                    <td><code>noexec</code> / <code>exec</code></td>
+                    <td>Don't allow / allow execution of binaries on the filesystem</td>
+                </tr>
+                <tr>
+                    <td><code>nosuid</code> / <code>suid</code></td>
+                    <td>Don't allow / allow SUID and SGID bits to take effect</td>
+                </tr>
+                <tr>
+                    <td><code>nodev</code> / <code>dev</code></td>
+                    <td>Don't interpret / interpret device files on the filesystem</td>
+                </tr>
+                <tr>
+                    <td><code>noauto</code> / <code>auto</code></td>
+                    <td>Don't mount / mount automatically at boot or with <code>mount -a</code></td>
+                </tr>
+                <tr>
+                    <td><code>user</code> / <code>nouser</code></td>
+                    <td>Allow / don't allow non-root users to mount the filesystem</td>
+                </tr>
+                <tr>
+                    <td><code>async</code> / <code>sync</code></td>
+                    <td>Asynchronous / synchronous I/O</td>
+                </tr>
+                <tr>
+                    <td><code>relatime</code> / <code>noatime</code></td>
+                    <td>Update access times relatively / don't update access times</td>
+                </tr>
+                <tr>
+                    <td><code>nofail</code></td>
+                    <td>Don't report errors if the device doesn't exist</td>
+                </tr>
+            </table>
+            
+            <h4>Using UUIDs:</h4>
+            <p>Using UUIDs (Universally Unique Identifiers) is recommended over device names, as device names can change between reboots:</p>
+            <pre><code># Find UUID of a device
+sudo blkid /dev/sda1
+
+# List all UUIDs on the system
+sudo blkid
+
+# Using UUID in mount command
+sudo mount UUID=a1b2c3d4-e5f6-7890-abcd-1234567890 /mnt/data</code></pre>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="mount-fstab-info" onclick="openModal('mount-fstab-info'); return false;">Learn more: Mount Points and fstab</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Mount Points and fstab information -->
+    <div id="mount-fstab-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('mount-fstab-info')">&times;</span>
+            <h3>Mount Points and fstab In-Depth</h3>
+            
+            <h4>The Linux Mount Process</h4>
+            <p>When Linux mounts a filesystem, it goes through these steps:</p>
+            <ol>
+                <li>Reads the superblock from the device to identify the filesystem type</li>
+                <li>Initializes the filesystem driver</li>
+                <li>Updates the kernel's mount table (/proc/mounts)</li>
+                <li>Updates the file /etc/mtab (or its dynamic equivalent)</li>
+                <li>Makes the contents available at the mount point</li>
+            </ol>
+            
+            <h4>Automounting with systemd</h4>
+            <p>Modern Linux systems using systemd can automount filesystems on demand:</p>
+            <ul>
+                <li>systemd.automount units mount filesystems when they're first accessed</li>
+                <li>Benefits include faster boot times and handling of removable media</li>
+                <li>Configure in fstab with the <code>x-systemd.automount</code> option</li>
+                <li>Example: <code>UUID=... /mnt/data ext4 defaults,x-systemd.automount 0 0</code></li>
+            </ul>
+            
+            <h4>Network Filesystems in fstab</h4>
+            <p>fstab can also mount network filesystems:</p>
+            <table>
+                <tr>
+                    <th>Type</th>
+                    <th>Example fstab Entry</th>
+                </tr>
+                <tr>
+                    <td>NFS</td>
+                    <td><code>server:/export /mnt/nfs nfs rw,soft,intr 0 0</code></td>
+                </tr>
+                <tr>
+                    <td>CIFS/SMB</td>
+                    <td><code>//server/share /mnt/samba cifs credentials=/etc/samba/creds,uid=1000 0 0</code></td>
+                </tr>
+                <tr>
+                    <td>SSHFS</td>
+                    <td><code>user@server:/path /mnt/sshfs fuse.sshfs _netdev,identityfile=/home/user/.ssh/id_rsa 0 0</code></td>
+                </tr>
+            </table>
+            
+            <h4>Handling Credentials Securely</h4>
+            <p>For network filesystems requiring credentials:</p>
+            <ol>
+                <li>Create a credentials file (e.g., <code>/etc/samba/creds</code>):</li>
+                <pre><code>username=myuser
+password=mypassword</code></pre>
+                <li>Secure the file: <code>chmod 600 /etc/samba/creds</code></li>
+                <li>Reference in fstab: <code>credentials=/etc/samba/creds</code></li>
+            </ol>
+            
+            <h4>Bind Mounts</h4>
+            <p>Bind mounts make a directory appear in multiple locations:</p>
+            <pre><code># Command line
+sudo mount --bind /source/directory /destination/directory
+
+# In fstab
+/source/directory /destination/directory none bind 0 0</code></pre>
+            
+            <h4>Security Considerations for Mount Options</h4>
+            <p>Enhance security with these mount options:</p>
+            <ul>
+                <li><code>noexec</code> on /tmp and /var/tmp prevents execution of malicious scripts</li>
+                <li><code>nosuid</code> on user-writable filesystems prevents privilege escalation</li>
+                <li><code>nodev</code> on non-system partitions prevents device file exploitation</li>
+                <li>For example: <code>/dev/sda5 /home ext4 defaults,nosuid,nodev 0 2</code></li>
+            </ul>
+            
+            <h4>Performance-Related Mount Options</h4>
+            <ul>
+                <li><code>noatime</code>: Disables access time updates, improving performance on frequently accessed files</li>
+                <li><code>data=writeback</code>: For ext4, prioritizes performance over data safety</li>
+                <li><code>barrier=0</code>: Disables write barriers (risky but improves performance)</li>
+                <li><code>commit=30</code>: Commits data to disk every 30 seconds instead of the default 5</li>
+                <li>For example: <code>/dev/sda1 / ext4 defaults,noatime,commit=60 0 1</code></li>
+            </ul>
+            
+            <h4>Troubleshooting Mount Issues</h4>
+            <ul>
+                <li>Check if device exists: <code>lsblk</code> or <code>fdisk -l</code></li>
+                <li>Verify mount point directory exists and is empty</li>
+                <li>Check filesystem for errors: <code>fsck -f /dev/sda1</code></li>
+                <li>Debug mount issues: <code>mount -v /dev/sda1 /mnt/data</code></li>
+                <li>If the system won't boot due to fstab errors, boot in recovery mode and fix /etc/fstab</li>
+                <li>Add the <code>nofail</code> option to non-critical mounts to allow boot if they're not available</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="topic quiz-topic">
+        <div class="topic-header quiz-header">
+            <h3>File Systems & Storage Quiz 📝</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <h4>Test Your Linux File Systems Knowledge</h4>
+            <p>Answer the following questions to check your understanding of Linux file systems and storage management.</p>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">1. Which filesystem is designed specifically for flash-based storage?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">XFS</li>
+                    <li class="quiz-option" data-correct="false">ext4</li>
+                    <li class="quiz-option" data-correct="true">F2FS</li>
+                    <li class="quiz-option" data-correct="false">ReiserFS</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">2. In LVM, what is a Volume Group (VG)?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">A virtual partition where filesystems are created</li>
+                    <li class="quiz-option" data-correct="true">A pool of storage combining multiple physical volumes</li>
+                    <li class="quiz-option" data-correct="false">A physical storage device initialized for LVM</li>
+                    <li class="quiz-option" data-correct="false">A fixed-size block that makes up physical volumes</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">3. What command would you use to check the UUID of a device?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">lsblk</li>
+                    <li class="quiz-option" data-correct="false">fdisk -l</li>
+                    <li class="quiz-option" data-correct="true">blkid</li>
+                    <li class="quiz-option" data-correct="false">uuid -d</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">4. Which command is used to resize an ext4 filesystem after expanding its partition or logical volume?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="true">resize2fs</li>
+                    <li class="quiz-option" data-correct="false">fsresize</li>
+                    <li class="quiz-option" data-correct="false">ext4resize</li>
+                    <li class="quiz-option" data-correct="false">lvresize</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">5. Which partition table type supports disks larger than 2TB and up to 128 partitions?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">MBR (Master Boot Record)</li>
+                    <li class="quiz-option" data-correct="true">GPT (GUID Partition Table)</li>
+                    <li class="quiz-option" data-correct="false">APT (Advanced Partition Table)</li>
+                    <li class="quiz-option" data-correct="false">EBR (Extended Boot Record)</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">6. Which mount option prevents the execution of binaries on a filesystem?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">norun</li>
+                    <li class="quiz-option" data-correct="false">nosuid</li>
+                    <li class="quiz-option" data-correct="true">noexec</li>
+                    <li class="quiz-option" data-correct="false">nodev</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">7. Which of the following is NOT a component of the LVM system?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">Physical Volume (PV)</li>
+                    <li class="quiz-option" data-correct="false">Volume Group (VG)</li>
+                    <li class="quiz-option" data-correct="false">Logical Volume (LV)</li>
+                    <li class="quiz-option" data-correct="true">Partition Group (PG)</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">8. In the /etc/fstab file, what does the sixth field (fsck order) value of 0 mean?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="true">The filesystem will not be checked at boot time</li>
+                    <li class="quiz-option" data-correct="false">The filesystem will be checked first at boot time</li>
+                    <li class="quiz-option" data-correct="false">The filesystem will be checked in parallel with others</li>
+                    <li class="quiz-option" data-correct="false">The filesystem will be checked last at boot time</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Resources Section -->
+    <h3 class="video-resources-title">Video Resources 📺</h3>
+    
+    <div class="direct-video-links">
+        <div class="video-card">
+            <a href="hhttps://youtu.be/HbgzrKJvDRw?si=lK3ardvTLuD3b16J" target="_blank" class="video-link-direct">
+                <i class="fab fa-youtube"></i>
+                <span class="video-link-text">Linux File System/Structure Explained</span>
+            </a>
+        </div>
+    </div>
+</section> 

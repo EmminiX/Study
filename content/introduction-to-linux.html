@@ -1,0 +1,1508 @@
+<!-- Introduction to Linux Content Section -->
+<section id="introduction-to-linux">
+    <h2>Introduction to Linux</h2>
+    
+    <!-- Topic 1: What is Linux? -->
+    <div class="topic">
+        <div class="topic-header">
+            <h3>What is Linux?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Linux is a free and open-source operating system kernel first created by Linus Torvalds in 1991. It has since grown into a family of operating systems that power everything from smartphones to supercomputers.</p>
+            
+            <h4>Origin and History</h4>
+            <p>Linux began as a personal project by Finnish student Linus Torvalds, who wanted to create a free operating system kernel similar to UNIX. He announced his project in a Usenet posting on August 25, 1991, and released the first version (0.01) in September 1991.</p>
+            <p>The name "Linux" is a combination of "Linus" and "UNIX". Its development was inspired by MINIX, a UNIX-like system created for educational purposes.</p>
+            <p>Linux was released under the GNU General Public License (GPL), which allowed anyone to modify and distribute it, provided that they also release their modifications under the same license. This open development model led to rapid growth and improvement of the system.</p>
+            
+            <h4>Linux vs. Other Operating Systems</h4>
+            <p>Unlike proprietary operating systems like Windows or macOS, Linux is:</p>
+            <ul>
+                <li><strong>Open Source:</strong> The source code is freely available to view, modify, and distribute.</li>
+                <li><strong>Free:</strong> Most Linux distributions can be downloaded and used without payment.</li>
+                <li><strong>Customizable:</strong> Users have control over virtually every aspect of the system.</li>
+                <li><strong>Secure:</strong> The open development model means security issues are quickly identified and fixed.</li>
+                <li><strong>Stable:</strong> Linux systems can run for years without needing to be restarted.</li>
+                <li><strong>Resource-Efficient:</strong> Linux can run on older or less powerful hardware.</li>
+            </ul>
+            
+            <h4>The Linux Kernel and Distributions</h4>
+            <p>The Linux kernel is the core component of the operating system, handling hardware resources and providing essential services. However, a complete Linux system includes many other components:</p>
+            <ul>
+                <li><strong>System Libraries:</strong> Provide programming interfaces to kernel functions.</li>
+                <li><strong>System Tools:</strong> Basic utilities for file and system management.</li>
+                <li><strong>Development Tools:</strong> Compilers, debuggers, and other programming tools.</li>
+                <li><strong>Graphical User Interfaces:</strong> Desktop environments like GNOME, KDE, or Xfce.</li>
+                <li><strong>Applications:</strong> Web browsers, office suites, media players, etc.</li>
+            </ul>
+            <p>A Linux distribution (or "distro") is a complete Linux system package that includes the kernel, system tools, applications, and an installer. Different distributions are tailored for different purposes and user preferences.</p>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="what-is-linux-info" onclick="openModal('what-is-linux-info'); return false;">Learn more: What is Linux?</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal for What is Linux information -->
+    <div id="what-is-linux-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('what-is-linux-info')">&times;</span>
+            <h3>What is Linux?</h3>
+            <p>Linux is an open-source, Unix-like operating system kernel created by Linus Torvalds in 1991. It forms the foundation of a family of operating systems known as Linux distributions or "distros." Today, Linux powers a vast array of devices from servers to smartphones.</p>
+            
+            <h4>Key Features of Linux</h4>
+            <ul>
+                <li><strong>Open Source:</strong> The source code is freely available, allowing anyone to view, modify, and distribute it.</li>
+                <li><strong>Multi-user:</strong> Multiple users can access the system simultaneously, each with their own permissions and environment.</li>
+                <li><strong>Multi-tasking:</strong> Linux can run multiple processes concurrently with efficient resource management.</li>
+                <li><strong>Security:</strong> Features robust security mechanisms including permissions, SELinux, AppArmor, and frequent security updates.</li>
+                <li><strong>Portability:</strong> Runs on virtually any hardware architecture, from embedded devices to supercomputers.</li>
+                <li><strong>Stability:</strong> Known for exceptional stability, with servers often running for years without rebooting.</li>
+            </ul>
+            
+            <h4>The Linux Ecosystem</h4>
+            <p>Linux is more than just a kernel—it's an ecosystem of software and communities, including:</p>
+            <ul>
+                <li><strong>Kernel:</strong> The core that manages hardware resources and provides essential services.</li>
+                <li><strong>GNU Tools:</strong> Essential utilities for file management, text processing, and system administration.</li>
+                <li><strong>Desktop Environments:</strong> User interfaces like GNOME, KDE, and Xfce provide graphical workspaces.</li>
+                <li><strong>Package Managers:</strong> Tools like APT, DNF, and Pacman that handle software installation and updates.</li>
+                <li><strong>Development Tools:</strong> Compilers, interpreters, and IDEs for software development.</li>
+                <li><strong>Communities:</strong> Forums, mailing lists, and documentation projects that support users and drive development.</li>
+            </ul>
+            
+            <h4>Linux in the Modern World</h4>
+            <p>Linux has become foundational to modern computing infrastructure:</p>
+            <ul>
+                <li>Powers approximately 96% of the world's top web servers</li>
+                <li>Forms the basis of Android, the world's most popular mobile operating system</li>
+                <li>Runs on most supercomputers and cloud computing platforms</li>
+                <li>Serves as the foundation for IoT devices, smart appliances, and embedded systems</li>
+                <li>Provides a robust platform for scientific research, financial systems, and mission-critical applications</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Topic 2: Linux Distributions -->
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Linux Distributions</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Linux distributions are complete packages of the Linux kernel, system tools, applications, and installation systems. Each distribution has its own philosophy, target audience, and set of features.</p>
+            
+            <h4>Major Distribution Families</h4>
+            <div class="responsive-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Family</th>
+                            <th>Package Format</th>
+                            <th>Notable Members</th>
+                            <th>Characteristics</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Debian</td>
+                            <td>.deb</td>
+                            <td>Debian, Ubuntu, Linux Mint, Pop!_OS</td>
+                            <td>Stability, large software repositories, community-driven</td>
+                        </tr>
+                        <tr>
+                            <td>Red Hat</td>
+                            <td>.rpm</td>
+                            <td>RHEL, Fedora, CentOS, Rocky Linux</td>
+                            <td>Enterprise focus, security, long-term support</td>
+                        </tr>
+                        <tr>
+                            <td>Arch</td>
+                            <td>.pkg.tar.zst</td>
+                            <td>Arch Linux, Manjaro, EndeavourOS</td>
+                            <td>Rolling release, minimalist approach, user control</td>
+                        </tr>
+                        <tr>
+                            <td>SUSE</td>
+                            <td>.rpm</td>
+                            <td>SUSE Linux Enterprise, openSUSE</td>
+                            <td>Enterprise-ready, YaST configuration tool</td>
+                        </tr>
+                        <tr>
+                            <td>Slackware</td>
+                            <td>.tgz, .txz</td>
+                            <td>Slackware, Slax</td>
+                            <td>Simplicity, stability, UNIX-like design</td>
+                        </tr>
+                        <tr>
+                            <td>Gentoo</td>
+                            <td>Source-based</td>
+                            <td>Gentoo, Calculate Linux</td>
+                            <td>Source-based, high customization, Portage package system</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h4>Popular Distributions Overview</h4>
+            <ul>
+                <li><strong>Ubuntu:</strong> User-friendly, good for beginners, strong community support, based on Debian.</li>
+                <li><strong>Fedora:</strong> Leading-edge technology, serves as a testing ground for RHEL, focuses on free software.</li>
+                <li><strong>Debian:</strong> Highly stable, massive software repository, strong commitment to free software principles.</li>
+                <li><strong>CentOS/Rocky Linux:</strong> Free alternatives to RHEL, focused on stability and long-term support for enterprise environments.</li>
+                <li><strong>Arch Linux:</strong> Minimalist, rolling release model, extensive documentation, requires technical knowledge.</li>
+                <li><strong>Linux Mint:</strong> User-friendly, based on Ubuntu, includes proprietary software for better user experience.</li>
+                <li><strong>openSUSE:</strong> Easy-to-use YaST administration tool, both stable release (Leap) and rolling release (Tumbleweed) versions.</li>
+            </ul>
+            
+            <h4>Choosing the Right Distribution</h4>
+            <p>When selecting a Linux distribution, consider these factors:</p>
+            <ul>
+                <li><strong>Experience Level:</strong> Beginners might prefer Ubuntu or Linux Mint, while advanced users might choose Arch or Gentoo.</li>
+                <li><strong>Hardware Resources:</strong> Older hardware might benefit from lightweight distributions like Lubuntu or Xubuntu.</li>
+                <li><strong>Purpose:</strong> Server deployments often use RHEL, CentOS, or Ubuntu Server for stability and support.</li>
+                <li><strong>Update Philosophy:</strong> Choose between stable point releases (Debian, Ubuntu) or rolling releases (Arch, Manjaro).</li>
+                <li><strong>Software Availability:</strong> Consider which package format and repositories best suit your software needs.</li>
+                <li><strong>Support:</strong> Consider whether you need commercial support or community forums are sufficient.</li>
+            </ul>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="linux-distributions-info" onclick="openModal('linux-distributions-info'); return false;">Learn more: Linux Distributions</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal for Linux Distributions information -->
+    <div id="linux-distributions-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('linux-distributions-info')">&times;</span>
+            <h3>Linux Distributions</h3>
+            <p>A Linux distribution (often called a "distro") is an operating system built on the Linux kernel that includes a collection of software packages, a package management system, and an installer. Each distribution makes different choices about which components to include and how to configure them, resulting in unique characteristics that suit different use cases and user preferences.</p>
+            
+            <h4>Distribution Components</h4>
+            <ul>
+                <li><strong>Linux Kernel:</strong> The core of the operating system that interfaces with hardware and manages system resources.</li>
+                <li><strong>System Libraries:</strong> Low-level software components that applications use to access system functions.</li>
+                <li><strong>Package Management System:</strong> Software for installing, updating, and removing applications (e.g., APT, DNF, Pacman).</li>
+                <li><strong>System Initialization:</strong> The boot process implementation (e.g., systemd, SysVinit).</li>
+                <li><strong>Desktop Environment:</strong> The graphical user interface (e.g., GNOME, KDE, Xfce).</li>
+                <li><strong>Applications:</strong> Web browsers, office suites, media players, development tools, etc.</li>
+            </ul>
+            
+            <h4>Types of Distributions</h4>
+            <p>Linux distributions can be categorized by their:</p>
+            <ul>
+                <li><strong>Target Audience:</strong> General-purpose, specialized for servers, desktop users, security professionals, etc.</li>
+                <li><strong>Release Cycle:</strong>
+                    <ul>
+                        <li>Fixed-release: Regular version updates with support periods (e.g., Ubuntu LTS with 5-year support)</li>
+                        <li>Rolling-release: Continuous updates without major version changes (e.g., Arch Linux)</li>
+                    </ul>
+                </li>
+                <li><strong>Origin:</strong> Independent distributions or derivatives/flavors of existing ones</li>
+                <li><strong>Philosophy:</strong> Some prioritize free software only, while others include proprietary components for convenience</li>
+            </ul>
+            
+            <h4>Distribution Selection Considerations</h4>
+            <p>When choosing a Linux distribution, consider:</p>
+            <ul>
+                <li><strong>Stability vs. Cutting-edge Software:</strong> More stable distributions typically use older, well-tested software versions.</li>
+                <li><strong>Hardware Compatibility:</strong> Some distributions have better support for specific hardware configurations.</li>
+                <li><strong>Community Support:</strong> Larger communities often mean better documentation and more help resources.</li>
+                <li><strong>Enterprise Support:</strong> Some distributions offer commercial support options for business environments.</li>
+                <li><strong>Specific Features:</strong> Security hardening, multimedia support, development tools, etc.</li>
+                <li><strong>Customization Requirements:</strong> Some distributions are more customizable than others.</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Topic 3: Linux File System Structure -->
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Linux File System Structure</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>The Linux file system follows a hierarchical structure that organizes files and directories in a tree-like pattern. Unlike Windows, which uses separate drive letters (C:, D:, etc.), Linux unifies all storage devices into a single hierarchical directory structure.</p>
+            
+            <h4>The Filesystem Hierarchy Standard (FHS)</h4>
+            <p>The Filesystem Hierarchy Standard (FHS) defines the structure and contents of directories in Linux operating systems. This standard ensures consistency across distributions, helping users and software know where to find specific files.</p>
+            
+            <h4>Important Directories</h4>
+            <div class="responsive-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Directory</th>
+                            <th>Purpose</th>
+                            <th>Contents</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>/</code></td>
+                            <td>Root Directory</td>
+                            <td>The top-level directory of the entire file system hierarchy</td>
+                        </tr>
+                        <tr>
+                            <td><code>/bin</code></td>
+                            <td>Essential User Binaries</td>
+                            <td>Basic commands like <code>ls</code>, <code>cp</code>, <code>mv</code> that need to be available even if only the root partition is mounted</td>
+                        </tr>
+                        <tr>
+                            <td><code>/boot</code></td>
+                            <td>Boot Files</td>
+                            <td>Kernel images, bootloader files (GRUB), initial RAM disk</td>
+                        </tr>
+                        <tr>
+                            <td><code>/dev</code></td>
+                            <td>Device Files</td>
+                            <td>Special files representing hardware devices and other system resources</td>
+                        </tr>
+                        <tr>
+                            <td><code>/etc</code></td>
+                            <td>System Configuration</td>
+                            <td>Host-specific system-wide configuration files</td>
+                        </tr>
+                        <tr>
+                            <td><code>/home</code></td>
+                            <td>User Home Directories</td>
+                            <td>Contains a subdirectory for each user (<code>/home/username</code>) to store personal files and settings</td>
+                        </tr>
+                        <tr>
+                            <td><code>/lib</code></td>
+                            <td>Essential Shared Libraries</td>
+                            <td>Libraries needed by programs in <code>/bin</code> and <code>/sbin</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>/media</code></td>
+                            <td>Removable Media</td>
+                            <td>Mount points for removable media like USB drives</td>
+                        </tr>
+                        <tr>
+                            <td><code>/mnt</code></td>
+                            <td>Temporary Mount Points</td>
+                            <td>Used for temporarily mounting file systems</td>
+                        </tr>
+                        <tr>
+                            <td><code>/opt</code></td>
+                            <td>Optional Software</td>
+                            <td>Add-on application software packages</td>
+                        </tr>
+                        <tr>
+                            <td><code>/proc</code></td>
+                            <td>Process Information</td>
+                            <td>Virtual filesystem providing process and kernel information</td>
+                        </tr>
+                        <tr>
+                            <td><code>/root</code></td>
+                            <td>Root User Home</td>
+                            <td>Home directory for the root user</td>
+                        </tr>
+                        <tr>
+                            <td><code>/sbin</code></td>
+                            <td>System Binaries</td>
+                            <td>Essential system administration commands</td>
+                        </tr>
+                        <tr>
+                            <td><code>/srv</code></td>
+                            <td>Service Data</td>
+                            <td>Data for services provided by the system</td>
+                        </tr>
+                        <tr>
+                            <td><code>/sys</code></td>
+                            <td>System Information</td>
+                            <td>Virtual filesystem for modern Linux kernel features</td>
+                        </tr>
+                        <tr>
+                            <td><code>/tmp</code></td>
+                            <td>Temporary Files</td>
+                            <td>Temporary files created by system and users</td>
+                        </tr>
+                        <tr>
+                            <td><code>/usr</code></td>
+                            <td>User Programs</td>
+                            <td>Secondary hierarchy for read-only user data; contains the majority of user utilities and applications</td>
+                        </tr>
+                        <tr>
+                            <td><code>/var</code></td>
+                            <td>Variable Files</td>
+                            <td>Files whose content is expected to change during normal operation (logs, spool files, temporary e-mail files)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h4>File Types and Permissions Basics</h4>
+            <p>Linux distinguishes between several types of files:</p>
+            <ul>
+                <li><strong>Regular Files:</strong> Ordinary files like text, images, or programs.</li>
+                <li><strong>Directories:</strong> Special files that contain lists of other files.</li>
+                <li><strong>Symbolic Links:</strong> References to other files (similar to shortcuts in Windows).</li>
+                <li><strong>Special Files:</strong> Device files, named pipes, and sockets used for input/output operations.</li>
+            </ul>
+            
+            <p>File permissions in Linux are managed through a simple but powerful system:</p>
+            <pre><code>drwxr-xr-x 2 user group 4096 Jan 1 12:00 example_directory
+-rw-r--r-- 1 user group  123 Jan 1 12:00 example_file.txt</code></pre>
+            
+            <p>The permissions are represented by 10 characters:</p>
+            <ul>
+                <li>1st character: File type (d for directory, - for regular file, l for symbolic link, etc.)</li>
+                <li>2nd-4th characters: Owner permissions (r=read, w=write, x=execute, - = no permission)</li>
+                <li>5th-7th characters: Group permissions</li>
+                <li>8th-10th characters: Others permissions</li>
+            </ul>
+            
+            <p>Permissions can also be represented numerically:</p>
+            <ul>
+                <li>4 = read (r)</li>
+                <li>2 = write (w)</li>
+                <li>1 = execute (x)</li>
+            </ul>
+            
+            <p>Adding these values gives permission combinations. For example, 7 (4+2+1) means full permissions (rwx), and 5 (4+1) means read and execute (r-x).</p>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="linux-filesystem-info" onclick="openModal('linux-filesystem-info'); return false;">Learn more: Linux File System Structure</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal for Linux File System Structure information -->
+    <div id="linux-filesystem-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('linux-filesystem-info')">&times;</span>
+            <h3>Linux File System Structure</h3>
+            
+            <p>The Linux file system follows a hierarchical tree structure that unifies all storage devices into a single organized framework. This structure is standardized by the Filesystem Hierarchy Standard (FHS), ensuring consistency across different Linux distributions.</p>
+            
+            <h4>Key Principles of the Linux File System</h4>
+            <ul>
+                <li><strong>Everything is a File:</strong> In Linux, devices, directories, sockets, and even processes are represented as files.</li>
+                <li><strong>Unified Directory Tree:</strong> All storage devices are mounted into a single tree, unlike Windows which uses drive letters.</li>
+                <li><strong>Case Sensitivity:</strong> File and directory names are case-sensitive ("File1" and "file1" are different files).</li>
+                <li><strong>No File Extensions:</strong> Linux doesn't require file extensions to determine file types, though they're often used for clarity.</li>
+                <li><strong>Hidden Files:</strong> Files with names beginning with a dot (.) are hidden from normal directory listings.</li>
+            </ul>
+            
+            <h4>File Types in Linux</h4>
+            <p>Linux supports several file types, each serving different purposes:</p>
+            <ul>
+                <li><strong>Regular Files (-)</strong>: Contain data, text, programs, or images.</li>
+                <li><strong>Directories (d)</strong>: Special files that contain lists of other files and directories.</li>
+                <li><strong>Symbolic Links (l)</strong>: Pointers to other files or directories, similar to shortcuts.</li>
+                <li><strong>Block Special Files (b)</strong>: Interface for block devices like hard drives.</li>
+                <li><strong>Character Special Files (c)</strong>: Interface for character devices like terminals.</li>
+                <li><strong>Named Pipes (p)</strong>: Allow communication between processes.</li>
+                <li><strong>Sockets (s)</strong>: Enable inter-process communication.</li>
+            </ul>
+            
+            <h4>File System Organization Benefits</h4>
+            <p>The structured organization of the Linux file system provides several advantages:</p>
+            <ul>
+                <li><strong>Security:</strong> Separation of system files from user files enhances security.</li>
+                <li><strong>Multiuser Support:</strong> Facilitates multiple users sharing a system safely.</li>
+                <li><strong>Logical Organization:</strong> Files are organized by function and purpose.</li>
+                <li><strong>Consistent Access:</strong> Applications can find required files in standard locations.</li>
+                <li><strong>Efficient Management:</strong> System administrators can easily locate and manage system resources.</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Topic 4: Basic Linux Commands -->
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Basic Linux Commands</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>The command line is a powerful interface in Linux. Mastering basic commands is essential for effective Linux usage and administration.</p>
+            
+            <h4>Navigation and File Operations</h4>
+            <div class="collapsible-commands">
+                <button class="collapsible-btn">Show Navigation Commands</button>
+                <div class="collapsible-content">
+                    <ul>
+                        <li><code>pwd</code> - Print Working Directory (shows current location)</li>
+                        <li><code>ls</code> - List directory contents
+                            <ul>
+                                <li><code>ls -l</code> - Detailed listing</li>
+                                <li><code>ls -a</code> - Show hidden files</li>
+                                <li><code>ls -la</code> - Detailed listing including hidden files</li>
+                            </ul>
+                        </li>
+                        <li><code>cd [directory]</code> - Change Directory
+                            <ul>
+                                <li><code>cd</code> or <code>cd ~</code> - Go to home directory</li>
+                                <li><code>cd ..</code> - Go up one directory</li>
+                                <li><code>cd -</code> - Go to previous directory</li>
+                            </ul>
+                        </li>
+                        <li><code>mkdir [name]</code> - Create a directory</li>
+                        <li><code>rmdir [name]</code> - Remove an empty directory</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="collapsible-commands">
+                <button class="collapsible-btn">Show File Operations</button>
+                <div class="collapsible-content">
+                    <ul>
+                        <li><code>touch [file]</code> - Create an empty file or update timestamp</li>
+                        <li><code>cp [source] [destination]</code> - Copy files or directories
+                            <ul>
+                                <li><code>cp -r</code> - Copy directories recursively</li>
+                            </ul>
+                        </li>
+                        <li><code>mv [source] [destination]</code> - Move or rename files or directories</li>
+                        <li><code>rm [file]</code> - Remove files
+                            <ul>
+                                <li><code>rm -r</code> - Remove directories recursively</li>
+                                <li><code>rm -f</code> - Force removal without confirmation</li>
+                            </ul>
+                        </li>
+                        <li><code>ln -s [target] [link_name]</code> - Create symbolic links</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h4>Text Manipulation Commands</h4>
+            <div class="collapsible-commands">
+                <button class="collapsible-btn">Show Text Commands</button>
+                <div class="collapsible-content">
+                    <ul>
+                        <li><code>cat [file]</code> - Display file contents</li>
+                        <li><code>less [file]</code> - View file contents with pagination</li>
+                        <li><code>head [file]</code> - Display first 10 lines of a file
+                            <ul>
+                                <li><code>head -n 20 [file]</code> - Display first 20 lines</li>
+                            </ul>
+                        </li>
+                        <li><code>tail [file]</code> - Display last 10 lines of a file
+                            <ul>
+                                <li><code>tail -n 20 [file]</code> - Display last 20 lines</li>
+                                <li><code>tail -f [file]</code> - Follow file updates in real-time</li>
+                            </ul>
+                        </li>
+                        <li><code>grep [pattern] [file]</code> - Search for patterns in files
+                            <ul>
+                                <li><code>grep -i</code> - Case-insensitive search</li>
+                                <li><code>grep -r</code> - Recursive search</li>
+                            </ul>
+                        </li>
+                        <li><code>sed</code> - Stream editor for text manipulation</li>
+                        <li><code>awk</code> - Pattern scanning and processing language</li>
+                        <li><code>sort [file]</code> - Sort lines in a file</li>
+                        <li><code>uniq [file]</code> - Report or filter out repeated lines</li>
+                        <li><code>wc [file]</code> - Count lines, words, and characters</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <h4>System Information Commands</h4>
+            <div class="collapsible-commands">
+                <button class="collapsible-btn">Show System Commands</button>
+                <div class="collapsible-content">
+                    <ul>
+                        <li><code>uname -a</code> - Show system information</li>
+                        <li><code>hostname</code> - Display computer name</li>
+                        <li><code>whoami</code> - Show current username</li>
+                        <li><code>id</code> - Show user and group IDs</li>
+                        <li><code>ps</code> - Display current processes
+                            <ul>
+                                <li><code>ps aux</code> - Show all processes with details</li>
+                            </ul>
+                        </li>
+                        <li><code>top</code> - Dynamic real-time view of processes</li>
+                        <li><code>htop</code> - Interactive process viewer (may need installation)</li>
+                        <li><code>df -h</code> - Show disk space usage in human-readable format</li>
+                        <li><code>du -sh [directory]</code> - Show directory size in human-readable format</li>
+                        <li><code>free -h</code> - Display memory usage</li>
+                        <li><code>lscpu</code> - Display CPU information</li>
+                        <li><code>lsusb</code> - List USB devices</li>
+                        <li><code>lspci</code> - List PCI devices</li>
+                        <li><code>ifconfig</code> or <code>ip addr</code> - Show network interfaces</li>
+                        <li><code>netstat</code> or <code>ss</code> - Display network connections</li>
+                    </ul>
+                </div>
+            </div>
+
+            <p>Learning these fundamental commands provides a solid foundation for working with Linux systems. The real power comes from combining commands using pipes (<code>|</code>) and redirections (<code>></code>, <code>>></code>, <code><</code>).</p>
+            
+            <div class="command-example">
+                <p>Example of command combination:</p>
+                <pre><code>grep "error" /var/log/syslog | tail -n 20 > recent_errors.txt</code></pre>
+                <p>This command finds all lines containing "error" in the system log, takes the last 20 entries, and saves them to a file called recent_errors.txt.</p>
+            </div>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="linux-commands-info" onclick="openModal('linux-commands-info'); return false;">Learn more: Basic Linux Commands</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal for Basic Linux Commands information -->
+    <div id="linux-commands-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('linux-commands-info')">&times;</span>
+            <h3>Basic Linux Commands</h3>
+            
+            <p>The command line interface (CLI) is a powerful way to interact with Linux systems. Understanding basic commands is essential for effective Linux use and administration.</p>
+            
+            <h4>Command Structure and Syntax</h4>
+            <p>Most Linux commands follow this general structure:</p>
+            <pre><code>command [options] [arguments]</code></pre>
+            <ul>
+                <li><strong>command</strong>: The name of the program to run</li>
+                <li><strong>options</strong>: Flags that modify the command's behavior (usually prefixed with - or --)</li>
+                <li><strong>arguments</strong>: Files, directories, or other items the command should operate on</li>
+            </ul>
+            
+            <h4>Command Help and Documentation</h4>
+            <p>When learning or using commands, these resources are invaluable:</p>
+            <ul>
+                <li><strong>--help option</strong>: Most commands support a --help flag that displays brief usage information</li>
+                <li><strong>man pages</strong>: Comprehensive manual pages accessed using the man command</li>
+                <li><strong>info pages</strong>: More detailed documentation for GNU tools via the info command</li>
+                <li><strong>tldr pages</strong>: Community-driven simplified documentation with practical examples</li>
+            </ul>
+            
+            <h4>Command Categories</h4>
+            <p>Understanding these command categories helps organize your learning:</p>
+            <ul>
+                <li><strong>File Operations</strong>: Commands for creating, moving, copying, and manipulating files</li>
+                <li><strong>Text Processing</strong>: Tools for viewing, editing, and transforming text data</li>
+                <li><strong>System Information</strong>: Commands that display information about the system</li>
+                <li><strong>Process Management</strong>: Tools for viewing and controlling running processes</li>
+                <li><strong>Network Operations</strong>: Commands for networking, connectivity, and remote access</li>
+                <li><strong>Package Management</strong>: Tools for installing, updating, and removing software</li>
+            </ul>
+            
+            <h4>Command Customization</h4>
+            <p>Linux commands can be customized and enhanced in several ways:</p>
+            <ul>
+                <li><strong>Aliases</strong>: Create shortcuts for frequently used commands</li>
+                <li><strong>Functions</strong>: Define more complex command sequences in your shell configuration</li>
+                <li><strong>Environment Variables</strong>: Configure system-wide settings that affect command behavior</li>
+                <li><strong>Tab Completion</strong>: Use the Tab key to autocomplete commands and arguments</li>
+                <li><strong>History</strong>: Access and reuse previously entered commands</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Topic 5: Linux Package Management -->
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Linux Package Management</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Package management is a method of installing, updating, and removing software on Linux systems. Different distributions use different package management systems, but they all serve the same basic purpose.</p>
+            
+            <h4>Understanding Package Managers</h4>
+            <p>A package management system typically consists of:</p>
+            <ul>
+                <li><strong>Package Format:</strong> The file format used to bundle software (.deb, .rpm, etc.)</li>
+                <li><strong>Package Database:</strong> A database that tracks installed packages, versions, and dependencies</li>
+                <li><strong>Package Repository:</strong> A collection of packages available for installation</li>
+                <li><strong>Package Manager Tools:</strong> Command-line or graphical tools for managing packages</li>
+            </ul>
+            
+            <p>Benefits of package management include:</p>
+            <ul>
+                <li>Easy installation and removal of software</li>
+                <li>Automatic dependency resolution</li>
+                <li>System-wide updates with a single command</li>
+                <li>Security through digital signature verification</li>
+            </ul>
+            
+            <h4>APT, YUM/DNF, and Pacman Basics</h4>
+            
+            <div class="responsive-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Package Manager</th>
+                            <th>Distributions</th>
+                            <th>Package Format</th>
+                            <th>Common Commands</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>APT<br>(Advanced Package Tool)</td>
+                            <td>Debian, Ubuntu, Linux Mint</td>
+                            <td>.deb</td>
+                            <td>
+                                <code>apt update</code> - Update package lists<br>
+                                <code>apt install [package]</code> - Install package<br>
+                                <code>apt remove [package]</code> - Remove package<br>
+                                <code>apt upgrade</code> - Upgrade all packages<br>
+                                <code>apt search [keyword]</code> - Search for packages
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>YUM/DNF<br>(Yellowdog Updater, Modified / Dandified YUM)</td>
+                            <td>RHEL, CentOS, Fedora</td>
+                            <td>.rpm</td>
+                            <td>
+                                <code>dnf check-update</code> - Check for updates<br>
+                                <code>dnf install [package]</code> - Install package<br>
+                                <code>dnf remove [package]</code> - Remove package<br>
+                                <code>dnf upgrade</code> - Upgrade all packages<br>
+                                <code>dnf search [keyword]</code> - Search for packages
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>Pacman</td>
+                            <td>Arch Linux, Manjaro</td>
+                            <td>.pkg.tar.zst</td>
+                            <td>
+                                <code>pacman -Sy</code> - Sync package databases<br>
+                                <code>pacman -S [package]</code> - Install package<br>
+                                <code>pacman -R [package]</code> - Remove package<br>
+                                <code>pacman -Syu</code> - Update system<br>
+                                <code>pacman -Ss [keyword]</code> - Search for packages
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h4>Installing, Updating, and Removing Software</h4>
+            <p>Here are some common package management tasks for different distributions:</p>
+            
+            <div class="collapsible-commands">
+                <button class="collapsible-btn">Debian/Ubuntu Examples (APT)</button>
+                <div class="collapsible-content">
+                    <pre><code># Update package lists
+apt update
+
+# Install a package
+apt install firefox
+
+# Install multiple packages
+apt install gimp inkscape
+
+# Remove a package
+apt remove firefox
+
+# Remove a package and its configuration files
+apt purge firefox
+
+# Remove unused dependencies
+apt autoremove
+
+# Update all packages
+apt upgrade
+
+# Update the entire distribution
+apt full-upgrade
+
+# Search for packages
+apt search text-editor
+
+# Show information about a package
+apt show firefox
+
+# List installed packages
+apt list --installed</code></pre>
+                </div>
+            </div>
+            
+            <div class="collapsible-commands">
+                <button class="collapsible-btn">RHEL/CentOS/Fedora Examples (DNF)</button>
+                <div class="collapsible-content">
+                    <pre><code># Check for updates
+dnf check-update
+
+# Install a package
+dnf install firefox
+
+# Install multiple packages
+dnf install gimp inkscape
+
+# Remove a package
+dnf remove firefox
+
+# Remove unused dependencies
+dnf autoremove
+
+# Update all packages
+dnf upgrade
+
+# Search for packages
+dnf search text-editor
+
+# Show information about a package
+dnf info firefox
+
+# List installed packages
+dnf list installed</code></pre>
+                </div>
+            </div>
+            
+            <div class="collapsible-commands">
+                <button class="collapsible-btn">Arch Linux Examples (Pacman)</button>
+                <div class="collapsible-content">
+                    <pre><code># Sync package databases
+pacman -Sy
+
+# Install a package
+pacman -S firefox
+
+# Install multiple packages
+pacman -S gimp inkscape
+
+# Remove a package
+pacman -R firefox
+
+# Remove a package and its dependencies not needed by other packages
+pacman -Rs firefox
+
+# Update all packages
+pacman -Syu
+
+# Search for packages
+pacman -Ss text-editor
+
+# Show information about a package
+pacman -Si firefox
+
+# List installed packages
+pacman -Q</code></pre>
+                </div>
+            </div>
+            
+            <h4>Package Management Tips</h4>
+            <ul>
+                <li>Always update package lists before installing new software</li>
+                <li>Read the output of package manager commands carefully, as they often contain important information</li>
+                <li>Be cautious when removing packages, as this can sometimes remove dependencies needed by other software</li>
+                <li>Use a package manager to install software whenever possible, rather than compiling from source or using standalone installers</li>
+                <li>Consider configuring automatic security updates for production systems</li>
+            </ul>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="package-management-info" onclick="openModal('package-management-info'); return false;">Learn more: Linux Package Management</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal for Linux Package Management information -->
+    <div id="package-management-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('package-management-info')">&times;</span>
+            <h3>Linux Package Management</h3>
+            
+            <p>Package management systems are one of Linux's most powerful features, allowing users to easily install, update, and remove software while automatically handling dependencies.</p>
+            
+            <h4>Package Management Concepts</h4>
+            <ul>
+                <li><strong>Packages</strong>: Self-contained bundles of software with metadata</li>
+                <li><strong>Dependencies</strong>: Other packages required for a package to function</li>
+                <li><strong>Repositories</strong>: Centralized collections of packages maintained by distributions</li>
+                <li><strong>Package Managers</strong>: Tools that handle package operations</li>
+                <li><strong>Package Cache</strong>: Local storage of downloaded packages</li>
+                <li><strong>Package Database</strong>: Records of installed packages and their files</li>
+            </ul>
+            
+            <h4>Common Package Operations</h4>
+            <p>Regardless of the specific package manager, these operations are standard:</p>
+            <ul>
+                <li><strong>Update Repository Data</strong>: Refresh local information about available packages</li>
+                <li><strong>Search</strong>: Find packages by name or description</li>
+                <li><strong>Install</strong>: Download and install packages and their dependencies</li>
+                <li><strong>Remove</strong>: Uninstall packages (optionally removing dependencies)</li>
+                <li><strong>Upgrade</strong>: Update installed packages to newer versions</li>
+                <li><strong>List</strong>: Show installed or available packages</li>
+                <li><strong>Show</strong>: Display information about specific packages</li>
+                <li><strong>Verify</strong>: Check installed files against package database</li>
+            </ul>
+            
+            <h4>Advanced Package Management</h4>
+            <p>Beyond basic operations, package management systems offer advanced features:</p>
+            <ul>
+                <li><strong>Package Pinning</strong>: Lock packages to specific versions</li>
+                <li><strong>Holds</strong>: Prevent packages from being automatically upgraded</li>
+                <li><strong>Configuration Management</strong>: Handle package configuration during updates</li>
+                <li><strong>Rollbacks</strong>: Revert to previous package versions</li>
+                <li><strong>Repository Management</strong>: Add, enable, or disable package sources</li>
+                <li><strong>Dependency Resolution</strong>: Automatically handle complex dependency relationships</li>
+            </ul>
+            
+            <h4>Package Management Best Practices</h4>
+            <ul>
+                <li>Always update repository data before installing packages</li>
+                <li>Review package actions before confirming them, especially removals</li>
+                <li>Use official repositories when possible for security</li>
+                <li>Keep systems regularly updated to patch security vulnerabilities</li>
+                <li>Create system snapshots before major package operations</li>
+                <li>Be cautious with third-party repositories and manually downloaded packages</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Topic 6: Shell Environment Basics -->
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Shell Environment Basics</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>The shell is the command interpreter that provides an interface between the user and the Linux operating system. Understanding the shell environment is essential for effective Linux usage.</p>
+            
+            <h4>What is a Shell?</h4>
+            <p>A shell is a program that takes commands from the keyboard and gives them to the operating system to perform. It's the primary way users interact with a Linux system through the command line. In addition to executing commands, shells provide features such as:</p>
+            <ul>
+                <li>Command history and recall</li>
+                <li>Command-line editing</li>
+                <li>Filename completion</li>
+                <li>Wildcard substitution (globbing)</li>
+                <li>Command aliasing</li>
+                <li>Variables and environment control</li>
+                <li>Scripting capabilities for automation</li>
+                <li>Input/output redirection</li>
+                <li>Command pipelining</li>
+            </ul>
+            
+            <h4>Common Shells</h4>
+            <div class="responsive-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Shell</th>
+                            <th>Full Name</th>
+                            <th>Default Prompt</th>
+                            <th>Features and Characteristics</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>bash</td>
+                            <td>Bourne Again SHell</td>
+                            <td><code>username@hostname:~$</code></td>
+                            <td>
+                                <ul>
+                                    <li>Default shell on most Linux distributions</li>
+                                    <li>Compatible with the original Bourne shell (sh)</li>
+                                    <li>Extensive scripting capabilities</li>
+                                    <li>Command history with up/down arrow keys</li>
+                                    <li>Tab completion for commands and filenames</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>zsh</td>
+                            <td>Z SHell</td>
+                            <td><code>username@hostname %</code></td>
+                            <td>
+                                <ul>
+                                    <li>Extended bash features with more customization</li>
+                                    <li>Improved tab completion and spelling correction</li>
+                                    <li>Themeable prompts (especially with Oh My Zsh)</li>
+                                    <li>Right-side prompts and more globbing options</li>
+                                    <li>Default shell in macOS since Catalina</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>fish</td>
+                            <td>Friendly Interactive SHell</td>
+                            <td><code>username@hostname ~></code></td>
+                            <td>
+                                <ul>
+                                    <li>User-friendly with minimal configuration</li>
+                                    <li>Syntax highlighting as you type</li>
+                                    <li>Autosuggestions based on command history</li>
+                                    <li>Web-based configuration interface</li>
+                                    <li>Not fully POSIX-compliant (may have compatibility issues)</li>
+                                </ul>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>dash</td>
+                            <td>Debian Almquist SHell</td>
+                            <td><code>$</code></td>
+                            <td>
+                                <ul>
+                                    <li>Lightweight, minimal shell</li>
+                                    <li>Fast execution for script running</li>
+                                    <li>Used as /bin/sh in many distributions</li>
+                                    <li>POSIX-compliant but with fewer features</li>
+                                    <li>Not designed for interactive use</li>
+                                </ul>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <h4>Environment Variables and Configuration</h4>
+            <p>Environment variables are name-value pairs that affect how processes behave. They can be set at various levels:</p>
+            
+            <ul>
+                <li><strong>System-wide:</strong> Variables set for all users, typically in <code>/etc/environment</code> or <code>/etc/profile</code></li>
+                <li><strong>User-specific:</strong> Variables set for individual users in shell configuration files like <code>~/.bashrc</code> or <code>~/.zshrc</code></li>
+                <li><strong>Session:</strong> Variables set for the current shell session only</li>
+            </ul>
+            
+            <p>Important environment variables include:</p>
+            
+            <div class="responsive-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Variable</th>
+                            <th>Purpose</th>
+                            <th>Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><code>PATH</code></td>
+                            <td>List of directories where the shell looks for commands</td>
+                            <td><code>/usr/local/bin:/usr/bin:/bin</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>HOME</code></td>
+                            <td>Path to the user's home directory</td>
+                            <td><code>/home/username</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>USER</code></td>
+                            <td>Current username</td>
+                            <td><code>username</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>SHELL</code></td>
+                            <td>Path to the current shell</td>
+                            <td><code>/bin/bash</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>LANG</code></td>
+                            <td>System language and locale settings</td>
+                            <td><code>en_US.UTF-8</code></td>
+                        </tr>
+                        <tr>
+                            <td><code>PS1</code></td>
+                            <td>Primary command prompt format</td>
+                            <td><code>\u@\h:\w\$</code></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            
+            <p>Working with environment variables:</p>
+            
+            <pre><code># View all environment variables
+env
+
+# View a specific environment variable
+echo $HOME
+
+# Set an environment variable for current session
+export MY_VARIABLE="some value"
+
+# Remove an environment variable
+unset MY_VARIABLE
+
+# Add directory to PATH (temporarily)
+export PATH=$PATH:/path/to/directory</code></pre>
+            
+            <h4>Shell Configuration Files</h4>
+            <p>Shell behavior is configured through several files that are read in a specific order:</p>
+            
+            <p>For Bash:</p>
+            <ul>
+                <li><code>/etc/profile</code> - System-wide settings loaded at login</li>
+                <li><code>/etc/bash.bashrc</code> - System-wide settings for interactive bash shells</li>
+                <li><code>~/.bash_profile</code> - User settings loaded at login</li>
+                <li><code>~/.bashrc</code> - User settings loaded for interactive non-login shells</li>
+                <li><code>~/.bash_logout</code> - Commands executed when logging out</li>
+            </ul>
+            
+            <p>For Zsh:</p>
+            <ul>
+                <li><code>/etc/zshenv</code> - System-wide environment</li>
+                <li><code>~/.zshenv</code> - User environment variables</li>
+                <li><code>/etc/zprofile</code> - System-wide for login shells</li>
+                <li><code>~/.zprofile</code> - User settings for login shells</li>
+                <li><code>/etc/zshrc</code> - System-wide for interactive shells</li>
+                <li><code>~/.zshrc</code> - User settings for interactive shells</li>
+            </ul>
+            
+            <p>Common customizations in shell configuration files include:</p>
+            <ul>
+                <li>Setting environment variables</li>
+                <li>Defining aliases for frequently used commands</li>
+                <li>Customizing the command prompt</li>
+                <li>Setting shell options</li>
+                <li>Adding directories to the PATH</li>
+                <li>Loading additional scripts or completions</li>
+            </ul>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="shell-environment-info" onclick="openModal('shell-environment-info'); return false;">Learn more: Shell Environment Basics</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal for Shell Environment Basics information -->
+    <div id="shell-environment-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('shell-environment-info')">&times;</span>
+            <h3>Shell Environment Basics</h3>
+            
+            <p>The shell environment in Linux is the interface through which users interact with the operating system. Understanding shell basics is fundamental to effective Linux use.</p>
+            
+            <h4>What is a Shell?</h4>
+            <p>A shell is a command interpreter that:</p>
+            <ul>
+                <li>Takes commands from the user and passes them to the operating system for execution</li>
+                <li>Provides programming facilities to automate tasks</li>
+                <li>Manages environment variables that affect program behavior</li>
+                <li>Offers interactive features like command history and completion</li>
+                <li>Controls how programs are launched and how they interact</li>
+            </ul>
+            
+            <h4>Shell Configuration Files</h4>
+            <p>Shell behavior is configured through several files that are read in a specific order:</p>
+            <ul>
+                <li><strong>System-wide files</strong>: Applied to all users (e.g., /etc/profile, /etc/bash.bashrc)</li>
+                <li><strong>User-specific files</strong>: Applied only to the current user (e.g., ~/.bashrc, ~/.profile)</li>
+                <li><strong>Login shell files</strong>: Read when logging in (e.g., ~/.bash_profile)</li>
+                <li><strong>Interactive shell files</strong>: Read when starting an interactive shell (e.g., ~/.bashrc)</li>
+                <li><strong>Non-interactive shell files</strong>: Read when running shell scripts</li>
+            </ul>
+            
+            <h4>Shell Capabilities</h4>
+            <p>Modern shells provide many powerful features:</p>
+            <ul>
+                <li><strong>Command History</strong>: Access and reuse previously entered commands</li>
+                <li><strong>Tab Completion</strong>: Automatically complete commands, filenames, and options</li>
+                <li><strong>Job Control</strong>: Manage multiple running processes</li>
+                <li><strong>Redirections</strong>: Control where command input comes from and where output goes</li>
+                <li><strong>Pipes</strong>: Connect the output of one command to the input of another</li>
+                <li><strong>Aliases</strong>: Create shortcuts for frequently used commands</li>
+                <li><strong>Functions</strong>: Define reusable command sequences</li>
+                <li><strong>Scripting</strong>: Write programs to automate tasks</li>
+            </ul>
+            
+            <h4>Customizing Your Shell Environment</h4>
+            <p>Make your shell work better for you by customizing:</p>
+            <ul>
+                <li><strong>Prompt</strong>: Change what information is displayed in your command prompt</li>
+                <li><strong>Aliases</strong>: Create shortcuts for frequently used commands</li>
+                <li><strong>Environment Variables</strong>: Configure settings that affect how programs run</li>
+                <li><strong>Shell Options</strong>: Change how the shell itself behaves</li>
+                <li><strong>Key Bindings</strong>: Modify keyboard shortcuts for shell operations</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Topic 7: Linux Boot Process -->
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Linux Boot Process</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>The Linux boot process is a sequence of steps that occur from when a computer is powered on until the operating system is fully loaded and ready for user interaction.</p>
+            
+            <h4>Boot Sequence Overview</h4>
+            <ol>
+                <li><strong>Power-On Self-Test (POST)</strong>: Hardware initialization and testing</li>
+                <li><strong>Boot Loader Stage</strong>: GRUB or another bootloader loads the kernel</li>
+                <li><strong>Kernel Initialization</strong>: Kernel loads into memory and initializes</li>
+                <li><strong>Early Userspace</strong>: Initial RAM disk (initrd/initramfs) provides essential drivers</li>
+                <li><strong>Init System</strong>: systemd, SysVinit, or another init system starts system services</li>
+                <li><strong>User Environment</strong>: Login manager starts, enabling user access</li>
+            </ol>
+            
+            <h4>Boot Loader Details</h4>
+            <p>The boot loader is critical software that:</p>
+            <ul>
+                <li>Resides in the Master Boot Record (MBR) or EFI System Partition</li>
+                <li>Provides a menu to select operating systems or kernel options</li>
+                <li>Loads the selected kernel and optional initial RAM disk into memory</li>
+                <li>Passes kernel parameters to control boot behavior</li>
+                <li>Can be configured to change timeout, default OS, and appearance</li>
+            </ul>
+            
+            <h4>Kernel Initialization Process</h4>
+            <p>When the kernel starts, it performs these operations:</p>
+            <ul>
+                <li>Decompresses itself into memory</li>
+                <li>Initializes and checks hardware components</li>
+                <li>Mounts the root filesystem, often with help from the initrd/initramfs</li>
+                <li>Starts the first userspace process (init or systemd)</li>
+                <li>Hands over control to the init system</li>
+            </ul>
+            
+            <h4>Init Systems Comparison</h4>
+            <p>Various init systems manage the userspace startup:</p>
+            <ul>
+                <li><strong>systemd</strong>: Modern, parallel service management with dependencies</li>
+                <li><strong>SysVinit</strong>: Traditional sequential runlevel-based system</li>
+                <li><strong>Upstart</strong>: Event-based init system (mostly obsolete now)</li>
+                <li><strong>OpenRC</strong>: Dependency-based init system used in Gentoo and Alpine</li>
+                <li><strong>runit</strong>: Simple, reliable alternative focused on simplicity</li>
+            </ul>
+            
+            <h4>Troubleshooting Boot Problems</h4>
+            <p>Common approaches to diagnose boot issues:</p>
+            <ul>
+                <li>Using kernel parameters like "single" or "emergency" for recovery mode</li>
+                <li>Examining system logs with journalctl or in /var/log</li>
+                <li>Using rescue environments from installation media</li>
+                <li>Checking boot loader configuration for errors</li>
+                <li>Verifying hardware functionality through POST codes or messages</li>
+            </ul>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="boot-process-info" onclick="openModal('boot-process-info'); return false;">Learn more: Linux Boot Process</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal for Linux Boot Process information -->
+    <div id="boot-process-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('boot-process-info')">&times;</span>
+            <h3>Linux Boot Process</h3>
+            
+            <p>The Linux boot process is a sequence of steps that occur from when a computer is powered on until the operating system is fully loaded and ready for user interaction.</p>
+            
+            <h4>Boot Sequence Overview</h4>
+            <ol>
+                <li><strong>Power-On Self-Test (POST)</strong>: Hardware initialization and testing</li>
+                <li><strong>Boot Loader Stage</strong>: GRUB or another bootloader loads the kernel</li>
+                <li><strong>Kernel Initialization</strong>: Kernel loads into memory and initializes</li>
+                <li><strong>Early Userspace</strong>: Initial RAM disk (initrd/initramfs) provides essential drivers</li>
+                <li><strong>Init System</strong>: systemd, SysVinit, or another init system starts system services</li>
+                <li><strong>User Environment</strong>: Login manager starts, enabling user access</li>
+            </ol>
+            
+            <h4>Boot Loader Details</h4>
+            <p>The boot loader is critical software that:</p>
+            <ul>
+                <li>Resides in the Master Boot Record (MBR) or EFI System Partition</li>
+                <li>Provides a menu to select operating systems or kernel options</li>
+                <li>Loads the selected kernel and optional initial RAM disk into memory</li>
+                <li>Passes kernel parameters to control boot behavior</li>
+                <li>Can be configured to change timeout, default OS, and appearance</li>
+            </ul>
+            
+            <h4>Kernel Initialization Process</h4>
+            <p>When the kernel starts, it performs these operations:</p>
+            <ul>
+                <li>Decompresses itself into memory</li>
+                <li>Initializes and checks hardware components</li>
+                <li>Mounts the root filesystem, often with help from the initrd/initramfs</li>
+                <li>Starts the first userspace process (init or systemd)</li>
+                <li>Hands over control to the init system</li>
+            </ul>
+            
+            <h4>Init Systems Comparison</h4>
+            <p>Various init systems manage the userspace startup:</p>
+            <ul>
+                <li><strong>systemd</strong>: Modern, parallel service management with dependencies</li>
+                <li><strong>SysVinit</strong>: Traditional sequential runlevel-based system</li>
+                <li><strong>Upstart</strong>: Event-based init system (mostly obsolete now)</li>
+                <li><strong>OpenRC</strong>: Dependency-based init system used in Gentoo and Alpine</li>
+                <li><strong>runit</strong>: Simple, reliable alternative focused on simplicity</li>
+            </ul>
+            
+            <h4>Troubleshooting Boot Problems</h4>
+            <p>Common approaches to diagnose boot issues:</p>
+            <ul>
+                <li>Using kernel parameters like "single" or "emergency" for recovery mode</li>
+                <li>Examining system logs with journalctl or in /var/log</li>
+                <li>Using rescue environments from installation media</li>
+                <li>Checking boot loader configuration for errors</li>
+                <li>Verifying hardware functionality through POST codes or messages</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Topic 8: Getting Help in Linux -->
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Getting Help in Linux</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>One of Linux's greatest strengths is its comprehensive built-in documentation and the supportive community that surrounds it. Knowing how to find help is an essential skill for all Linux users.</p>
+            
+            <h4>Built-in Documentation</h4>
+            <p>Linux provides multiple layers of built-in documentation:</p>
+            <ul>
+                <li><strong>Command Help Options</strong>: Most commands support --help or -h flags that display basic usage</li>
+                <li><strong>Man Pages</strong>: Comprehensive manual pages organized into sections covering commands, configuration files, and programming interfaces</li>
+                <li><strong>Info Pages</strong>: GNU's hypertext documentation system with more detailed information than man pages</li>
+                <li><strong>Help Commands</strong>: Built-in help functions in shells and interactive programs</li>
+                <li><strong>Documentation Directories</strong>: Additional documentation in /usr/share/doc</li>
+            </ul>
+            
+            <h4>Online Resources</h4>
+            <p>When built-in documentation isn't enough, numerous online resources exist:</p>
+            <ul>
+                <li><strong>Distribution Wikis</strong>: Arch Wiki, Ubuntu Wiki, and other distribution-specific documentation</li>
+                <li><strong>Forums</strong>: Ask Ubuntu, Unix & Linux Stack Exchange, and distribution-specific forums</li>
+                <li><strong>Documentation Projects</strong>: The Linux Documentation Project, Linux Journey, and other tutorial sites</li>
+                <li><strong>Linux Manual Pages Online</strong>: Searchable databases of man pages</li>
+                <li><strong>GitHub Repositories</strong>: Documentation and examples for specific software</li>
+            </ul>
+            
+            <h4>Troubleshooting Approaches</h4>
+            <p>When facing problems, follow these systematic approaches:</p>
+            <ul>
+                <li><strong>Identify Symptoms</strong>: Clearly define what isn't working as expected</li>
+                <li><strong>Check Logs</strong>: Review system logs in /var/log or using journalctl</li>
+                <li><strong>Search for Error Messages</strong>: Copy exact error text into search engines</li>
+                <li><strong>Check Configuration</strong>: Verify settings in relevant configuration files</li>
+                <li><strong>Test with Minimal Configuration</strong>: Isolate problems by simplifying your setup</li>
+                <li><strong>Ask Smart Questions</strong>: When seeking community help, provide relevant details, what you've tried, and specific questions</li>
+            </ul>
+            
+            <h4>Effective Asking for Help</h4>
+            <p>When community assistance is needed, follow these guidelines:</p>
+            <ul>
+                <li><strong>Research First</strong>: Check documentation and search for similar issues before asking</li>
+                <li><strong>Be Specific</strong>: Clearly state what you're trying to do, what happened, and what you expected</li>
+                <li><strong>Provide Context</strong>: Include your Linux distribution, version, relevant hardware info, and commands you've tried</li>
+                <li><strong>Use Proper Formatting</strong>: When posting code, commands, or output, use code formatting</li>
+                <li><strong>Be Patient</strong>: Give volunteers time to respond and be grateful for assistance</li>
+                <li><strong>Share Solutions</strong>: When you solve a problem, share the solution to help others</li>
+            </ul>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="linux-help-info" onclick="openModal('linux-help-info'); return false;">Learn more: Getting Help in Linux</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal for Getting Help in Linux information -->
+    <div id="linux-help-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('linux-help-info')">&times;</span>
+            <h3>Getting Help in Linux</h3>
+            
+            <p>One of Linux's greatest strengths is its comprehensive built-in documentation and the supportive community that surrounds it. Knowing how to find help is an essential skill for all Linux users.</p>
+            
+            <h4>Built-in Documentation</h4>
+            <p>Linux provides multiple layers of built-in documentation:</p>
+            <ul>
+                <li><strong>Command Help Options</strong>: Most commands support --help or -h flags that display basic usage</li>
+                <li><strong>Man Pages</strong>: Comprehensive manual pages organized into sections covering commands, configuration files, and programming interfaces</li>
+                <li><strong>Info Pages</strong>: GNU's hypertext documentation system with more detailed information than man pages</li>
+                <li><strong>Help Commands</strong>: Built-in help functions in shells and interactive programs</li>
+                <li><strong>Documentation Directories</strong>: Additional documentation in /usr/share/doc</li>
+            </ul>
+            
+            <h4>Online Resources</h4>
+            <p>When built-in documentation isn't enough, numerous online resources exist:</p>
+            <ul>
+                <li><strong>Distribution Wikis</strong>: Arch Wiki, Ubuntu Wiki, and other distribution-specific documentation</li>
+                <li><strong>Forums</strong>: Ask Ubuntu, Unix & Linux Stack Exchange, and distribution-specific forums</li>
+                <li><strong>Documentation Projects</strong>: The Linux Documentation Project, Linux Journey, and other tutorial sites</li>
+                <li><strong>Linux Manual Pages Online</strong>: Searchable databases of man pages</li>
+                <li><strong>GitHub Repositories</strong>: Documentation and examples for specific software</li>
+            </ul>
+            
+            <h4>Troubleshooting Approaches</h4>
+            <p>When facing problems, follow these systematic approaches:</p>
+            <ul>
+                <li><strong>Identify Symptoms</strong>: Clearly define what isn't working as expected</li>
+                <li><strong>Check Logs</strong>: Review system logs in /var/log or using journalctl</li>
+                <li><strong>Search for Error Messages</strong>: Copy exact error text into search engines</li>
+                <li><strong>Check Configuration</strong>: Verify settings in relevant configuration files</li>
+                <li><strong>Test with Minimal Configuration</strong>: Isolate problems by simplifying your setup</li>
+                <li><strong>Ask Smart Questions</strong>: When seeking community help, provide relevant details, what you've tried, and specific questions</li>
+            </ul>
+            
+            <h4>Effective Asking for Help</h4>
+            <p>When community assistance is needed, follow these guidelines:</p>
+            <ul>
+                <li><strong>Research First</strong>: Check documentation and search for similar issues before asking</li>
+                <li><strong>Be Specific</strong>: Clearly state what you're trying to do, what happened, and what you expected</li>
+                <li><strong>Provide Context</strong>: Include your Linux distribution, version, relevant hardware info, and commands you've tried</li>
+                <li><strong>Use Proper Formatting</strong>: When posting code, commands, or output, use code formatting</li>
+                <li><strong>Be Patient</strong>: Give volunteers time to respond and be grateful for assistance</li>
+                <li><strong>Share Solutions</strong>: When you solve a problem, share the solution to help others</li>
+            </ul>
+        </div>
+    </div>
+    
+    <!-- Linux Fundamentals Quiz -->
+    <div class="topic quiz-topic">
+        <div class="topic-header quiz-header">
+            <h3>Linux Fundamentals Quiz 📝</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <h4>Test Your Linux Fundamentals Knowledge</h4>
+            <p>Answer the following questions to check your understanding of Linux fundamental concepts.</p>
+            
+            <!-- Question 1 -->
+            <div class="quiz-container">
+                <h4 class="quiz-question">1. Which of the following is NOT a Linux distribution?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">Ubuntu</li>
+                    <li class="quiz-option" data-correct="false">Fedora</li>
+                    <li class="quiz-option" data-correct="true">MacOS</li>
+                    <li class="quiz-option" data-correct="false">Debian</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+            
+            <!-- Question 2 -->
+            <div class="quiz-container">
+                <h4 class="quiz-question">2. Who created the Linux kernel?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">Richard Stallman</li>
+                    <li class="quiz-option" data-correct="true">Linus Torvalds</li>
+                    <li class="quiz-option" data-correct="false">Dennis Ritchie</li>
+                    <li class="quiz-option" data-correct="false">Ken Thompson</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+            
+            <!-- Question 3 -->
+            <div class="quiz-container">
+                <h4 class="quiz-question">3. Which directory typically contains system configuration files in Linux?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">/bin</li>
+                    <li class="quiz-option" data-correct="false">/home</li>
+                    <li class="quiz-option" data-correct="true">/etc</li>
+                    <li class="quiz-option" data-correct="false">/var</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+            
+            <!-- Question 4 -->
+            <div class="quiz-container">
+                <h4 class="quiz-question">4. Which command is used to display the current working directory?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">dir</li>
+                    <li class="quiz-option" data-correct="true">pwd</li>
+                    <li class="quiz-option" data-correct="false">cd</li>
+                    <li class="quiz-option" data-correct="false">ls</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+            
+            <!-- Question 5 -->
+            <div class="quiz-container">
+                <h4 class="quiz-question">5. Which command is used to install packages on Ubuntu/Debian-based distributions?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">yum install</li>
+                    <li class="quiz-option" data-correct="true">apt install</li>
+                    <li class="quiz-option" data-correct="false">pacman -S</li>
+                    <li class="quiz-option" data-correct="false">rpm -i</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+            
+            <!-- Question 6 -->
+            <div class="quiz-container">
+                <h4 class="quiz-question">6. What is the default shell in most Linux distributions?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="true">Bash</li>
+                    <li class="quiz-option" data-correct="false">Zsh</li>
+                    <li class="quiz-option" data-correct="false">Fish</li>
+                    <li class="quiz-option" data-correct="false">Ksh</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+            
+            <!-- Question 7 -->
+            <div class="quiz-container">
+                <h4 class="quiz-question">7. Which permission setting gives read, write, and execute permissions to the owner, and read and execute to group and others?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">777</li>
+                    <li class="quiz-option" data-correct="false">644</li>
+                    <li class="quiz-option" data-correct="true">755</li>
+                    <li class="quiz-option" data-correct="false">700</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+            
+            <!-- Question 8 -->
+            <div class="quiz-container">
+                <h4 class="quiz-question">8. Which init system is used by most modern Linux distributions?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">SysVinit</li>
+                    <li class="quiz-option" data-correct="false">Upstart</li>
+                    <li class="quiz-option" data-correct="true">systemd</li>
+                    <li class="quiz-option" data-correct="false">initd</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+            
+            <!-- Question 9 -->
+            <div class="quiz-container">
+                <h4 class="quiz-question">9. What command would you use to view the manual page for the ls command?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">info ls</li>
+                    <li class="quiz-option" data-correct="false">help ls</li>
+                    <li class="quiz-option" data-correct="true">man ls</li>
+                    <li class="quiz-option" data-correct="false">view ls</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+            
+            <!-- Question 10 -->
+            <div class="quiz-container">
+                <h4 class="quiz-question">10. Which of the following is NOT a valid Linux file system type?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">ext4</li>
+                    <li class="quiz-option" data-correct="false">XFS</li>
+                    <li class="quiz-option" data-correct="false">Btrfs</li>
+                    <li class="quiz-option" data-correct="true">NTFS+</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Resources Section -->
+    <h3 class="video-resources-title">Video Resources 📺</h3>
+    
+    <div class="direct-video-links">
+        <div class="video-card">
+            <a href="https://youtu.be/ROjZy1WbCIA" target="_blank" class="video-link-direct">
+                <i class="fab fa-youtube"></i>
+                <span class="video-link-text">Linux Operating System - Crash Course for Beginners</span>
+            </a>
+        </div>
+        
+        <div class="video-card">
+            <a href="https://youtu.be/sWbUDq4S6Y8" target="_blank" class="video-link-direct">
+                <i class="fab fa-youtube"></i>
+                <span class="video-link-text">The 50 Most Popular Linux & Terminal Commands</span>
+            </a>
+        </div>
+        
+        <div class="video-card">
+            <a href="https://youtu.be/bz0ZCUv5rYo" target="_blank" class="video-link-direct">
+                <i class="fab fa-youtube"></i>
+                <span class="video-link-text">Understanding Linux Boot Process</span>
+            </a>
+        </div>
+    </div>
+</section> 
+</div> 

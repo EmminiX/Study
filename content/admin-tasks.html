@@ -1,0 +1,1798 @@
+<section id="admin-tasks">
+    <h2>Perform Admin Tasks</h2>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>CentOS 7 Overview</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>CentOS 7 is a popular enterprise-grade Linux distribution derived from Red Hat Enterprise Linux (RHEL) sources. It's widely used for servers due to its stability and long-term support.</p>
+            
+            <h4>Key Features of CentOS 7:</h4>
+            <ul>
+                <li><strong>systemd</strong> for service management (replacing SysV init)</li>
+                <li>Configuration files primarily in <code>/etc</code> directory</li>
+                <li>Package management with <code>yum</code> (and later <code>dnf</code>)</li>
+                <li>Long-term support (through 2024)</li>
+                <li>XFS as the default filesystem</li>
+                <li>Backward compatibility with RHEL</li>
+            </ul>
+            
+            <h4>Basic CentOS 7 Administration:</h4>
+            <pre><code># Update the system
+sudo yum update
+
+# Install a package
+sudo yum install package_name
+
+# Check system information
+uname -a
+cat /etc/centos-release
+
+# View system logs
+journalctl
+
+# Check system status
+systemctl status</code></pre>
+            
+            <p>CentOS 7 provides a stable platform for various server deployments, from web and database servers to virtualization hosts and enterprise applications.</p>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="centos7-guide" onclick="openModal('centos7-guide'); return false;">Learn more: CentOS 7 Administrator's Guide</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for CentOS 7 Administrator's Guide -->
+    <div id="centos7-guide" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('centos7-guide')">&times;</span>
+            <h3>CentOS 7 Administrator's Guide</h3>
+            
+            <p>CentOS 7 is a community-supported enterprise-class Linux distribution derived from sources freely provided to the public by Red Hat for Red Hat Enterprise Linux (RHEL). This comprehensive guide covers essential administrative tasks, system configuration, and best practices for managing CentOS 7 systems.</p>
+            
+            <h4>System Architecture</h4>
+            
+            <h5>Key Components</h5>
+            <ul>
+                <li><strong>Kernel:</strong> Linux kernel 3.10.x (with backported features and security updates)</li>
+                <li><strong>Init System:</strong> systemd (replacing legacy SysV init)</li>
+                <li><strong>Default Filesystem:</strong> XFS (replacing ext4 as the default)</li>
+                <li><strong>Package Management:</strong> yum/rpm (with optional dnf)</li>
+                <li><strong>Display Server:</strong> X.org with GNOME 3 (Classic Mode)</li>
+            </ul>
+            
+            <h4>System Administration Basics</h4>
+            
+            <h5>User Management</h5>
+            <pre><code># Add a new user
+useradd username
+
+# Set or change password
+passwd username
+
+# Add user to groups
+usermod -a -G wheel,developers username
+
+# View user information
+id username
+
+# Delete user
+userdel -r username  # -r removes home directory as well</code></pre>
+            
+            <h5>Service Management with systemd</h5>
+            <pre><code># Start a service
+systemctl start service_name
+
+# Enable service to start at boot
+systemctl enable service_name
+
+# Check service status
+systemctl status service_name
+
+# Stop a service
+systemctl stop service_name
+
+# Restart a service
+systemctl restart service_name
+
+# Reload service configuration
+systemctl reload service_name</code></pre>
+            
+            <h5>Boot Management</h5>
+            <pre><code># View boot entries
+grep ^menuentry /boot/grub2/grub.cfg
+
+# Set default boot entry
+grub2-set-default 0
+
+# View system boot logs
+journalctl -b
+
+# View kernel boot parameters
+cat /proc/cmdline</code></pre>
+            
+            <h4>Package Management</h4>
+            
+            <h5>Basic YUM Commands</h5>
+            <pre><code># Update package lists
+yum check-update
+
+# Update all packages
+yum update
+
+# Install a package
+yum install package_name
+
+# Remove a package
+yum remove package_name
+
+# Search for a package
+yum search keyword
+
+# Get information about a package
+yum info package_name
+
+# List installed packages
+yum list installed
+
+# List available package groups
+yum grouplist
+
+# Install a package group
+yum groupinstall "Group Name"</code></pre>
+            
+            <h5>Repository Management</h5>
+            <pre><code># List configured repositories
+yum repolist
+
+# Add a repository (create a .repo file)
+nano /etc/yum.repos.d/example.repo
+
+# Content of example.repo:
+[example]
+name=Example Repository
+baseurl=http://example.com/repo
+enabled=1
+gpgcheck=1
+gpgkey=http://example.com/keys/RPM-GPG-KEY</code></pre>
+            
+            <h4>Network Configuration</h4>
+            
+            <h5>Network Interface Management</h5>
+            <pre><code># View network interfaces
+ip addr show
+
+# View routing table
+ip route show
+
+# Configure interface with NetworkManager
+nmcli con show
+nmcli con add con-name "My Connection" ifname eth0 type ethernet
+nmcli con mod "My Connection" ipv4.method manual ipv4.addresses "192.168.1.100/24"
+nmcli con mod "My Connection" ipv4.gateway "192.168.1.1" ipv4.dns "8.8.8.8"
+nmcli con up "My Connection"</code></pre>
+            
+            <h5>Network Configuration Files</h5>
+            <p>Interface configuration files are stored in <code>/etc/sysconfig/network-scripts/</code> with filenames like <code>ifcfg-eth0</code>:</p>
+            <pre><code>DEVICE=eth0
+TYPE=Ethernet
+BOOTPROTO=static
+IPADDR=192.168.1.100
+NETMASK=255.255.255.0
+GATEWAY=192.168.1.1
+DNS1=8.8.8.8
+DNS2=8.8.4.4
+ONBOOT=yes</code></pre>
+            
+            <h4>Storage Management</h4>
+            
+            <h5>Disk Partitioning</h5>
+            <pre><code># List disk partitions
+fdisk -l
+
+# Create new partition table
+fdisk /dev/sdb
+
+# Create LVM physical volume
+pvcreate /dev/sdb1
+
+# Create volume group
+vgcreate vg_data /dev/sdb1
+
+# Create logical volume
+lvcreate -n lv_data -L 10G vg_data
+
+# Format filesystem
+mkfs.xfs /dev/vg_data/lv_data
+
+# Mount filesystem
+mount /dev/vg_data/lv_data /mnt/data</code></pre>
+            
+            <h5>Persistent Mounts (fstab)</h5>
+            <p>Edit <code>/etc/fstab</code> to add persistent mounts:</p>
+            <pre><code># Device                      Mount Point     Filesystem  Options     Dump  Pass
+/dev/vg_data/lv_data          /mnt/data        xfs         defaults    0     0
+UUID=1234-5678-90ab-cdef      /mnt/backup      ext4        defaults    0     2</code></pre>
+            
+            <h4>Security Configuration</h4>
+            
+            <h5>Firewall Management (firewalld)</h5>
+            <pre><code># Check firewall status
+firewall-cmd --state
+
+# List active zones
+firewall-cmd --get-active-zones
+
+# List allowed services in a zone
+firewall-cmd --zone=public --list-services
+
+# Allow a service
+firewall-cmd --zone=public --add-service=http --permanent
+
+# Allow a port
+firewall-cmd --zone=public --add-port=8080/tcp --permanent
+
+# Reload firewall rules
+firewall-cmd --reload</code></pre>
+            
+            <h5>SELinux Management</h5>
+            <pre><code># Check SELinux status
+getenforce
+
+# Set SELinux mode
+setenforce 1  # Enforcing
+setenforce 0  # Permissive
+
+# Configure SELinux permanently in /etc/selinux/config
+# SELINUX=enforcing|permissive|disabled
+
+# View SELinux contexts
+ls -Z /var/www/html/
+
+# Change file context
+chcon -t httpd_sys_content_t /custom/directory/
+
+# Make context changes persistent
+semanage fcontext -a -t httpd_sys_content_t "/custom/directory(/.*)?"
+restorecon -Rv /custom/directory/</code></pre>
+            
+            <h4>System Monitoring</h4>
+            
+            <h5>Process Management</h5>
+            <pre><code># View running processes
+ps aux
+
+# View process tree
+pstree
+
+# View real-time process information
+top
+
+# Kill a process
+kill PID
+killall process_name</code></pre>
+            
+            <h5>Resource Monitoring</h5>
+            <pre><code># Install monitoring tools
+yum install sysstat
+
+# CPU and memory usage
+free -h
+vmstat 1 10
+mpstat -P ALL
+
+# Disk I/O
+iostat -xz 1
+
+# Network statistics
+netstat -tulpn
+ss -tulpn
+
+# Overall system monitoring
+dstat</code></pre>
+            
+            <h5>Log Management</h5>
+            <pre><code># View systemd journal
+journalctl
+
+# View journal for specific service
+journalctl -u httpd.service
+
+# View recent boot logs
+journalctl -b
+
+# View traditional logs
+tail -f /var/log/messages
+tail -f /var/log/secure
+
+# Search logs
+grep "error" /var/log/messages</code></pre>
+            
+            <h4>Backup and Recovery</h4>
+            
+            <h5>Basic Backup Commands</h5>
+            <pre><code># Create archive
+tar -czvf backup.tar.gz /path/to/files/
+
+# Extract archive
+tar -xzvf backup.tar.gz
+
+# Create incremental backup
+tar --listed-incremental=snapshot.file -czvf backup.tar.gz /path/to/files/
+
+# Rsync for remote backups
+rsync -avz --delete /local/path/ user@remote:/backup/path/</code></pre>
+            
+            <h5>System Rescue</h5>
+            <p>For system recovery:</p>
+            <ol>
+                <li>Boot from CentOS 7 installation media</li>
+                <li>Select "Troubleshooting" then "Rescue a CentOS system"</li>
+                <li>Mount the system: <code>chroot /mnt/sysimage</code></li>
+                <li>Perform necessary repairs</li>
+                <li>Exit: <code>exit</code> then reboot</li>
+            </ol>
+            
+            <h4>Best Practices</h4>
+            
+            <ol>
+                <li><strong>Regular updates</strong>: Schedule regular system updates</li>
+                <li><strong>Configuration management</strong>: Use tools like Ansible to manage configurations</li>
+                <li><strong>Change control</strong>: Document all system changes</li>
+                <li><strong>Monitoring</strong>: Implement monitoring and alerting</li>
+                <li><strong>Backup strategy</strong>: Regular backups with testing of restoration</li>
+                <li><strong>Security hardening</strong>: Follow security best practices</li>
+                <li><strong>Performance tuning</strong>: Optimize for your workload</li>
+            </ol>
+            
+            <div class="note">
+                <p><strong>Note:</strong> CentOS 7 reaches End of Life (EOL) on June 30, 2024. Consider planning migration to CentOS Stream, Rocky Linux, AlmaLinux, or other RHEL-compatible alternatives for continued support.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Printing</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Linux printing is managed by CUPS (Common Unix Printing System), which handles print jobs, printer management, and print queues.</p>
+            
+            <h4>Key Printing Commands:</h4>
+            <table>
+                <tr>
+                    <th>Command</th>
+                    <th>Purpose</th>
+                </tr>
+                <tr>
+                    <td><code>lp</code> or <code>lpr</code></td>
+                    <td>Submit print jobs</td>
+                </tr>
+                <tr>
+                    <td><code>lpstat</code> or <code>lpq</code></td>
+                    <td>View printer status and print queue</td>
+                </tr>
+                <tr>
+                    <td><code>cancel</code> or <code>lprm</code></td>
+                    <td>Cancel print jobs</td>
+                </tr>
+                <tr>
+                    <td><code>lpadmin</code></td>
+                    <td>Configure printers</td>
+                </tr>
+                <tr>
+                    <td><code>cupsaccept</code>, <code>cupsreject</code></td>
+                    <td>Control job acceptance</td>
+                </tr>
+                <tr>
+                    <td><code>cupsenable</code>, <code>cupsdisable</code></td>
+                    <td>Enable/disable printers</td>
+                </tr>
+            </table>
+            
+            <h4>Examples:</h4>
+            <pre><code># Print a file
+lp -d printername filename.pdf
+
+# Print multiple copies
+lp -d printername -n 3 filename.pdf
+
+# View print queue
+lpstat -o
+
+# Cancel a print job
+cancel job-id
+
+# View printer status
+lpstat -p</code></pre>
+            
+            <h4>CUPS Configuration:</h4>
+            <ul>
+                <li>Configuration files in <code>/etc/cups/</code></li>
+                <li>Main configuration file: <code>/etc/cups/cupsd.conf</code></li>
+                <li>Printer definitions: <code>/etc/cups/printers.conf</code></li>
+                <li>Web interface: http://localhost:631 (requires authentication)</li>
+            </ul>
+            
+            <p>To install CUPS on CentOS:</p>
+            <pre><code>sudo yum install cups cups-pdf
+sudo systemctl enable cups
+sudo systemctl start cups</code></pre>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="cups-documentation" onclick="openModal('cups-documentation'); return false;">Learn more: CUPS Documentation and User Guide</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal for CUPS Documentation -->
+    <div id="cups-documentation" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('cups-documentation')">&times;</span>
+            <h3>CUPS Documentation and User Guide</h3>
+            
+            <p>The Common UNIX Printing System (CUPS) is the standard print manager for Linux and other UNIX-like operating systems. This guide covers the fundamentals of CUPS, its configuration, and common printing tasks in Linux environments.</p>
+            
+            <h4>CUPS Architecture Overview</h4>
+            
+            <p>CUPS follows a client-server architecture that consists of:</p>
+            <ul>
+                <li><strong>Print Spooler:</strong> Manages print jobs and queues</li>
+                <li><strong>Scheduler:</strong> Routes print jobs to appropriate printer destinations</li>
+                <li><strong>Filter System:</strong> Converts data from applications into printer-readable formats</li>
+                <li><strong>Backend System:</strong> Sends processed data to physical printers</li>
+                <li><strong>Web Interface:</strong> Browser-based administration at http://localhost:631</li>
+            </ul>
+            
+            <h4>Installing and Starting CUPS</h4>
+            
+            <h5>Debian/Ubuntu:</h5>
+            <pre><code># Install CUPS
+sudo apt update
+sudo apt install cups
+
+# Start and enable CUPS service
+sudo systemctl start cups
+sudo systemctl enable cups</code></pre>
+            
+            <h5>RHEL/CentOS:</h5>
+            <pre><code># Install CUPS
+sudo yum install cups
+
+# Start and enable CUPS service
+sudo systemctl start cups
+sudo systemctl enable cups</code></pre>
+            
+            <h5>Allow remote administration (optional):</h5>
+            <pre><code># Edit the CUPS configuration
+sudo nano /etc/cups/cupsd.conf
+
+# Change "Listen localhost:631" to "Listen 0.0.0.0:631"
+# Add "Allow @LOCAL" to appropriate sections
+
+# Restart CUPS
+sudo systemctl restart cups</code></pre>
+            
+            <h4>CUPS Command-Line Tools</h4>
+            
+            <h5>Managing Print Jobs</h5>
+            <table>
+                <tr>
+                    <th>Command</th>
+                    <th>Description</th>
+                    <th>Example</th>
+                </tr>
+                <tr>
+                    <td><code>lp</code></td>
+                    <td>Submit files for printing</td>
+                    <td><code>lp -d printer file.pdf</code></td>
+                </tr>
+                <tr>
+                    <td><code>lpr</code></td>
+                    <td>Alternative command to submit print jobs</td>
+                    <td><code>lpr -P printer file.pdf</code></td>
+                </tr>
+                <tr>
+                    <td><code>lpstat</code></td>
+                    <td>Display status information</td>
+                    <td><code>lpstat -p</code> (printer status)</td>
+                </tr>
+                <tr>
+                    <td><code>lpq</code></td>
+                    <td>Show print queue</td>
+                    <td><code>lpq -P printer</code></td>
+                </tr>
+                <tr>
+                    <td><code>cancel</code></td>
+                    <td>Cancel print jobs</td>
+                    <td><code>cancel job-id</code></td>
+                </tr>
+                <tr>
+                    <td><code>lprm</code></td>
+                    <td>Alternative command to cancel print jobs</td>
+                    <td><code>lprm -P printer job-id</code></td>
+                </tr>
+            </table>
+            
+            <h5>Advanced Print Options</h5>
+            <pre><code># Print specific pages
+lp -d printer -P 1-5,9 file.pdf
+
+# Print multiple copies
+lp -d printer -n 3 file.pdf
+
+# Print double-sided
+lp -d printer -o sides=two-sided-long-edge file.pdf
+
+# Print with specific resolution
+lp -d printer -o resolution=600dpi file.pdf
+
+# Print in landscape orientation
+lp -d printer -o landscape file.pdf</code></pre>
+            
+            <h4>Printer Management</h4>
+            
+            <h5>Adding Printers</h5>
+            <p>Printers can be added through:</p>
+            <ol>
+                <li><strong>CUPS Web Interface</strong>: http://localhost:631 → Administration → Add Printer</li>
+                <li><strong>System Settings</strong>: Most desktop environments include printer configuration tools</li>
+                <li><strong>Command Line</strong>: Using lpadmin</li>
+            </ol>
+            
+            <pre><code># Add a network printer (example)
+lpadmin -p office_printer -E -v socket://192.168.1.100:9100 -m drv:///sample.drv/generic.ppd
+
+# Add a USB printer (example)
+lpadmin -p my_printer -E -v usb://HP/LaserJet%20Pro?serial=ABCDEF -m drv:///hp/hpcups.drv/hp-laserjet_pro.ppd</code></pre>
+            
+            <h5>Printer Classes</h5>
+            <p>Printer classes allow printing to pools of printers for load balancing:</p>
+            <pre><code># Create a printer class
+lpadmin -p laser_pool -c office_printer,backup_printer
+
+# Enable the class
+cupsenable laser_pool</code></pre>
+            
+            <h5>Managing Printer Options</h5>
+            <pre><code># Set printer as default
+lpadmin -d printer_name
+
+# Set printer options
+lpadmin -p printer_name -o option=value
+
+# Delete a printer
+lpadmin -x printer_name</code></pre>
+            
+            <h4>PPD Files (PostScript Printer Description)</h4>
+            
+            <p>PPD files contain printer-specific information and capabilities:</p>
+            <ul>
+                <li>Located in <code>/etc/cups/ppd/</code></li>
+                <li>Define printer features, capabilities, and driver settings</li>
+                <li>Can be customized for specific printer requirements</li>
+            </ul>
+            
+            <pre><code># View installed PPD files
+lpinfo -m
+
+# Locate a specific printer driver
+lpinfo -m | grep LaserJet</code></pre>
+            
+            <h4>CUPS Configuration Files</h4>
+            
+            <table>
+                <tr>
+                    <th>File</th>
+                    <th>Purpose</th>
+                </tr>
+                <tr>
+                    <td><code>/etc/cups/cupsd.conf</code></td>
+                    <td>Main configuration file for the CUPS scheduler</td>
+                </tr>
+                <tr>
+                    <td><code>/etc/cups/printers.conf</code></td>
+                    <td>Printer definitions (automatically maintained by CUPS)</td>
+                </tr>
+                <tr>
+                    <td><code>/etc/cups/classes.conf</code></td>
+                    <td>Printer class definitions</td>
+                </tr>
+                <tr>
+                    <td><code>/etc/cups/ppd/</code></td>
+                    <td>Directory containing PPD files for each configured printer</td>
+                </tr>
+                <tr>
+                    <td><code>/etc/cups/snmp.conf</code></td>
+                    <td>SNMP configuration for network printer discovery</td>
+                </tr>
+                <tr>
+                    <td><code>/etc/cups/client.conf</code></td>
+                    <td>Client configuration (default server settings)</td>
+                </tr>
+            </table>
+            
+            <h5>Key cupsd.conf Settings</h5>
+            <pre><code># Access control example
+<Location />
+  Order allow,deny
+  Allow @LOCAL
+</Location>
+
+# Administrative access
+<Location /admin>
+  Order allow,deny
+  Allow @LOCAL
+  AuthType Basic
+  AuthClass System
+  Require valid-user
+</Location>
+
+# Logging settings
+LogLevel warn
+AccessLogLevel actions
+
+# Network listening
+Listen localhost:631
+Listen /var/run/cups/cups.sock</code></pre>
+            
+            <h4>Print Filters and Backends</h4>
+            
+            <h5>CUPS Filters</h5>
+            <p>Filters convert job data from one format to another in the printing pipeline:</p>
+            <ul>
+                <li><strong>pstops</strong>: PostScript to PostScript filter (page management)</li>
+                <li><strong>pdftops</strong>: PDF to PostScript filter</li>
+                <li><strong>texttops</strong>: Text to PostScript filter</li>
+                <li><strong>imagetops</strong>: Image to PostScript filter</li>
+                <li><strong>rastertops</strong>: Raster to PostScript filter</li>
+            </ul>
+            
+            <h5>CUPS Backends</h5>
+            <p>Backends handle communication with printing devices:</p>
+            <pre><code># View available backends
+lpinfo -v
+
+# Common backends:
+# - usb: USB printers
+# - socket: Network printers using AppSocket/JetDirect
+# - ipp: Internet Printing Protocol printers
+# - http: HTTP-based printers
+# - lpd: Line Printer Daemon printers
+# - smb: Windows/Samba shared printers</code></pre>
+            
+            <h4>Logging and Troubleshooting</h4>
+            
+            <h5>CUPS Log Files</h5>
+            <pre><code># Main CUPS log
+/var/log/cups/error_log
+
+# Access log
+/var/log/cups/access_log
+
+# Page log
+/var/log/cups/page_log</code></pre>
+            
+            <h5>Debugging Steps</h5>
+            <ol>
+                <li>Increase log level in cupsd.conf: <code>LogLevel debug</code></li>
+                <li>Restart CUPS: <code>sudo systemctl restart cups</code></li>
+                <li>Check printer status: <code>lpstat -p</code></li>
+                <li>Test printing with verbose output: <code>lp -d printer -v file.pdf</code></li>
+                <li>Check the error log: <code>tail -f /var/log/cups/error_log</code></li>
+                <li>Verify printer connectivity (network/USB)</li>
+                <li>Test printer hardware with printer self-test</li>
+            </ol>
+            
+            <h5>Common Issues and Solutions</h5>
+            <table>
+                <tr>
+                    <th>Issue</th>
+                    <th>Possible Solution</th>
+                </tr>
+                <tr>
+                    <td>Printer not found</td>
+                    <td>
+                        - Check physical connections<br>
+                        - Verify network configuration<br>
+                        - Restart printer<br>
+                        - Check CUPS service status
+                    </td>
+                </tr>
+                <tr>
+                    <td>Permission denied</td>
+                    <td>
+                        - Check user permissions<br>
+                        - Verify CUPS access control<br>
+                        - Check file permissions in /var/spool/cups
+                    </td>
+                </tr>
+                <tr>
+                    <td>Print job stuck in queue</td>
+                    <td>
+                        - Clear queue: <code>cancel -a</code><br>
+                        - Restart CUPS: <code>sudo systemctl restart cups</code><br>
+                        - Check printer status
+                    </td>
+                </tr>
+                <tr>
+                    <td>Driver issues</td>
+                    <td>
+                        - Update or reinstall printer driver<br>
+                        - Find alternative PPD file<br>
+                        - Check manufacturer website for Linux drivers
+                    </td>
+                </tr>
+            </table>
+            
+            <h4>Printing Systems Integration</h4>
+            
+            <h5>Network Printing Protocols</h5>
+            <ul>
+                <li><strong>IPP (Internet Printing Protocol)</strong>: Modern protocol supported by CUPS</li>
+                <li><strong>LPD (Line Printer Daemon)</strong>: Legacy UNIX printing protocol</li>
+                <li><strong>SMB/CIFS</strong>: Windows printing protocol (via Samba)</li>
+                <li><strong>AppSocket/JetDirect</strong>: Direct socket communication on port 9100</li>
+                <li><strong>AirPrint</strong>: Apple's wireless printing technology (supported by CUPS)</li>
+            </ul>
+            
+            <h5>Integration with Samba (for Windows Clients)</h5>
+            <pre><code># Install Samba support
+sudo apt install samba cups-windows
+
+# Edit /etc/samba/smb.conf
+[global]
+    printing = cups
+    printcap name = cups
+    load printers = yes
+
+[printers]
+    comment = All Printers
+    browseable = no
+    path = /var/spool/samba
+    printable = yes
+    guest ok = no
+    read only = yes
+    create mask = 0700
+
+# Restart services
+sudo systemctl restart cups
+sudo systemctl restart smbd</code></pre>
+            
+            <h4>Advanced CUPS Features</h4>
+            
+            <h5>Printer Sharing</h5>
+            <pre><code># Enable printer sharing in cupsd.conf
+<Location /printers>
+  Order allow,deny
+  Allow @LOCAL
+</Location>
+
+# Share a specific printer
+lpadmin -p printer_name -o printer-is-shared=true</code></pre>
+            
+            <h5>Printer Access Control</h5>
+            <pre><code># Restrict printer to specific users
+lpadmin -p printer_name -u allow:user1,user2,@group
+
+# Deny specific users
+lpadmin -p printer_name -u deny:user3</code></pre>
+            
+            <h5>Print Accounting</h5>
+            <p>For print job tracking and accounting, consider these options:</p>
+            <ul>
+                <li><strong>CUPS page_log</strong>: Basic accounting, logs pages printed</li>
+                <li><strong>PyKota</strong>: Open-source print quota system</li>
+                <li><strong>PaperCut</strong>: Commercial print management solution</li>
+            </ul>
+            
+            <h4>PDF Printing</h4>
+            
+            <h5>Virtual PDF Printer Setup</h5>
+            <pre><code># Install CUPS-PDF
+sudo apt install cups-pdf
+
+# Default output directory
+/home/username/PDF</code></pre>
+            
+            <h5>Converting Documents to PDF</h5>
+            <pre><code># Convert text to PDF
+enscript -p - file.txt | ps2pdf - output.pdf
+
+# Convert images to PDF
+convert image.jpg output.pdf
+
+# Convert office documents with LibreOffice
+libreoffice --headless --convert-to pdf file.odt</code></pre>
+            
+            <div class="note">
+                <p><strong>Note:</strong> Modern Linux distributions come with CUPS pre-installed. Focus on proper configuration and printer-specific drivers for best results. Most printer manufacturers now provide Linux drivers or PPD files for their printers.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>NTP Time Server</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Network Time Protocol (NTP) synchronizes system clocks with internet time servers. Accurate time is critical for logs, security certificates, scheduled tasks, and distributed systems.</p>
+            
+            <h4>NTP in CentOS 7:</h4>
+            <p>CentOS 7 uses either traditional NTP daemon (ntpd) or the newer chronyd service for time synchronization.</p>
+            
+            <h4>Using NTP Daemon:</h4>
+            <pre><code># Install NTP
+sudo yum install ntp
+
+# Configure NTP servers in /etc/ntp.conf
+sudo nano /etc/ntp.conf
+
+# Start and enable NTP service
+sudo systemctl start ntpd
+sudo systemctl enable ntpd
+
+# Check NTP status
+sudo ntpq -p</code></pre>
+            
+            <p>Example NTP server configuration in <code>/etc/ntp.conf</code>:</p>
+            <pre><code># Use public NTP pool servers
+server 0.centos.pool.ntp.org iburst
+server 1.centos.pool.ntp.org iburst
+server 2.centos.pool.ntp.org iburst
+server 3.centos.pool.ntp.org iburst</code></pre>
+            
+            <h4>Using Chrony:</h4>
+            <p>Chrony is the default time synchronization service in newer versions:</p>
+            <pre><code># Install Chrony
+sudo yum install chrony
+
+# Configure in /etc/chrony.conf
+sudo nano /etc/chrony.conf
+
+# Start and enable Chrony
+sudo systemctl start chronyd
+sudo systemctl enable chronyd
+
+# Check status
+chronyc sources
+chronyc tracking</code></pre>
+            
+            <h4>Manual Time Synchronization:</h4>
+            <pre><code># Force immediate time sync with ntpd
+sudo ntpdate pool.ntp.org
+
+# Force immediate time sync with chronyd
+sudo chronyc makestep</code></pre>
+            
+            <p>Accurate system time is essential for security, logging, and proper system operation. Always configure NTP on production systems.</p>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="ntp-chrony-guide" onclick="openModal('ntp-chrony-guide'); return false;">Learn more: Configuring NTP Using the Chrony Suite</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Mail Server</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Linux systems can run mail servers for local and network email delivery. Common mail server software includes Postfix, Sendmail, and Exim.</p>
+            
+            <h4>Postfix Mail Server:</h4>
+            <p>Postfix is the most common mail server on modern Linux systems due to its security and ease of configuration:</p>
+            <pre><code># Install Postfix
+sudo yum install postfix
+
+# Configure Postfix in /etc/postfix/main.cf
+sudo nano /etc/postfix/main.cf
+
+# Start and enable Postfix
+sudo systemctl start postfix
+sudo systemctl enable postfix
+
+# Check mail queue
+mailq</code></pre>
+            
+            <h4>Basic Postfix Configuration:</h4>
+            <p>Key settings in <code>/etc/postfix/main.cf</code>:</p>
+            <pre><code># Basic configuration for a local mail server
+myhostname = server.example.com
+mydomain = example.com
+myorigin = $mydomain
+inet_interfaces = localhost
+mydestination = $myhostname, localhost.$mydomain, localhost
+mynetworks = 127.0.0.0/8
+mail_spool_directory = /var/mail/</code></pre>
+            
+            <h4>Testing Mail Delivery:</h4>
+            <pre><code># Send a test email
+echo "This is a test email" | mail -s "Test Subject" user@example.com
+
+# Check local mail
+mail</code></pre>
+            
+            <h4>Mail Aliases:</h4>
+            <p>Configure mail forwarding with aliases in <code>/etc/aliases</code>:</p>
+            <pre><code># Example aliases
+root: admin@example.com
+webmaster: web-team@example.com
+
+# Update the aliases database after changes
+sudo newaliases</code></pre>
+            
+            <p>Mail servers can be configured for simple local delivery or as full-featured mail transport agents (MTAs) for internet email.</p>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="postfix-guide" onclick="openModal('postfix-guide'); return false;">Learn more: Postfix Mail Server Configuration</a></p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal for Postfix Mail Server -->
+    <div id="postfix-guide" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('postfix-guide')">&times;</span>
+            <h3>Postfix Mail Server Configuration Guide</h3>
+            
+            <p>Postfix is a popular Mail Transfer Agent (MTA) for Linux systems, offering a secure, efficient, and flexible alternative to the traditional Sendmail MTA. This guide covers installation, configuration, and common tasks for managing a Postfix mail server.</p>
+            
+            <h4>Introduction to Postfix</h4>
+            
+            <p>Postfix was developed by Wietse Venema as a more secure and easier-to-configure alternative to Sendmail. Key features include:</p>
+            
+            <ul>
+                <li>Modular design with multiple independent processes</li>
+                <li>Defense-in-depth security architecture</li>
+                <li>Sendmail-compatible interface</li>
+                <li>Active development and security updates</li>
+                <li>Excellent performance and scalability</li>
+                <li>Comprehensive documentation</li>
+            </ul>
+            
+            <h4>Installing Postfix</h4>
+            
+            <h5>On RHEL/CentOS:</h5>
+            <pre><code># Install Postfix
+sudo yum install postfix
+
+# Install additional packages
+sudo yum install mailx cyrus-sasl-plain</code></pre>
+            
+            <h5>On Debian/Ubuntu:</h5>
+            <pre><code># Install Postfix
+sudo apt update
+sudo apt install postfix
+
+# During installation, select "Internet Site" for the configuration type</code></pre>
+            
+            <h5>Starting and Enabling Postfix:</h5>
+            <pre><code># Start Postfix
+sudo systemctl start postfix
+
+# Enable at boot
+sudo systemctl enable postfix
+
+# Check status
+sudo systemctl status postfix</code></pre>
+            
+            <h4>Postfix Configuration Files</h4>
+            
+            <p>The main configuration files for Postfix are:</p>
+            
+            <ul>
+                <li><strong>/etc/postfix/main.cf</strong>: Primary configuration file</li>
+                <li><strong>/etc/postfix/master.cf</strong>: Service configuration file</li>
+                <li><strong>/etc/aliases</strong>: Email aliases</li>
+                <li><strong>/etc/postfix/virtual</strong>: Virtual domain mappings</li>
+                <li><strong>/etc/postfix/transport</strong>: Mail routing information</li>
+                <li><strong>/var/log/maillog</strong> or <strong>/var/log/mail.log</strong>: Postfix logs</li>
+            </ul>
+            
+            <h4>Basic Configuration (main.cf)</h4>
+            
+            <p>Common settings in <code>main.cf</code>:</p>
+            
+            <pre><code># Basic settings
+myhostname = mail.example.com
+mydomain = example.com
+myorigin = $mydomain
+mydestination = $myhostname, localhost.$mydomain, localhost
+relay_domains = $mydestination
+
+# Network settings
+inet_interfaces = all  # Listen on all network interfaces
+# or
+inet_interfaces = localhost  # Local delivery only
+
+# Mail directories
+queue_directory = /var/spool/postfix
+command_directory = /usr/sbin
+daemon_directory = /usr/libexec/postfix
+mail_owner = postfix
+</code></pre>
+            
+            <h4>Local Mail Delivery</h4>
+            
+            <h5>Mail Aliases</h5>
+            <p>Edit <code>/etc/aliases</code> to set up mail forwarding:</p>
+            <pre><code># Example aliases
+postmaster: root
+webmaster: admin@example.com
+root: admin@example.com
+info: marketing-team@example.com
+
+# After editing, update the aliases database:
+sudo newaliases</code></pre>
+            
+            <h5>Mailbox Formats</h5>
+            <p>Postfix supports different mailbox formats:</p>
+            <pre><code># Mailbox format in main.cf
+home_mailbox = Maildir/  # Maildir format
+# or
+home_mailbox = mbox  # mbox format</code></pre>
+            
+            <h4>Network Configuration</h4>
+            
+            <h5>Setting Up as a Mail Server</h5>
+            <pre><code># Allow network mail reception
+inet_interfaces = all
+
+# Set networks that can relay mail
+mynetworks = 127.0.0.0/8, 192.168.1.0/24
+
+# Allow local domains 
+mydestination = $myhostname, localhost.$mydomain, localhost, $mydomain, mail.$mydomain, example.com, example.org</code></pre>
+            
+            <h5>Mail Relay Configuration</h5>
+            <pre><code># Relay settings
+relayhost = [smtp.provider.com]  # External SMTP server
+
+# SMTP authentication
+smtp_sasl_auth_enable = yes
+smtp_sasl_password_maps = hash:/etc/postfix/sasl_passwd
+smtp_sasl_security_options = noanonymous
+smtp_tls_security_level = encrypt
+
+# Create SASL password file
+sudo nano /etc/postfix/sasl_passwd
+# Add: [smtp.provider.com] username:password
+
+# Hash the password file
+sudo postmap /etc/postfix/sasl_passwd
+sudo chmod 600 /etc/postfix/sasl_passwd*</code></pre>
+            
+            <h4>TLS/SSL Configuration</h4>
+            
+            <h5>Enabling TLS for Incoming Mail:</h5>
+            <pre><code># TLS Parameters
+smtpd_tls_cert_file = /etc/pki/tls/certs/mail.example.com.crt
+smtpd_tls_key_file = /etc/pki/tls/private/mail.example.com.key
+smtpd_tls_security_level = may
+smtpd_tls_loglevel = 1
+smtpd_tls_received_header = yes
+smtpd_tls_session_cache_database = btree:${data_directory}/smtpd_scache</code></pre>
+            
+            <h5>Enabling TLS for Outgoing Mail:</h5>
+            <pre><code>smtp_tls_security_level = may
+smtp_tls_loglevel = 1
+smtp_tls_session_cache_database = btree:${data_directory}/smtp_scache</code></pre>
+            
+            <h4>Spam and Virus Protection</h4>
+            
+            <h5>Setting Up Basic Spam Controls:</h5>
+            <pre><code># Restrictions to prevent spam
+smtpd_helo_required = yes
+smtpd_helo_restrictions = 
+    permit_mynetworks,
+    reject_invalid_helo_hostname,
+    reject_non_fqdn_helo_hostname
+smtpd_recipient_restrictions =
+    permit_mynetworks,
+    permit_sasl_authenticated,
+    reject_unauth_destination,
+    reject_rbl_client zen.spamhaus.org</code></pre>
+            
+            <h5>Installing SpamAssassin:</h5>
+            <pre><code># Install SpamAssassin
+sudo yum install spamassassin
+
+# Edit /etc/postfix/master.cf to add SpamAssassin filter:
+smtp      inet  n       -       n       -       -       smtpd
+  -o content_filter=spamassassin
+spamassassin unix -     n       n       -       -       pipe
+  user=spamd argv=/usr/bin/spamc -f -e /usr/sbin/sendmail -oi -f ${sender} ${recipient}
+
+# Start SpamAssassin
+sudo systemctl enable spamassassin
+sudo systemctl start spamassassin</code></pre>
+            
+            <h4>Virtual Domains and Users</h4>
+            
+            <h5>Setting Up Virtual Domains:</h5>
+            <pre><code># Add to main.cf
+virtual_mailbox_domains = example.net, example.org
+virtual_mailbox_base = /var/mail/vhosts
+virtual_mailbox_maps = hash:/etc/postfix/vmailbox
+virtual_minimum_uid = 100
+virtual_uid_maps = static:5000
+virtual_gid_maps = static:5000
+
+# Create vmailbox mapping file
+sudo nano /etc/postfix/vmailbox
+# Add entries like:
+user1@example.net example.net/user1/
+user2@example.org example.org/user2/
+
+# Hash the file
+sudo postmap /etc/postfix/vmailbox
+
+# Create mail directories
+sudo mkdir -p /var/mail/vhosts/example.net/user1
+sudo mkdir -p /var/mail/vhosts/example.org/user2
+
+# Set permissions
+sudo chown -R 5000:5000 /var/mail/vhosts</code></pre>
+            
+            <h5>Virtual Aliases:</h5>
+            <pre><code># Add to main.cf
+virtual_alias_maps = hash:/etc/postfix/virtual
+
+# Create virtual mapping file
+sudo nano /etc/postfix/virtual
+# Add entries like:
+info@example.net     user1@example.net
+sales@example.org    user2@example.org
+
+# Hash the file
+sudo postmap /etc/postfix/virtual</code></pre>
+            
+            <h4>Testing and Debugging</h4>
+            
+            <h5>Testing the Mail Server:</h5>
+            <pre><code># Send a test email
+echo "This is a test email" | mail -s "Test Subject" user@example.com
+
+# Check mail queue
+mailq
+
+# Flush mail queue
+sudo postfix flush
+
+# Force mail delivery for a specific domain
+sendmail -q example.com</code></pre>
+            
+            <h5>Troubleshooting Tools:</h5>
+            <pre><code># Check Postfix configuration
+sudo postfix check
+
+# Print configuration
+sudo postconf -n
+
+# View Postfix logs
+sudo tail -f /var/log/maillog    # RHEL/CentOS
+sudo tail -f /var/log/mail.log   # Debian/Ubuntu
+
+# Test SMTP connection
+telnet mail.example.com 25
+
+# Test TLS connection
+openssl s_client -connect mail.example.com:25 -starttls smtp</code></pre>
+            
+            <h4>Advanced Configuration</h4>
+            
+            <h5>Access Control:</h5>
+            <pre><code># IP-based access control
+smtpd_client_restrictions =
+    permit_mynetworks,
+    reject_unknown_client_hostname,
+    permit
+
+# Additional restrictions
+smtpd_sender_restrictions = 
+    permit_mynetworks,
+    reject_non_fqdn_sender,
+    reject_unknown_sender_domain,
+    permit</code></pre>
+            
+            <h5>Transport Maps:</h5>
+            <pre><code># Add to main.cf
+transport_maps = hash:/etc/postfix/transport
+
+# Create transport mapping file
+sudo nano /etc/postfix/transport
+# Add entries like:
+example.net   smtp:[mail.example.net]
+example.org   local:
+
+# Hash the file
+sudo postmap /etc/postfix/transport</code></pre>
+            
+            <h4>Integration with Other Services</h4>
+            
+            <h5>Postfix with Dovecot (IMAP/POP3):</h5>
+            <pre><code># Install Dovecot
+sudo yum install dovecot    # RHEL/CentOS
+sudo apt install dovecot-imapd dovecot-pop3d    # Debian/Ubuntu
+
+# Configure Postfix to use Dovecot for delivery (in main.cf)
+mailbox_command = /usr/libexec/dovecot/deliver -c /etc/dovecot/dovecot.conf -m "${EXTENSION}"
+
+# Configure Dovecot authentication (in master.cf)
+smtp      inet  n       -       n       -       -       smtpd
+  -o smtpd_sasl_type=dovecot
+  -o smtpd_sasl_path=private/auth
+  -o smtpd_sasl_auth_enable=yes</code></pre>
+            
+            <h5>Postfix with Web Mail Clients:</h5>
+            <p>Common webmail solutions that work with Postfix:</p>
+            <ul>
+                <li>Roundcube - PHP-based webmail with modern interface</li>
+                <li>SquirrelMail - Lightweight classic webmail interface</li>
+                <li>Horde - Comprehensive groupware suite with email</li>
+            </ul>
+            
+            <h4>Maintenance Tasks</h4>
+            
+            <h5>Regular Checks:</h5>
+            <pre><code># Check mail queue size
+mailq | grep -c "^[A-F0-9]"
+
+# Clean old items from queue
+sudo find /var/spool/postfix/deferred -type f -mtime +7 -delete
+
+# View mail statistics
+sudo pflogsumm /var/log/maillog
+
+# Monitor SMTP connections
+sudo netstat -tulpn | grep :25</code></pre>
+            
+            <h5>Backup and Restore:</h5>
+            <pre><code># Backup configuration
+sudo cp -a /etc/postfix /etc/postfix.bak
+
+# Backup mail queues
+sudo postsuper -d ALL
+sudo cp -a /var/spool/postfix /var/spool/postfix.bak
+
+# Restore configuration
+sudo cp -a /etc/postfix.bak/* /etc/postfix/
+sudo systemctl restart postfix</code></pre>
+            
+            <h4>Security Best Practices</h4>
+            
+            <ol>
+                <li><strong>Minimize exposed services</strong> - Only enable required protocols</li>
+                <li><strong>Use TLS encryption</strong> for all mail connections</li>
+                <li><strong>Implement SASL authentication</strong> for mail submission</li>
+                <li><strong>Regularly update Postfix</strong> to the latest version</li>
+                <li><strong>Use restrictive permissions</strong> on configuration files</li>
+                <li><strong>Implement spam and virus filtering</strong></li>
+                <li><strong>Configure proper logging</strong> and monitor logs regularly</li>
+                <li><strong>Use SPF, DKIM, and DMARC</strong> to verify message authenticity</li>
+                <li><strong>Set up proper mail backup</strong> and retention policies</li>
+                <li><strong>Consider using firewall rules</strong> to restrict mail server access</li>
+            </ol>
+            
+            <div class="note">
+                <p><strong>Note:</strong> Mail server configuration can be complex and security is critical. Always test your setup thoroughly before deploying to production, and consider using additional security tools like fail2ban to protect against brute force attacks.</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Encryption</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Encryption is essential for protecting data confidentiality and integrity. Linux provides several tools for encryption.</p>
+            
+            <h4>1. GPG (GNU Privacy Guard):</h4>
+            <p>GPG is used for file and email encryption, providing public key cryptography:</p>
+            <pre><code># Generate a new key pair
+gpg --gen-key
+
+# List keys
+gpg --list-keys
+
+# Export your public key
+gpg --export --armor your@email.com > mykey.asc
+
+# Import someone's public key
+gpg --import theirkey.asc
+
+# Encrypt a file for a recipient
+gpg --encrypt --recipient their@email.com filename
+
+# Decrypt a file
+gpg --decrypt encrypted-file.gpg > decrypted-file
+
+# Sign a file
+gpg --sign filename</code></pre>
+            
+            <h4>2. LUKS (Linux Unified Key Setup):</h4>
+            <p>LUKS provides full disk encryption:</p>
+            <pre><code># Create an encrypted partition
+sudo cryptsetup luksFormat /dev/sdb1
+
+# Open an encrypted partition
+sudo cryptsetup luksOpen /dev/sdb1 my_encrypted_disk
+
+# Format the encrypted device
+sudo mkfs.ext4 /dev/mapper/my_encrypted_disk
+
+# Mount the encrypted device
+sudo mount /dev/mapper/my_encrypted_disk /mnt/encrypted
+
+# Close the encrypted device
+sudo umount /mnt/encrypted
+sudo cryptsetup luksClose my_encrypted_disk</code></pre>
+            
+            <h4>3. OpenSSL:</h4>
+            <p>OpenSSL provides cryptographic functions and SSL/TLS support:</p>
+            <pre><code># Generate a private key
+openssl genrsa -out private.key 2048
+
+# Create a certificate signing request
+openssl req -new -key private.key -out request.csr
+
+# Create a self-signed certificate
+openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365
+
+# Encrypt a file
+openssl enc -aes-256-cbc -salt -in file.txt -out file.enc
+
+# Decrypt a file
+openssl enc -d -aes-256-cbc -in file.enc -out file.txt</code></pre>
+            
+            <h4>4. SSH Key Authentication:</h4>
+            <p>Using SSH keys for secure authentication:</p>
+            <pre><code># Generate SSH key pair
+ssh-keygen -t ed25519 -C "your_email@example.com"
+
+# Copy public key to server
+ssh-copy-id username@hostname</code></pre>
+            
+            <p>Encryption is a fundamental aspect of system security. Always use appropriate encryption for sensitive data, communications, and authentication.</p>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="encryption-guide" onclick="openModal('encryption-guide'); return false;">Learn more: GNU Privacy Guard Documentation and Guides</a></p>
+            </div>
+        </div>
+    </div>
+
+    <div class="topic quiz-topic">
+        <div class="topic-header quiz-header">
+            <h3>Admin Tasks Quiz 📝</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <h4>Test Your Knowledge of Linux Administrative Tasks</h4>
+            <p>Answer the following questions to check your understanding of Linux system administration concepts.</p>
+
+    <div class="quiz-container">
+                <h4 class="quiz-question">1. Which service is primarily used for printer management in Linux?</h4>
+        <ul class="quiz-options">
+            <li class="quiz-option" data-correct="true">CUPS</li>
+            <li class="quiz-option" data-correct="false">SMTP</li>
+            <li class="quiz-option" data-correct="false">NTP</li>
+            <li class="quiz-option" data-correct="false">LTSP</li>
+        </ul>
+        <div class="quiz-feedback"></div>
+        <button class="quiz-button">Check Answer</button>
+    </div>
+
+    <div class="quiz-container">
+                <h4 class="quiz-question">2. What command would you use to check the status of NTP synchronization?</h4>
+        <ul class="quiz-options">
+            <li class="quiz-option" data-correct="false">ntpstatus</li>
+            <li class="quiz-option" data-correct="true">ntpq -p</li>
+            <li class="quiz-option" data-correct="false">systemctl status time</li>
+            <li class="quiz-option" data-correct="false">timectl show</li>
+        </ul>
+        <div class="quiz-feedback"></div>
+        <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">3. Which command is used to manage and configure Samba server in Linux?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">smbconfig</li>
+                    <li class="quiz-option" data-correct="true">smbpasswd</li>
+                    <li class="quiz-option" data-correct="false">sambactl</li>
+                    <li class="quiz-option" data-correct="false">winmanage</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">4. Which mail server is most commonly used in modern Linux distributions?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="true">Postfix</li>
+                    <li class="quiz-option" data-correct="false">Sendmail</li>
+                    <li class="quiz-option" data-correct="false">Qmail</li>
+                    <li class="quiz-option" data-correct="false">Mailgun</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">5. Which encryption tool is used for full disk encryption in Linux?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">GPG</li>
+                    <li class="quiz-option" data-correct="true">LUKS</li>
+                    <li class="quiz-option" data-correct="false">SSH</li>
+                    <li class="quiz-option" data-correct="false">SSL</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Resources Section -->
+    <h3 class="video-resources-title">Video Resources 📺</h3>
+    
+    <div class="direct-video-links">
+        <div class="video-card">
+            <a href="https://youtu.be/UN1QB5BIvps?si=dc1jgKnYID7mCOA5" target="_blank" class="video-link-direct">
+                <i class="fab fa-youtube"></i>
+                <span class="video-link-text">Perform Admin Tasks</span>
+            </a>
+        </div>
+    </div>
+</section> 
+
+<!-- Modal for Encryption Guide -->
+<div id="encryption-guide" class="modal">
+    <div class="modal-content">
+        <span class="modal-close" onclick="closeModal('encryption-guide')">&times;</span>
+        <h3>Linux Encryption Guide</h3>
+        
+        <p>Encryption is a fundamental aspect of Linux security, protecting data confidentiality and integrity. This guide covers the most important encryption tools and techniques available in Linux systems.</p>
+        
+        <h4>GNU Privacy Guard (GPG)</h4>
+        
+        <p>GPG is a complete and free implementation of the OpenPGP standard, providing cryptographic privacy and authentication for data communication. It's widely used for encrypting and signing files and emails.</p>
+        
+        <h5>Key Management</h5>
+        
+        <pre><code># Generate a new key pair
+gpg --full-generate-key
+# (or for older versions: gpg --gen-key)
+
+# List keys in your keyring
+gpg --list-keys
+gpg --list-secret-keys
+
+# Export your public key
+gpg --export --armor youremail@example.com > mypubkey.asc
+
+# Import someone's public key
+gpg --import theirkey.asc
+
+# Search for keys on a keyserver
+gpg --search-keys username@example.com
+
+# Refresh keys from keyserver
+gpg --refresh-keys
+
+# Edit a key (change expiration, etc.)
+gpg --edit-key youremail@example.com</code></pre>
+        
+        <h5>File Encryption and Decryption</h5>
+        
+        <pre><code># Encrypt a file for a recipient (needs their public key)
+gpg --encrypt --recipient recipient@example.com document.txt
+# Creates document.txt.gpg
+
+# Encrypt with a passphrase (symmetric encryption)
+gpg --symmetric document.txt
+# Creates document.txt.gpg
+
+# Decrypt a file
+gpg --decrypt document.txt.gpg > document.txt
+# Or simply:
+gpg document.txt.gpg
+
+# Encrypt and sign a file
+gpg --encrypt --sign --recipient recipient@example.com document.txt</code></pre>
+        
+        <h5>Creating and Verifying Signatures</h5>
+        
+        <pre><code># Sign a file (creates detached signature)
+gpg --detach-sign document.txt
+# Creates document.txt.sig
+
+# Sign a file (clearsign - readable but signed)
+gpg --clearsign document.txt
+# Creates document.txt.asc
+
+# Verify a signature
+gpg --verify document.txt.sig document.txt</code></pre>
+        
+        <h5>Email Integration</h5>
+        
+        <p>Many email clients provide GPG integration, including:</p>
+        <ul>
+            <li>Thunderbird with Enigmail or built-in OpenPGP (newer versions)</li>
+            <li>Evolution with built-in PGP support</li>
+            <li>Mutt with GPG configuration</li>
+            <li>KMail with built-in GPG support</li>
+        </ul>
+        
+        <h4>LUKS (Linux Unified Key Setup)</h4>
+        
+        <p>LUKS is the standard for Linux hard disk encryption. It provides a secure platform-independent way to encrypt entire partitions or disks.</p>
+        
+        <h5>Setting Up Encrypted Partitions</h5>
+        
+        <pre><code># Format a partition with LUKS encryption
+sudo cryptsetup luksFormat /dev/sdX1
+
+# Open the encrypted partition
+sudo cryptsetup luksOpen /dev/sdX1 my_encrypted_volume
+
+# Format the mapped device with a filesystem
+sudo mkfs.ext4 /dev/mapper/my_encrypted_volume
+
+# Mount the filesystem
+sudo mount /dev/mapper/my_encrypted_volume /mnt/encrypted
+
+# When done, unmount and close
+sudo umount /mnt/encrypted
+sudo cryptsetup luksClose my_encrypted_volume</code></pre>
+        
+        <h5>Managing LUKS Volumes</h5>
+        
+        <pre><code># View information about LUKS device
+sudo cryptsetup luksDump /dev/sdX1
+
+# Add an additional passphrase (up to 8 supported)
+sudo cryptsetup luksAddKey /dev/sdX1
+
+# Remove a passphrase
+sudo cryptsetup luksRemoveKey /dev/sdX1
+
+# Change a passphrase
+sudo cryptsetup luksChangeKey /dev/sdX1</code></pre>
+        
+        <h5>Automated Mounting with /etc/crypttab</h5>
+        
+        <p>For automatic mounting at boot, add entries to <code>/etc/crypttab</code> and <code>/etc/fstab</code>:</p>
+        
+        <pre><code># Example /etc/crypttab entry
+my_encrypted_volume  /dev/sdX1  none  luks
+
+# Corresponding /etc/fstab entry
+/dev/mapper/my_encrypted_volume  /mnt/encrypted  ext4  defaults  0  2</code></pre>
+        
+        <h5>Using Key Files Instead of Passphrases</h5>
+        
+        <pre><code># Create a random key file
+sudo dd if=/dev/urandom of=/root/keyfile bs=1024 count=4
+sudo chmod 400 /root/keyfile
+
+# Add the key file as an additional authentication method
+sudo cryptsetup luksAddKey /dev/sdX1 /root/keyfile
+
+# Open using the key file
+sudo cryptsetup luksOpen --key-file=/root/keyfile /dev/sdX1 my_encrypted_volume
+
+# /etc/crypttab entry with key file
+my_encrypted_volume  /dev/sdX1  /root/keyfile  luks</code></pre>
+        
+        <h4>OpenSSL</h4>
+        
+        <p>OpenSSL is a robust toolkit for the Transport Layer Security (TLS) and Secure Sockets Layer (SSL) protocols and a general-purpose cryptography library.</p>
+        
+        <h5>File Encryption/Decryption</h5>
+        
+        <pre><code># Encrypt a file with a password
+openssl enc -aes-256-cbc -salt -in file.txt -out file.enc
+
+# Decrypt a file
+openssl enc -d -aes-256-cbc -in file.enc -out file.txt
+
+# Use base64 encoding (for email attachments etc.)
+openssl enc -aes-256-cbc -a -salt -in file.txt -out file.enc
+
+# Specify a specific cipher
+openssl enc -chacha20 -in file.txt -out file.enc
+
+# List available ciphers
+openssl list -cipher-algorithms</code></pre>
+        
+        <h5>Generating and Managing Keys and Certificates</h5>
+        
+        <pre><code># Generate an RSA private key
+openssl genrsa -out private.key 2048
+
+# Extract the public key
+openssl rsa -in private.key -pubout -out public.key
+
+# Create a certificate signing request (CSR)
+openssl req -new -key private.key -out request.csr
+
+# Create a self-signed certificate
+openssl req -x509 -newkey rsa:4096 -keyout key.pem -out cert.pem -days 365
+
+# View certificate information
+openssl x509 -in cert.pem -text -noout</code></pre>
+        
+        <h5>Verifying and Testing</h5>
+        
+        <pre><code># Test an SSL/TLS connection
+openssl s_client -connect example.com:443
+
+# Test TLS with a specific protocol
+openssl s_client -connect example.com:443 -tls1_2
+
+# View the certificate chain of a site
+openssl s_client -connect example.com:443 -showcerts
+
+# Benchmark cryptographic performance
+openssl speed</code></pre>
+        
+        <h4>SSH Key Authentication</h4>
+        
+        <p>SSH key authentication provides a more secure alternative to password-based authentication for remote server access.</p>
+        
+        <h5>Creating SSH Keys</h5>
+        
+        <pre><code># Generate an ED25519 key (modern, recommended)
+ssh-keygen -t ed25519 -C "comment or email"
+
+# Generate an RSA key (compatible with older systems)
+ssh-keygen -t rsa -b 4096 -C "comment or email"
+
+# Generate a key with a specific filename
+ssh-keygen -t ed25519 -f ~/.ssh/myserver_key
+
+# Change passphrase on an existing key
+ssh-keygen -p -f ~/.ssh/id_ed25519</code></pre>
+        
+        <h5>Key Deployment</h5>
+        
+        <pre><code># Copy your public key to a server
+ssh-copy-id username@remote_host
+
+# Copy a specific key
+ssh-copy-id -i ~/.ssh/myserver_key.pub username@remote_host
+
+# Manual deployment (if ssh-copy-id is not available)
+cat ~/.ssh/id_ed25519.pub | ssh username@remote_host "mkdir -p ~/.ssh && cat >> ~/.ssh/authorized_keys && chmod 600 ~/.ssh/authorized_keys"</code></pre>
+        
+        <h5>SSH Agent for Key Management</h5>
+        
+        <pre><code># Start the SSH agent
+eval "$(ssh-agent)"
+
+# Add your keys to the agent
+ssh-add ~/.ssh/id_ed25519
+
+# List keys in the agent
+ssh-add -l
+
+# Remove all keys from the agent
+ssh-add -D</code></pre>
+        
+        <h5>SSH Config File</h5>
+        
+        <p>Create or edit <code>~/.ssh/config</code> to manage connections and key usage:</p>
+        
+        <pre><code># Sample SSH config
+Host server1
+    HostName server1.example.com
+    User admin
+    Port 2222
+    IdentityFile ~/.ssh/server1_key
+
+Host *
+    ServerAliveInterval 60
+    ForwardAgent no</code></pre>
+        
+        <h4>ecryptfs (Encrypted Home Directory)</h4>
+        
+        <p>ecryptfs is a POSIX-compliant enterprise cryptographic filesystem for Linux that can be used for encrypted home directories or private directories.</p>
+        
+        <pre><code># Install ecryptfs tools
+sudo apt install ecryptfs-utils
+
+# Set up an encrypted home directory
+sudo ecryptfs-migrate-home -u username
+
+# Set up a private encrypted directory
+mkdir ~/.Private
+ecryptfs-setup-private
+
+# Mount an encrypted private directory
+ecryptfs-mount-private
+
+# Unmount an encrypted private directory
+ecryptfs-umount-private</code></pre>
+        
+        <h4>dm-crypt (Device Mapper Encryption)</h4>
+        
+        <p>dm-crypt is the Linux kernel's device mapper crypto target. It provides transparent encryption of block devices using the kernel crypto API. LUKS is built on top of dm-crypt.</p>
+        
+        <pre><code># Create a plain dm-crypt device (without LUKS)
+sudo cryptsetup -c aes-xts-plain64 -s 512 -h sha512 open --type plain /dev/sdX1 my_encrypted
+
+# Format and use as normal
+sudo mkfs.ext4 /dev/mapper/my_encrypted
+sudo mount /dev/mapper/my_encrypted /mnt/encrypted
+
+# Close the device
+sudo umount /mnt/encrypted
+sudo cryptsetup close my_encrypted</code></pre>
+        
+        <h4>Password Management with pass</h4>
+        
+        <p>pass is a simple command-line password manager that uses GPG for encryption and Git for version control.</p>
+        
+        <pre><code># Initialize the password store
+pass init youremail@example.com
+
+# Add a password
+pass insert Email/gmail.com
+
+# Generate a random password
+pass generate Email/new-account 15
+
+# Retrieve a password (displays on screen)
+pass Email/gmail.com
+
+# Copy a password to clipboard
+pass -c Email/gmail.com
+
+# Edit a password entry
+pass edit Email/gmail.com
+
+# Organize passwords in a tree
+pass insert Website/example.com/login
+
+# Initialize Git repository for versioning
+pass git init</code></pre>
+        
+        <h4>Best Practices for Encryption</h4>
+        
+        <ol>
+            <li><strong>Strong Passphrases</strong> - Use long, complex passphrases with a mix of character types</li>
+            <li><strong>Key Backup</strong> - Securely back up encryption keys and passphrases</li>
+            <li><strong>Algorithm Selection</strong> - Use modern, well-reviewed encryption algorithms</li>
+            <li><strong>Secure Key Storage</strong> - Protect private keys with appropriate permissions</li>
+            <li><strong>Full Disk Encryption</strong> - Use full disk encryption for sensitive systems</li>
+            <li><strong>Regular Updates</strong> - Keep encryption software updated to patch vulnerabilities</li>
+            <li><strong>Defense in Depth</strong> - Use multiple layers of encryption where appropriate</li>
+            <li><strong>Key Rotation</strong> - Periodically rotate encryption keys for critical data</li>
+            <li><strong>Recovery Planning</strong> - Have a plan for data recovery in case of key loss</li>
+            <li><strong>Verify Tool Integrity</strong> - Use trusted sources for encryption software</li>
+        </ol>
+        
+        <h4>Additional Encryption Tools</h4>
+        
+        <ul>
+            <li><strong>VeraCrypt</strong> - Cross-platform disk encryption (successor to TrueCrypt)</li>
+            <li><strong>gocryptfs</strong> - Encrypted overlay filesystem focused on security</li>
+            <li><strong>age</strong> - Simple, modern file encryption tool</li>
+            <li><strong>Tomb</strong> - File encryption system using LUKS</li>
+            <li><strong>EncFS</strong> - Encrypted virtual filesystem</li>
+            <li><strong>cryfs</strong> - Encrypted cloud storage filesystem</li>
+            <li><strong>GnuPG-compatible email clients</strong> - For encrypted communications</li>
+        </ul>
+        
+        <div class="note">
+            <p><strong>Note:</strong> Remember that encryption is only as strong as the weakest link in your security practices. Strong encryption can be undermined by poor key management, weak passphrases, or compromised systems. Always follow security best practices alongside encryption.</p>
+        </div>
+    </div>
+</div> 

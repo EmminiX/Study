@@ -1,0 +1,1346 @@
+<section id="shell-scripting">
+    <h2>Shell Scripting</h2>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>What is a Shell Script?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>A <strong>shell script</strong> is a text file containing a sequence of commands for the shell to execute. It automates repetitive tasks, system management, and program execution without manual intervention.</p>
+            
+            <p>The <strong>shell</strong> is the command-line interpreter in Linux, with common types including:</p>
+            <ul>
+                <li><strong>Bash (Bourne Again SHell)</strong> — Most common in Linux distributions</li>
+                <li><strong>sh (Bourne shell)</strong> — Basic scripting compatibility</li>
+                <li><strong>csh (C Shell)</strong> — C-like syntax</li>
+                <li><strong>ksh (Korn shell)</strong> — Scripting and interactive features</li>
+                <li><strong>zsh</strong> — Extended features and customization</li>
+            </ul>
+            
+            <p>Shell scripts are used for:</p>
+            <ul>
+                <li>Automating routine tasks (backups, monitoring)</li>
+                <li>Enhancing system management efficiency</li>
+                <li>Simplifying complex command sequences</li>
+                <li>Scheduling jobs (with cron, at)</li>
+                <li>Providing consistent environment setup</li>
+                <li>Improving repeatability and error reduction</li>
+            </ul>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="shell-script-info" onclick="openModal('shell-script-info'); return false;">Learn more: What is a Shell Script?</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Shell Script information -->
+    <div id="shell-script-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('shell-script-info')">&times;</span>
+            <h3>What is a Shell Script?</h3>
+            <p>A shell script is a text file containing a sequence of commands that are executed by a shell interpreter. Think of it as a recipe or instruction list that automates repetitive tasks in a Linux environment. Instead of typing commands one by one in the terminal, you can write them in a script file and run the entire set at once.</p>
+            
+            <h4>Key points:</h4>
+            <ul>
+                <li><strong>Text-based file:</strong> Shell scripts are plain text files, usually saved with a .sh extension, though this is not mandatory.</li>
+                <li><strong>Commands and logic:</strong> They include Linux commands, control structures, variables, and functions.</li>
+                <li><strong>Automation:</strong> Shell scripts automate tasks such as file management, system updates, backups, and more.</li>
+                <li><strong>Execution:</strong> To run a script, the file must have execute permissions and be invoked through the shell (like Bash).</li>
+            </ul>
+            
+            <h4>Why use shell scripts?</h4>
+            <ul>
+                <li>Save time by automating repetitive tasks.</li>
+                <li>Reduce human error.</li>
+                <li>Enable complex workflows with conditional logic.</li>
+                <li>Simplify system administration and development tasks.</li>
+            </ul>
+            
+            <h4>Example:</h4>
+            <pre><code class="bash">#!/bin/bash
+echo "Hello, World!"</code></pre>
+            <p>The first line (#!/bin/bash) indicates that the script should be run using the Bash shell.</p>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Why Use Shell Scripting?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Organizations benefit from shell scripting in multiple ways:</p>
+            <table>
+                <tr>
+                    <th>Advantage</th>
+                    <th>Explanation / Example</th>
+                </tr>
+                <tr>
+                    <td>Automation</td>
+                    <td>Schedule backups, run maintenance automatically</td>
+                </tr>
+                <tr>
+                    <td>Efficiency</td>
+                    <td>Execute multiple commands with one script</td>
+                </tr>
+                <tr>
+                    <td>Portability</td>
+                    <td>Scripts are text files and can run on multiple systems</td>
+                </tr>
+                <tr>
+                    <td>Cost-effective</td>
+                    <td>Avoid buying expensive software, use free shell scripting</td>
+                </tr>
+                <tr>
+                    <td>Flexibility</td>
+                    <td>Scripts can control system services, files, networks</td>
+                </tr>
+                <tr>
+                    <td>Integration</td>
+                    <td>Easily used with other Linux utilities and scripts</td>
+                </tr>
+            </table>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="why-shell-scripting-info" onclick="openModal('why-shell-scripting-info'); return false;">Learn more: Why Use Shell Scripting?</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Why Use Shell Scripting information -->
+    <div id="why-shell-scripting-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('why-shell-scripting-info')">&times;</span>
+            <h3>Why Use Shell Scripting?</h3>
+            
+            <h4>Automation of Repetitive Tasks</h4>
+            <p>Shell scripting allows you to automate tasks that you perform frequently. Instead of manually typing the same commands repeatedly, you can write a script that performs all these steps automatically.</p>
+            <p>Common examples include automating system backups, file organization, software installation, and system updates. This saves time and reduces the chance of human error.</p>
+            
+            <h4>Efficiency and Productivity</h4>
+            <p>Automating tasks with scripts speeds up workflows significantly. Tasks that might take several minutes if done manually can be completed in seconds.</p>
+            <p>Scripts can run multiple commands in sequence without user intervention, freeing up your time for more complex or creative work.</p>
+            
+            <h4>Simplicity and Accessibility</h4>
+            <p>Shell scripts use the same commands you already know from the command line, making them easy to learn if you're familiar with basic Linux commands.</p>
+            <p>Because they build on simple command-line operations, they are accessible for beginners and powerful enough for advanced users.</p>
+            
+            <h4>Integration and Control</h4>
+            <p>Shell scripts can combine multiple utilities and programs, creating a controlled environment for complex operations.</p>
+            <p>They are useful for setting up environments, managing system resources, or controlling software workflows.</p>
+            
+            <h4>Flexibility</h4>
+            <p>Scripts are easy to modify. If your needs change, you can quickly update the script without rewriting everything.</p>
+            <p>This flexibility makes shell scripting ideal for dynamic environments where tasks evolve over time.</p>
+            
+            <h4>Summary</h4>
+            <p>Shell scripting is a powerful tool that enhances productivity by automating routine tasks, simplifies complex workflows, and provides control over system operations. It is an essential skill for system administrators, developers, and anyone working extensively with Linux or Unix-like systems.</p>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Shell Scripting Start-Up Scripts</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Linux uses different start-up scripts to configure the environment:</p>
+            <h4>System-wide scripts (run at system boot or login):</h4>
+            <ul>
+                <li><code>/etc/profile</code> — System-wide environment setup</li>
+                <li><code>/etc/bash.bashrc</code> — System-wide configuration for interactive shells</li>
+            </ul>
+            
+            <h4>User-specific scripts (run at user login/session start):</h4>
+            <ul>
+                <li><code>~/.bashrc</code> — Interactive non-login shells</li>
+                <li><code>~/.bash_profile</code> — User-specific login shell config</li>
+                <li><code>~/.profile</code> — User profile settings</li>
+            </ul>
+            
+            <table>
+                <tr>
+                    <th>File</th>
+                    <th>Purpose</th>
+                    <th>When it runs</th>
+                </tr>
+                <tr>
+                    <td>/etc/profile</td>
+                    <td>System-wide settings for login shells</td>
+                    <td>At login for all users</td>
+                </tr>
+                <tr>
+                    <td>~/.bash_profile</td>
+                    <td>User-specific login shell config</td>
+                    <td>At login</td>
+                </tr>
+                <tr>
+                    <td>~/.bashrc</td>
+                    <td>Interactive non-login shells</td>
+                    <td>When starting interactive shell</td>
+                </tr>
+                <tr>
+                    <td>/etc/bash.bashrc</td>
+                    <td>System-wide config for interactive shells</td>
+                    <td>For all users when shell starts interactively</td>
+                </tr>
+            </table>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="startup-scripts-info" onclick="openModal('startup-scripts-info'); return false;">Learn more: Shell Scripting Start-Up Scripts</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Shell Scripting Start-Up Scripts information -->
+    <div id="startup-scripts-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('startup-scripts-info')">&times;</span>
+            <h3>Shell Scripting Start-Up Scripts</h3>
+            
+            <p>In Linux systems, it is often useful to run specific scripts automatically when the system starts up. This process ensures that certain tasks are performed immediately after booting, such as setting environment variables, starting services, mounting filesystems, or displaying messages. There are several methods to configure scripts to run at startup, each suitable for different scenarios and system configurations.</p>
+            
+            <h4>Methods to Run Scripts at Startup</h4>
+            
+            <h5>1. Using systemd (Recommended for Modern Systems)</h5>
+            <p>Most contemporary Linux distributions utilize systemd as their init system. To run a script at startup with systemd:</p>
+            
+            <p><strong>Create a Service Unit File:</strong></p>
+            <ul>
+                <li>Place a configuration file with a .service extension in /etc/systemd/system/.</li>
+                <li>The file should specify the description, execution command, and startup targets.</li>
+            </ul>
+            
+            <p>Example:</p>
+            <pre><code>[Unit]
+Description=My Startup Script
+
+[Service]
+Type=simple
+ExecStart=/bin/bash /home/user/mystartup.sh
+
+[Install]
+WantedBy=multi-user.target</code></pre>
+            
+            <p><strong>Enable the Service:</strong></p>
+            <p>Set permissions and enable it to run at boot:</p>
+            <pre><code>chmod 644 /etc/systemd/system/mystartup.service
+systemctl enable mystartup.service</code></pre>
+            
+            <p>This method is robust, flexible, and preferred on most systems.</p>
+            
+            <h5>2. Using cron's @reboot Directive</h5>
+            <ul>
+                <li>The cron utility can schedule tasks at system reboot.</li>
+                <li>Add a line to /etc/crontab or use crontab -e:</li>
+            </ul>
+            <pre><code>@reboot root /bin/bash /home/user/mystartup.sh</code></pre>
+            <p>This runs the script each time the system boots.</p>
+            
+            <h5>3. Using /etc/rc.local</h5>
+            <ul>
+                <li>Some systems support executing scripts via /etc/rc.local.</li>
+                <li>Place your commands or script invocation in this file.</li>
+                <li>Ensure /etc/rc.local is executable (chmod +x /etc/rc.local).</li>
+            </ul>
+            <p>Note: Many modern systems have deprecated rc.local in favor of systemd.</p>
+            
+            <h5>4. Using init.d (Legacy Method)</h5>
+            <p>For older Linux distributions using SysV init:</p>
+            <ul>
+                <li>Create a script in /etc/init.d/.</li>
+                <li>Register it with the system using chkconfig or update-rc.d.</li>
+            </ul>
+            
+            <p>Example:</p>
+            <pre><code>chkconfig --add myscript</code></pre>
+            <p>or</p>
+            <pre><code>update-rc.d myscript defaults</code></pre>
+            
+            <h4>Creating a Basic Shell Script for Startup</h4>
+            <p>Before configuring it to run at startup, you need a simple shell script:</p>
+            <ol>
+                <li>Create a new file with .sh extension, e.g., myscript.sh.</li>
+                <li>Add the shebang line to specify the interpreter:</li>
+            </ol>
+            <pre><code>#!/bin/bash</code></pre>
+            <ol start="3">
+                <li>Write your commands below:</li>
+            </ol>
+            <pre><code>#!/bin/bash
+echo "System has started up successfully at $(date)"</code></pre>
+            <ol start="4">
+                <li>Make the script executable:</li>
+            </ol>
+            <pre><code>chmod +x /path/to/myscript.sh</code></pre>
+            
+            <h4>Common Use Cases for Startup Scripts</h4>
+            <ul>
+                <li>Setting environment variables required for applications.</li>
+                <li>Starting custom services or background processes.</li>
+                <li>Displaying startup messages or notifications.</li>
+                <li>Mounting network drives or filesystems.</li>
+                <li>Configuring network settings.</li>
+                <li>Running health checks or system monitoring tools.</li>
+            </ul>
+            
+            <p><strong>In summary:</strong> Using startup scripts in Linux allows automation of essential tasks immediately after boot. Choosing the right method depends on your system's init system and specific needs, but systemd is generally the most flexible and recommended approach today.</p>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Scripting Basics: Variables</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Variables are named storage for data (strings, numbers) in scripts.</p>
+            
+            <h4>Types of Variables:</h4>
+            <ul>
+                <li><strong>Shell/local variables:</strong> Defined and used within scripts or current shell.</li>
+                <li><strong>Global/environment variables:</strong> Exported variables accessible to child processes.</li>
+            </ul>
+            
+            <h4>Variable Assignment:</h4>
+            <p>The syntax for variable assignment is:</p>
+            <pre><code>VARIABLE_NAME=value</code></pre>
+            
+            <p>Important notes:</p>
+            <ul>
+                <li>No spaces around <code>=</code></li>
+                <li>Values can be strings or numbers</li>
+            </ul>
+            
+            <p>Examples:</p>
+            <pre><code>NAME="Emanuel"
+COUNT=10
+OUTPUT_DIR="/var/log/backups"
+CURRENT_DATE=$(date +%Y-%m-%d)</code></pre>
+            
+            <h4>Variable Referencing:</h4>
+            <p>Access variable values with the <code>$</code> symbol:</p>
+            <pre><code>echo $NAME
+echo "The count is $COUNT"
+echo "Today is $CURRENT_DATE"</code></pre>
+            
+            <h4>Variable Naming Conventions:</h4>
+            <ul>
+                <li>Use uppercase letters (recommended but not mandatory)</li>
+                <li>Start with letter or underscore (_), followed by letters, digits, or underscores</li>
+                <li>Example valid names: <code>USER</code>, <code>_count</code>, <code>VAR1</code></li>
+                <li>Avoid special characters and spaces</li>
+            </ul>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="variables-info" onclick="openModal('variables-info'); return false;">Learn more: Scripting Basics: Variables</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Scripting Basics: Variables information -->
+    <div id="variables-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('variables-info')">&times;</span>
+            <h3>Scripting Basics: Variables</h3>
+            
+            <p>Variables are essential building blocks in shell scripting. They act as named containers that store data, which can then be used and manipulated throughout your script. Using variables makes your scripts more flexible, allowing you to reuse information, perform calculations, and customize behavior based on different inputs.</p>
+            
+            <h4>Variable Declaration</h4>
+            <p>To create a variable in a shell script, assign a value to a name using the following syntax:</p>
+            <pre><code>variable_name=value</code></pre>
+            
+            <p><strong>Important:</strong> There should be no spaces around the = sign. For example:</p>
+            <ul>
+                <li>Correct: <code>name="John"</code></li>
+                <li>Incorrect: <code>name = "John"</code> (this will cause an error)</li>
+            </ul>
+            
+            <p>Example:</p>
+            <pre><code>age=25
+greeting="Hello"</code></pre>
+            
+            <h4>Accessing Variables</h4>
+            <p>To retrieve the value stored in a variable, prefix the variable name with a $ symbol:</p>
+            <pre><code>echo "$greeting, I am $age years old."</code></pre>
+            
+            <p>This command will output:</p>
+            <pre><code>Hello, I am 25 years old.</code></pre>
+            
+            <p><strong>Note:</strong> Always enclose variables in double quotes when used in commands like echo to prevent issues with spaces or special characters.</p>
+            
+            <h4>Naming Conventions</h4>
+            <p>Good variable names improve readability and maintainability:</p>
+            <ul>
+                <li>Start with a letter or underscore (_)</li>
+                <li>Use only letters, numbers, and underscores</li>
+                <li>Variable names are case-sensitive (VAR and var are different)</li>
+                <li>Use descriptive names that reflect the purpose</li>
+            </ul>
+            
+            <p>Valid examples:</p>
+            <ul>
+                <li><code>name</code></li>
+                <li><code>count</code></li>
+                <li><code>_temp</code></li>
+                <li><code>myVar</code></li>
+                <li><code>TOTAL_SUM</code></li>
+            </ul>
+            
+            <p>Invalid examples:</p>
+            <ul>
+                <li><code>2ndvar</code> (starts with a number)</li>
+                <li><code>my var</code> (contains space)</li>
+                <li><code>my-var</code> (contains hyphen)</li>
+            </ul>
+            
+            <h4>Variable Scope</h4>
+            <ul>
+                <li><strong>Global variables:</strong> Accessible throughout the script unless inside a function where they are shadowed.</li>
+                <li><strong>Local variables:</strong> Defined within functions and accessible only within that function.</li>
+                <li>Variables declared without special qualifiers are generally global within the script.</li>
+            </ul>
+            
+            <h4>Common Errors to Avoid</h4>
+            <ul>
+                <li>Using reserved words like if, then, else as variable names.</li>
+                <li>Including spaces around = during assignment.</li>
+                <li>Trying to perform arithmetic operations without proper syntax.</li>
+                <li>Using variables before assigning a value.</li>
+            </ul>
+            
+            <h4>Summary</h4>
+            <p>Variables in shell scripting are simple but powerful tools that store data for reuse. Proper naming, syntax, and understanding of scope help create clear and effective scripts.</p>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Logical Flow Control in Shell Scripts</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Shell scripts use various control structures to manage program flow:</p>
+            
+            <h4>1. if/else Statements</h4>
+            <p>General form:</p>
+            <pre><code>if [ condition ]; then
+    commands
+elif [ another_condition ]; then
+    commands
+else
+    commands
+fi</code></pre>
+            
+            <p>Shell test operators for conditions:</p>
+            <table>
+                <tr>
+                    <th>Operator</th>
+                    <th>Meaning</th>
+                </tr>
+                <tr>
+                    <td><code>-eq</code></td>
+                    <td>Equal (for numbers)</td>
+                </tr>
+                <tr>
+                    <td><code>-ne</code></td>
+                    <td>Not equal</td>
+                </tr>
+                <tr>
+                    <td><code>-gt</code></td>
+                    <td>Greater than</td>
+                </tr>
+                <tr>
+                    <td><code>-ge</code></td>
+                    <td>Greater or equal</td>
+                </tr>
+                <tr>
+                    <td><code>-lt</code></td>
+                    <td>Less than</td>
+                </tr>
+                <tr>
+                    <td><code>-le</code></td>
+                    <td>Less or equal</td>
+                </tr>
+                <tr>
+                    <td><code>=</code></td>
+                    <td>Equal (for strings)</td>
+                </tr>
+                <tr>
+                    <td><code>!=</code></td>
+                    <td>Not equal (strings)</td>
+                </tr>
+            </table>
+            
+            <p>Example:</p>
+            <pre><code>#!/bin/bash
+# Check disk usage and send alert if above threshold
+
+THRESHOLD=90
+USAGE=$(df -h / | grep / | awk '{print $5}' | cut -d'%' -f1)
+
+if [ "$USAGE" -gt "$THRESHOLD" ]; then
+    echo "WARNING: Disk usage is at $USAGE%, which exceeds threshold of $THRESHOLD%"
+    echo "Disk usage alert: $USAGE%" | mail -s "Disk Space Alert" admin@example.com
+else
+    echo "Disk usage is at $USAGE%, below threshold of $THRESHOLD%"
+fi</code></pre>
+
+            <h4>2. case Statement</h4>
+            <p>Multi-choice selection based on a variable's value:</p>
+            <pre><code>case "$variable" in
+  pattern1) 
+    commands 
+    ;;
+  pattern2) 
+    commands 
+    ;;
+  *) 
+    default commands 
+    ;;
+esac</code></pre>
+
+            <p>Example:</p>
+            <pre><code>#!/bin/bash
+# Service controller script
+
+SERVICE=$1
+ACTION=$2
+
+case "$ACTION" in
+  start)
+    echo "Starting $SERVICE..."
+    systemctl start "$SERVICE"
+    ;;
+  stop)
+    echo "Stopping $SERVICE..."
+    systemctl stop "$SERVICE"
+    ;;
+  restart)
+    echo "Restarting $SERVICE..."
+    systemctl restart "$SERVICE"
+    ;;
+  *)
+    echo "Usage: $0 service_name [start|stop|restart]"
+    exit 1
+    ;;
+esac</code></pre>
+
+            <h4>3. Loops</h4>
+            <p>For loop - iterate over a list or range:</p>
+            <pre><code>for var in list; do
+  commands
+done</code></pre>
+
+            <p>While loop - loop while condition is true:</p>
+            <pre><code>while [ condition ]; do
+  commands
+done</code></pre>
+
+            <p>Example (for loop):</p>
+            <pre><code>#!/bin/bash
+# Process multiple files in a directory
+
+for FILE in /var/log/*.log; do
+  echo "Processing $FILE"
+  # Process the file here
+  gzip "$FILE"
+done</code></pre>
+
+            <p>Example (while loop):</p>
+            <pre><code>#!/bin/bash
+# Monitor a process until it completes
+
+PID=$1
+echo "Monitoring process $PID..."
+
+while kill -0 $PID 2>/dev/null; do
+  echo "Process $PID is still running..."
+  sleep 5
+done
+
+echo "Process $PID has completed."</code></pre>
+
+            <h4>4. Nested loops and conditions</h4>
+            <p>You can place loops inside loops or conditions inside loops:</p>
+            <pre><code>#!/bin/bash
+# Process multiple directories and files
+
+for DIR in /var/log /var/tmp; do
+  echo "Entering directory: $DIR"
+  
+  for FILE in "$DIR"/*.log; do
+    if [ -f "$FILE" ]; then
+      echo "Processing file: $FILE"
+      # Process the file here
+    else
+      echo "No log files found in $DIR"
+    fi
+  done
+done</code></pre>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="flow-control-info" onclick="openModal('flow-control-info'); return false;">Learn more: Logical Flow Control in Shell Scripts</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Logical Flow Control in Shell Scripts information -->
+    <div id="flow-control-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('flow-control-info')">&times;</span>
+            <h3>Logical Flow Control in Shell Scripts</h3>
+            
+            <p>Shell scripting allows you to create scripts that can make decisions, repeat actions, and handle different situations dynamically. These flow control structures make your scripts more powerful and adaptable, enabling automation of complex tasks.</p>
+            
+            <h4>1. Branching with if Statements</h4>
+            <p>The if statement is the primary way to introduce decision-making into your scripts. It executes a block of code only if a specified condition is true.</p>
+            
+            <p>Basic syntax:</p>
+            <pre><code>if [ condition ]
+then
+    # commands to run if condition is true
+fi</code></pre>
+            
+            <p>Example:</p>
+            <p>Checking if the current user is root:</p>
+            <pre><code>if [ "$(id -u)" != "0" ]
+then
+    echo "You must be root to run this script."
+    exit 1
+fi</code></pre>
+            <p>This script checks the user ID; if it's not zero (not root), it displays a message and exits.</p>
+            
+            <h4>2. Case Statements</h4>
+            <p>When you need to handle multiple options, case statements are more efficient than multiple if statements.</p>
+            
+            <p>Syntax:</p>
+            <pre><code>case $variable in
+    pattern1) commands ;;
+    pattern2) commands ;;
+    *) default_commands ;;
+esac</code></pre>
+            
+            <p>Example:</p>
+            <p>Prompting for a number and responding accordingly:</p>
+            <pre><code>read -p "Enter a number between 1 and 3 > " number
+
+case $number in
+    1) echo "You entered one." ;;
+    2) echo "You entered two." ;;
+    3) echo "You entered three." ;;
+    *) echo "Invalid input." ;;
+esac</code></pre>
+            
+            <h4>3. Looping Structures</h4>
+            <p>Loops allow you to repeat actions multiple times, which is essential for automation.</p>
+            
+            <h5>a. while Loop</h5>
+            <p>Repeats as long as a condition is true:</p>
+            <pre><code>count=0
+while [ "$count" -lt 10 ]
+do
+    echo "$count"
+    count=$((count + 1))
+done</code></pre>
+            <p>This counts from 0 to 9.</p>
+            
+            <h5>b. until Loop</h5>
+            <p>Repeats until a condition becomes true:</p>
+            <pre><code>count=0
+until [ "$count" -ge 10 ]
+do
+    echo "$count"
+    count=$((count + 1))
+done</code></pre>
+            
+            <h5>c. for Loop</h5>
+            <p>Iterates over a list or range:</p>
+            <pre><code>for i in 1 2 3 4 5
+do
+    echo "Number: $i"
+done</code></pre>
+            
+            <p>Or over a sequence:</p>
+            <pre><code>for i in {1..5}
+do
+    echo "Number: $i"
+done</code></pre>
+            
+            <h4>4. Command Chaining</h4>
+            <p>Commands can be combined on a single line with special operators:</p>
+            <ul>
+                <li><code>;</code> runs commands sequentially regardless of success</li>
+                <li><code>&&</code> runs the second command only if the first succeeds</li>
+                <li><code>||</code> runs the second command only if the first fails</li>
+                <li><code>&</code> runs a command in the background</li>
+            </ul>
+            
+            <p>Examples:</p>
+            <pre><code>command1 && command2  # command2 runs only if command1 succeeds
+command1 || command2  # command2 runs only if command1 fails</code></pre>
+            
+            <h4>Why Use Flow Control?</h4>
+            <p>Flow control structures are vital because they enable scripts to:</p>
+            <ul>
+                <li>Make decisions based on system state or user input</li>
+                <li>Handle different scenarios appropriately</li>
+                <li>Automate repetitive tasks efficiently</li>
+                <li>Execute commands conditionally or repeatedly</li>
+            </ul>
+            <p>This transforms simple scripts into dynamic, intelligent programs capable of adapting to various situations.</p>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>How to Debug Shell Scripts Effectively?</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Debugging is an essential skill for shell script development. Here are key techniques for effective debugging:</p>
+            
+            <h4>Common Debugging Options:</h4>
+            <ul>
+                <li><code>bash -n script.sh</code> — Check syntax without executing</li>
+                <li><code>bash -v script.sh</code> — Show verbose output (prints each line as read)</li>
+                <li><code>bash -x script.sh</code> — Trace execution (shows commands and their values)</li>
+            </ul>
+            
+            <h4>Adding Debug Mode to Scripts:</h4>
+            <pre><code>#!/bin/bash
+# Debug mode can be enabled with -d flag
+DEBUG=0
+
+if [[ "$1" == "-d" ]]; then
+    DEBUG=1
+    shift  # Remove -d from arguments
+fi
+
+function debug() {
+    if [[ "$DEBUG" -eq 1 ]]; then
+        echo "DEBUG: $@"
+    fi
+}
+
+# Example usage
+debug "Starting process with input: $1"
+# Main script logic here</code></pre>
+            
+            <h4>Common Errors and Solutions:</h4>
+            <table>
+                <tr>
+                    <th>Error</th>
+                    <th>Common Cause</th>
+                    <th>Solution</th>
+                </tr>
+                <tr>
+                    <td>Command not found</td>
+                    <td>Script lacks execute permission</td>
+                    <td>Use <code>chmod +x script.sh</code></td>
+                </tr>
+                <tr>
+                    <td>Bad substitution</td>
+                    <td>Shell feature not supported in basic shells</td>
+                    <td>Ensure proper shebang (#!/bin/bash)</td>
+                </tr>
+                <tr>
+                    <td>No such file or directory</td>
+                    <td>Incorrect path or file doesn't exist</td>
+                    <td>Use absolute paths or validate with <code>test -f</code></td>
+                </tr>
+                <tr>
+                    <td>Syntax errors</td>
+                    <td>Missing quotes, brackets, or semicolons</td>
+                    <td>Use <code>bash -n</code> to check syntax</td>
+                </tr>
+            </table>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="debugging-info" onclick="openModal('debugging-info'); return false;">Learn more: How to Debug Shell Scripts Effectively?</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Shell Script Debugging information -->
+    <div id="debugging-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('debugging-info')">&times;</span>
+            <h3>How to Debug Shell Scripts Effectively?</h3>
+            
+            <p>Debugging shell scripts is an essential skill to identify and fix errors, ensuring your scripts run smoothly. There are several techniques and tools available to help you understand what your script is doing and where it might be going wrong.</p>
+            
+            <h4>1. Using Built-in Debugging Options</h4>
+            
+            <h5>Verbose Mode (-v)</h5>
+            <p>Enabling verbose mode displays each command as it is read, before execution. This helps you see the script's flow:</p>
+            <pre><code>bash -v my_script.sh</code></pre>
+            
+            <h5>Debug Mode (-x)</h5>
+            <p>Debug mode prints each command and its arguments as they are executed, providing a detailed trace:</p>
+            <pre><code>bash -x my_script.sh</code></pre>
+            <p>This is especially useful for pinpointing where a script behaves unexpectedly.</p>
+            
+            <h4>2. Leveraging set Commands</h4>
+            <p>The set command offers flexible debugging controls within your script:</p>
+            <ul>
+                <li><code>set -x</code>: Turns on debug mode, showing commands during execution.</li>
+                <li><code>set +x</code>: Turns off debug mode.</li>
+                <li><code>set -v</code>: Displays shell input lines as they are read.</li>
+                <li><code>set -e</code>: Causes the script to exit immediately if any command fails.</li>
+            </ul>
+            
+            <p>Example:</p>
+            <pre><code>#!/bin/bash
+set -x  # Enable debugging
+# Your commands here
+set +x  # Disable debugging</code></pre>
+            <p>Using set allows you to enable or disable debugging dynamically at specific points in your script.</p>
+            
+            <h4>3. Redirecting Debug Output to a Log File</h4>
+            <p>To keep your debug output organized, redirect it to a file:</p>
+            <pre><code>#!/bin/bash
+exec 5>debug.log
+PS4='$LINENO: '
+BASH_XTRACEFD=5
+set -x
+# Your script here</code></pre>
+            <p>This captures all debug information into debug.log, making it easier to analyze later.</p>
+            
+            <h4>4. Adding Echo and Printf Statements</h4>
+            <p>Inserting echo or printf statements at critical points helps track variable values and execution flow:</p>
+            <pre><code>echo "Variable X is: $X"</code></pre>
+            <p>This simple approach can quickly reveal where variables are not set as expected or where logic diverges.</p>
+            
+            <h4>5. Function Testing Strategy</h4>
+            <p>Break your script into smaller functions and test each one independently. This modular approach simplifies debugging:</p>
+            <ol>
+                <li>Write individual functions.</li>
+                <li>Test each function thoroughly.</li>
+                <li>Integrate them into the main script once verified.</li>
+            </ol>
+            
+            <h4>6. Using a Dedicated Debugger (bashdb)</h4>
+            <p>For advanced debugging, tools like bashdb provide features similar to traditional debuggers:</p>
+            <ul>
+                <li>Set breakpoints</li>
+                <li>Step through scripts line by line</li>
+                <li>Inspect variables</li>
+                <li>Set conditional breakpoints</li>
+            </ul>
+            
+            <p>Usage:</p>
+            <pre><code>bashdb my_script.sh</code></pre>
+            <p>This is especially helpful for complex scripts requiring detailed inspection.</p>
+            
+            <h4>7. Modular Approach and Multiple Script Strategy</h4>
+            <p>Divide complex scripts into smaller, manageable scripts. Debug each component separately before combining them. This approach simplifies troubleshooting and improves maintainability.</p>
+            
+            <h4>Summary</h4>
+            <p>Effective debugging combines multiple techniques:</p>
+            <ul>
+                <li>Use bash -x or set -x for detailed execution traces.</li>
+                <li>Add strategic echo statements to monitor variables.</li>
+                <li>Break scripts into functions and test incrementally.</li>
+                <li>Use dedicated debuggers like bashdb for in-depth analysis.</li>
+                <li>Redirect debug output to log files for review.</li>
+            </ul>
+            <p>By applying these methods, you can quickly identify issues and ensure your shell scripts run reliably.</p>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Working with Command Line Arguments</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Shell scripts can accept and process command line arguments, making them more versatile and interactive.</p>
+            
+            <h4>Basic Argument Handling:</h4>
+            <ul>
+                <li><code>$0</code> — Script name</li>
+                <li><code>$1</code>, <code>$2</code>, etc. — Individual positional arguments</li>
+                <li><code>$#</code> — Number of arguments passed</li>
+                <li><code>$@</code> — All arguments as separate strings</li>
+                <li><code>$*</code> — All arguments as a single string</li>
+            </ul>
+            
+            <h4>Example of Simple Argument Processing:</h4>
+            <pre><code>#!/bin/bash
+# Script to demonstrate argument handling
+
+echo "Script name: $0"
+echo "Total arguments: $#"
+echo "First argument: $1"
+echo "Second argument: $2"
+echo "All arguments: $@"
+
+# Process all arguments with a loop
+echo "Processing all arguments:"
+for arg in "$@"; do
+    echo "- Processing: $arg"
+done</code></pre>
+            
+            <h4>Using getopts for Advanced Argument Handling:</h4>
+            <pre><code>#!/bin/bash
+# Script with option flags and arguments
+
+usage() {
+    echo "Usage: $0 [-v] [-d directory] filename"
+    exit 1
+}
+
+verbose=0
+directory="."
+
+# Process options
+while getopts ":vd:" opt; do
+    case $opt in
+        v)
+            verbose=1
+            ;;
+        d)
+            directory="$OPTARG"
+            ;;
+        \?)
+            echo "Invalid option: -$OPTARG"
+            usage
+            ;;
+        :)
+            echo "Option -$OPTARG requires an argument."
+            usage
+            ;;
+    esac
+done
+
+# Remove processed options from arguments list
+shift $((OPTIND-1))
+
+# Check if filename is provided
+if [ $# -eq 0 ]; then
+    echo "Error: Filename argument is required."
+    usage
+fi
+
+filename="$1"
+
+# Use the arguments
+echo "Verbose mode: $verbose"
+echo "Directory: $directory"
+echo "Filename: $filename"</code></pre>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="cmd-args-info" onclick="openModal('cmd-args-info'); return false;">Learn more: Working with Command Line Arguments</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Working with Command Line Arguments information -->
+    <div id="cmd-args-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('cmd-args-info')">&times;</span>
+            <h3>Working with Command Line Arguments</h3>
+            
+            <p>Command line arguments are additional pieces of information you provide when running a program or script. They customize the behavior of the program without changing its code. Think of them as instructions or data passed to the program at the moment you start it.</p>
+            
+            <h4>Basic Concept</h4>
+            <p>When you run a command like:</p>
+            <pre><code>wt ping learn.microsoft.com</code></pre>
+            <ul>
+                <li><code>wt</code> is the program (Windows Terminal).</li>
+                <li><code>ping learn.microsoft.com</code> are the command line arguments.</li>
+            </ul>
+            <p>These arguments tell the program what specific actions to perform or what data to use.</p>
+            
+            <p>Arguments are separated by spaces. If an argument contains spaces, it should be enclosed in quotes:</p>
+            <pre><code>program "argument with spaces"</code></pre>
+            
+            <h4>Uses of Command Line Arguments</h4>
+            <ul>
+                <li>Specifying input files or data sources</li>
+                <li>Setting options or flags to modify behavior</li>
+                <li>Controlling features or modes</li>
+                <li>Providing configuration parameters</li>
+            </ul>
+            
+            <h4>Types of Command Line Arguments</h4>
+            <p><strong>Options/Flags:</strong> Usually start with - or -- and change how the program runs.</p>
+            <ul>
+                <li>Example: <code>--help</code> displays help information.</li>
+                <li>Short options: <code>-h</code> is often used as a shortcut for help.</li>
+            </ul>
+            
+            <p><strong>Parameters/Values:</strong> Specific data the program needs, like filenames or numbers.</p>
+            
+            <h4>Examples of Command Line Usage</h4>
+            
+            <h5>Windows Terminal</h5>
+            <p>You can pass arguments to Windows Terminal to control how it opens:</p>
+            <pre><code>wt new-tab PowerShell -c Start-Service</code></pre>
+            <p>This opens a new PowerShell tab and runs the Start-Service command.</p>
+            
+            <h5>Targeting Specific Windows</h5>
+            <p>You can specify which window to open a new tab in:</p>
+            <pre><code>wt -w 0 nt             # New tab in current window
+wt -w -1 nt            # New tab in a new window
+wt -w foo nt           # New tab in window named "foo"</code></pre>
+            
+            <h4>Parsing Command Line Arguments in Programs</h4>
+            <p>Programs need to read and interpret these arguments. For example, in Java:</p>
+            <pre><code>public static void main(String[] args) {
+    for (int i = 0; i < args.length; i++) {
+        System.out.println(args[i]);
+    }
+}</code></pre>
+            <p>This code prints each argument passed to the program.</p>
+            
+            <h4>Best Practices for Command Line Arguments</h4>
+            <ul>
+                <li>Provide a help option (<code>--help</code> or <code>-h</code>) explaining available arguments.</li>
+                <li>Use consistent formatting: short options with a single dash, long options with double dashes.</li>
+                <li>Handle invalid arguments gracefully with error messages.</li>
+                <li>Use default values when arguments are missing.</li>
+                <li>Document the expected arguments clearly for users.</li>
+            </ul>
+            
+            <h4>Summary</h4>
+            <p>Command line arguments are a powerful way to make programs flexible and user-friendly. Understanding how to use and handle them allows you to develop versatile command-line tools and use existing ones more effectively.</p>
+        </div>
+    </div>
+
+    <div class="topic">
+        <div class="topic-header">
+            <h3>Functions in Shell Scripts</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <p>Functions improve script organization, reusability, and maintainability. They encapsulate code into logical, reusable units.</p>
+            
+            <h4>Function Declaration and Calling:</h4>
+            <pre><code># Function declaration - both formats work
+function function_name() {
+    # Commands here
+}
+
+# Alternative syntax
+function_name() {
+    # Commands here
+}</code></pre>
+            
+            <h4>Function Parameters and Return Values:</h4>
+            <ul>
+                <li>Access parameters with <code>$1</code>, <code>$2</code>, etc. (similar to script arguments)</li>
+                <li>Return values using the <code>return</code> statement (0-255 only) or by storing in variables</li>
+                <li>Capture output with command substitution: <code>result=$(function_name)</code></li>
+            </ul>
+            
+            <h4>Complete Function Example:</h4>
+            <pre><code>#!/bin/bash
+# Script demonstrating functions
+
+# Function to validate if a number is positive
+is_positive() {
+    local num=$1
+    
+    if [[ ! $num =~ ^[0-9]+$ ]]; then
+        echo "Error: '$num' is not a number"
+        return 1
+    fi
+    
+    if [ $num -le 0 ]; then
+        return 1
+    else
+        return 0
+    fi
+}
+
+# Function to calculate factorial
+factorial() {
+    local number=$1
+    local result=1
+    
+    # Validate input first
+    if ! is_positive "$number"; then
+        echo "Cannot calculate factorial of '$number'"
+        return 1
+    fi
+    
+    # Calculate factorial
+    for (( i=1; i<=number; i++ )); do
+        result=$((result * i))
+    done
+    
+    echo $result
+    return 0
+}
+
+# Test the functions
+echo "Calculating factorials:"
+
+for value in 5 0 -1 "abc" 10; do
+    result=$(factorial $value)
+    status=$?
+    
+    if [ $status -eq 0 ]; then
+        echo "Factorial of $value is $result"
+    else
+        echo "$result"
+    fi
+done</code></pre>
+            
+            <h4>Benefits of Using Functions:</h4>
+            <ul>
+                <li>Code reusability and organization</li>
+                <li>Easier maintenance and debugging</li>
+                <li>Improved script readability</li>
+                <li>Modular development approach</li>
+                <li>Ability to create libraries of functions</li>
+            </ul>
+            
+            <div class="reference-links">
+                <p><i class="fas fa-info-circle"></i> <a href="#" class="modal-trigger" data-modal="functions-info" onclick="openModal('functions-info'); return false;">Learn more: Functions in Shell Scripts</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Functions in Shell Scripts information -->
+    <div id="functions-info" class="modal">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal('functions-info')">&times;</span>
+            <h3>Functions in Shell Scripts</h3>
+            
+            <p>Functions are blocks of reusable code within a shell script that perform specific tasks. They help organize your script into manageable sections, reduce repetition, and improve readability. Think of functions as mini-programs within your script that you can call whenever needed.</p>
+            
+            <h4>Why Use Functions?</h4>
+            <ul>
+                <li><strong>Reusability:</strong> Write a task once and call it multiple times.</li>
+                <li><strong>Organization:</strong> Break complex scripts into logical sections.</li>
+                <li><strong>Maintainability:</strong> Easier to update and troubleshoot specific parts.</li>
+                <li><strong>Clarity:</strong> Make scripts easier to read and understand.</li>
+            </ul>
+            
+            <h4>Defining a Function</h4>
+            <p>In shell scripting, a function is defined with the following syntax:</p>
+            <pre><code>function_name() {
+    # commands
+}</code></pre>
+            
+            <p>Alternatively, you can also write:</p>
+            <pre><code>function function_name {
+    # commands
+}</code></pre>
+            
+            <p>Example:</p>
+            <pre><code>greet() {
+    echo "Hello, welcome to the script!"
+}</code></pre>
+            <p>This creates a function named greet that prints a greeting message.</p>
+            
+            <h4>Calling a Function</h4>
+            <p>Once defined, you call a function by simply writing its name:</p>
+            <pre><code>greet</code></pre>
+            <p>This executes the commands inside the function.</p>
+            
+            <p>Complete example:</p>
+            <pre><code>#!/bin/bash
+
+greet() {
+    echo "Hello, welcome to the script!"
+}
+
+greet  # Call the function</code></pre>
+            
+            <h4>Passing Arguments to Functions</h4>
+            <p>Functions can accept parameters, making them more flexible. Inside the function, arguments are accessed using positional parameters $1, $2, etc.</p>
+            
+            <p>Example:</p>
+            <pre><code>greet_user() {
+    echo "Hello, $1!"
+}
+
+greet_user Alice</code></pre>
+            <p>This will output:</p>
+            <pre><code>Hello, Alice!</code></pre>
+            
+            <p>You can pass multiple arguments:</p>
+            <pre><code>add_numbers() {
+    sum=$(( $1 + $2 ))
+    echo "Sum: $sum"
+}
+
+add_numbers 5 10</code></pre>
+            <p>Output:</p>
+            <pre><code>Sum: 15</code></pre>
+            
+            <h4>Returning Values from Functions</h4>
+            <p>Shell functions do not return values like in some programming languages. Instead, they return an exit status (success or failure). To pass data back, you can:</p>
+            <ul>
+                <li>Use echo to print the result and capture it</li>
+                <li>Use global variables (less recommended)</li>
+            </ul>
+            
+            <p>Example:</p>
+            <pre><code>calculate_square() {
+    local num=$1
+    echo $(( num * num ))
+}
+
+result=$(calculate_square 4)
+echo "Square is: $result"</code></pre>
+            <p>Output:</p>
+            <pre><code>Square is: 16</code></pre>
+            
+            <h4>Best Practices for Functions</h4>
+            <ul>
+                <li>Use descriptive names.</li>
+                <li>Keep functions focused on a single task.</li>
+                <li>Use local variables inside functions to avoid conflicts.</li>
+                <li>Document your functions with comments.</li>
+                <li>Call functions in logical order for clarity.</li>
+            </ul>
+            
+            <h4>Summary</h4>
+            <p>Functions are a fundamental tool in shell scripting that help organize code, promote reuse, and simplify complex scripts. Mastering functions allows you to write cleaner, more efficient, and more maintainable scripts.</p>
+        </div>
+    </div>
+
+    <div class="topic quiz-topic">
+        <div class="topic-header quiz-header">
+            <h3>Shell Scripting Quiz 📝</h3>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="topic-content">
+            <h4>Test Your Shell Scripting Knowledge</h4>
+            <p>Answer the following questions to check your understanding of shell scripting concepts.</p>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">1. Which of the following is NOT a valid shell in Linux?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">Bash (Bourne Again Shell)</li>
+                    <li class="quiz-option" data-correct="false">zsh (Z Shell)</li>
+                    <li class="quiz-option" data-correct="true">jsh (Java Shell)</li>
+                    <li class="quiz-option" data-correct="false">ksh (Korn Shell)</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">2. What is the correct way to assign a variable in a shell script?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">var = value</li>
+                    <li class="quiz-option" data-correct="true">var=value</li>
+                    <li class="quiz-option" data-correct="false">$var = value</li>
+                    <li class="quiz-option" data-correct="false">var := value</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">3. Which option would you use with bash to check a script's syntax without executing it?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">bash -x script.sh</li>
+                    <li class="quiz-option" data-correct="true">bash -n script.sh</li>
+                    <li class="quiz-option" data-correct="false">bash -v script.sh</li>
+                    <li class="quiz-option" data-correct="false">bash -s script.sh</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">4. Which variable contains all command line arguments passed to a shell script?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">$0</li>
+                    <li class="quiz-option" data-correct="false">$#</li>
+                    <li class="quiz-option" data-correct="true">$@</li>
+                    <li class="quiz-option" data-correct="false">$?</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">5. What is the maximum numeric value that can be returned from a shell function?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">127</li>
+                    <li class="quiz-option" data-correct="true">255</li>
+                    <li class="quiz-option" data-correct="false">999</li>
+                    <li class="quiz-option" data-correct="false">No limit</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">6. Which of the following is the correct way to create an array in Bash?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">array = (item1, item2, item3)</li>
+                    <li class="quiz-option" data-correct="true">array=(item1 item2 item3)</li>
+                    <li class="quiz-option" data-correct="false">array = [item1, item2, item3]</li>
+                    <li class="quiz-option" data-correct="false">array = new Array(item1, item2, item3)</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">7. What does the 'set -e' command do in a shell script?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="true">Exits the script if any command returns a non-zero status</li>
+                    <li class="quiz-option" data-correct="false">Enables verbose output for debugging</li>
+                    <li class="quiz-option" data-correct="false">Sets all variables to be environment variables</li>
+                    <li class="quiz-option" data-correct="false">Enables extended regular expression support</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">8. Which command is used to find files and execute commands on them in a shell script?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">grep</li>
+                    <li class="quiz-option" data-correct="false">locate</li>
+                    <li class="quiz-option" data-correct="true">find</li>
+                    <li class="quiz-option" data-correct="false">search</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+
+            <div class="quiz-container">
+                <h4 class="quiz-question">9. What is the purpose of the 'trap' command in shell scripts?</h4>
+                <ul class="quiz-options">
+                    <li class="quiz-option" data-correct="false">To identify and trap errors in syntax</li>
+                    <li class="quiz-option" data-correct="false">To catch and prevent memory leaks</li>
+                    <li class="quiz-option" data-correct="true">To execute commands when the script receives specific signals</li>
+                    <li class="quiz-option" data-correct="false">To create a breakpoint for debugging</li>
+                </ul>
+                <div class="quiz-feedback"></div>
+                <button class="quiz-button">Check Answer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Video Resources Section -->
+    <h3 class="video-resources-title">Video Resources 📺</h3>
+    
+    <div class="direct-video-links">
+        <div class="video-card">
+            <a href="https://youtu.be/v-F3YLd6oMw?si=vzQYDREG-8atmz5v" target="_blank" class="video-link-direct">
+                <i class="fab fa-youtube"></i>
+                <span class="video-link-text">Shell Scripting Tutorial</span>
+            </a>
+        </div>
+        
+        <div class="video-card">
+            <a href="https://youtu.be/tK9Oc6AEnR4?si=cDkqvpkG2QGKGF3Q" target="_blank" class="video-link-direct">
+                <i class="fab fa-youtube"></i>
+                <span class="video-link-text">Bash Scripting Tutorial</span>
+            </a>
+        </div>
+    </div>
+</section> 

@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Offline - Linux System Learning Platform</title>
+    <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --accent-color: #e74c3c;
+            --background-color: #eef2f7;
+            --text-color: #444;
+            --card-background: #f7f9fc;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .container {
+            max-width: 600px;
+            background-color: var(--card-background);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+        
+        h2 {
+            color: var(--secondary-color);
+            font-size: 1.3rem;
+            margin-bottom: 15px;
+        }
+        
+        p {
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        
+        .icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: var(--secondary-color);
+        }
+        
+        .buttons {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        button {
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+        
+        button:hover {
+            background-color: var(--accent-color);
+        }
+        
+        .previously-viewed {
+            margin-top: 30px;
+            border-top: 1px solid #ddd;
+            padding-top: 20px;
+        }
+        
+        ul {
+            list-style-type: none;
+            padding: 0;
+            text-align: left;
+        }
+        
+        li {
+            margin-bottom: 8px;
+        }
+        
+        li a {
+            color: var(--secondary-color);
+            text-decoration: none;
+            display: block;
+            padding: 8px 12px;
+            background-color: rgba(52, 152, 219, 0.1);
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+        
+        li a:hover {
+            background-color: rgba(52, 152, 219, 0.2);
+        }
+        
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --primary-color: #1a252f;
+                --secondary-color: #2980b9;
+                --accent-color: #c0392b;
+                --background-color: #121212;
+                --text-color: #eee;
+                --card-background: #1e1e1e;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            h2 {
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">📡</div>
+        <h1>You're Offline</h1>
+        <p>It seems you're not connected to the internet. You can still access previously viewed content.</p>
+        
+        <div class="buttons">
+            <button id="homeBtn">Go to Homepage</button>
+            <button id="retryBtn">Try Again</button>
+        </div>
+        
+        <div class="previously-viewed">
+            <h2>Previously Viewed Content</h2>
+            <p id="noContent" style="display: none;">No content has been viewed while online yet.</p>
+            <ul id="viewedList">
+                <!-- Viewed content will be populated here via JavaScript -->
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Go to home page
+        document.getElementById('homeBtn').addEventListener('click', function() {
+            window.location.href = '/';
+        });
+        
+        // Retry loading the current page
+        document.getElementById('retryBtn').addEventListener('click', function() {
+            window.location.reload();
+        });
+        
+        // Populate previously viewed content from localStorage
+        const viewedTopics = JSON.parse(localStorage.getItem('viewedTopics') || '[]');
+        const viewedList = document.getElementById('viewedList');
+        const noContent = document.getElementById('noContent');
+        
+        if (viewedTopics.length === 0) {
+            noContent.style.display = 'block';
+            viewedList.style.display = 'none';
+        } else {
+            noContent.style.display = 'none';
+            
+            // Map section IDs to human-readable names
+            const sectionNames = {
+                'shell-scripting': 'Shell Scripting',
+                'user-administration': 'User & System Administration',
+                'scheduling-jobs': 'Scheduling Jobs', 
+                'linux-security': 'Linux Security & Hardening',
+                'admin-tasks': 'Performing Admin Tasks',
+                'pseudocode-standard': 'Pseudocode Standard'
+            };
+            
+            // Create list items for each viewed topic
+            viewedTopics.forEach(topicId => {
+                const li = document.createElement('li');
+                const a = document.createElement('a');
+                a.href = `/#${topicId}`;
+                a.textContent = sectionNames[topicId] || topicId;
+                li.appendChild(a);
+                viewedList.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html> 

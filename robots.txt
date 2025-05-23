@@ -1,0 +1,25 @@
+User-agent: *
+Allow: /
+
+# Allow all crawlers full access
+Disallow: /favicon/  # No need to crawl favicon directory
+
+# Special instructions for specific bots
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: Slurp
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# Crawl delay to prevent server overload for some bots
+User-agent: *
+Crawl-delay: 10
+
+# Sitemap location
+Sitemap: https://example.com/sitemap.xml 
