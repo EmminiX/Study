@@ -4,16 +4,16 @@
   "description": "Interactive platform for learning Linux system administration",
   "icons": [
     {
-      "src": "/favicon/android-chrome-192x192.png",
-      "sizes": "192x192",
+      "src": "/favicon/favicon.png",
+      "sizes": "48x48",
       "type": "image/png",
       "purpose": "any maskable"
     },
     {
-      "src": "/favicon/android-chrome-512x512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
+      "src": "/favicon/favicon.ico",
+      "sizes": "16x16 32x32",
+      "type": "image/x-icon",
+      "purpose": "any"
     }
   ],
   "theme_color": "#121212",

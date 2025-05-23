@@ -200,7 +200,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Set new timer to auto collapse audio player after inactivity
     autoHideAudioTimeout = setTimeout(() => {
       if (!isPlayerCollapsed && audio.paused) {
-        console.log("Auto-hiding audio player due to inactivity");
+        // Auto-hiding audio player due to inactivity
         
         // Collapse the player
         isPlayerCollapsed = true;
