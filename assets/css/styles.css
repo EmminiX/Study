@@ -33,6 +33,48 @@
     animation-delay: 0s !important;
 }
 
+/* GitHub Button Styles */
+.github-button-container {
+    margin-right: 15px;
+}
+
+.github-button {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background-color: var(--secondary-color);
+    color: white;
+    padding: 8px 12px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+}
+
+.github-button:hover {
+    background-color: #2980b9;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+}
+
+.github-button i {
+    font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    .github-button span {
+        display: none;
+    }
+    
+    .github-button {
+        padding: 8px;
+    }
+    
+    .github-button i {
+        margin: 0;
+    }
+}
+
 /* OpenDyslexic font with proper @font-face declarations */
 @font-face {
     font-family: 'OpenDyslexic';
@@ -281,7 +323,7 @@ header {
 .header-controls {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: 15px;
 }
 
 .search-container {
