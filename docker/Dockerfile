@@ -15,7 +15,7 @@ RUN rm -rf /usr/share/nginx/html/node_modules \
     /usr/share/nginx/html/Upgrade_plan.pdf
 
 # Copy custom nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY ../config/nginx.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 

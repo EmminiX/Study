@@ -33,37 +33,37 @@ fi
 case "$1" in
     start)
         echo "Starting containers..."
-        docker-compose up -d
+        docker-compose -f ../docker/docker-compose.yml up -d
         echo "Containers started. Website is available at http://localhost"
         ;;
     stop)
         echo "Stopping containers..."
-        docker-compose down
+        docker-compose -f ../docker/docker-compose.yml down
         echo "Containers stopped."
         ;;
     restart)
         echo "Restarting containers..."
-        docker-compose restart
+        docker-compose -f ../docker/docker-compose.yml restart
         echo "Containers restarted."
         ;;
     build)
         echo "Building Docker images..."
-        docker-compose build
+        docker-compose -f ../docker/docker-compose.yml build
         echo "Build completed."
         ;;
     logs)
         echo "Showing container logs (press Ctrl+C to exit)..."
-        docker-compose logs -f
+        docker-compose -f ../docker/docker-compose.yml logs -f
         ;;
     status)
         echo "Container status:"
-        docker-compose ps
+        docker-compose -f ../docker/docker-compose.yml ps
         ;;
     rebuild)
         echo "Rebuilding and restarting containers..."
-        docker-compose down
-        docker-compose build
-        docker-compose up -d
+        docker-compose -f ../docker/docker-compose.yml down
+        docker-compose -f ../docker/docker-compose.yml build
+        docker-compose -f ../docker/docker-compose.yml up -d
         echo "Rebuild and restart completed. Website is available at http://localhost"
         ;;
     prune)

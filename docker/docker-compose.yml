@@ -3,21 +3,21 @@ version: '3.8'
 services:
   website:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ..
+      dockerfile: docker/Dockerfile
     container_name: linux-learning-platform
     ports:
       - "80:80"
     restart: unless-stopped
     volumes:
       # Optional: For development only, mount source files directly
-      # - ./index.html:/usr/share/nginx/html/index.html
-      # - ./styles.css:/usr/share/nginx/html/styles.css
-      # - ./app.js:/usr/share/nginx/html/app.js
-      # - ./content:/usr/share/nginx/html/content
+      # - ../index.html:/usr/share/nginx/html/index.html
+      # - ../assets/css/styles.css:/usr/share/nginx/html/assets/css/styles.css
+      # - ../assets/js/app.js:/usr/share/nginx/html/assets/js/app.js
+      # - ../content:/usr/share/nginx/html/content
       
       # Mount custom nginx config for live changes if needed
-      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+      - ../config/nginx.conf:/etc/nginx/conf.d/default.conf
     networks:
       - web-network
 

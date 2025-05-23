@@ -69,8 +69,8 @@
       This is used by Progressive Web Apps (PWAs) to allow users to "install" the web app
       to their home screen.
     -->
-    <link rel="manifest" href="/site.webmanifest">
-    <link rel="manifest" href="/manifest.json">
+    <link rel="manifest" href="/config/site.webmanifest">
+    <link rel="manifest" href="/config/manifest.json">
     <!--
       "theme-color" suggests a color that browsers should use for UI elements around the webpage,
       like the address bar on mobile browsers.
@@ -212,7 +212,7 @@
     <!--
       Links to your main custom stylesheet "styles.css". This file contains your site's specific styling rules.
     -->
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
     <!--
       Links to Font Awesome, a popular icon library. This allows you to easily use icons
       (like the search icon, Linux icon, etc.) throughout your site.
@@ -444,13 +444,13 @@
         <a href="https://emmi.zone" target="_blank" class="emmi-logo">
             <!-- 
               <img> tag displays an image.
-              src="EMMI.png" - Path to the image file.
+              src="assets/images/EMMI.png" - Path to the image file.
               alt="EMMI Logo" - Alternative text for the image. Very important for:
                 1. Accessibility: Screen readers read this for visually impaired users.
                 2. SEO: Search engines use it to understand image content.
                 3. Broken Images: Displayed if the image fails to load.
             -->
-            <img src="EMMI.png" alt="EMMI Logo">
+            <img src="assets/images/EMMI.png" alt="EMMI Logo">
         </a>
         
         <!-- 
@@ -550,7 +550,7 @@
               Class: "coffee-btn" - For styling this button.
             -->
             <a href="https://www.buymeacoffee.com/emmix" target="_blank" class="coffee-btn">
-                <img src="buymeacoffee.png" alt="Buy Me a Coffee">
+                <img src="assets/images/buymeacoffee.png" alt="Buy Me a Coffee">
             </a>
         </nav>
 
@@ -779,12 +779,12 @@
       This file likely contains the core logic for the web application,
       including interactivity, content loading, theme toggling, accessibility features, etc.
     -->
-    <script src="app.js"></script>
+    <script src="assets/js/app.js" defer></script>
     <!-- 
       Link to "podcast-player.js".
       This script likely handles the functionality of the audio player for the podcast.
     -->
-    <script src="podcast-player.js"></script>
+    <script src="assets/js/podcast-player.js" defer></script>
 
     <!-- Audio Player for Linux Admin Podcast -->
     <!-- 
@@ -852,10 +852,10 @@
         <audio id="podcast" preload="metadata">
             <!-- 
               <source> tag specifies the audio file.
-              src="linux_podcast.mp3" - Path to the audio file.
+              src="assets/audio/linux_podcast.mp3" - Path to the audio file.
               type="audio/mpeg" - MIME type of the audio file.
             -->
-            <source src="linux_podcast.mp3" type="audio/mpeg">
+            <source src="assets/audio/linux_podcast.mp3" type="audio/mpeg">
             <!-- Fallback text if the browser doesn't support the <audio> element. -->
             Your browser does not support the audio element.
         </audio>

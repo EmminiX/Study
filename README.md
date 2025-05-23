@@ -50,13 +50,13 @@ The preferred way to deploy this application is using Docker Compose:
 2. Clone this repository
 3. Deploy using the included script:
    ```bash
-   chmod +x deploy.sh
-   ./deploy.sh build
-   ./deploy.sh start
+   chmod +x scripts/deploy.sh
+   ./scripts/deploy.sh build
+   ./scripts/deploy.sh start
    ```
 4. Access the platform at `http://localhost`
 
-For detailed Docker deployment instructions, see [DOCKER.md](/DOCKER.md) 📄
+For detailed Docker deployment instructions, see [DOCKER.md](/docs/DOCKER.md) 📄
 
 ### 💻 Local Development
 
@@ -102,12 +102,20 @@ This platform is a Progressive Web App that can be installed and used offline:
 ## 📂 Project Structure
 
 - 📄 `index.html` - Main application page
-- 🧠 `app.js` - Application logic and chatbot integration
-- 🎨 `styles.css` - Styling
 - 📚 `content/` - HTML content files for each learning section
-- 📶 `service-worker.js` - Handles offline caching
-- 🤖 `Fixed_Linux_Study_Final.json` - Chatbot configuration
-- 🐳 `Dockerfile` & `docker-compose.yml` - Docker deployment configuration
+- 📱 `error-pages/` - Error pages (404, 500)
+- 🎨 `assets/` - Static assets
+  - 🖌️ `assets/css/` - CSS files including styles.css
+  - 🧠 `assets/js/` - JavaScript files including app.js and service-worker.js
+  - 🖼️ `assets/images/` - Image files
+  - 🔊 `assets/audio/` - Audio files
+- ⚙️ `config/` - Configuration files
+  - 🤖 `config/Fixed_Linux_Study_Final.json` - Chatbot configuration
+  - 📱 `config/manifest.json` & `config/site.webmanifest` - PWA configuration
+- 📄 `docs/` - Documentation files
+- 🐳 `docker/` - Docker deployment files
+  - 🐋 `docker/Dockerfile` & `docker/docker-compose.yml` - Docker configuration
+- 📜 `scripts/` - Shell scripts for deployment and setup
 
 ## 🔍 Troubleshooting
 
@@ -115,8 +123,8 @@ If you encounter issues:
 
 1. 🔎 Check the browser console for error messages
 2. ✅ Verify all content files exist in the correct directories
-3. 🐳 For Docker deployment issues, see troubleshooting section in [DOCKER.md](/DOCKER.md)
-4. 🤖 For chatbot issues, refer to [CHATBOT_FIX_SUMMARY.md](/CHATBOT_FIX_SUMMARY.md)
+3. 🐳 For Docker deployment issues, see troubleshooting section in [DOCKER.md](/docs/DOCKER.md)
+4. 🤖 For chatbot issues, refer to [CHATBOT_FIX_SUMMARY.md](/docs/CHATBOT_FIX_SUMMARY.md)
 
 ## 👥 Contributing
 
