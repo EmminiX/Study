@@ -30,15 +30,22 @@ This platform provides comprehensive Linux learning resources with an intelligen
 
 - 🧩 **Interactive Learning Tools**:
   - 🌈 Syntax-highlighted code examples
-  - 🧠 Interactive quizzes to test knowledge
+  - 🔄 **Dynamic Quiz System** with randomized questions:
+    - 10+ questions per topic that refresh with a single click
+    - "Reset Quiz" button for continuous practice
+    - Different difficulty levels to challenge your knowledge
   - 🏋️ Practical exercises
   - 📋 Command reference
 
-- 🖥️ **User-Friendly Interface**:
+- 💻 **User-Friendly Interface**:
   - 🌓 Dark/light mode toggle
   - 📱 Responsive design for all devices
   - 🔍 Search functionality across all topics
   - 📶 Progressive Web App (PWA) with offline functionality
+  - 🎧 **Linux Admin Podcast Player**:
+    - Educational audio content on Linux administration topics
+    - Integrated player in the footer for learning while browsing
+    - Perfect for auditory learners and on-the-go study
 
 ## 🚀 Deployment Options
 

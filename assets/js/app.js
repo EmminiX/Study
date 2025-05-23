@@ -791,8 +791,205 @@ function setupCodeCopyButtons() {
 
 // Set up quiz interactions
 function setupQuizzes() {
+    // Import the quiz database if it exists
+    if (typeof quizDatabase !== 'undefined') {
+        console.log('Quiz database loaded successfully');
+        initializeQuizzes();
+    } else {
+        console.log('Quiz database not found, using static quizzes');
+        setupStaticQuizzes();
+    }
+}
+
+// Initialize quizzes with random questions from the database
+function initializeQuizzes() {
+    console.log('Initializing quizzes with database:', quizDatabase);
+    
+    // Get the current page section ID
+    // First try to get from the main section
+    let currentSection = '';
+    const mainSection = document.querySelector('main > section');
+    
+    if (mainSection) {
+        currentSection = mainSection.id;
+    } else {
+        // If not found, try to get from the active navigation link
+        const activeNavLink = document.querySelector('.nav-links .active');
+        if (activeNavLink) {
+            currentSection = activeNavLink.getAttribute('href').substring(1);
+        }
+    }
+    
+    // Convert section name to match database format (e.g., 'admin-tasks' instead of 'admin_tasks')
+    currentSection = currentSection.replace(/_/g, '-');
+    console.log('Current section identified as:', currentSection);
+    
+    // Find all quiz containers
+    const quizContainers = document.querySelectorAll('.quiz-container');
+    console.log(`Found ${quizContainers.length} quiz containers`);
+    
+    // Add a Reset All Quizzes button to the quiz topic header
+    const quizHeaders = document.querySelectorAll('.quiz-header');
+    quizHeaders.forEach(header => {
+        // Only add the button if it doesn't already exist
+        if (!header.querySelector('.reset-all-quizzes')) {
+            const resetAllButton = document.createElement('button');
+            resetAllButton.className = 'reset-all-quizzes';
+            resetAllButton.textContent = 'Reset All Quizzes';
+            resetAllButton.style.marginLeft = '15px';
+            resetAllButton.style.padding = '5px 10px';
+            resetAllButton.style.backgroundColor = 'var(--accent-color)';
+            resetAllButton.style.color = 'white';
+            resetAllButton.style.border = 'none';
+            resetAllButton.style.borderRadius = '4px';
+            resetAllButton.style.cursor = 'pointer';
+            resetAllButton.style.fontSize = '0.9rem';
+            
+            // Add the button next to the header title
+            const headerTitle = header.querySelector('h3');
+            if (headerTitle) {
+                headerTitle.style.display = 'inline-block';
+                headerTitle.parentNode.insertBefore(resetAllButton, headerTitle.nextSibling);
+                
+                // Add event listener to reset all quizzes button
+                resetAllButton.addEventListener('click', function(event) {
+                    // Prevent the click from toggling the collapsible section
+                    event.stopPropagation();
+                    console.log('Reset All Quizzes button clicked');
+                    
+                    // Reset all quizzes in this section
+                    quizContainers.forEach((container, index) => {
+                        resetQuiz(container, currentSection, index);
+                    });
+                });
+            }
+        }
+    });
+    
+    // Process each quiz container
+    quizContainers.forEach((container, index) => {
+        // Add a data attribute to track which quiz this is
+        container.dataset.quizIndex = index;
+        
+        // Initial setup of the quiz with a random question
+        resetQuiz(container, currentSection, index);
+    });
+}
+
+// Reset a quiz with a new random question
+function resetQuiz(quizContainer, section, quizIndex) {
+    // Find the appropriate section in the database
+    const sectionData = quizDatabase[section];
+    if (!sectionData) {
+        console.warn(`Section ${section} not found in quiz database`);
+        return;
+    }
+    
+    // Get a list of topics in this section
+    const topics = Object.keys(sectionData);
+    
+    // Determine which topic to use based on quiz index or use a random one
+    const topicIndex = quizIndex % topics.length;
+    const topic = topics[topicIndex];
+    const questions = sectionData[topic];
+    
+    if (!questions || questions.length === 0) {
+        console.warn(`No questions found for topic ${topic}`);
+        return;
+    }
+    
+    // Select a random question
+    const randomIndex = Math.floor(Math.random() * questions.length);
+    const question = questions[randomIndex];
+    
+    // Update the quiz container with the new question
+    updateQuizContent(quizContainer, question);
+}
+
+// Update quiz content with a new question
+function updateQuizContent(quizContainer, questionData) {
+    // Clear any previous feedback and selections
+    const feedback = quizContainer.querySelector('.quiz-feedback');
+    if (feedback) {
+        feedback.textContent = '';
+        feedback.classList.remove('correct', 'incorrect');
+    }
+    
+    // Update the question text
+    const questionElement = quizContainer.querySelector('.quiz-question');
+    if (questionElement) {
+        questionElement.textContent = questionData.question;
+    }
+    
+    // Update the options
+    const optionsList = quizContainer.querySelector('.quiz-options');
+    if (optionsList) {
+        // Clear existing options
+        optionsList.innerHTML = '';
+        
+        // Add new options
+        questionData.options.forEach(option => {
+            const optionElement = document.createElement('li');
+            optionElement.className = 'quiz-option';
+            optionElement.textContent = option.text;
+            optionElement.dataset.correct = option.correct;
+            
+            // Add click event listener
+            optionElement.addEventListener('click', function() {
+                // Clear all selections first
+                const allOptions = optionsList.querySelectorAll('.quiz-option');
+                allOptions.forEach(opt => opt.classList.remove('selected', 'wrong'));
+                
+                // Mark this option as selected
+                optionElement.classList.add('selected');
+            });
+            
+            optionsList.appendChild(optionElement);
+        });
+    }
+    
+    // Set up the check button event listener
+    const checkButton = quizContainer.querySelector('.quiz-button');
+    if (checkButton) {
+        // Remove any existing event listeners by cloning and replacing
+        const newCheckButton = checkButton.cloneNode(true);
+        checkButton.parentNode.replaceChild(newCheckButton, checkButton);
+        
+        newCheckButton.addEventListener('click', function() {
+            const selectedOption = quizContainer.querySelector('.quiz-option.selected');
+            
+            if (selectedOption) {
+                if (selectedOption.dataset.correct === 'true') {
+                    feedback.classList.remove('incorrect');
+                    feedback.classList.add('correct');
+                    feedback.textContent = 'Correct! Well done.';
+                } else {
+                    feedback.classList.remove('correct');
+                    feedback.classList.add('incorrect');
+                    feedback.textContent = 'Incorrect. Try again!';
+                    selectedOption.classList.add('wrong');
+                }
+                
+                // Find next quiz and scroll to it if it exists
+                const nextQuiz = quizContainer.nextElementSibling;
+                if (nextQuiz && nextQuiz.classList.contains('quiz-container')) {
+                    setTimeout(() => {
+                        nextQuiz.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }, 1000);
+                }
+            } else {
+                feedback.classList.remove('correct');
+                feedback.classList.add('incorrect');
+                feedback.textContent = 'Please select an answer.';
+            }
+        });
+    }
+}
+
+// Fallback function for static quizzes (if database is not available)
+function setupStaticQuizzes() {
     const quizzes = document.querySelectorAll('.quiz-container');
-    console.log("Setting up quizzes. Found:", quizzes.length);
+    console.log("Setting up static quizzes. Found:", quizzes.length);
     
     quizzes.forEach(quiz => {
         const options = quiz.querySelectorAll('.quiz-option');
@@ -2093,9 +2290,12 @@ function initLinuxTutorChat() {
     
     // Function to add message to chat
     function addMessageToChat(message, sender) {
+        // Create message element
         const messageElement = document.createElement('div');
         messageElement.className = `chat-message ${sender}-message`;
+        messageElement.id = `message-${Date.now()}`;
         
+        // Create content element
         const contentElement = document.createElement('div');
         contentElement.className = 'message-content';
         
@@ -2103,15 +2303,48 @@ function initLinuxTutorChat() {
         const formattedMessage = formatMessageText(message);
         contentElement.innerHTML = formattedMessage;
         
+        // Add content to message
         messageElement.appendChild(contentElement);
+        
+        // For AI messages, add a scroll marker before the message
+        // This will be our target for scrolling
+        if (sender === 'ai') {
+            const scrollMarker = document.createElement('div');
+            scrollMarker.className = 'scroll-marker';
+            scrollMarker.id = `marker-${Date.now()}`;
+            scrollMarker.style.height = '1px';
+            scrollMarker.style.width = '100%';
+            scrollMarker.style.position = 'relative';
+            scrollMarker.style.visibility = 'hidden';
+            
+            // Insert the marker before the message
+            chatMessages.appendChild(scrollMarker);
+        }
+        
+        // Add message to chat
         chatMessages.appendChild(messageElement);
         
         // Store in chat history
         chatHistory.push({ message, sender });
         localStorage.setItem('linuxTutorChatHistory', JSON.stringify(chatHistory));
         
-        // Scroll to bottom of chat
-        chatMessages.scrollTop = chatMessages.scrollHeight;
+        // Handle scrolling with a delay to ensure DOM update
+        setTimeout(() => {
+            if (sender === 'ai') {
+                // Find the most recent scroll marker
+                const markers = document.querySelectorAll('.scroll-marker');
+                if (markers.length > 0) {
+                    const latestMarker = markers[markers.length - 1];
+                    
+                    // Scroll to the marker (which is positioned at the top of the message)
+                    latestMarker.scrollIntoView({ behavior: 'auto', block: 'start' });
+                    console.log('Scrolled to marker for AI message');
+                }
+            } else {
+                // For user messages, scroll to the bottom as usual
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }
+        }, 100); // Increased delay for more reliable scrolling
     }
     
     // Helper function to format message text with code blocks and line breaks

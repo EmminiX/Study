@@ -706,6 +706,137 @@ pre {
     font-family: 'Lexend', sans-serif;
 }
 
+.quiz-reset {
+    background-color: var(--accent-color);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 1rem;
+    font-weight: 500;
+    font-family: 'Lexend', sans-serif;
+    transition: background-color 0.2s;
+}
+
+.quiz-reset:hover {
+    background-color: var(--accent-hover-color, #0056b3);
+}
+
+/* About page styling */
+.about-intro {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background-color: var(--card-bg-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+}
+
+.dark-mode .about-intro {
+    color: #f0e6d2; /* Matching warm cream color */
+}
+
+.light-mode .about-intro, .about-intro {
+    color: var(--text-color);
+}
+
+.about-intro p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.feature-item {
+    padding: 1.5rem;
+    background-color: var(--card-bg-color);
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    z-index: 1;
+}
+
+/* Specific text color handling for dark/light modes */
+.dark-mode .feature-item {
+    color: #f0e6d2; /* Warm cream color for dark mode */
+}
+
+.light-mode .feature-item, .feature-item {
+    color: var(--text-color);
+}
+
+.feature-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.feature-icon {
+    font-size: 2rem;
+    display: block;
+    margin-bottom: 1rem;
+}
+
+.dark-mode .feature-icon {
+    color: #e9b96e; /* Warm amber for icons in dark mode */
+}
+
+.light-mode .feature-icon, .feature-icon {
+    color: var(--accent-color);
+}
+
+.feature-item h5 {
+    margin-top: 0;
+    margin-bottom: 0.75rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+}
+
+.dark-mode .feature-item h5 {
+    color: #e6c07b; /* Warm gold for headings in dark mode */
+}
+
+.light-mode .feature-item h5, .feature-item h5 {
+    color: var(--primary-color);
+}
+
+.feature-list, .audience-list {
+    list-style: none;
+    padding-left: 0.5rem;
+}
+
+.feature-list li, .audience-list li {
+    margin-bottom: 0.75rem;
+    display: flex;
+    align-items: flex-start;
+}
+
+.dark-mode .feature-list, .dark-mode .audience-list {
+    color: #f0e6d2; /* Warm cream color for lists in dark mode */
+}
+
+.dark-mode .list-icon {
+    color: #e9b96e; /* Warm amber for list icons in dark mode */
+}
+
+.list-icon {
+    display: inline-block;
+    width: 1.5rem;
+    margin-right: 0.75rem;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .feature-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
 .search-results {
     margin-bottom: 2rem;
     padding: 1rem;
