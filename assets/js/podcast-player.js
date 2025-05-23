@@ -1,4 +1,6 @@
 document.addEventListener('DOMContentLoaded', function() {
+  // Check if the audio file is available in the cache first
+  checkAudioAvailability();
   // Elements
   const audio = document.getElementById('podcast');
   const playPauseBtn = document.querySelector('.play-pause-btn');
@@ -371,6 +373,95 @@ document.addEventListener('DOMContentLoaded', function() {
     return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
   }
   
+  // Offline audio handling
+  function checkAudioAvailability() {
+    const audioUrl = '/assets/audio/linux_podcast.mp3';
+    
+    // Check if we're offline
+    if (!navigator.onLine) {
+      console.log('Offline mode detected, checking cache for podcast audio');
+      
+      // If service worker and caches are supported
+      if ('caches' in window) {
+        caches.open('linux-learning-audio-v1')
+          .then(cache => {
+            return cache.match(audioUrl);
+          })
+          .then(response => {
+            if (response) {
+              console.log('Podcast audio found in cache, ready for offline playback');
+              // Update UI to show audio is available offline
+              const offlineIndicator = document.createElement('div');
+              offlineIndicator.className = 'offline-available';
+              offlineIndicator.textContent = 'Podcast available offline';
+              offlineIndicator.style.color = 'var(--success-color)';
+              offlineIndicator.style.fontSize = '12px';
+              offlineIndicator.style.marginTop = '5px';
+              offlineIndicator.style.textAlign = 'center';
+              
+              // Add indicator to player
+              const playerInner = document.querySelector('.audio-player-inner');
+              if (playerInner && !document.querySelector('.offline-available')) {
+                playerInner.appendChild(offlineIndicator);
+                
+                // Auto-hide after 5 seconds
+                setTimeout(() => {
+                  offlineIndicator.style.opacity = '0';
+                  setTimeout(() => {
+                    offlineIndicator.remove();
+                  }, 500);
+                }, 5000);
+              }
+            } else {
+              console.warn('Podcast audio not found in cache, offline playback not available');
+              // Update UI to show audio is not available offline
+              if (audioPlayer) {
+                const warningIndicator = document.createElement('div');
+                warningIndicator.className = 'offline-warning';
+                warningIndicator.textContent = 'Podcast not available offline';
+                warningIndicator.style.color = 'var(--warning-color)';
+                warningIndicator.style.fontSize = '12px';
+                warningIndicator.style.marginTop = '5px';
+                warningIndicator.style.textAlign = 'center';
+                
+                // Add warning to player
+                const playerInner = document.querySelector('.audio-player-inner');
+                if (playerInner && !document.querySelector('.offline-warning')) {
+                  playerInner.appendChild(warningIndicator);
+                }
+              }
+            }
+          })
+          .catch(error => {
+            console.error('Error checking cache for podcast audio:', error);
+          });
+      }
+    } else {
+      // If online, ensure the audio is cached for future offline use
+      if ('serviceWorker' in navigator && navigator.serviceWorker.controller) {
+        // Fetch the audio to ensure it's cached
+        fetch(audioUrl)
+          .then(response => {
+            console.log('Podcast audio fetched for caching');
+          })
+          .catch(error => {
+            console.error('Error fetching podcast audio for cache:', error);
+          });
+      }
+    }
+  }
+  
+  // Handle network status changes for the podcast player
+  window.addEventListener('online', function() {
+    console.log('Back online, updating podcast availability');
+    checkAudioAvailability();
+  });
+  
+  window.addEventListener('offline', function() {
+    console.log('Went offline, checking podcast availability');
+    checkAudioAvailability();
+  });
+  
   // Update UI when audio metadata is loaded
   audio.addEventListener('loadedmetadata', function() {
     seekSlider.max = audio.duration;
@@ -386,8 +477,27 @@ document.addEventListener('DOMContentLoaded', function() {
     adjustLayout();
   });
   
+  // Error handling for audio
+  audio.addEventListener('error', function(e) {
+    console.error('Audio error:', e);
+    
+    // Check if we're offline and provide a helpful message
+    if (!navigator.onLine) {
+      announceState('Cannot play podcast while offline. Please check your connection.');
+      
+      // Check if the audio is in the cache
+      checkAudioAvailability();
+    } else {
+      announceState('Error playing podcast');
+    }
+  });
+  
   // Play/Pause toggle
   playPauseBtn.addEventListener('click', function() {
+    // Check if we're offline and if the audio is available
+    if (!navigator.onLine) {
+      checkAudioAvailability();
+    }
     if (audio.paused) {
       audio.play();
       playPauseIcon.className = 'fas fa-pause';
