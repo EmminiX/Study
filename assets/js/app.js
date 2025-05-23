@@ -2116,11 +2116,26 @@ function initLinuxTutorChat() {
     
     // Helper function to format message text with code blocks and line breaks
     function formatMessageText(text) {
-        // Replace code blocks (text between backticks)
+        if (!text) return '';
+        
+        // First, handle any code blocks (text between backticks)
         let formatted = text.replace(/`([^`]+)`/g, '<code>$1</code>');
+        
+        // Aggressively remove all '**' characters - multiple approaches
+        // 1. Standard pattern replacement
+        formatted = formatted.replace(/\*\*([^*]+)\*\*/g, '$1');
+        
+        // 2. Global replacement of all remaining '**' sequences
+        formatted = formatted.replace(/\*\*/g, '');
+        
+        // 3. Handle any remaining single asterisks that might be left
+        formatted = formatted.replace(/\*/g, '');
         
         // Replace line breaks with <br>
         formatted = formatted.replace(/\n/g, '<br>');
+        
+        console.log('Original text:', text);
+        console.log('Formatted text:', formatted);
         
         return formatted;
     }
