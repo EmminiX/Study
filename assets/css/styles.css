@@ -658,12 +658,14 @@ pre {
     border: 1px solid var(--border-color);
     border-radius: 4px;
     cursor: pointer;
-    transition: background-color 0.2s;
+    transition: background-color 0.2s, color 0.2s;
     background-color: rgba(255, 255, 255, 0.6);
+    color: var(--text-color);
 }
 
 .quiz-option:hover {
-    background-color: rgba(93, 156, 236, 0.1);
+    background-color: rgba(93, 156, 236, 0.2);
+    border-color: var(--secondary-color);
 }
 
 .quiz-option.selected {
@@ -3014,6 +3016,30 @@ footer a:hover {
 .dark-mode.high-contrast-mode .user-message .message-content {
     background-color: #fff;
     color: #000;
+}
+
+/* Dark mode specific quiz styling */
+.dark-mode .quiz-option {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border-color: #555;
+}
+
+.dark-mode .quiz-option:hover {
+    background-color: #3a3a3a;
+    border-color: var(--secondary-color);
+}
+
+.dark-mode .quiz-option.selected {
+    background-color: rgba(46, 204, 113, 0.3);
+    color: #fff;
+    border-color: var(--success-color);
+}
+
+.dark-mode .quiz-option.wrong {
+    background-color: rgba(114, 194, 233, 0.3);
+    color: #fff;
+    border-color: var(--quiz-accent-color);
 }
 
 /* Mobile responsiveness for chat */
