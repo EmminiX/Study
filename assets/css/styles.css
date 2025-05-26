@@ -129,6 +129,24 @@
     --highlight-color: rgba(255, 255, 0, 0.5);
 }
 
+/* Ensure header text is visible in high contrast mode */
+.high-contrast-mode header {
+    color: #000 !important;
+    background-color: #fff !important;
+}
+
+.high-contrast-mode .logo h1 {
+    color: #000 !important;
+}
+
+.high-contrast-mode .theme-toggle {
+    color: #000 !important;
+}
+
+.high-contrast-mode .theme-toggle span {
+    color: #000 !important;
+}
+
 /* Dark High Contrast Mode */
 .dark-mode.high-contrast-mode {
     --primary-color: #fff;
@@ -144,6 +162,24 @@
     --focus-outline-width: 4px;
     --focus-background-color: rgba(255, 204, 0, 0.3);
     --highlight-color: rgba(255, 255, 0, 0.5);
+}
+
+/* Ensure header text is visible in dark high contrast mode */
+.dark-mode.high-contrast-mode header {
+    color: #fff !important;
+    background-color: #000 !important;
+}
+
+.dark-mode.high-contrast-mode .logo h1 {
+    color: #fff !important;
+}
+
+.dark-mode.high-contrast-mode .theme-toggle {
+    color: #fff !important;
+}
+
+.dark-mode.high-contrast-mode .theme-toggle span {
+    color: #fff !important;
 }
 
 /* Dyslexia-Friendly Font */
@@ -225,7 +261,7 @@ body {
 
 header {
     background-color: var(--primary-color);
-    color: white;
+    color: #f0f0f0; /* Changed from white to a light gray that will be visible on both dark and light backgrounds */
     padding: 1rem 2rem;
     display: flex;
     justify-content: space-between;
@@ -268,6 +304,7 @@ header {
     font-weight: 500;
     position: relative;
     overflow: hidden;
+    color: #f0f0f0; /* Added explicit color to ensure visibility in high contrast mode */
     animation: textFadeIn 2s ease-in-out forwards !important;
 }
 
@@ -411,7 +448,7 @@ header {
     display: flex;
     align-items: center;
     gap: 10px;
-    color: white;
+    color: #f0f0f0; /* Changed from white to a light gray that will be visible on both dark and light backgrounds */
     font-size: 0.9rem;
     font-weight: 500;
 }
