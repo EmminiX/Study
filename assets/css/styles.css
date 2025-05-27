@@ -1299,6 +1299,9 @@ footer a:hover {
         width: auto; /* Allow width to fit content */
         min-width: 30px; /* Set minimum width */
         text-align: center; /* Center the text */
+        overflow: hidden; /* Prevent overflow */
+        text-overflow: ellipsis; /* Add ellipsis for overflow text */
+        max-width: 50px; /* Limit width on very small screens */
     }
     
     /* Adjust the quiz header padding on mobile */
@@ -1308,11 +1311,13 @@ footer a:hover {
     
     /* Make quiz header text smaller on mobile */
     .quiz-header h3 {
-        font-size: 0.9rem;
-        padding-right: 40px; /* Add space for QUIZ label */
+        font-size: 0.85rem;
+        padding-right: 45px; /* Add more space for QUIZ label */
         line-height: 1.2; /* Tighten line height */
         overflow: hidden; /* Prevent overflow */
         text-overflow: ellipsis; /* Add ellipsis for overflow text */
+        white-space: nowrap; /* Prevent text from wrapping */
+        max-width: 100%; /* Ensure text doesn't overflow container */
     }
     
     /* Adjust icon size */
@@ -1325,8 +1330,10 @@ footer a:hover {
     .quiz-header {
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: flex-start; /* Align content to the left */
         flex-wrap: nowrap;
+        position: relative; /* Ensure proper positioning context */
+        min-height: 44px; /* Ensure minimum touch target size */
     }
 }
 
